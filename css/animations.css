@@ -131,7 +131,7 @@
   display: inline-block;
   width: 2px;
   height: 1.1em;
-  background-color: var(--color-text-muted);
+  background: linear-gradient(90deg, #c9a84c 0%, #e8e8e8 50%, #c9a84c 100%);
   margin-left: 4px;
   vertical-align: text-bottom;
   animation: cursorBlink 1s step-end infinite;
@@ -199,7 +199,7 @@
   top: 0;
   left: 0;
   height: 1px;
-  background-color: var(--color-text-muted);
+  background: linear-gradient(90deg, #c9a84c 0%, #e8e8e8 50%, #c9a84c 100%);
   z-index: 200;
   transform-origin: left;
   transform: scaleX(0);
@@ -238,4 +238,99 @@
     animation: none;
     -webkit-text-fill-color: var(--color-text-muted);
   }
+}
+
+
+/* ---- CSS Scroll-Driven Hero Parallax (Chrome 115+, Safari 18+) ----------- */
+@supports (animation-timeline: scroll()) {
+  .hero__video-wrap {
+    animation: heroParallax linear both;
+    animation-timeline: scroll();
+    animation-range: 0px 600px;
+  }
+  @keyframes heroParallax {
+    to { transform: translateY(30%); }
+  }
+  .hero__content {
+    animation: heroContentFade linear both;
+    animation-timeline: scroll();
+    animation-range: 0px 400px;
+  }
+  @keyframes heroContentFade {
+    to { opacity: 0; transform: translateY(-60px); }
+  }
+}
+
+/* ---- View Transition API page transitions --------------------------------- */
+@view-transition { navigation: auto; }
+::view-transition-old(root) {
+  animation: vtFadeOut 200ms ease forwards;
+}
+::view-transition-new(root) {
+  animation: vtFadeIn 200ms ease forwards;
+}
+@keyframes vtFadeOut { to { opacity: 0; } }
+@keyframes vtFadeIn { from { opacity: 0; } }
+
+/* ---- Word-by-word reveal -------------------------------------------------- */
+.intro-statement .word {
+  opacity: 0;
+  transform: translateY(8px);
+  display: inline-block;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  transition-delay: calc(var(--i, 0) * 30ms);
+}
+.intro-statement.visible .word {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---- Post card cursor glow ------------------------------------------------ */
+.post-card {
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+}
+.post-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    500px circle at var(--mouse-x) var(--mouse-y),
+    rgba(255,255,255,0.04),
+    transparent 60%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s;
+  border-radius: inherit;
+}
+.post-card:hover::before { opacity: 1; }
+
+/* ---- Post card accent line redesign -------------------------------------- */
+.post-card {
+  position: relative;
+  border-left: 1px solid var(--color-border) !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-bottom: none !important;
+  padding-left: var(--space-6) !important;
+  background: transparent !important;
+  transition: border-left-color 0.3s ease;
+  overflow: hidden;
+}
+.post-card:hover {
+  border-left-color: var(--color-accent) !important;
+}
+.post-card-number {
+  position: absolute;
+  right: var(--space-4);
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 7rem;
+  font-weight: 700;
+  color: rgba(255,255,255,0.03);
+  line-height: 1;
+  pointer-events: none;
+  font-family: var(--font-display);
+  user-select: none;
 }

@@ -33,6 +33,44 @@
 .nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
 .nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
 </style>
+  <link rel="canonical" href="https://devangshumitra.com/" />
+  <meta property="og:title" content="Devangshu Mitra — AI Product Leader" />
+  <meta property="og:description" content="Devangshu Mitra — AI Product Leader, Enterprise GenAI Builder, Life Sciences & Healthcare. Building at the intersection of business and technology." />
+  <meta property="og:url" content="https://devangshumitra.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Devangshu Mitra",
+    "jobTitle": "AI Product Leader",
+    "description": "AI Product Leader specializing in Life Sciences & Healthcare AI. Building enterprise GenAI products at HCLTech. Silicon Valley.",
+    "url": "https://devangshumitra.com",
+    "image": "https://www.devangshumitra.com/content/images/2026/03/devangshu-mitra-headshot.jpg",
+    "sameAs": [
+      "https://www.linkedin.com/in/devangshumitra/",
+      "https://x.com/devangshu_mitra",
+      "https://github.com/devangshu-mitra",
+      "https://medium.com/@devangshu-mitra"
+    ],
+    "knowsAbout": ["AI Product Management", "Enterprise GenAI", "Life Sciences & Healthcare AI", "FDA Regulatory AI", "Clinical Trials AI"]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Devangshu Mitra",
+    "url": "https://devangshumitra.com",
+    "description": "AI Product Leader. Life Sciences & Healthcare AI specialist. First-principles thinker. Builder of systems that think."
+  }
+  </script>
 </head>
 <body class="page-enter">
 
@@ -207,7 +245,7 @@
         <p class="newsletter-desc">Written by a PM who ships, not a consultant who advises.</p>
         <form
           class="newsletter-form"
-          action="#"
+          action="#" data-mailerlite-form="REPLACE_WITH_MAILERLITE_FORM_ID" data-mailerlite-account="REPLACE_WITH_ACCOUNT_ID"
           method="post"
           aria-label="Newsletter signup form"
           onsubmit="handleNewsletterSubmit(event)"
@@ -393,5 +431,82 @@ document.addEventListener('click', () => {
   document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
 });
 </script>
+
+  <!-- Lenis smooth scroll -->
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      smoothWheel: true
+    });
+    function rafLoop(time) { lenis.raf(time); requestAnimationFrame(rafLoop); }
+    requestAnimationFrame(rafLoop);
+  </script>
+
+  <!-- Magnetic CTAs -->
+  <script>
+    document.querySelectorAll('.hero__cta, .btn-magnetic').forEach(el => {
+      el.addEventListener('mousemove', e => {
+        const r = el.getBoundingClientRect();
+        const x = (e.clientX - r.left - r.width / 2) * 0.2;
+        const y = (e.clientY - r.top - r.height / 2) * 0.2;
+        el.style.transform = `translate(${x}px, ${y}px)`;
+      });
+      el.addEventListener('mouseleave', () => { el.style.transform = ''; });
+    });
+  </script>
+
+  <!-- Cursor glow on post cards -->
+  <script>
+    document.querySelectorAll('.post-card').forEach(card => {
+      card.addEventListener('mousemove', e => {
+        const r = card.getBoundingClientRect();
+        card.style.setProperty('--mouse-x', (e.clientX - r.left) + 'px');
+        card.style.setProperty('--mouse-y', (e.clientY - r.top) + 'px');
+      });
+    });
+  </script>
+
+  <!-- Word-by-word intro reveal -->
+  <script>
+    const intro = document.querySelector('.intro-statement');
+    if (intro) {
+      const html = intro.innerHTML;
+      const words = html.split(/(\s+)/);
+      let idx = 0;
+      intro.innerHTML = words.map(w => {
+        if (/^\s+$/.test(w)) return w;
+        return `<span class="word" style="--i:${idx++}">${w}</span>`;
+      }).join('');
+    }
+  </script>
+
+  <!-- Text scramble on hero name hover -->
+  <script>
+    const CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    function scramble(el) {
+      const original = el.dataset.original || el.textContent;
+      el.dataset.original = original;
+      let iter = 0;
+      clearInterval(el._scrambleInterval);
+      el._scrambleInterval = setInterval(() => {
+        el.textContent = original.split('').map((c, i) => {
+          if (c === ' ') return ' ';
+          if (i < iter) return original[i];
+          return CHARS[Math.floor(Math.random() * CHARS.length)];
+        }).join('');
+        if (iter >= original.length) {
+          clearInterval(el._scrambleInterval);
+          el.textContent = original;
+        }
+        iter += 0.6;
+      }, 25);
+    }
+    document.querySelector('.hero__name')?.addEventListener('mouseenter', function() {
+      scramble(this);
+    });
+  </script>
 </body>
 </html>
