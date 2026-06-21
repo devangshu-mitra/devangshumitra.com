@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="If you&#39;re an enterprise AI product leader, this is the decision that shapes" />
+  <meta property="og:title" content="AWS Bedrock vs Azure OpenAI vs Google Vertex AI — Devangshu Mitra" />
+  <meta property="og:description" content="If you&#39;re an enterprise AI product leader, this is the decision that shapes" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AWS Bedrock vs Azure OpenAI vs Google Vertex AI — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-10-31" itemprop="datePublished">Oct 31, 2025</time>
+            <span class="post-header__read-time">11 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</h1>
+          <p class="post-header__excerpt" itemprop="description">If you're an enterprise AI product leader, this is the decision that shapes</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AWS Bedrock vs Azure OpenAI vs Google Vertex AI</h1>
+
+<p>Let me start with the decision that most enterprise buyers get wrong: they evaluate cloud AI platforms as if they're choosing a model provider. They're not. They're choosing a cloud AI environment, a platform that determines how their AI applications connect with their existing systems, how they manage compliance and governance, and who their main AI provider will be for the next several years.</p>
+
+<p>I've spent significant time evaluating all three platforms for production AI systems in regulated industries. Here's the enterprise buyer's guide I wish I'd had when I started.</p>
+
+<h2>The One-Sentence Summary of Each Platform</h2>
+
+<p><strong>AWS Bedrock:</strong> AWS Bedrock: It's a model marketplace with a wide selection, integrates deeply with other AWS services, and is ideal for organizations already using a lot of AWS that need model flexibility.</p>
+
+<p><strong>Azure OpenAI Service:</strong> Azure OpenAI Service: It's the safest enterprise choice, offering Microsoft's distribution of OpenAI models with enterprise SLAs, cloud compliance, and the deepest integration with Office, Teams, and Copilot for organizations heavily invested in Microsoft.</p>
+
+<p><strong>Google Vertex AI:</strong> The researcher's platform - Gemini models plus PaLM plus the ability to deploy open-source models, with the best toolchain for ML teams building custom models, all backed by Google's data and ML infrastructure.</p>
+
+<h2>The Full Comparison</h2>
+
+<p>| Dimension | AWS Bedrock | Azure OpenAI | Google Vertex AI | | --- | --- | --- | --- | | Foundation Models Available | Claude, Llama, Titan, Mistral, Cohere, Jurassic, Stable Diffusion | GPT-4, GPT-4o, DALL-E 3, Whisper, o1 models | Gemini 1.5 Pro/Flash, PaLM 2, Imagen, Codey, open-source via Model Garden | | OpenAI Models Available | No | Yes (exclusive enterprise partner) | No | | Open Source Models | Yes (Llama, Mistral) | Limited | Yes (Model Garden: 100+ models) | | Model Fine-tuning | Yes (select models) | Yes (GPT-4 fine-tuning) | Yes (best ML training infrastructure) | | Pricing Model | Pay-per-token (on-demand) or Provisioned Throughput | Pay-per-token or Provisioned Throughput Units | Pay-per-token (on-demand) or committed use | | SOC 2 Type II | Yes | Yes | Yes | | HIPAA Compliance | Yes (BAA available) | Yes (BAA available) | Yes (BAA available) | | FedRAMP | Yes (GovCloud) | Yes (Azure Government) | Yes (Gov Cloud) | | Data Residency Options | Excellent (25+ regions) | Excellent (60+ regions) | Good (35+ regions) | | No Training on Customer Data | Yes | Yes | Yes | | Private Deployment (VPC) | Yes (VPC endpoints) | Yes (VNET integration) | Yes (VPC Service Controls) | | Ecosystem Integration | Deep AWS (S3, Lambda, SageMaker) | Deep Microsoft (Azure, Teams, M365) | Deep Google (BigQuery, Workspace, GCS) | | MLOps / ML Platform | SageMaker (mature) | Azure ML (mature) | Vertex AI Pipelines (best-in-class) | | Guardrails / Safety | Bedrock Guardrails | Azure Content Safety | Vertex AI Safety Filters | | Enterprise Support SLA | Standard AWS Support tiers | Microsoft Premier Support (strong) | Google Cloud Support tiers |</p>
+
+<h2>AWS Bedrock: The Model Agnostic Choice</h2>
+
+<p>Bedrock's defining characteristic is model breadth. AWS made a bet that enterprise customers would want to shop from a catalog of foundation models rather than commit to one provider, and that bet looks increasingly correct as the model space has fragmented.</p>
+
+<p>The practical implication: you can run Claude for long-document analysis, Llama for cost-sensitive high-volume inference, and Cohere Embed for vector embeddings - all within the same Bedrock account, billed through AWS, governed through the same IAM policies. If you're an AWS shop already managing your security posture through IAM and your data through S3, this consolidation matters.</p>
+
+<blockquote><p><strong>Bedrock's Agents feature - which orchestrates multi-step tool use and RAG - has matured significantly in recent years. For AWS-native applications, it's a legitimate alternative to building your own agent framework, and the IAM integration means you get enterprise-grade security almost for free.</strong></p></blockquote>
+
+<p>The Bedrock Guardrails system is worth calling out specifically for regulated industries. You can define content filters, topic blockers, PII redaction, and grounding checks that apply to any model in Bedrock - model-agnostic safety layer that runs at the platform level rather than being baked into model-specific prompting.</p>
+
+<h3>AWS Bedrock Weaknesses</h3>
+
+<ul>
+<li>No OpenAI models - if your team or customers specifically need GPT-4, Azure is the only cloud option</li>
+<li>The Bedrock API is more complex than the native model APIs - there's a translation layer that occasionally has subtle differences in behavior</li>
+<li>Pricing for Provisioned Throughput (which you need for predictable latency) requires capacity commitment that makes cost modeling harder</li>
+<li>The agent and knowledge base features, while improving, are still behind what you can build with a dedicated agent framework</li>
+</ul>
+
+<h2>Azure OpenAI Service: The Enterprise Safe Bet</h2>
+
+<p>Azure OpenAI Service is the answer to a specific question that every enterprise CTO asks: "How do we use GPT-4 without giving OpenAI our sensitive data?"</p>
+
+<p>The Microsoft distribution of OpenAI models runs inside your Azure tenant. Your prompts don't leave your Azure subscription. You get the same Microsoft enterprise compliance posture (ISO 27001, SOC 2, HIPAA BAA, FedRAMP) that your security team already knows how to evaluate. For organizations where procurement and security review are major bottlenecks, the ability to route through an existing Azure MSA (Master Service Agreement) can save months.</p>
+
+<p>How well Microsoft's services work together is also genuinely valuable for large businesses. Azure OpenAI integrates with Azure Active Directory, Azure Monitor, Azure Key Vault (for API key management), and Azure Cognitive Search (for RAG). If your enterprise AI application needs to be observable, secure, and integrated with your existing Azure governance policies - Azure OpenAI provides this with minimal custom work.</p>
+
+<h3>The Copilot Stack Angle</h3>
+
+<p>For organizations building AI applications on top of Microsoft 365 data (Teams transcripts, SharePoint documents, Outlook emails), the Azure OpenAI + Microsoft Graph + Copilot Studio combination is hard to replicate on other clouds. The M365 data connectors in Azure AI Search give you pre-built RAG over enterprise productivity data that would require significant custom work on AWS or GCP.</p>
+
+<h3>Azure OpenAI Weaknesses</h3>
+
+<ul>
+<li>Model selection is limited to OpenAI models - no Claude, no Llama, no Gemini</li>
+<li>Quota management is complex - regional quotas, model-level quotas, and PTU (Provisioned Throughput Units) require careful capacity planning</li>
+<li>OpenAI model availability in Azure lags the direct OpenAI API by weeks or months - you often can't get the latest model version immediately</li>
+<li>Azure's pricing for PTU is among the highest on the market for guaranteed throughput</li>
+</ul>
+
+<h2>Google Vertex AI: The ML Engineer's Platform</h2>
+
+<p>Vertex AI is the platform I'd choose if I were building a mature ML organization where custom model development is a core competency. The combination of Gemini access, Model Garden (100+ open-source models pre-loaded), Vertex AI Pipelines, and the underlying Google TPU infrastructure is the most comprehensive ML platform available in any cloud.</p>
+
+<p>The Model Garden is particularly underrated: you can deploy Llama 3, Mistral, Gemma, and other open-source models with a few clicks, with Google managing the serving infrastructure. For organizations building hybrid AI applications - Gemini for reasoning, Llama for cost-sensitive inference, custom fine-tuned models for domain-specific tasks - Vertex provides the most unified serving layer.</p>
+
+<p>The data integration with Google Cloud's analytics stack is also differentiated: if your data lives in BigQuery, Vertex AI can run inference over it without data movement. The BigQuery ML integration means SQL analysts can run inference using SQL syntax, which is a significant democratization of AI access within an organization.</p>
+
+<h3>Vertex AI Weaknesses</h3>
+
+<ul>
+<li>Google Cloud's enterprise sales and support motion is historically weaker than Microsoft's and AWS's - enterprise procurement can be slower</li>
+<li>No OpenAI models - if GPT-4 is a requirement, Vertex doesn't help</li>
+<li>The platform is complex - Vertex has a steeper learning curve than Azure OpenAI, and the product surface area is large enough that teams can get confused about which Vertex feature to use for a given task</li>
+<li>Google has a track record of deprecating products - this is a real governance risk for long-term enterprise commitments</li>
+</ul>
+
+<h2>The Compliance Close look</h2>
+
+<p>All three platforms meet the baseline enterprise compliance requirements: SOC 2 Type II, ISO 27001, HIPAA BAA availability, and FedRAMP (at the government tier). For most organizations, compliance is not the differentiator between these platforms.</p>
+
+<p>Where compliance differences emerge:</p>
+
+<p><strong>Data residency:</strong> Azure has the most regions (60+) and the most mature regional data boundaries. For European GDPR compliance, Azure's EU-specific data centers and the EU Data Boundary commitment are ahead of AWS and GCP.</p>
+
+<p><strong>Healthcare-specific:</strong> Microsoft has made the most investment in healthcare-specific compliance - HITRUST certification, Microsoft Cloud for Healthcare, and the Microsoft data processing agreements are the most detailed in the industry. If you're in healthcare (as I spend most of my time), Azure's compliance story is the strongest.</p>
+
+<p><strong>Financial services:</strong> AWS has the deepest set of financial services compliance certifications globally. PCI DSS Level 1 across the most services, the most financial services industry customers, and the most detailed compliance documentation for financial regulators.</p>
+
+<h2>Pricing: The Only Number That Matters at Scale</h2>
+
+<p>At small scale, pricing differences between platforms are negligible - you're talking about dollars per month. At enterprise scale (millions of tokens per day), these differences compound significantly. Here's a rough comparison for GPT-4 class models currently:</p>
+
+<ul>
+<li><strong>AWS Bedrock (Claude 3.5 Sonnet):</strong> $3.00/$15.00 per 1M input/output tokens - on-demand</li>
+<li><strong>Azure OpenAI (GPT-4 Turbo):</strong> $10.00/$30.00 per 1M input/output tokens - on-demand</li>
+<li><strong>Vertex AI (Gemini 1.5 Pro):</strong> $3.50/$10.50 per 1M input/output tokens (up to 128K context)</li>
+</ul>
+
+<p>For equivalent capability tiers, AWS Bedrock and Vertex AI are 2-3x cheaper than Azure OpenAI on a per-token basis. This is largely because Claude and Gemini are priced competitively, while GPT-4 Turbo is OpenAI's premium product. At 100M tokens/month, the difference between Bedrock and Azure OpenAI is tens of thousands of dollars monthly - real money that factors into platform selection.</p>
+
+<h2>The Decision Framework</h2>
+
+<h3>Choose AWS Bedrock when:</h3>
+
+<ul>
+<li>Your organization is AWS-first and you want AI to live inside your existing AWS governance model</li>
+<li>You want model flexibility - the ability to use multiple foundation model providers from one platform</li>
+<li>Cost efficiency at scale is a primary concern</li>
+<li>You need to run Claude models in an enterprise context without going directly to Anthropic</li>
+</ul>
+
+<h3>Choose Azure OpenAI when:</h3>
+
+<ul>
+<li>You specifically need GPT-4 or o1 models</li>
+<li>Your organization is Microsoft-first (already on Azure, M365, Teams)</li>
+<li>Healthcare, government, or financial services compliance is a primary concern</li>
+<li>You want to build on top of Microsoft 365 data with the least custom integration work</li>
+<li>Enterprise support quality and Microsoft account team relationships matter to your procurement process</li>
+</ul>
+
+<h3>Choose Google Vertex AI when:</h3>
+
+<ul>
+<li>You need Gemini models (especially the 1M context window of Gemini 1.5 Pro)</li>
+<li>Custom model training and fine-tuning is a core capability you want to build</li>
+<li>Your data lives in BigQuery and you want ML inference without data movement</li>
+<li>Your organization is GCP-first</li>
+<li>ML engineering maturity is high and the team wants the most powerful ML platform</li>
+</ul>
+
+<h2>The Real Answer: Strategic Cloud Alignment</h2>
+
+<p>Here's the advice I give to every enterprise AI leader I work with: pick the cloud AI platform that aligns with your primary cloud commitment. If your organization has a multi-year Azure commitment, use Azure OpenAI; the simple purchasing process and how well it connects with other Microsoft services will save you more time and headache than any feature difference between platforms. Same logic applies to AWS and GCP.</p>
+
+<p>Where this breaks down is when you have a specific model requirement that only one platform offers. If your use case specifically needs GPT-4o's multimodal capabilities or o1's reasoning, Azure is your only cloud option. If you need Gemini's 1M context window, Vertex is your only cloud option.</p>
+
+<p>For greenfield AI organizations with no existing cloud commitment: start with AWS Bedrock or Vertex AI for their better economics and model flexibility. Azure OpenAI is the right choice when its strong connection with other Microsoft products is the main reason for selecting it.</p>
+
+<h2>One More Thing: Don't Ignore Direct API Access</h2>
+
+<p>For startups and smaller organizations, there's a legitimate case for bypassing cloud platforms entirely and going direct to Anthropic, OpenAI, or Google AI Studio. The cloud platform wrappers add compliance and integration value that matters at enterprise scale, but for a 10-person startup they're mostly friction. Direct API access is cheaper, simpler, and gives you access to new model versions faster.</p>
+
+<p>Make the move to a cloud platform when: your security team requires it, your compliance posture requires it, or you're spending enough that the consolidated billing and governance is worth the added complexity. For most startups, that inflection point is somewhere between $10K and $50K monthly AI spend.</p>
+
+<hr>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/notion-ai-vs-coda-ai-vs-clickup-ai-for-product-teams/">Notion AI vs Coda AI vs Clickup AI for Product Teams</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/notion-ai-vs-coda-ai-vs-clickup-ai-for-product-teams/">Notion AI vs Coda AI vs Clickup AI for Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

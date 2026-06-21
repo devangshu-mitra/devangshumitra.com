@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How Viz.ai turned a 26-minute time savings into a billion-dollar business" />
+  <meta property="og:title" content="Product Breakdown: Viz.ai&#39;&#39;s Stroke Detection — Speed as a Feature — Devangshu Mitra" />
+  <meta property="og:description" content="How Viz.ai turned a 26-minute time savings into a billion-dollar business" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Product Breakdown: Viz.ai''s Stroke Detection — Speed as a Feature — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Teardowns</span>
+            <time class="post-header__date" datetime="2026-01-25" itemprop="datePublished">Jan 25, 2026</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Product Breakdown: Viz.ai''s Stroke Detection — Speed as a Feature</h1>
+          <p class="post-header__excerpt" itemprop="description">How Viz.ai turned a 26-minute time savings into a billion-dollar business</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Product Breakdown: Viz.ai's Stroke Detection — Speed as a Feature</h1>
+
+<p>In acute ischemic stroke, every minute without treatment results in the death of approximately 1.9 million neurons. The phrase "time is brain" is not a metaphor - it is a quantified biological fact. CT angiography can identify large vessel occlusion (LVO) strokes in minutes, but getting the right specialist to see that CT scan and mobilize a response has historically taken much longer. Viz.ai looked at that gap and built a product entirely around closing it. The result is not better radiology AI - it is a communication platform with AI as the trigger.</p>
+
+<h2>What Viz.ai Actually Built</h2>
+
+<p>When a CT angiography scan is completed for a suspected stroke patient, Viz.ai's algorithm analyzes the images in real time, identifies LVO patterns, and immediately sends a push notification - including the actual CT images - directly to the on-call neurovascular specialist's phone. Before Viz.ai, the workflow looked like this: technologist completes scan, uploads to PACS, radiology reads it (30-60 minutes later at night), calls the neurologist, who then mobilizes the interventional team. Viz.ai collapses three handoffs into one automated notification. The clinical validation showed a median 26-minute reduction in time to treatment decision.</p>
+
+<p>That 26-minute number is the entire business. Translated into mortality and functional outcomes at scale, it justifies the hospital's subscription cost, the physician champion's advocacy, and the regulatory burden of going through De Novo 510(k) clearance. Viz built their go-to-market story entirely around a single number that every stroke neurologist immediately understood and cared about.</p>
+
+<h2>The "Last Mile" of Information Delivery</h2>
+
+<p>Viz.ai's success highlights a persistent problem in healthcare: the "last mile" - getting critical information from where it's generated to the clinician who needs it, instantly. Most hospitals have invested heavily in Electronic Health Records (EHRs) like Epic or Cerner. These systems are great for documentation and billing. But they often fall short on real-time, urgent communication. I've seen countless scenarios where a critical lab result or imaging finding sits in an EHR inbox for minutes, sometimes longer, waiting for someone to log in and see it. Pagers are still common. Fax machines still exist. These tools introduce delays that healthcare simply can't afford in time-sensitive situations.</p>
+
+<p>Viz.ai didn't just build an AI. They built a specialized communication channel that bypassed these traditional, slow pathways. Imagine an attending neurosurgeon at home, able to view a suspected LVO stroke CT scan on their phone within seconds of it being acquired. They can zoom, pan, and even chat with the ED physician. This isn't just convenience; it's a fundamental shift in how critical information flows. It treats information delivery as a high-priority, real-time system, not just another EHR notification.</p>
+
+<h2>Building a Network Effect Through Physician Adoption</h2>
+
+<p>Getting busy physicians to adopt a new tool is notoriously difficult. Viz.ai didn't just sell to hospital administrators. They built their product with the end-user - the stroke neurologist - firmly in mind. The app was designed for speed and ease of use. A push notification with direct access to images, a quick chat feature, and the ability to initiate a consult with a single tap. It wasn't about adding another task; it was about replacing a cumbersome, multi-step process with a streamlined one.</p>
+
+<p>This focus on physician workflow created a network effect. As more neurologists and interventional radiologists in a region started using Viz.ai, the value for each individual physician increased. An ED physician knew that if they flagged a case in Viz.ai, the specialist would see it immediately. Specialists knew they could quickly coordinate with colleagues. This organic adoption, driven by clear value to the individual practitioner, was crucial. It wasn't just a hospital mandate; it became a preferred way of working for many stroke teams.</p>
+
+<h2>Platform Expansion Beyond Stroke</h2>
+
+<p>While Viz.ai started with stroke, the underlying product insight - that communication latency is a critical bottleneck in time-sensitive medical conditions - applies to many other areas. I've watched them expand the platform to address other conditions where "time is tissue." They moved into pulmonary embolism (PE) detection, for example. Here, the AI identifies suspected PEs on CT scans, then alerts the appropriate cardiology or critical care teams through the same communication platform.</p>
+
+<p>They've also applied this model to aortic dissection and even trauma. The core AI changes for each condition, but the communication framework remains consistent. This platform approach is powerful. Once a hospital has deployed Viz.ai for one use case, adding another condition becomes simpler. The hospital already has the infrastructure, the physician accounts, and the established workflow. It shows how a deep understanding of a specific clinical workflow can lead to a broader, impactful platform play.</p>
+
+<h2>The Product Insight That Others Missed</h2>
+
+<p>Multiple companies were working on stroke AI in 2017-2018. Most of them were trying to build a better AI radiologist - a model that could diagnose strokes more accurately than human radiologists. Viz.ai's insight was that accuracy was not the bottleneck. Radiologists were already highly accurate at reading CT angiograms. The bottleneck was notification latency and care team coordination. They built a product that solved the actual bottleneck - workflow communication - rather than a technically impressive solution to a non-bottleneck problem.</p>
+
+<p>This is one of the clearest examples I know of what it means to do clinical workflow discovery before building. If you ask a radiologist what their problem is, they might say "I have too many scans to read." But if you map the end-to-end stroke treatment workflow with a stopwatch, you find that radiology reading time is not where the delays are. They are in handoffs and notifications. Viz interviewed the stroke neurologists, the interventional teams, and the ED physicians. They found the bottleneck by watching the workflow, not by asking about the radiology AI problem.</p>
+
+<h2>The Business Model and Regulatory Strategy</h2>
+
+<p>Viz charges hospitals a per-facility annual subscription, typically in the range of $75-150K depending on volume and configuration. The ROI case is simple: if a hospital treats 200 LVO strokes per year and each 26-minute time savings reduces average length of stay by 0.5 days, the subscription pays for itself in avoided costs before counting the outcome improvements and liability reduction. The subscription model also aligns incentives correctly: Viz's revenue does not scale with individual scans, so there is no pressure to flag more positives. The business only works if the product is used and trusted.</p>
+
+<p>The De Novo 510(k) regulatory pathway was a strategic choice. Viz could not find a predicate device - there was no prior cleared device doing what they were doing - so they went De Novo, which establishes a new device category. This was slower and more expensive than a traditional 510(k), but it created a classification order that subsequent competitors had to follow, giving Viz first-mover advantage in how the FDA frames the product category. That regulatory investment was a competitive moat, not just a compliance checkbox.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/product-breakdown-epics-genai-strategy-why-the-ehr-giant-will-win-the-healthcare-ai-race-9/">Product Breakdown: Epic's GenAI Strategy - Why the EHR Giant Will Win the Healthcare AI Race</a></li>
+<li><a href="https://www.devangshumitra.com/product-breakdown-how-tempus-uses-ai-to-personalize-cancer-treatment-9/">Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How AI reduced regulatory submission prep from 14 weeks to 4 weeks, automated" />
+  <meta property="og:title" content="Automating Regulatory Intelligence: How AI Transformed Our Global Submission — Devangshu Mitra" />
+  <meta property="og:description" content="How AI reduced regulatory submission prep from 14 weeks to 4 weeks, automated" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Automating Regulatory Intelligence: How AI Transformed Our Global Submission — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">BioPharma</span>
+            <time class="post-header__date" datetime="2026-03-21" itemprop="datePublished">Mar 21, 2026</time>
+            <span class="post-header__read-time">19 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Automating Regulatory Intelligence: How AI Transformed Our Global Submission</h1>
+          <p class="post-header__excerpt" itemprop="description">How AI reduced regulatory submission prep from 14 weeks to 4 weeks, automated</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Automating Regulatory Intelligence: How AI Transformed Our Global Submission Process</h1>
+
+<p>Life Sciences & Healthcare AI · BioPharma · March 2026</p>
+
+<h1>Automating Regulatory Intelligence: How AI Transformed Our Global Submission Process</h1>
+
+<p>A mid-size BioPharma company running five parallel drug programs across three major regulatory jurisdictions was spending fourteen weeks preparing each major submission. A small regulatory affairs team was drowning in document reconciliation, guideline tracking, and eCTD compilation work that was almost entirely mechanical. This is how we built an AI platform that cut that cycle to four weeks, automated 78 percent of regulatory change impact assessments, and delivered three consecutive FDA inspections with zero compliance findings.</p>
+
+<p>14 wks → 4 wks Submission prep cycle78% Regulatory change assessments automated0 findings 3 consecutive FDA inspections</p>
+
+<h2>The Regulatory Bottleneck</h2>
+
+<p>Regulatory affairs sits at a strange intersection in drug development: it is simultaneously the most document-intensive function in the organization and one of the least invested in tooling. Clinical teams get purpose-built EDC platforms, statisticians get validated software environments, manufacturing gets MES systems. Regulatory affairs teams, even at large companies, are often running on spreadsheets, shared drives, and whatever metadata the Regulatory Information Management (RIM) system can surface.</p>
+
+<p>The company I worked with had a real version of this problem. They were a specialty BioPharma running five NDA-stage programs: two oncology assets, one rare disease, and two reformulations. The regulatory team of twelve was responsible for global submissions to FDA, EMA, and PMDA, plus a growing set of national competent authority filings in Brazil (ANVISA) and South Korea (MFDS). Each program moved at different speeds, which meant guideline requirements were always in some state of flux relative to the submission in progress.</p>
+
+<p>The fourteen-week submission prep cycle was not inefficiency. The team was working hard. The cycle was long because the work genuinely takes a long time when done manually. A single NDA submission contains thousands of documents organized under ICH M4 structure. Preparing Module 1 (regional) alone requires reconciling agency-specific requirements that change with each revision to FDA cover letter guidance, EMA submission format specifications, and eCTD v4.0 technical conformance requirements. Module 2 summaries require pulling data from source documents generated by clinical, nonclinical, and CMC teams, each of which uses different authoring tools and stores outputs in different systems.</p>
+
+<p>The deeper problem was guideline tracking. FDA CDER publishes guidance documents, draft guidances, and Q&A documents at a rate of several per week. EMA runs a continuous revision schedule across its clinical guidance, with Committee for Human Medicinal Products (CHMP) product-specific recommendations arriving unpredictably. PMDA guidance exists in Japanese with unofficial English translations that lag by months. For a team managing five programs, tracking which changes affected which module in which submission was a full-time job for at least two regulatory scientists. That job was being done inconsistently, with knowledge siloed in individual team members' heads.</p>
+
+<h2>Why Traditional Tools Failed</h2>
+
+<p>The company had already invested in a commercial RIM platform. It handled submission tracking, health authority correspondence management, and product registration status. What it could not do was intelligence. RIM platforms are excellent registries. They know what submissions exist, their status, their version history. They do not know what a new FDA draft guidance on oncology endpoints means for Module 5.3.5 of an NDA that is seventy percent complete.</p>
+
+<p>The distinction matters. The gap between a submission tracking system and a regulatory intelligence system is roughly the gap between a library catalog and a research librarian. The catalog tells you what documents exist. The librarian tells you which ones are relevant to your question, how they relate to each other, and what changed since the last time you asked.</p>
+
+<p>There were commercial regulatory intelligence vendors in the picture. The team subscribed to a major intelligence platform for guideline alerts. The alerts were comprehensive but unfiltered. Regulatory scientists received hundreds of notifications per month, many of which had no relevance to their specific programs. The cognitive load of triaging alerts while managing submission timelines made the intelligence service a burden rather than an asset. Usage rates dropped steadily until the subscription became a checkbox item rather than an active workflow tool.</p>
+
+<p>The eCTD compilation process had its own set of problems. The technical specification for eCTD v4.0, which FDA mandated for NDA submissions starting in 2023, added XML backbone complexity that required specialized authoring tools. The team used a publishing tool that handled XML generation, but the content still had to be staged manually: linking study data to narratives, verifying hyperlink integrity across thousands of documents, running Technical Conformance Guide (TCG) validation checks, and remediating the errors that came back. A single validation run against FDA's eCTD technical criteria could surface forty to eighty findings. Each one required a human to interpret, locate the source document, and fix the root cause.</p>
+
+<p>The status quo had a name internally: the crunch. Every submission entered a period of all-hands-on-deck pressure in the final six weeks, with quality suffering proportionally to the pressure applied. It was not sustainable across five parallel programs.</p>
+
+<h2>Building the AI Solution</h2>
+
+<p>The product vision I brought to this engagement was specific: build a regulatory intelligence layer that sits above the existing RIM and authoring infrastructure, extracts meaning from the document corpus, and surfaces actionable guidance rather than raw information. Not a replacement for regulatory judgment, but a force multiplier that lets regulatory scientists spend their time on actual scientific judgment rather than document logistics.</p>
+
+<p>We started with a discovery phase that was more honest than most. I spent three weeks embedded with the regulatory team doing actual submission work. Not observing. Doing. I ran validation checks, helped triage guideline alerts, sat in on reviewer response drafting sessions. The goal was to understand where human intelligence was actually required versus where the work was mechanical pattern matching disguised as expert judgment. The answer was that roughly 65 percent of the weekly work volume fell into the second category.</p>
+
+<p>Three core problem areas emerged as the build priorities.</p>
+
+<p>First: guideline change detection and impact assessment. The team needed to know, within 48 hours of any regulatory agency publishing new guidance, which programs it affected and what specific sections of in-progress submissions required review. This was the most acute pain point and the one with the clearest AI application.</p>
+
+<p>Second: cross-document consistency validation during eCTD compilation. The team needed automated detection of inconsistencies between the clinical summary, individual study reports, and module-level narratives before the submission went to validation. Catching these internally meant fewer TCG validation failures and less late-stage rework.</p>
+
+<p>Third: submission readiness scoring. The team had no systematic way to assess how ready a given submission was at any point in time. Questions like "are we on track for our October submission date?" required a senior regulatory scientist to manually review the status of every document in the package. Automating a readiness score against an expected completeness profile would let the team surface risk earlier.</p>
+
+<p>The build took fourteen months from first prototype to production deployment. We ran a six-month pilot with two programs before expanding to all five. The pilot was critical: it surfaced assumptions we had made about document standardization that turned out to be wrong, and it gave us real performance data to calibrate confidence thresholds before they affected actual submission timelines.</p>
+
+<p>I want to be clear about the technology choices we made and why. We did not build a general-purpose LLM wrapper. We built a domain-specific document intelligence system with a regulatory ontology at its core. General-purpose language models hallucinate with confidence when applied to regulatory text, and a hallucinated claim about eCTD structure or guideline applicability that makes it into a submission is a material compliance risk. Our system used LLM components for document parsing and semantic search, but all claims about regulatory applicability were grounded in a validated rule engine backed by the actual guideline text. No claim reached a regulatory scientist without a traceable citation to a specific document and section.</p>
+
+<h2>How It Works</h2>
+
+<p>The system architecture has three layers that correspond to the three problem areas we prioritized.</p>
+
+<p><strong>The Intelligence Layer</strong> is a continuous monitoring pipeline that ingests regulatory agency publications across FDA CDER, EMA CHMP, PMDA, ANVISA, and MFDS. Sources include agency websites, Federal Register notices, EudraLex updates, and official RSS feeds. Documents are parsed, classified by type (guidance, draft guidance, ICH step document, Q&A, meeting minutes), and compared against the previous version of any document they update using semantic diff analysis.</p>
+
+<p>The diff analysis was the technically hard part. Regulatory guidance documents are not versioned software. When FDA publishes a final guidance that supersedes a draft, the structural relationship between sections is not explicit. We trained a classifier on several years of guidance revision pairs to learn which types of section changes in a regulatory guidance document typically have submission implications versus which are editorial. The classifier is imperfect, so we tuned it toward recall over precision: we would rather surface a false positive for a regulatory scientist to dismiss than miss an actual change that affects a submission.</p>
+
+<p>Each detected change is then run through a program impact assessment model. This model knows the therapeutic area, regulatory pathway (NDA, BLA, 505(b)(2)), indication, formulation type, and current submission status for each of the five programs. It applies a structured set of rules derived from ICH M4, ICH Q-series, FDA technical conformance guides, and EMA submission format guidelines to determine which modules and sections of which programs are likely affected by the change. The output is a triage-ready impact assessment with a confidence score and a citation trail that a regulatory scientist can validate in five minutes rather than five hours.</p>
+
+<p><strong>The Compilation Layer</strong> integrates with the authoring and RIM systems through API connections. As documents are finalized and staged for eCTD compilation, the system runs a pre-publication consistency check that looks for a defined set of cross-document discrepancy patterns. Examples include patient population descriptions that differ between a Module 5 clinical study report and the Module 2.7 clinical summary, dose levels referenced in safety narratives that do not match what is listed in the protocol table, and study identification numbers that appear in the reference list but are not linked in the eCTD backbone.</p>
+
+<p>The consistency check was built using a combination of named entity recognition for structured data extraction (study IDs, dose levels, patient counts, dates) and semantic similarity scoring for narrative consistency. The system does not tell regulatory scientists what the right answer is. It flags discrepancies and shows them the two conflicting passages side by side. The human decides which is correct and whether a change is needed. This design kept human judgment in the loop for every material change while eliminating the hours spent searching for discrepancies manually.</p>
+
+<p><strong>The Readiness Layer</strong> generates a continuously updated submission readiness score for each program. The score is based on a weighted completeness model built from the eCTD module-level document checklist, the outstanding item count from each source team, and the historical throughput rate for each document type. The model learns from completed submissions: if the CMC team historically takes three weeks to finalize the drug product stability update, the readiness model factors that into the projected completion date even before the document is formally overdue.</p>
+
+<p>The readiness dashboard replaced a weekly status meeting that had been consuming six hours of senior regulatory time per cycle. Program managers can see submission risk in real time. The regulatory team uses it to prioritize escalations before they become timeline threats.</p>
+
+<h2>Cross-Jurisdiction Intelligence: The Hardest Problem</h2>
+
+<p>Managing submissions across FDA, EMA, and PMDA is not a matter of translating the same content into three formats. The scientific expectations are genuinely different in ways that matter. FDA's statistical approach to clinical trials, EMA's benefit-risk framework under the CHMP assessment process, and PMDA's bridging study requirements for non-Japanese patient population data represent distinct analytical frames that require different content strategies.</p>
+
+<p>The divergence extends to CMC. FDA's process validation expectations under the 2011 guidance emphasize continued process verification and statistical monitoring of critical quality attributes. EMA's corresponding guidelines have historically required more upfront process characterization. PMDA has additional expectations around quality by design documentation that differ from the ICH Q8-Q10 baseline in ways that are easy to miss if you are applying a single global dossier template.</p>
+
+<p>The platform addressed this through a jurisdiction-specific requirements matrix that we built from the ground up. Every major guidance document for each jurisdiction was annotated by section against a master taxonomy of regulatory requirements. The taxonomy covered 847 distinct requirement types across clinical, nonclinical, and CMC domains. This annotation work took four regulatory scientists three months. It was not glamorous work. But it is what made the cross-jurisdiction intelligence useful rather than generic.</p>
+
+<p>The practical output was a difference report for each program: given the current dossier content, what would need to change or be added to meet EMA requirements versus FDA requirements versus PMDA requirements? This report was not a substitute for regulatory strategy. It was a starting point that gave the regulatory strategy team a complete picture of gaps before they began their own analysis, cutting the strategy formulation phase from three weeks to one.</p>
+
+<p>The platform also tracked the regulatory pathway divergences over time. When FDA published a draft guidance on oncology accelerated approval that had implications for one of our oncology programs, the system automatically checked whether EMA had a corresponding position and whether the two positions were aligned or divergent. In this case they were divergent, which had material implications for the clinical endpoint strategy. Catching that divergence six months before submission rather than during review preparation changed the trajectory of the program.</p>
+
+<p>For anyone building in this space now: the cross-jurisdiction layer is where the real value is, and it is also where most commercial regulatory intelligence tools are weakest. The tools are good at tracking publications. They are not good at reasoning about the intersection of multiple jurisdictions' requirements against a specific product profile. That reasoning is currently a human expert function, but it is also the function most amenable to AI augmentation if you invest in the right knowledge structure underneath the models.</p>
+
+<h2>Results</h2>
+
+<p>The fourteen-to-four-week improvement in submission prep cycle is the headline number, but it understates the operational change. The four-week cycle is not just faster. It has different quality characteristics than the fourteen-week cycle did.</p>
+
+<p>In the old process, the final two weeks of submission prep were a high-pressure document reconciliation sprint. Under time pressure, discrepancies were sometimes resolved by updating the less complete document to match the more complete one, which occasionally introduced new inconsistencies downstream. The system eliminated this pattern. Cross-document consistency checks run continuously throughout the compilation period. Discrepancies are caught and resolved early, when the source team that owns the document is still actively working on it and resolution is straightforward. By the time the formal submission deadline arrives, the dossier has already been validated multiple times.</p>
+
+<p>The 78 percent automation rate on regulatory change impact assessments reflects how many assessments were fully resolved at the system level without requiring regulatory scientist review time. The remaining 22 percent were cases where the system flagged a potential impact but confidence was below threshold, or where the change touched a complex area that required scientific judgment rather than guideline mapping. In those cases, the system still reduced effort: rather than starting from a blank page, regulatory scientists started from a pre-populated assessment that identified the relevant guideline sections and comparable programs for reference.</p>
+
+<p>The three consecutive FDA inspections without compliance findings are the result I am most proud of, because they reflect something harder to measure than speed. FDA Pre-Approval Inspection (PAI) readiness depends on the quality of the submission documentation trail. When an investigator asks for the basis of a specific regulatory decision, the answer needs to be traceable through the submission record with full context. The platform created that traceability as a byproduct of its normal operation. Every impact assessment, every cross-document resolution, every readiness flag was logged with timestamp, confidence score, and the underlying document citations. That audit trail gave the compliance team a complete reconstruction of every significant regulatory decision in the submission history, which is exactly what FDA investigators look for during PAI.</p>
+
+<p>Secondary outcomes that became visible over time included a 40 percent reduction in reviewer response cycle time for FDA complete response letters (CRLs), driven by the system's ability to rapidly locate every passage in the dossier relevant to a specific reviewer question. We also saw a measurable improvement in regulatory team retention, which is harder to attribute cleanly but is consistent with the observation that the team's work shifted from mechanical document logistics toward actual scientific and strategic work.</p>
+
+<h2>What Surprised Us</h2>
+
+<p>Several things about this project did not go as expected, and I think the surprises are more instructive than the successes.</p>
+
+<p><strong>The validation burden was larger than anticipated.</strong> In a GxP-regulated environment, software that affects regulatory submissions must be validated under 21 CFR Part 11 and EU Annex 11 requirements. We knew this going in and planned for it. What we underestimated was the scope of the validation documentation required for an AI-assisted system versus a deterministic rules-based system. The validation protocol had to address how we would handle model updates, how we would demonstrate that model performance remained within validated parameters after retraining, and how we would document the human oversight checkpoints that kept the system within the definition of decision support rather than decision making. This added four months to the deployment timeline and about 30 percent to the build cost.</p>
+
+<p>The lesson: if you are building AI systems for regulated pharmaceutical environments, design for validation from the start. Not as an afterthought. The architecture decisions that make validation tractable are different from the ones that make the model perform best in isolation. You need both, and you cannot retrofit the validation architecture onto a model built without it.</p>
+
+<p><strong>The guideline ingestion pipeline required more human curation than we expected.</strong> We had assumed that regulatory agency publications would be well-structured enough for automated parsing. They are not. FDA guidances are published as PDF documents with inconsistent formatting conventions that change over time. EMA guidance exists in multiple languages with different update cadences. PMDA official guidance is in Japanese, and the informal English translations have variable quality and timing. The pipeline that monitors and ingests these documents requires active human curation to catch parsing failures and handle format exceptions. We had underestimated this ongoing maintenance cost.</p>
+
+<p><strong>User adoption followed the trust curve, not the capability curve.</strong> The system's capabilities were fully operational at pilot launch. Adoption was not. Regulatory scientists, appropriately, did not trust automated impact assessments until they had seen enough of them validated against their own judgment to develop a calibrated understanding of the system's accuracy profile. This trust-building period took about ninety days of parallel operation. During that period, scientists ran both their manual assessment process and the system assessment in parallel and compared results. The parallel operation was inefficient, but it was essential. It gave the team the evidence base to trust the system's outputs without abandoning their professional judgment.</p>
+
+<p>Design implication: when building AI tools for expert users in high-stakes domains, plan for an explicit trust calibration phase. Budget for it. Give users the ability to see the system's reasoning, not just its conclusions. A regulatory scientist who understands why the system flagged a change as high-impact will engage with the system differently than one who sees a score with no explanation. Explainability was not an optional feature for us. It was the mechanism by which the system earned the right to be trusted.</p>
+
+<p><strong>The cross-jurisdiction capability created unexpected strategic value.</strong> We built the jurisdiction difference report to help regulatory teams prepare parallel submissions. What we did not anticipate was how the report would be used in early development strategy decisions. Program teams started pulling the cross-jurisdiction gap analysis before the dossier was substantially complete, using it to inform go/no-go decisions on geographic expansion and to identify which clinical gaps could be addressed in a single bridging study versus which required separate trials per jurisdiction. This extended the platform's value well upstream of the submission function, into regulatory strategy conversations that had previously relied entirely on individual expert knowledge.</p>
+
+<p>That upstream use case now accounts for a significant share of the platform's organizational value, and it was not in the original product requirements. It emerged from giving expert users a well-structured information environment and watching what they did with it. There is a product lesson here that applies across Life Sciences AI: the highest-value use case is often not the one you designed for. Design for the problem you can clearly specify, but build the platform with enough openness that expert users can discover uses you could not anticipate.</p>
+
+<h2>Where This Goes Next</h2>
+
+<p>The regulatory intelligence platform as described is a first-generation system. It automates the work that was most clearly mechanical. The next generation of this work, which several vendors are now actively building toward, involves AI systems that can engage with the scientific content of submissions rather than just the document structure and guideline applicability. Systems that can compare a clinical endpoint strategy against the current state of evidence in a therapeutic area and surface whether the chosen endpoint is likely to generate interpretable results under the current regulatory science expectations. Systems that can model the likelihood of a specific reviewer question given the profile of the submission and help teams prepare responses proactively.</p>
+
+<p>That level of capability requires solving problems that are harder than the ones we solved here: building validated AI systems that reason about scientific evidence, not just regulatory text. The validation frameworks for that category of system do not fully exist yet, which is both a challenge and a significant opportunity.</p>
+
+<p>For Life Sciences AI product managers working in regulatory affairs today, the immediate opportunity is in the document intelligence and cross-jurisdiction tracking space this case study describes. The technology is ready, the value is demonstrable, and the validation frameworks are navigable. The prerequisite is a regulatory team that is willing to partner on the trust calibration process and leadership that understands that the fourteen-week cycle is not just a workflow problem but a competitive disadvantage.</p>
+
+<p>If you are building in this space or thinking through where AI can add the most value in your regulatory function, I write about product strategy and AI applications across Life Sciences and Healthcare at <a href="https://www.devangshumitra.com/blog/">this site</a>. You may also find my case study on <a href="https://www.devangshumitra.com/blog/life-sciences/fda-samd-guidance/">navigating FDA SaMD guidance for AI-based products</a> and the notes from my earlier work on <a href="https://www.devangshumitra.com/case-studies/enterprise-strategy/consulting-to-product/">moving from consulting to product roles in Life Sciences</a> useful context for the organizational dynamics behind projects like this one.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/biopharma-drug-discovery/">AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</a></li>
+<li><a href="https://www.devangshumitra.com/biopharma-supply-chain/">Predictive Supply Chain Intelligence: AI for Pharmaceutical Manufacturing and Distribution</a></li>
+<li><a href="https://www.devangshumitra.com/biopharma-pharmacovigilance/">Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance Platform</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

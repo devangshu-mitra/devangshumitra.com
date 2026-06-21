@@ -1,0 +1,2514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/articles.css" />
+  <meta name="description" content="Devangshu Mitra&#39;s writing on AI product management, enterprise GenAI, and building in public." />
+  <meta property="og:title" content="Articles — Devangshu Mitra" />
+  <meta property="og:description" content="Writing on AI product management, enterprise GenAI, and building in public." />
+  <meta property="og:type" content="website" />
+  <title>Articles — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <!-- Page header -->
+    <header class="articles-header">
+      <div class="container">
+        <p class="articles-header__eyebrow reveal">Writing</p>
+        <h1 class="articles-header__title reveal">Articles</h1>
+        <p class="articles-header__sub reveal">Practitioner-level writing on AI product management, enterprise GenAI deployment, and building in public. No fluff — just what actually works.</p>
+      </div>
+    </header>
+
+    <!-- Filter tabs -->
+    <section class="articles-filters" aria-label="Filter posts by pillar">
+      <div class="container">
+        <div class="filter-tabs" role="tablist" aria-label="Post categories">
+          <button class="filter-tab active" data-filter="all" role="tab" aria-selected="true">All Posts <span class="filter-tab__count">144</span></button>
+          <button class="filter-tab" data-filter="ai-product-craft" role="tab" aria-selected="false">AI Product Craft <span class="filter-tab__count">57</span></button>
+          <button class="filter-tab" data-filter="ai-deep-dives" role="tab" aria-selected="false">AI Deep Dives <span class="filter-tab__count">35</span></button>
+          <button class="filter-tab" data-filter="ai-in-lsh" role="tab" aria-selected="false">AI in LSH <span class="filter-tab__count">25</span></button>
+          <button class="filter-tab" data-filter="building-in-public" role="tab" aria-selected="false">Building in Public <span class="filter-tab__count">7</span></button>
+          <button class="filter-tab" data-filter="teardowns" role="tab" aria-selected="false">Teardowns <span class="filter-tab__count">7</span></button>
+          <button class="filter-tab" data-filter="research" role="tab" aria-selected="false">Research <span class="filter-tab__count">7</span></button>
+          <button class="filter-tab" data-filter="cross-industry" role="tab" aria-selected="false">Cross-Industry <span class="filter-tab__count">6</span></button>
+        </div>
+        <div class="filter-subtabs" role="tablist" aria-label="Post sub-categories" id="subtabRow">
+          <button class="filter-subtab" data-pillar-parent="ai-product-craft" data-subtag="frameworks" style="display:none">Frameworks <span class="filter-tab__count">12</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-product-craft" data-subtag="career" style="display:none">Career <span class="filter-tab__count">7</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-product-craft" data-subtag="templates" style="display:none">Templates <span class="filter-tab__count">6</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-product-craft" data-subtag="strategy" style="display:none">Strategy <span class="filter-tab__count">32</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-deep-dives" data-subtag="llm-models" style="display:none">LLM Models <span class="filter-tab__count">25</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-deep-dives" data-subtag="genai-arch" style="display:none">GenAI Architecture <span class="filter-tab__count">10</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-in-lsh" data-subtag="clinical-ai" style="display:none">Clinical AI <span class="filter-tab__count">14</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-in-lsh" data-subtag="regulatory" style="display:none">FDA & Regulatory <span class="filter-tab__count">3</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-in-lsh" data-subtag="biopharma" style="display:none">BioPharma <span class="filter-tab__count">5</span></button>
+          <button class="filter-subtab" data-pillar-parent="ai-in-lsh" data-subtag="health-systems" style="display:none">Health Systems <span class="filter-tab__count">3</span></button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Posts grid -->
+    <section class="articles-grid" aria-live="polite">
+      <div class="container">
+        <div class="post-grid" id="postGrid">
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="biopharma">
+        <a href="/posts/biopharma-regulatory-intelligence/" class="post-card__link" aria-label="Read Automating Regulatory Intelligence: How AI Transformed Our Global Submission">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">BioPharma</span>
+              <span class="post-card__date">Mar 21, 2026</span>
+            </div>
+            <h2 class="post-card__title">Automating Regulatory Intelligence: How AI Transformed Our Global Submission</h2>
+            <p class="post-card__excerpt">How AI reduced regulatory submission prep from 14 weeks to 4 weeks, automated</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">19 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="biopharma">
+        <a href="/posts/biopharma-supply-chain/" class="post-card__link" aria-label="Read Predictive Supply Chain Intelligence: AI for Pharmaceutical Manufacturing">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">BioPharma</span>
+              <span class="post-card__date">Mar 21, 2026</span>
+            </div>
+            <h2 class="post-card__title">Predictive Supply Chain Intelligence: AI for Pharmaceutical Manufacturing</h2>
+            <p class="post-card__excerpt">How AI predicted 89% of pharmaceutical supply disruptions 6+ weeks in advance,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">12 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="biopharma">
+        <a href="/posts/biopharma-drug-discovery/" class="post-card__link" aria-label="Read AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">BioPharma</span>
+              <span class="post-card__date">Mar 21, 2026</span>
+            </div>
+            <h2 class="post-card__title">AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</h2>
+            <p class="post-card__excerpt">How AI reduced hit-to-lead from 18 months to 4 months, identified 3 novel</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">13 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/biopharma-pharmacovigilance/" class="post-card__link" aria-label="Read Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Mar 21, 2026</span>
+            </div>
+            <h2 class="post-card__title">Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance</h2>
+            <p class="post-card__excerpt">How we built an AI pharmacovigilance platform that reduced ICSR processing</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">13 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="biopharma">
+        <a href="/posts/deploying-computer-vision-for-surgical-instrument-tracking-what-the-papers-dont-tell-you/" class="post-card__link" aria-label="Read Deploying Computer Vision for Surgical Instrument Tracking: What the Papers">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">BioPharma</span>
+              <span class="post-card__date">Mar 7, 2026</span>
+            </div>
+            <h2 class="post-card__title">Deploying Computer Vision for Surgical Instrument Tracking: What the Papers</h2>
+            <p class="post-card__excerpt">The gap between a published model and a production system in the OR is wider</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry/" class="post-card__link" aria-label="Read The Build vs Buy Decision for AI: A Framework That Works in Any Industry">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Mar 6, 2026</span>
+            </div>
+            <h2 class="post-card__title">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</h2>
+            <p class="post-card__excerpt">The build vs buy decision for AI is more complex than traditional software</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/rice-prioritization-regulated/" class="post-card__link" aria-label="Read RICE Prioritization for Regulated Industries">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Mar 4, 2026</span>
+            </div>
+            <h2 class="post-card__title">RICE Prioritization for Regulated Industries</h2>
+            <p class="post-card__excerpt">Learn how to apply RICE prioritization framework in regulated industries</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/state-of-ai-in-healthcare-2026-executive-summary/" class="post-card__link" aria-label="Read State of AI in Healthcare 2026: Executive Summary">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Mar 2, 2026</span>
+            </div>
+            <h2 class="post-card__title">State of AI in Healthcare 2026: Executive Summary</h2>
+            <p class="post-card__excerpt">1,591 active AI clinical trials. 50 involving LLMs. 17 in Phase 3. Key findings</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/the-agentic-ai-stack-architecture-patterns-for-production-systems/" class="post-card__link" aria-label="Read The Agentic AI Stack: Architecture Patterns for Production Systems">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Mar 2, 2026</span>
+            </div>
+            <h2 class="post-card__title">The Agentic AI Stack: Architecture Patterns for Production Systems</h2>
+            <p class="post-card__excerpt">Agentic AI in production is a systems engineering problem more than an AI</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/teardown-recursion/" class="post-card__link" aria-label="Read Recursion Pharmaceuticals: AI-First Drug Discovery">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Feb 28, 2026</span>
+            </div>
+            <h2 class="post-card__title">Recursion Pharmaceuticals: AI-First Drug Discovery</h2>
+            <p class="post-card__excerpt">Discover how Recursion Pharmaceuticals leverages AI-first drug discovery</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/stakeholder-mapping-canvas/" class="post-card__link" aria-label="Read Stakeholder Mapping Canvas for Enterprise AI Products">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Feb 26, 2026</span>
+            </div>
+            <h2 class="post-card__title">Stakeholder Mapping Canvas for Enterprise AI Products</h2>
+            <p class="post-card__excerpt">Learn how to create a comprehensive stakeholder mapping canvas for enterprise</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/how-to-evaluate-an-ai-vendor-a-scorecard-that-works-across-industries/" class="post-card__link" aria-label="Read How to Evaluate an AI Vendor: A Scorecard That Works Across Industries">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Feb 24, 2026</span>
+            </div>
+            <h2 class="post-card__title">How to Evaluate an AI Vendor: A Scorecard That Works Across Industries</h2>
+            <p class="post-card__excerpt">Use our proven scorecard template to evaluate AI vendors effectively across</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/my-ai-stack-in-2026-every-tool-i-use-and-why/" class="post-card__link" aria-label="Read My AI Stack in 2026: Every Tool I Use and Why">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Feb 22, 2026</span>
+            </div>
+            <h2 class="post-card__title">My AI Stack in 2026: Every Tool I Use and Why</h2>
+            <p class="post-card__excerpt">Here is every AI tool in my stack as of March 2026 — what I actually use</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/what-himss-2026-tells-us-about-where-healthcare-ai-is-really-going/" class="post-card__link" aria-label="Read What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Feb 20, 2026</span>
+            </div>
+            <h2 class="post-card__title">What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going</h2>
+            <p class="post-card__excerpt">HIMSS 2026 confirmed what many of us expected: the ambient scribe moment</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/" class="post-card__link" aria-label="Read LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Feb 20, 2026</span>
+            </div>
+            <h2 class="post-card__title">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</h2>
+            <p class="post-card__excerpt">Compare LangChain vs LlamaIndex vs Haystack for your 2026 RAG stack with</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/openai-vs-anthropic-vs-google-enterprise-ai-platform-comparison-2026/" class="post-card__link" aria-label="Read OpenAI vs Anthropic vs Google: Enterprise AI Platform Comparison 2026">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Feb 20, 2026</span>
+            </div>
+            <h2 class="post-card__title">OpenAI vs Anthropic vs Google: Enterprise AI Platform Comparison 2026</h2>
+            <p class="post-card__excerpt">Compare OpenAI, Anthropic, and Google enterprise AI platforms for 2026 to</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/" class="post-card__link" aria-label="Read RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Feb 20, 2026</span>
+            </div>
+            <h2 class="post-card__title">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</h2>
+            <p class="post-card__excerpt">Learn when to choose RAG vs fine-tuning vs agents for your AI projects with</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/genai-build-vs-buy-matrix/" class="post-card__link" aria-label="Read GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Feb 18, 2026</span>
+            </div>
+            <h2 class="post-card__title">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</h2>
+            <p class="post-card__excerpt">Discover the GenAI build vs buy decision matrix to evaluate enterprise LLM</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="cross-industry">
+        <a href="/posts/the-rise-of-ai-in-retail-from-recommendations-to-autonomous-pricing/" class="post-card__link" aria-label="Read The Rise of AI in Retail: From Recommendations to Autonomous Pricing">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Cross-Industry</span>
+              <span class="post-card__date">Feb 17, 2026</span>
+            </div>
+            <h2 class="post-card__title">The Rise of AI in Retail: From Recommendations to Autonomous Pricing</h2>
+            <p class="post-card__excerpt">Retail is where AI moved from theory to commercial practice faster than almost</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
+        <a href="/posts/prd-template-ai-products/" class="post-card__link" aria-label="Read PRD Template for AI Products in Regulated Industries">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Templates</span>
+              <span class="post-card__date">Feb 15, 2026</span>
+            </div>
+            <h2 class="post-card__title">PRD Template for AI Products in Regulated Industries</h2>
+            <p class="post-card__excerpt">Get a comprehensive PRD template for AI products in regulated industries</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="cross-industry">
+        <a href="/posts/how-ai-is-reshaping-fintech-from-fraud-detection-to-autonomous-trading/" class="post-card__link" aria-label="Read How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Cross-Industry</span>
+              <span class="post-card__date">Feb 13, 2026</span>
+            </div>
+            <h2 class="post-card__title">How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading</h2>
+            <p class="post-card__excerpt">Financial services is one of the most data-rich, highest-stakes industries</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="cross-industry">
+        <a href="/posts/ai-in-hr-from-resume-screening-to-predictive-attrition/" class="post-card__link" aria-label="Read AI in HR: From Resume Screening to Predictive Attrition">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Cross-Industry</span>
+              <span class="post-card__date">Feb 11, 2026</span>
+            </div>
+            <h2 class="post-card__title">AI in HR: From Resume Screening to Predictive Attrition</h2>
+            <p class="post-card__excerpt">AI in HR promises efficiency and objectivity. The reality is more nuanced</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/flatiron-vs-medidata-real-world-evidence/" class="post-card__link" aria-label="Read Flatiron Health vs. Medidata: Real-World Evidence Platforms Compared">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Feb 9, 2026</span>
+            </div>
+            <h2 class="post-card__title">Flatiron Health vs. Medidata: Real-World Evidence Platforms Compared</h2>
+            <p class="post-card__excerpt">Compare Flatiron Health vs Medidata real-world evidence platforms to choose</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/ai-clinical-trial-patient-recruitment/" class="post-card__link" aria-label="Read How AI Is Transforming Clinical Trial Patient Recruitment: A Product Manager''s">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Feb 7, 2026</span>
+            </div>
+            <h2 class="post-card__title">How AI Is Transforming Clinical Trial Patient Recruitment: A Product Manager''s</h2>
+            <p class="post-card__excerpt">Discover how AI transforms clinical trial patient recruitment through advanced</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/multimodal-ai-explained-text-images-video-in-one-model/" class="post-card__link" aria-label="Read Multimodal AI Explained: Text + Images + Video in One Model">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Feb 5, 2026</span>
+            </div>
+            <h2 class="post-card__title">Multimodal AI Explained: Text + Images + Video in One Model</h2>
+            <p class="post-card__excerpt">For most of AI''s history, a model did one thing: text, or images, or speech.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="health-systems">
+        <a href="/posts/veeva-vs-salesforce-health-cloud-life-sciences/" class="post-card__link" aria-label="Read Veeva vs. Salesforce Health Cloud: CRM for Life Sciences in 2026">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Health Systems</span>
+              <span class="post-card__date">Feb 4, 2026</span>
+            </div>
+            <h2 class="post-card__title">Veeva vs. Salesforce Health Cloud: CRM for Life Sciences in 2026</h2>
+            <p class="post-card__excerpt">Compare Veeva vs Salesforce Health Cloud CRM platforms for life sciences</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/from-pilot-to-production-a-7-step-checklist-for-deploying-genai-in-healthcare/" class="post-card__link" aria-label="Read From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Feb 3, 2026</span>
+            </div>
+            <h2 class="post-card__title">From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare</h2>
+            <p class="post-card__excerpt">Most healthcare GenAI pilots never reach production. Here is the 7-step checklist</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="cross-industry">
+        <a href="/posts/ai-in-education-how-personalized-learning-is-finally-becoming-real/" class="post-card__link" aria-label="Read AI in Education: How Personalized Learning Is Finally Becoming Real">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Cross-Industry</span>
+              <span class="post-card__date">Feb 2, 2026</span>
+            </div>
+            <h2 class="post-card__title">AI in Education: How Personalized Learning Is Finally Becoming Real</h2>
+            <p class="post-card__excerpt">Education has promised personalization for decades. Adaptive learning, individualized</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/fdas-new-ai-guidance-decoded-what-builders-need-to-know/" class="post-card__link" aria-label="Read FDA''s New AI Guidance Decoded: What Builders Need to Know">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jan 31, 2026</span>
+            </div>
+            <h2 class="post-card__title">FDA''s New AI Guidance Decoded: What Builders Need to Know</h2>
+            <p class="post-card__excerpt">FDA's new AI guidance sets clear frameworks for healthcare AI builders with</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/course-enterprise-genai-poc-to-production/" class="post-card__link" aria-label="Read Enterprise GenAI: From POC to Production">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jan 29, 2026</span>
+            </div>
+            <h2 class="post-card__title">Enterprise GenAI: From POC to Production</h2>
+            <p class="post-card__excerpt">Why most POCs fail and what to do about it - a practitioner's guide to moving</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="cross-industry">
+        <a href="/posts/ai-in-supply-chain-how-predictive-models-are-replacing-just-in-time/" class="post-card__link" aria-label="Read AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Cross-Industry</span>
+              <span class="post-card__date">Jan 27, 2026</span>
+            </div>
+            <h2 class="post-card__title">AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time</h2>
+            <p class="post-card__excerpt">Discover how AI predictive models are revolutionizing supply chain management</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/product-breakdown-viz-ais-stroke-detection-speed-as-a-feature/" class="post-card__link" aria-label="Read Product Breakdown: Viz.ai''s Stroke Detection — Speed as a Feature">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Jan 25, 2026</span>
+            </div>
+            <h2 class="post-card__title">Product Breakdown: Viz.ai''s Stroke Detection — Speed as a Feature</h2>
+            <p class="post-card__excerpt">How Viz.ai turned a 26-minute time savings into a billion-dollar business</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/prior-authorization-ai-healthcare-automation/" class="post-card__link" aria-label="Read Prior Authorization AI: Reducing Healthcare''s $31B Administrative Burden">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Jan 23, 2026</span>
+            </div>
+            <h2 class="post-card__title">Prior Authorization AI: Reducing Healthcare''s $31B Administrative Burden</h2>
+            <p class="post-card__excerpt">Discover how prior authorization AI streamlines healthcare workflows, cuts</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="regulatory">
+        <a href="/posts/fda-samd-guidance-product-managers/" class="post-card__link" aria-label="Read FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">FDA & Regulatory</span>
+              <span class="post-card__date">Jan 17, 2026</span>
+            </div>
+            <h2 class="post-card__title">FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs</h2>
+            <p class="post-card__excerpt">Discover key insights from FDA SaMD guidance to navigate software as medical</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/clinical-trial-ai-playbook/" class="post-card__link" aria-label="Read Clinical Trial AI Playbook">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Jan 14, 2026</span>
+            </div>
+            <h2 class="post-card__title">Clinical Trial AI Playbook</h2>
+            <p class="post-card__excerpt">Discover proven AI strategies to optimize clinical trial design, patient</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/course-lsh-ai-pm-fundamentals/" class="post-card__link" aria-label="Read Life Sciences & Healthcare AI PM Fundamentals">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jan 13, 2026</span>
+            </div>
+            <h2 class="post-card__title">Life Sciences & Healthcare AI PM Fundamentals</h2>
+            <p class="post-card__excerpt">Everything I wish I knew when I started in Life Sciences & Healthcare AI</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/the-roi-of-ai-how-to-build-a-business-case-your-cfo-will-approve/" class="post-card__link" aria-label="Read The ROI of AI: How to Build a Business Case Your CFO Will Approve">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jan 11, 2026</span>
+            </div>
+            <h2 class="post-card__title">The ROI of AI: How to Build a Business Case Your CFO Will Approve</h2>
+            <p class="post-card__excerpt">Most AI business cases fail the CFO review because they overestimate benefits,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/teardown-tempus/" class="post-card__link" aria-label="Read How Tempus Built a $6B Clinical AI Platform">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Jan 10, 2026</span>
+            </div>
+            <h2 class="post-card__title">How Tempus Built a $6B Clinical AI Platform</h2>
+            <p class="post-card__excerpt">Discover how Tempus built a $6B clinical AI platform by leveraging genomic</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/the-ai-product-lifecycle-from-poc-to-production/" class="post-card__link" aria-label="Read The AI Product Lifecycle: From POC to Production">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jan 8, 2026</span>
+            </div>
+            <h2 class="post-card__title">The AI Product Lifecycle: From POC to Production</h2>
+            <p class="post-card__excerpt">Most AI POCs succeed. Most AI production deployments struggle. The gap isn't</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/how-we-reduced-clinical-trial-matching-time-by-73-with-rag/" class="post-card__link" aria-label="Read How We Reduced Clinical Trial Matching Time by 73% with RAG">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Jan 6, 2026</span>
+            </div>
+            <h2 class="post-card__title">How We Reduced Clinical Trial Matching Time by 73% with RAG</h2>
+            <p class="post-card__excerpt">A real-world implementation of retrieval-augmented generation for matching</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
+        <a href="/posts/how-to-write-a-prd-for-an-ai-feature-template-included/" class="post-card__link" aria-label="Read How to Write a PRD for an AI Feature (Template Included)">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Templates</span>
+              <span class="post-card__date">Jan 4, 2026</span>
+            </div>
+            <h2 class="post-card__title">How to Write a PRD for an AI Feature (Template Included)</h2>
+            <p class="post-card__excerpt">Learn how to write a PRD for an AI feature with our step-by-step guide and</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/state-of-ai-in-healthcare-2026-from-clinical-trials-to-production/" class="post-card__link" aria-label="Read State of AI in Healthcare 2026: From Clinical Trials to Production">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Jan 1, 2026</span>
+            </div>
+            <h2 class="post-card__title">State of AI in Healthcare 2026: From Clinical Trials to Production</h2>
+            <p class="post-card__excerpt">1,591 active AI clinical trials. 50 involving LLMs. 17 in Phase 3/4. A practitioner's</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/mental-models-for-ai-product-decisions-when-to-ship-vs-when-to-wait/" class="post-card__link" aria-label="Read Mental Models for AI Product Decisions: When to Ship vs When to Wait">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Dec 31, 2025</span>
+            </div>
+            <h2 class="post-card__title">Mental Models for AI Product Decisions: When to Ship vs When to Wait</h2>
+            <p class="post-card__excerpt">Learn proven mental models for AI product decisions including risk assessment</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="biopharma">
+        <a href="/posts/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance/" class="post-card__link" aria-label="Read Building a Real-Time Adverse Event Detection System for Post-Market Surveillance">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">BioPharma</span>
+              <span class="post-card__date">Dec 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</h2>
+            <p class="post-card__excerpt">From 6-week manual review cycles to real-time signal detection — how we rebuilt</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/ethics-and-responsible-ai-a-pms-practical-guide/" class="post-card__link" aria-label="Read Ethics and Responsible AI: A PM''s Practical Guide">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Dec 28, 2025</span>
+            </div>
+            <h2 class="post-card__title">Ethics and Responsible AI: A PM''s Practical Guide</h2>
+            <p class="post-card__excerpt">Responsible AI for PMs is not an ethics lecture. It''s a set of practical</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/teardown-viz-ai/" class="post-card__link" aria-label="Read Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Dec 26, 2025</span>
+            </div>
+            <h2 class="post-card__title">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</h2>
+            <p class="post-card__excerpt">Discover how Viz.ai scaled from FDA clearance to 1,400+ hospitals with AI</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/defining-mvp-for-ai-products-less-is-different/" class="post-card__link" aria-label="Read Defining MVP for AI Products: Less Is Different">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Dec 24, 2025</span>
+            </div>
+            <h2 class="post-card__title">Defining MVP for AI Products: Less Is Different</h2>
+            <p class="post-card__excerpt">The classic MVP framework - build the smallest thing that tests the riskiest</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="regulatory">
+        <a href="/posts/fda-ai-ml-regulatory-checklist/" class="post-card__link" aria-label="Read FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">FDA & Regulatory</span>
+              <span class="post-card__date">Dec 22, 2025</span>
+            </div>
+            <h2 class="post-card__title">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</h2>
+            <p class="post-card__excerpt">Navigate FDA AI/ML regulations with our comprehensive regulatory checklist</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/go-to-market-strategy-for-ai-products/" class="post-card__link" aria-label="Read Go-to-Market Strategy for AI Products">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Dec 21, 2025</span>
+            </div>
+            <h2 class="post-card__title">Go-to-Market Strategy for AI Products</h2>
+            <p class="post-card__excerpt">AI products have a trust problem that traditional software doesn't. Your</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="health-systems">
+        <a href="/posts/langchain-vs-llamaindex-healthcare-rag/" class="post-card__link" aria-label="Read LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Health Systems</span>
+              <span class="post-card__date">Dec 19, 2025</span>
+            </div>
+            <h2 class="post-card__title">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</h2>
+            <p class="post-card__excerpt">Compare LangChain vs LlamaIndex for healthcare RAG applications with detailed</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/building-cross-functional-ai-product-teams/" class="post-card__link" aria-label="Read Building Cross-Functional AI Product Teams">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Dec 18, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building Cross-Functional AI Product Teams</h2>
+            <p class="post-card__excerpt">AI products fail more often because of team dynamics than technical capability.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/enterprise-rag-architecture-guide/" class="post-card__link" aria-label="Read Enterprise RAG Architecture Guide">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Dec 16, 2025</span>
+            </div>
+            <h2 class="post-card__title">Enterprise RAG Architecture Guide</h2>
+            <p class="post-card__excerpt">Learn how to design and implement enterprise RAG architecture with scalable</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/vendor-evaluation-framework-for-ai-ml-platforms/" class="post-card__link" aria-label="Read Vendor Evaluation Framework for AI/ML Platforms">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Dec 14, 2025</span>
+            </div>
+            <h2 class="post-card__title">Vendor Evaluation Framework for AI/ML Platforms</h2>
+            <p class="post-card__excerpt">Most vendor evaluations for AI/ML platforms are theater. You run a demo on</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="health-systems">
+        <a href="/posts/aws-healthlake-vs-google-healthcare-api/" class="post-card__link" aria-label="Read AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Health Systems</span>
+              <span class="post-card__date">Dec 13, 2025</span>
+            </div>
+            <h2 class="post-card__title">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</h2>
+            <p class="post-card__excerpt">Compare AWS HealthLake vs Google Cloud Healthcare API features, pricing,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/the-ai-product-managers-toolkit-10-frameworks-that-work-across-industries/" class="post-card__link" aria-label="Read The AI Product Manager''s Toolkit: 10 Frameworks That Work Across Industries">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Dec 11, 2025</span>
+            </div>
+            <h2 class="post-card__title">The AI Product Manager''s Toolkit: 10 Frameworks That Work Across Industries</h2>
+            <p class="post-card__excerpt">After building AI products across healthcare, edtech, and CPG, I've distilled</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/rice-for-ai-modified-prioritization-framework/" class="post-card__link" aria-label="Read RICE for AI: Modified Prioritization Framework">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Dec 7, 2025</span>
+            </div>
+            <h2 class="post-card__title">RICE for AI: Modified Prioritization Framework</h2>
+            <p class="post-card__excerpt">Standard RICE doesn't work for AI products because 'confidence' means something</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">12 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/user-research-for-ai-products-what-changes/" class="post-card__link" aria-label="Read User Research for AI Products: What Changes">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Dec 4, 2025</span>
+            </div>
+            <h2 class="post-card__title">User Research for AI Products: What Changes</h2>
+            <p class="post-card__excerpt">Standard user research methods mostly apply to AI products, but several</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/ai-vendor-evaluation-scorecard/" class="post-card__link" aria-label="Read AI Vendor Evaluation Scorecard for Life Sciences & Healthcare">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Dec 1, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</h2>
+            <p class="post-card__excerpt">Download our free AI vendor evaluation scorecard to systematically assess</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/ai-product-management-interview-prep-50-questions-youll-actually-get-asked/" class="post-card__link" aria-label="Read AI Product Management Interview Prep: 50 Questions You''ll Actually Get Asked">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">Nov 26, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product Management Interview Prep: 50 Questions You''ll Actually Get Asked</h2>
+            <p class="post-card__excerpt">Master your AI product management interview with 50 real questions covering</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/build-vs-buy-matrix-for-ai-products-the-complete-framework/" class="post-card__link" aria-label="Read Build vs Buy Matrix for AI Products: The Complete Framework">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Nov 24, 2025</span>
+            </div>
+            <h2 class="post-card__title">Build vs Buy Matrix for AI Products: The Complete Framework</h2>
+            <p class="post-card__excerpt">Stop treating build vs buy as a binary. There are 4 options, 6 decision axes,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">12 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/understanding-ai-inference-costs-at-scale/" class="post-card__link" aria-label="Read Understanding AI Inference Costs at Scale">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">Nov 22, 2025</span>
+            </div>
+            <h2 class="post-card__title">Understanding AI Inference Costs at Scale</h2>
+            <p class="post-card__excerpt">At low volumes, AI inference costs are invisible. At scale, they become the</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">13 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/reinforcement-learning-from-human-feedback-rlhf-demystified/" class="post-card__link" aria-label="Read Reinforcement Learning from Human Feedback (RLHF) Demystified">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Nov 17, 2025</span>
+            </div>
+            <h2 class="post-card__title">Reinforcement Learning from Human Feedback (RLHF) Demystified</h2>
+            <p class="post-card__excerpt">RLHF is the training technique that turns a raw language model into a helpful,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/ai-product-roadmap-prioritization-beyond-rice/" class="post-card__link" aria-label="Read AI Product Roadmap Prioritization: Beyond RICE">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Nov 15, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product Roadmap Prioritization: Beyond RICE</h2>
+            <p class="post-card__excerpt">RICE works fine when you know what you're building. AI products break that</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/transformer-architectures-explained-for-product-people/" class="post-card__link" aria-label="Read Transformer Architectures Explained for Product People">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Nov 11, 2025</span>
+            </div>
+            <h2 class="post-card__title">Transformer Architectures Explained for Product People</h2>
+            <p class="post-card__excerpt">Transformers are the engine inside every large language model you're building</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/" class="post-card__link" aria-label="Read AI Product Manager Interview Guide: 50 Questions You''ll Actually Get Asked">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">Nov 10, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product Manager Interview Guide: 50 Questions You''ll Actually Get Asked</h2>
+            <p class="post-card__excerpt">50 real AI PM interview questions organized by category — product sense,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">13 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/" class="post-card__link" aria-label="Read Agentic AI Explained: What It Is, Why It Matters, and How to Build With It">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Nov 8, 2025</span>
+            </div>
+            <h2 class="post-card__title">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</h2>
+            <p class="post-card__excerpt">Learn what agentic AI is, why it's revolutionizing life sciences and healthcare,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/" class="post-card__link" aria-label="Read Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Nov 6, 2025</span>
+            </div>
+            <h2 class="post-card__title">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</h2>
+            <p class="post-card__excerpt">I've spent the last two years building AI products on top of Claude, GPT-4,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/course-first-principles-pm/" class="post-card__link" aria-label="Read First Principles for Product Managers">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">Nov 4, 2025</span>
+            </div>
+            <h2 class="post-card__title">First Principles for Product Managers</h2>
+            <p class="post-card__excerpt">Not the Elon Musk cliche - a practical explanation of first-principles thinking</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/aws-bedrock-vs-azure-openai-vs-google-vertex-ai/" class="post-card__link" aria-label="Read AWS Bedrock vs Azure OpenAI vs Google Vertex AI">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Oct 31, 2025</span>
+            </div>
+            <h2 class="post-card__title">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</h2>
+            <p class="post-card__excerpt">If you're an enterprise AI product leader, this is the decision that shapes</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/stakeholder-alignment-canvas-for-ai-products/" class="post-card__link" aria-label="Read Stakeholder Alignment Canvas for AI Products">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Oct 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">Stakeholder Alignment Canvas for AI Products</h2>
+            <p class="post-card__excerpt">AI products fail at the stakeholder layer more often than the technical layer.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">12 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/the-hidden-risks-of-llm-hallucination-in-life-sciences-what-every-product-manager-must-know/" class="post-card__link" aria-label="Read The Hidden Risks of LLM Hallucination in Life Sciences: What Every Product">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Oct 27, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Hidden Risks of LLM Hallucination in Life Sciences: What Every Product</h2>
+            <p class="post-card__excerpt">A hallucinated drug dosage or fabricated clinical trial result is not a UX</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/building-in-public-how-i-automated-my-entire-content-pipeline-with-ai-agents/" class="post-card__link" aria-label="Read Building in Public: How I Automated My Entire Content Pipeline with AI Agents">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Oct 23, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building in Public: How I Automated My Entire Content Pipeline with AI Agents</h2>
+            <p class="post-card__excerpt">I built a system of AI agents that handles ideation, scripting, editing,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">4 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/launch-playbook-taking-an-ai-product-from-beta-to-ga/" class="post-card__link" aria-label="Read Launch Playbook: Taking an AI Product from Beta to GA">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Oct 19, 2025</span>
+            </div>
+            <h2 class="post-card__title">Launch Playbook: Taking an AI Product from Beta to GA</h2>
+            <p class="post-card__excerpt">The beta-to-GA transition for AI products is more complex than traditional</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/" class="post-card__link" aria-label="Read Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Oct 17, 2025</span>
+            </div>
+            <h2 class="post-card__title">Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across</h2>
+            <p class="post-card__excerpt">I manage AI features across 10 clinical products simultaneously. Here is</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/vercel-ai-sdk-vs-langchain-vs-llamaindex-for-production-apps/" class="post-card__link" aria-label="Read Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Oct 15, 2025</span>
+            </div>
+            <h2 class="post-card__title">Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps</h2>
+            <p class="post-card__excerpt">I've shipped production AI applications using all three of these frameworks.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/the-10x-cost-of-wrong-ai-use-cases/" class="post-card__link" aria-label="Read The 10x Cost of Wrong AI Use Cases">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Oct 13, 2025</span>
+            </div>
+            <h2 class="post-card__title">The 10x Cost of Wrong AI Use Cases</h2>
+            <p class="post-card__excerpt">A failed AI project doesn't just cost the budget allocated to it. It costs</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/how-i-use-ai-agents-to-run-my-entire-content-operation/" class="post-card__link" aria-label="Read How I Use AI Agents to Run My Entire Content Operation">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Oct 11, 2025</span>
+            </div>
+            <h2 class="post-card__title">How I Use AI Agents to Run My Entire Content Operation</h2>
+            <p class="post-card__excerpt">I'm an AI product manager who got tired of the gap between knowing how to</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/big-tech-pm-interview-prep/" class="post-card__link" aria-label="Read Big Tech PM Interview Prep Guide">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">Oct 9, 2025</span>
+            </div>
+            <h2 class="post-card__title">Big Tech PM Interview Prep Guide</h2>
+            <p class="post-card__excerpt">Master your big tech PM interview prep with our comprehensive guide covering</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/epic-vs-tempus-ai-healthcare/" class="post-card__link" aria-label="Read Epic vs. Tempus: Two Approaches to AI in Healthcare">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Oct 7, 2025</span>
+            </div>
+            <h2 class="post-card__title">Epic vs. Tempus: Two Approaches to AI in Healthcare</h2>
+            <p class="post-card__excerpt">Compare Epic and Tempus AI healthcare platforms to discover which approach</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/synthetic-data-when-why-and-how/" class="post-card__link" aria-label="Read Synthetic Data: When, Why, and How">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Oct 6, 2025</span>
+            </div>
+            <h2 class="post-card__title">Synthetic Data: When, Why, and How</h2>
+            <p class="post-card__excerpt">Synthetic data — AI-generated data designed to mimic real data — solves</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/research-preview-cross-industry-patterns-in-ai-product-management/" class="post-card__link" aria-label="Read Research Preview: Cross-Industry Patterns in AI Product Management">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">Oct 3, 2025</span>
+            </div>
+            <h2 class="post-card__title">Research Preview: Cross-Industry Patterns in AI Product Management</h2>
+            <p class="post-card__excerpt">A preview of an upcoming research paper analyzing 100+ AI product launches</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/stakeholder-management-for-ai-products-a-pms-survival-guide/" class="post-card__link" aria-label="Read Stakeholder Management for AI Products: A PM''s Survival Guide">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Sep 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">Stakeholder Management for AI Products: A PM''s Survival Guide</h2>
+            <p class="post-card__excerpt">AI products have a stakeholder challenge that no PM school prepares you for.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="regulatory">
+        <a href="/posts/genai-governance-life-sciences-framework/" class="post-card__link" aria-label="Read Enterprise GenAI Governance in Life Sciences: A Framework for Responsible">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">FDA & Regulatory</span>
+              <span class="post-card__date">Sep 27, 2025</span>
+            </div>
+            <h2 class="post-card__title">Enterprise GenAI Governance in Life Sciences: A Framework for Responsible</h2>
+            <p class="post-card__excerpt">Learn how to implement enterprise GenAI governance frameworks in life sciences</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/fine-tuning-vs-prompt-engineering-a-decision-framework/" class="post-card__link" aria-label="Read Fine-Tuning vs Prompt Engineering: A Decision Framework">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Sep 25, 2025</span>
+            </div>
+            <h2 class="post-card__title">Fine-Tuning vs Prompt Engineering: A Decision Framework</h2>
+            <p class="post-card__excerpt">I spent six weeks at Edxcare building a fine-tuned model for a problem that</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/first-principles-of-data-strategy/" class="post-card__link" aria-label="Read First Principles of Data Strategy">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">Sep 23, 2025</span>
+            </div>
+            <h2 class="post-card__title">First Principles of Data Strategy</h2>
+            <p class="post-card__excerpt">Most companies have a data infrastructure strategy but not a data strategy.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/what-155-posts-in-3-months-taught-me-about-content-strategy/" class="post-card__link" aria-label="Read What 155 Posts in 3 Months Taught Me About Content Strategy">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Sep 22, 2025</span>
+            </div>
+            <h2 class="post-card__title">What 155 Posts in 3 Months Taught Me About Content Strategy</h2>
+            <p class="post-card__excerpt">155 posts. 15 pages. 59 tags. 0 email subscribers. Three months in, here's</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="cross-industry">
+        <a href="/posts/ai-in-legal-tech-how-llms-are-automating-contract-review/" class="post-card__link" aria-label="Read AI in Legal Tech: How LLMs Are Automating Contract Review">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Cross-Industry</span>
+              <span class="post-card__date">Sep 18, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI in Legal Tech: How LLMs Are Automating Contract Review</h2>
+            <p class="post-card__excerpt">Discover how AI in legal tech is transforming contract review through LLMs</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/mlops-for-product-managers-what-you-need-to-know/" class="post-card__link" aria-label="Read MLOps for Product Managers: What You Need to Know">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">Sep 16, 2025</span>
+            </div>
+            <h2 class="post-card__title">MLOps for Product Managers: What You Need to Know</h2>
+            <p class="post-card__excerpt">You do not need to implement MLOps. You do need to understand it well enough</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/why-ai-teams-need-product-managers-not-project-managers/" class="post-card__link" aria-label="Read Why AI Teams Need Product Managers, Not Project Managers">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">Sep 14, 2025</span>
+            </div>
+            <h2 class="post-card__title">Why AI Teams Need Product Managers, Not Project Managers</h2>
+            <p class="post-card__excerpt">Most enterprise AI teams are staffed and managed like software delivery projects.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/course-break-into-ai-pm/" class="post-card__link" aria-label="Read Break Into AI Product Management">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Sep 11, 2025</span>
+            </div>
+            <h2 class="post-card__title">Break Into AI Product Management</h2>
+            <p class="post-card__excerpt">A practical guide to transitioning into AI PM - what's actually different,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/building-production-agent-systems-lessons-from-the-trenches/" class="post-card__link" aria-label="Read Building Production Agent Systems: Lessons from the Trenches">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Sep 6, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building Production Agent Systems: Lessons from the Trenches</h2>
+            <p class="post-card__excerpt">Demos of AI agents look magical. They browse the web, write code, send emails,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/build-vs-buy-ai-in-life-sciences-a-framework-for-enterprise-decision-makers/" class="post-card__link" aria-label="Read Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Sep 4, 2025</span>
+            </div>
+            <h2 class="post-card__title">Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers</h2>
+            <p class="post-card__excerpt">Every enterprise AI decision eventually becomes a build-vs-buy decision.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/building-in-public-month-1-what-worked-what-didnt-2/" class="post-card__link" aria-label="Read Building in Public Month 1: What Worked, What Didn''t">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Sep 2, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building in Public Month 1: What Worked, What Didn''t</h2>
+            <p class="post-card__excerpt">One month in. 40+ blog posts. A new site. A content pipeline I didn't know</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
+        <a href="/posts/ai-product-prd-template-the-practitioners-version/" class="post-card__link" aria-label="Read AI Product PRD Template: The Practitioner''s Version">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Templates</span>
+              <span class="post-card__date">Aug 31, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product PRD Template: The Practitioner''s Version</h2>
+            <p class="post-card__excerpt">A PRD template built specifically for AI products — not a generic PM template</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/product-breakdown-epics-genai-strategy-why-the-ehr-giant-will-win-the-healthcare-ai-race-9/" class="post-card__link" aria-label="Read Product Breakdown: Epic''s GenAI Strategy — Why the EHR Giant Will Win the">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Aug 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">Product Breakdown: Epic''s GenAI Strategy — Why the EHR Giant Will Win the</h2>
+            <p class="post-card__excerpt">Epic has distribution, data, and trust. Startups have speed and innovation.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/vector-databases-compared-pinecone-vs-weaviate-vs-chroma-vs-qdrant/" class="post-card__link" aria-label="Read Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Aug 27, 2025</span>
+            </div>
+            <h2 class="post-card__title">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</h2>
+            <p class="post-card__excerpt">Pinecone, Weaviate, Chroma, and Qdrant all store and retrieve vectors — but</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/why-domain-expertise-beats-model-performance/" class="post-card__link" aria-label="Read Why Domain Expertise Beats Model Performance">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">Aug 25, 2025</span>
+            </div>
+            <h2 class="post-card__title">Why Domain Expertise Beats Model Performance</h2>
+            <p class="post-card__excerpt">The AI product that wins in a competitive market isn't usually the one with</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/ai-product-metrics-that-actually-matter-beyond-accuracy/" class="post-card__link" aria-label="Read AI Product Metrics That Actually Matter: Beyond Accuracy">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Aug 21, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product Metrics That Actually Matter: Beyond Accuracy</h2>
+            <p class="post-card__excerpt">Discover the AI product metrics that actually matter beyond accuracy including</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/product-metrics-dashboard/" class="post-card__link" aria-label="Read Product Metrics Dashboard Template for Enterprise AI">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Aug 19, 2025</span>
+            </div>
+            <h2 class="post-card__title">Product Metrics Dashboard Template for Enterprise AI</h2>
+            <p class="post-card__excerpt">Download our comprehensive product metrics dashboard template designed for</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/the-first-principles-of-healthcare-ai-product-management-9/" class="post-card__link" aria-label="Read The First Principles of Healthcare AI Product Management">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Aug 14, 2025</span>
+            </div>
+            <h2 class="post-card__title">The First Principles of Healthcare AI Product Management</h2>
+            <p class="post-card__excerpt">Most AI product frameworks break in healthcare. Here are the five principles</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">11 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/the-ethlore-story-where-d2c-sarees-meet-ai/" class="post-card__link" aria-label="Read The Ethlore Story: Where D2C Sarees Meet AI">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Aug 12, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Ethlore Story: Where D2C Sarees Meet AI</h2>
+            <p class="post-card__excerpt">Ethlore is a D2C handloom saree brand I''m building with my brother. We</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/pricing-ai-products-models-that-work/" class="post-card__link" aria-label="Read Pricing AI Products: Models That Work">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Aug 10, 2025</span>
+            </div>
+            <h2 class="post-card__title">Pricing AI Products: Models That Work</h2>
+            <p class="post-card__excerpt">AI product pricing is harder than SaaS pricing because the value delivered</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/multimodal-ai-in-enterprise-beyond-text/" class="post-card__link" aria-label="Read Multimodal AI in Enterprise: Beyond Text">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Aug 6, 2025</span>
+            </div>
+            <h2 class="post-card__title">Multimodal AI in Enterprise: Beyond Text</h2>
+            <p class="post-card__excerpt">Most enterprise AI in 2024 was text-in, text-out. 2025 is when multimodal</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/why-most-ai-products-fail-before-they-launch/" class="post-card__link" aria-label="Read Why Most AI Products Fail Before They Launch">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Aug 3, 2025</span>
+            </div>
+            <h2 class="post-card__title">Why Most AI Products Fail Before They Launch</h2>
+            <p class="post-card__excerpt">Most AI product failures aren't model failures. They're alignment failures,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/why-enterprise-ai-teams-ship-slower-than-they-should-9/" class="post-card__link" aria-label="Read Why Enterprise AI Teams Ship Slower Than They Should">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Aug 2, 2025</span>
+            </div>
+            <h2 class="post-card__title">Why Enterprise AI Teams Ship Slower Than They Should</h2>
+            <p class="post-card__excerpt">I've watched enterprise AI teams take 18 months to ship what a startup builds</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/embedding-strategies-that-actually-scale/" class="post-card__link" aria-label="Read Embedding Strategies That Actually Scale">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Jul 27, 2025</span>
+            </div>
+            <h2 class="post-card__title">Embedding Strategies That Actually Scale</h2>
+            <p class="post-card__excerpt">Bad embedding choices do not surface in a prototype with 100 documents. They</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/the-shadow-ai-problem-when-your-team-uses-ai-tools-you-dont-know-about-2/" class="post-card__link" aria-label="Read The Shadow AI Problem: When Your Team Uses AI Tools You Don''t Know About">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jul 24, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Shadow AI Problem: When Your Team Uses AI Tools You Don''t Know About</h2>
+            <p class="post-card__excerpt">Your clinicians are using ChatGPT for patient notes. Your analysts are using</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
+        <a href="/posts/prompt-engineering-playbook-for-product-teams/" class="post-card__link" aria-label="Read Prompt Engineering Playbook for Product Teams">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Templates</span>
+              <span class="post-card__date">Jul 17, 2025</span>
+            </div>
+            <h2 class="post-card__title">Prompt Engineering Playbook for Product Teams</h2>
+            <p class="post-card__excerpt">Prompt engineering is not a hack you use before the real engineering starts.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/" class="post-card__link" aria-label="Read RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Jul 15, 2025</span>
+            </div>
+            <h2 class="post-card__title">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for</h2>
+            <p class="post-card__excerpt">Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">13 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/building-a-personal-brand-from-scratch-month-1-retrospective/" class="post-card__link" aria-label="Read Building a Personal Brand from Scratch: Month 1 Retrospective">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jul 12, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building a Personal Brand from Scratch: Month 1 Retrospective</h2>
+            <p class="post-card__excerpt">I launched devangshumitra.com, published 30 posts in the first month, and</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/the-complete-guide-to-ai-model-evaluation/" class="post-card__link" aria-label="Read The Complete Guide to AI Model Evaluation">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Jul 7, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Complete Guide to AI Model Evaluation</h2>
+            <p class="post-card__excerpt">Most AI teams measure accuracy on a test set and ship. This is how you end</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">4 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/why-ai-products-should-launch-ugly/" class="post-card__link" aria-label="Read Why AI Products Should Launch Ugly">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jul 5, 2025</span>
+            </div>
+            <h2 class="post-card__title">Why AI Products Should Launch Ugly</h2>
+            <p class="post-card__excerpt">The most expensive decision in AI product development is the decision to</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/how-i-automated-my-entire-content-pipeline-with-ai-agents/" class="post-card__link" aria-label="Read How I Automated My Entire Content Pipeline with AI Agents">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Jul 3, 2025</span>
+            </div>
+            <h2 class="post-card__title">How I Automated My Entire Content Pipeline with AI Agents</h2>
+            <p class="post-card__excerpt">I have a full-time job at HCLTech, a side brand, a D2C startup, and I''m</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/managing-technical-debt-in-ai-products/" class="post-card__link" aria-label="Read Managing Technical Debt in AI Products">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jul 1, 2025</span>
+            </div>
+            <h2 class="post-card__title">Managing Technical Debt in AI Products</h2>
+            <p class="post-card__excerpt">AI products accumulate debt in three dimensions simultaneously: model debt</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/llm-evaluation-framework/" class="post-card__link" aria-label="Read LLM Evaluation Framework for Regulated and Clinical Contexts">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Jun 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">LLM Evaluation Framework for Regulated and Clinical Contexts</h2>
+            <p class="post-card__excerpt">Learn how to implement a comprehensive LLM evaluation framework designed</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/model-distillation-making-ai-affordable-at-scale/" class="post-card__link" aria-label="Read Model Distillation: Making AI Affordable at Scale">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Jun 27, 2025</span>
+            </div>
+            <h2 class="post-card__title">Model Distillation: Making AI Affordable at Scale</h2>
+            <p class="post-card__excerpt">GPT-4o is extraordinary. At $15 per million output tokens, calling it a billion</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/the-build-vs-buy-decision-framework-for-ai/" class="post-card__link" aria-label="Read The Build vs Buy Decision Framework for AI">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Jun 25, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Build vs Buy Decision Framework for AI</h2>
+            <p class="post-card__excerpt">The build vs buy question for AI is almost always answered wrong because</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/ai-product-metrics-dashboard-what-to-track-and-why/" class="post-card__link" aria-label="Read AI Product Metrics Dashboard: What to Track and Why">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jun 21, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product Metrics Dashboard: What to Track and Why</h2>
+            <p class="post-card__excerpt">Most AI teams only measure model accuracy. Here's the 4-layer framework I</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/databricks-vs-snowflake-for-ai-ml-workloads/" class="post-card__link" aria-label="Read Databricks vs Snowflake for AI/ML Workloads">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Jun 17, 2025</span>
+            </div>
+            <h2 class="post-card__title">Databricks vs Snowflake for AI/ML Workloads</h2>
+            <p class="post-card__excerpt">This debate has been running in data engineering circles for years, and</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/the-moat-myth-what-actually-defends-ai-products/" class="post-card__link" aria-label="Read The Moat Myth: What Actually Defends AI Products">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jun 15, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Moat Myth: What Actually Defends AI Products</h2>
+            <p class="post-card__excerpt">The most common AI startup pitch includes the line about a proprietary model</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/stakeholder-management-when-nobody-understands-ai/" class="post-card__link" aria-label="Read Stakeholder Management When Nobody Understands AI">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Jun 11, 2025</span>
+            </div>
+            <h2 class="post-card__title">Stakeholder Management When Nobody Understands AI</h2>
+            <p class="post-card__excerpt">The hardest part of building AI products isn''t the model. It''s explaining</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/rag-architecture-decision-guide-when-to-use-what/" class="post-card__link" aria-label="Read RAG Architecture Decision Guide: When to Use What">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Jun 9, 2025</span>
+            </div>
+            <h2 class="post-card__title">RAG Architecture Decision Guide: When to Use What</h2>
+            <p class="post-card__excerpt">A PM-friendly guide to RAG architecture decisions. Covers the decision tree,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">12 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/vector-database-showdown-pinecone-vs-weaviate-vs-chroma-vs-qdrant/" class="post-card__link" aria-label="Read Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Jun 7, 2025</span>
+            </div>
+            <h2 class="post-card__title">Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</h2>
+            <p class="post-card__excerpt">Four vector databases, four different bets on where the market is going.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="teardowns">
+        <a href="/posts/product-breakdown-how-tempus-uses-ai-to-personalize-cancer-treatment-9/" class="post-card__link" aria-label="Read Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Teardowns</span>
+              <span class="post-card__date">Jun 5, 2025</span>
+            </div>
+            <h2 class="post-card__title">Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment</h2>
+            <p class="post-card__excerpt">Dissecting Tempus's data-first approach to precision oncology — and why their</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/personal-brand-building-for-ai-product-leaders/" class="post-card__link" aria-label="Read Personal Brand Building for AI Product Leaders">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">Jun 2, 2025</span>
+            </div>
+            <h2 class="post-card__title">Personal Brand Building for AI Product Leaders</h2>
+            <p class="post-card__excerpt">How to build a personal brand in the AI space while working full-time. Platform</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/ai-product-documentation-that-engineers-actually-read/" class="post-card__link" aria-label="Read AI Product Documentation That Engineers Actually Read">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">May 31, 2025</span>
+            </div>
+            <h2 class="post-card__title">AI Product Documentation That Engineers Actually Read</h2>
+            <p class="post-card__excerpt">Most AI product documentation fails for the same reason: it''s written for</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
+        <a href="/posts/prompt-engineering-library/" class="post-card__link" aria-label="Read Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Templates</span>
+              <span class="post-card__date">May 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</h2>
+            <p class="post-card__excerpt">Discover 50+ production-tested healthcare AI prompts for medical diagnosis,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">12 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/rag-architecture-patterns-when-to-use-what/" class="post-card__link" aria-label="Read RAG Architecture Patterns: When to Use What">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">May 27, 2025</span>
+            </div>
+            <h2 class="post-card__title">RAG Architecture Patterns: When to Use What</h2>
+            <p class="post-card__excerpt">Most RAG implementations start the same way: chunk your documents, embed</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/why-most-ai-pocs-fail-7-patterns-ive-seen-across-industries-2/" class="post-card__link" aria-label="Read Why Most AI POCs Fail: 7 Patterns I''ve Seen Across Industries">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">May 25, 2025</span>
+            </div>
+            <h2 class="post-card__title">Why Most AI POCs Fail: 7 Patterns I''ve Seen Across Industries</h2>
+            <p class="post-card__excerpt">I have watched more AI POCs fail than succeed across healthcare, CPG, edtech,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/notion-ai-vs-coda-ai-vs-clickup-ai-for-product-teams/" class="post-card__link" aria-label="Read Notion AI vs Coda AI vs Clickup AI for Product Teams">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">May 18, 2025</span>
+            </div>
+            <h2 class="post-card__title">Notion AI vs Coda AI vs Clickup AI for Product Teams</h2>
+            <p class="post-card__excerpt">I've used all three as my primary product management workspace at different</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/first-principles-thinking-life-sciences-pm/" class="post-card__link" aria-label="Read First Principles Thinking for Life Sciences Product Managers: Beyond Best">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">May 16, 2025</span>
+            </div>
+            <h2 class="post-card__title">First Principles Thinking for Life Sciences Product Managers: Beyond Best</h2>
+            <p class="post-card__excerpt">Learn how first principles thinking helps life sciences product managers</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
+        <a href="/posts/pm-portfolio-template/" class="post-card__link" aria-label="Read PM Portfolio Template">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Templates</span>
+              <span class="post-card__date">May 12, 2025</span>
+            </div>
+            <h2 class="post-card__title">PM Portfolio Template</h2>
+            <p class="post-card__excerpt">Get our free PM portfolio template to showcase your product management projects,</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/the-architecture-of-production-ml-pipelines/" class="post-card__link" aria-label="Read The Architecture of Production ML Pipelines">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">May 7, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Architecture of Production ML Pipelines</h2>
+            <p class="post-card__excerpt">Most ML tutorials end at model training. Production ML starts where those</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">10 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="research">
+        <a href="/posts/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/" class="post-card__link" aria-label="Read First Principles of Building AI Products: What Most PMs Get Wrong">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Research</span>
+              <span class="post-card__date">May 5, 2025</span>
+            </div>
+            <h2 class="post-card__title">First Principles of Building AI Products: What Most PMs Get Wrong</h2>
+            <p class="post-card__excerpt">Building AI products requires breaking almost every mental model that made</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">9 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/from-enterprise-pm-to-ai-pm-the-transition-playbook/" class="post-card__link" aria-label="Read From Enterprise PM to AI PM: The Transition Playbook">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">May 1, 2025</span>
+            </div>
+            <h2 class="post-card__title">From Enterprise PM to AI PM: The Transition Playbook</h2>
+            <p class="post-card__excerpt">A step-by-step playbook for product managers transitioning from enterprise</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
+        <a href="/posts/rag-vs-fine-tuning-vs-prompt-engineering-a-life-sciences-product-managers-decision-framework/" class="post-card__link" aria-label="Read RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager''s">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Clinical AI</span>
+              <span class="post-card__date">Apr 28, 2025</span>
+            </div>
+            <h2 class="post-card__title">RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager''s</h2>
+            <p class="post-card__excerpt">Three techniques. One wrong choice can cost you six months and $500K. Here</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">8 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/multimodal-ai-beyond-text-vision-audio-and-video/" class="post-card__link" aria-label="Read Multimodal AI: Beyond Text — Vision, Audio, and Video">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Apr 26, 2025</span>
+            </div>
+            <h2 class="post-card__title">Multimodal AI: Beyond Text — Vision, Audio, and Video</h2>
+            <p class="post-card__excerpt">Multimodal AI — models that process images, audio, and video alongside text</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">5 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
+        <a href="/posts/complexity-is-the-enemy-of-ai-adoption/" class="post-card__link" aria-label="Read Complexity is the Enemy of AI Adoption">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Strategy</span>
+              <span class="post-card__date">Apr 24, 2025</span>
+            </div>
+            <h2 class="post-card__title">Complexity is the Enemy of AI Adoption</h2>
+            <p class="post-card__excerpt">The AI adoption problem is not a model problem. It's a UX problem. Sophisticated</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="career">
+        <a href="/posts/star-framework-pm-interviews/" class="post-card__link" aria-label="Read STAR Framework for PM Interviews">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Career</span>
+              <span class="post-card__date">Apr 20, 2025</span>
+            </div>
+            <h2 class="post-card__title">STAR Framework for PM Interviews</h2>
+            <p class="post-card__excerpt">Master the STAR framework for PM interviews with actionable tips to structure</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">14 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="building-in-public">
+        <a href="/posts/building-geenie-my-personal-ai-operating-system/" class="post-card__link" aria-label="Read Building Geenie: My Personal AI Operating System">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Building in Public</span>
+              <span class="post-card__date">Apr 13, 2025</span>
+            </div>
+            <h2 class="post-card__title">Building Geenie: My Personal AI Operating System</h2>
+            <p class="post-card__excerpt">I'm building an AI operating system for my life — not just a productivity</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-product-craft" data-subtag="frameworks">
+        <a href="/posts/the-build-vs-buy-decision-for-enterprise-llm-integration/" class="post-card__link" aria-label="Read The Build vs Buy Decision for Enterprise LLM Integration">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">Frameworks</span>
+              <span class="post-card__date">Apr 11, 2025</span>
+            </div>
+            <h2 class="post-card__title">The Build vs Buy Decision for Enterprise LLM Integration</h2>
+            <p class="post-card__excerpt">Build vs buy for LLMs is not a binary choice. It's a spectrum from pure API</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/" class="post-card__link" aria-label="Read Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Apr 7, 2025</span>
+            </div>
+            <h2 class="post-card__title">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</h2>
+            <p class="post-card__excerpt">The three main approaches to customizing AI behavior are not interchangeable.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="genai-arch">
+        <a href="/posts/latency-accuracy-cost-pick-two/" class="post-card__link" aria-label="Read Latency, Accuracy, Cost: Pick Two">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">GenAI Architecture</span>
+              <span class="post-card__date">Apr 5, 2025</span>
+            </div>
+            <h2 class="post-card__title">Latency, Accuracy, Cost: Pick Two</h2>
+            <p class="post-card__excerpt">Every AI system is a set of tradeoffs between latency, accuracy, and cost.</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">7 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+      <article class="post-card" data-pillar="ai-deep-dives" data-subtag="llm-models">
+        <a href="/posts/how-embedding-models-actually-work/" class="post-card__link" aria-label="Read How Embedding Models Actually Work">
+          <div class="post-card__inner">
+            <div class="post-card__meta">
+              <span class="post-card__pillar tag tag--accent">LLM Models</span>
+              <span class="post-card__date">Mar 29, 2025</span>
+            </div>
+            <h2 class="post-card__title">How Embedding Models Actually Work</h2>
+            <p class="post-card__excerpt">Embedding models convert text into vectors that capture meaning. They're</p>
+            <div class="post-card__footer">
+              <span class="post-card__read-time">6 min read</span>
+              <span class="post-card__arrow" aria-hidden="true">→</span>
+            </div>
+          </div>
+        </a>
+      </article>
+        </div>
+        <p class="articles-empty" id="emptyMsg" style="display:none">No posts found for this filter.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+
+    // Filter logic
+    const tabs = document.querySelectorAll('.filter-tab');
+    const subtabs = document.querySelectorAll('.filter-subtab');
+    const cards = document.querySelectorAll('.post-card');
+    const emptyMsg = document.getElementById('emptyMsg');
+
+    let activePillar = 'all';
+    let activeSubtag = null;
+
+    function applyFilter() {
+      let visible = 0;
+      cards.forEach(card => {
+        const pillar = card.dataset.pillar;
+        const subtag = card.dataset.subtag;
+        let show = false;
+        if (activePillar === 'all') {
+          show = true;
+        } else if (activeSubtag) {
+          show = pillar === activePillar && subtag === activeSubtag;
+        } else {
+          show = pillar === activePillar;
+        }
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      emptyMsg.style.display = visible === 0 ? '' : 'none';
+    }
+
+    function showSubtabs(pillar) {
+      subtabs.forEach(btn => {
+        const parent = btn.dataset.pillarParent;
+        btn.style.display = parent === pillar ? '' : 'none';
+        btn.classList.remove('active');
+      });
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected', 'false'); });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+        activePillar = tab.dataset.filter;
+        activeSubtag = null;
+        subtabs.forEach(s => s.classList.remove('active'));
+        if (activePillar === 'all') {
+          subtabs.forEach(s => s.style.display = 'none');
+        } else {
+          showSubtabs(activePillar);
+        }
+        applyFilter();
+      });
+    });
+
+    subtabs.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const parent = btn.dataset.pillarParent;
+        subtabs.forEach(s => { if (s.dataset.pillarParent === parent) s.classList.remove('active'); });
+        btn.classList.add('active');
+        activeSubtag = activeSubtag === btn.dataset.subtag ? null : btn.dataset.subtag;
+        if (!activeSubtag) btn.classList.remove('active');
+        applyFilter();
+      });
+    });
+
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

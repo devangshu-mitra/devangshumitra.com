@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The hardest part of building AI products isn&#39;&#39;t the model. It&#39;&#39;s explaining" />
+  <meta property="og:title" content="Stakeholder Management When Nobody Understands AI — Devangshu Mitra" />
+  <meta property="og:description" content="The hardest part of building AI products isn&#39;&#39;t the model. It&#39;&#39;s explaining" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Stakeholder Management When Nobody Understands AI — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-06-11" itemprop="datePublished">Jun 11, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Stakeholder Management When Nobody Understands AI</h1>
+          <p class="post-header__excerpt" itemprop="description">The hardest part of building AI products isn''t the model. It''s explaining</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Stakeholder Management When Nobody Understands AI</h1>
+
+<p>I've shipped AI products into regulated industries where the stakeholders include physicians who distrust anything that isn't evidence-based, compliance teams who want guarantees that AI can't give, executives who read one McKinsey report and now expect 10x productivity gains, and engineers who know exactly what the model can't do and are skeptical of everything on the roadmap.</p>
+
+<p>None of these stakeholders are wrong. They're all operating from reasonable priors about software that don't transfer cleanly to AI. Your job as the PM is to build a shared mental model that's accurate enough to enable good decisions without requiring everyone to become an ML engineer.</p>
+
+<h2>The Core Problem: Deterministic vs Probabilistic Thinking</h2>
+
+<p>Traditional software is deterministic. A button either works or it doesn't. A calculation is either correct or it has a bug. Stakeholders have spent their entire careers with software that behaves this way, and their intuitions are calibrated accordingly.</p>
+
+<p>AI models are probabilistic. They're right most of the time, wrong some of the time, and the error distribution matters as much as the average accuracy. A model that's 90% accurate sounds impressive until you explain that the 10% errors are clustered in the edge cases your most important customers represent.</p>
+
+<p>The language gap creates specific failure modes:</p>
+
+<ul>
+<li><strong>Executives over-promise</strong>: They hear "90% accuracy" and communicate to customers that the AI "works" without explaining what failure looks like</li>
+<li><strong>Compliance teams block</strong>: They can't get comfortable with "usually right" for decisions that require certainty, so they say no to everything</li>
+<li><strong>Engineers under-commit</strong>: Knowing the model's limits, they set conservative accuracy targets that don't actually create business value</li>
+<li><strong>Users over-trust or under-trust</strong>: Without calibrated communication about confidence, users either treat every AI output as ground truth or ignore all of them</li>
+</ul>
+
+<h2>The Analogy Library</h2>
+
+<p>Build a library of analogies for your specific context. Good analogies translate AI concepts into frameworks stakeholders already have. Here are the ones I use most:</p>
+
+<p><strong>For explaining accuracy thresholds:</strong> "Think of it like a radiologist reading 100 scans. The best radiologists are right 95-97% of the time. We're building an AI second reader that catches what humans miss and flags what needs a second look - not one that replaces the radiologist's judgment."</p>
+
+<p><strong>For explaining confidence scores:</strong> "The model tells us how confident it is, not just what it thinks. It's like a weather forecast - 90% chance of rain is more actionable than just 'it might rain.' We route low-confidence predictions to human review automatically."</p>
+
+<p><strong>For explaining model drift:</strong> "The model learned from historical data. When the real world changes - new treatment protocols, different patient populations, updated coding standards - the model's accuracy can change too. That's why we monitor performance continuously, not just at launch."</p>
+
+<p><strong>For explaining why AI errors are different:</strong> "A traditional software bug either always fails or never fails. AI errors are statistically distributed. We can tell you that the error rate is 3% but we can't always tell you which specific cases will be wrong in advance. That's why human oversight matters for high-stakes decisions."</p>
+
+<h2>Stakeholder-Specific Playbooks</h2>
+
+<h3>Executives and Senior Leadership</h3>
+
+<p>Their fear: overpromising to customers and boards. Their goal: competitive differentiation and measurable ROI.</p>
+
+<p>Lead with the business outcome, not the model. "We're reducing prior authorization processing time by 40% by automating the 60% of cases that are straightforward and routing the complex 40% to reviewers." Not: "We built an NLP model with 87% accuracy on the test set."</p>
+
+<p>Give them approved language. Literally write the sentences they should use when talking to customers and boards. If they're going to talk about your product, they should use language you've pre-validated. "Our AI assists reviewers - it doesn't replace clinical judgment" is a sentence. Give them sentences.</p>
+
+<h3>Compliance and Legal</h3>
+
+<p>Their fear: regulatory exposure from AI errors. Their goal: documented processes that demonstrate appropriate oversight.</p>
+
+<p>Frame AI as process enhancement, not autonomous decision-making. Document the human oversight checkpoints explicitly. "AI flags. Human decides. We log both." Compliance teams can approve processes with human oversight far more easily than they can approve fully autonomous AI decisions.</p>
+
+<p>Bring them into the product development process early. Compliance reviewed at the end becomes a blocker. Compliance consulted during design becomes a partner who's already thought through the risk mitigation.</p>
+
+<h3>Engineering and Data Science</h3>
+
+<p>Their fear: being held accountable for model performance they can't guarantee. Their goal: building something technically sound that doesn't embarrass them.</p>
+
+<p>Make accuracy thresholds a joint definition. Don't tell engineers what accuracy is "good enough" - ask them what's achievable given the data and timeline, then translate that into business requirements. The conversation should be: "If we can get to 85% precision, that means 15% of flagged cases will be false positives. Can we build a review queue that makes that workable for users?"</p>
+
+<p>Protect engineers from direct stakeholder pressure on accuracy numbers. If executives are demanding "99% accuracy" and engineers know that's not achievable, you need to mediate that conversation - not leave your ML team to explain model theory to a skeptical CFO.</p>
+
+<h3>End Users</h3>
+
+<p>Their fear: being blamed for errors made by the AI they relied on. Their goal: doing their job better with less effort.</p>
+
+<p>Build in explicit uncertainty communication at the feature level. If the model's confidence is low, tell the user in the UI. "AI recommendation - 72% confidence - please verify before submitting." Users calibrate their trust based on what you show them; give them the information to calibrate correctly.</p>
+
+<blockquote><p>The worst AI UX I've seen: a recommendation engine that showed the same confident UI regardless of whether the model was 95% confident or 55% confident. Users either over-trusted it (disaster on the low-confidence cases) or stopped using it entirely after a few bad experiences.</p></blockquote>
+
+<h2>The Status Update Framework for AI Features</h2>
+
+<p>Standard sprint reviews don't work well for AI features because "we improved accuracy by 3%" doesn't mean anything to most stakeholders without context.</p>
+
+<p>Use this format for AI feature status updates:</p>
+
+<ol>
+<li><strong>Current performance</strong>: What are we at on our key metrics vs our threshold? (e.g., "Precision: 84% vs 85% target. Recall: 91% vs 88% target.")</li>
+<li><strong>What we learned</strong>: What did we discover about where the model succeeds and fails? (e.g., "Accuracy drops to 71% on pediatric cases - this segment needs separate handling.")</li>
+<li><strong>What we're changing</strong>: Based on what we learned, what's the next iteration? (e.g., "Adding 2,000 pediatric examples to training set. Re-evaluating in two weeks.")</li>
+<li><strong>Risks and blockers</strong>: What could prevent us from hitting the threshold? (e.g., "Data labeling for pediatric cases requires clinical review - need to schedule 8 hours of physician time.")</li>
+</ol>
+
+<h2>When AI Doesn't Work: The Escalation Protocol</h2>
+
+<p>AI products will fail in unexpected ways. Having a pre-agreed escalation protocol before something goes wrong is much easier than building one after an incident.</p>
+
+<ul>
+<li>Define what constitutes a "model incident" - accuracy drops below threshold, error rate spikes, specific segment performance collapses</li>
+<li>Agree on the automatic response - human review queue activation, feature flag rollback, stakeholder notification</li>
+<li>Designate who gets notified at what thresholds - 5% accuracy drop is a product team issue, 15% accuracy drop is an executive issue</li>
+<li>Establish the communication template - stakeholders should hear about AI incidents in plain language, not model metrics</li>
+</ul>
+
+<h2>What matters here</h2>
+
+<p>Stakeholder management for AI products is fundamentally a translation problem. Your job is to build enough shared vocabulary that stakeholders can make good decisions without becoming experts in ML. Build an analogy library for your domain. Give executives pre-approved language. Bring compliance in early. Make accuracy thresholds a joint definition with engineering. Show users calibrated confidence in the UI. And have the incident protocol agreed before you need it.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/building-cross-functional-ai-product-teams/">Building Cross-Functional AI Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/ethics-and-responsible-ai-a-pms-practical-guide/">Ethics and Responsible AI: A PM's Practical Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/building-cross-functional-ai-product-teams/">Building Cross-Functional AI Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Embedding models convert text into vectors that capture meaning. They&#39;re" />
+  <meta property="og:title" content="How Embedding Models Actually Work — Devangshu Mitra" />
+  <meta property="og:description" content="Embedding models convert text into vectors that capture meaning. They&#39;re" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How Embedding Models Actually Work — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-03-29" itemprop="datePublished">Mar 29, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How Embedding Models Actually Work</h1>
+          <p class="post-header__excerpt" itemprop="description">Embedding models convert text into vectors that capture meaning. They're</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How Embedding Models Actually Work</h1>
+
+<p>When I was building the search infrastructure for a healthcare knowledge platform at HCLTech, we replaced keyword-based search with embedding-based semantic search. A query like "elevated liver enzymes" started returning results for "hepatic biomarkers" and "ALT/AST elevation" - terms that never appeared in the original query. Recall improved by 34%. This is what embeddings do: they encode meaning, not just text.</p>
+
+<h2>What Is an Embedding?</h2>
+
+<p>An embedding is a dense vector representation of text. A typical embedding model outputs a vector of 768 to 3,072 floating-point numbers. The key property: <strong>semantically similar text has geometrically similar vectors</strong>. "Dog" and "puppy" are close in vector space. "Dog" and "arbitrage" are far apart.</p>
+
+<pre><code class="language-">from openai import OpenAI
+import numpy as np
+
+client = OpenAI()
+
+def embed(text: str) -&gt; list:
+    return client.embeddings.create(
+        model="text-embedding-3-small", input=text
+    ).data[0].embedding
+
+def cosine_similarity(a: list, b: list) -&gt; float:
+    a, b = np.array(a), np.array(b)
+    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))
+
+e1 = embed("elevated liver enzymes")
+e2 = embed("hepatic biomarkers")
+e3 = embed("stock market volatility")
+
+print(cosine_similarity(e1, e2))  # ~0.82
+print(cosine_similarity(e1, e3))  # ~0.31</code></pre>
+
+<h2>How Embedding Models Are Trained</h2>
+
+<p>Modern text embedding models are BERT-family transformers trained with contrastive learning. The training process uses a <strong>siamese network</strong>: two identical encoders processing two pieces of text. Training pairs include positive pairs (semantically similar text) and negative pairs (semantically different text). The loss function pushes positive pair embeddings closer together and negatives further apart. Over millions of training pairs, the model learns to encode semantic relationships in geometric form.</p>
+
+<h2>Matryoshka Representation Learning</h2>
+
+<p>OpenAI's text-embedding-3-* models use Matryoshka Representation Learning (MRL): the first N dimensions of the full embedding are themselves a valid lower-dimensional embedding. You can truncate text-embedding-3-large from 3,072 to 256 dimensions and retain ~85% of performance at 12x lower storage cost.</p>
+
+<pre><code class="language-">response = client.embeddings.create(
+    model="text-embedding-3-large",
+    input=text,
+    dimensions=256  # Truncate from 3072 to 256
+)
+# Storage: 256 * 4 bytes = 1KB vs 12KB at full size
+# For 10M documents: 1GB vs 12GB</code></pre>
+
+<h2>Choosing the Right Embedding Model</h2>
+
+<p>The MTEB (Massive Text Embedding Benchmark) leaderboard is the standard reference. Top performers:</p>
+
+<ul>
+<li><strong>text-embedding-3-large (OpenAI):</strong> Strong general-purpose, $0.13/M tokens.</li>
+<li><strong>voyage-large-2 (Voyage AI):</strong> Often outperforms OpenAI on RAG tasks, $0.12/M tokens.</li>
+<li><strong>BAAI/bge-large-en-v1.5:</strong> Open-source, runs locally. Good for privacy-sensitive use.</li>
+<li><strong>E5-mistral-7b-instruct:</strong> Excellent for asymmetric retrieval (short query, long document).</li>
+</ul>
+
+<h2>Asymmetric vs Symmetric Retrieval</h2>
+
+<p>Many models are trained on symmetric pairs (similar articles) and perform poorly on asymmetric retrieval (short question, long document answer). For Q&A over documents, use models trained for asymmetric retrieval. Or use <strong>HyDE</strong> (Hypothetical Document Embeddings): generate a hypothetical answer with an LLM, then embed that answer instead of the raw question.</p>
+
+<pre><code class="language-">def hyde_embed(question: str) -&gt; list:
+    response = client.chat.completions.create(
+        model="gpt-4o-mini",
+        messages=[{
+            "role": "user",
+            "content": f"Write a brief, factual answer to: {question}"
+        }]
+    )
+    hypothetical_answer = response.choices[0].message.content
+    return embed(hypothetical_answer)</code></pre>
+
+<h2>Embeddings Beyond Search</h2>
+
+<p><strong>Clustering:</strong> At Mamaearth, we clustered customer reviews by semantic theme - surfacing product feedback signals keyword search missed entirely. <strong>Anomaly detection:</strong> Flag clinical notes statistically far from a doctor's historical baseline. <strong>Zero-shot classification:</strong> Embed class descriptions, classify incoming items by nearest class.</p>
+
+<pre><code class="language-">classes = {
+    "billing": embed("invoice payment charge subscription"),
+    "technical": embed("bug error crash not working"),
+    "account": embed("login password access account settings")
+}
+
+def classify_ticket(ticket_text: str) -&gt; str:
+    ticket_emb = embed(ticket_text)
+    scores = {
+        label: cosine_similarity(ticket_emb, class_emb)
+        for label, class_emb in classes.items()
+    }
+    return max(scores, key=scores.get)</code></pre>
+
+<h2>Where Embeddings Break Down</h2>
+
+<ul>
+<li><strong>Negation:</strong> "Patient has no fever" and "Patient has fever" have similar embeddings.</li>
+<li><strong>Long documents:</strong> Most models have a 512-8K token limit. Truncation silently drops content. Use chunking.</li>
+<li><strong>Domain specificity:</strong> General web-trained models produce poor embeddings for specialized domains. Consider PubMedBERT for biomedical, LegalBERT for legal.</li>
+<li><strong>Cross-lingual:</strong> Multilingual models underperform monolingual models on individual languages.</li>
+</ul>
+
+<p>Choosing the wrong embedding model early means rebuilding your entire vector index later - a painful and expensive migration. Pick deliberately, test on your domain.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+<li><a href="https://www.devangshumitra.com/reinforcement-learning-from-human-feedback-rlhf-demystified/">Reinforcement Learning from Human Feedback (RLHF) Demystified</a></li>
+</ul>
+
+<hr>
+
+<h2>Scaling and Indexing Embeddings</h2>
+
+<p>Once you generate millions of embeddings, storing and searching them efficiently becomes a new challenge. A 768-dimensional embedding for 100 million documents means 76.8 billion floating-point numbers. Brute-force searching every vector for the closest match isn't feasible. A single query could take minutes.</p>
+
+<p>This is where vector databases come in. Tools like Pinecone, Weaviate, Qdrant, and Milvus are built specifically for this. They use Approximate Nearest Neighbor (ANN) algorithms. Algorithms like HNSW (Hierarchical Navigable Small World) or IVFPQ (Inverted File with Product Quantization) create an index that allows for very fast, near-exact searches. You trade a tiny bit of recall accuracy for massive speed improvements. For example, an HNSW index might find 99% of the true nearest neighbors in milliseconds, even across hundreds of millions of vectors. This is critical for real-time applications like semantic search or recommendation engines.</p>
+
+<h2>Fine-tuning Embeddings for Your Domain</h2>
+
+<p>General-purpose embedding models like those from OpenAI or Voyage AI are powerful. They're trained on vast amounts of public internet data. But sometimes, your specific domain has unique jargon, acronyms, or relationships that a general model just won't capture perfectly. I saw this in healthcare; terms like "STAT orders" or "PRN medications" have very specific meanings that a model trained on general text might not fully grasp.</p>
+
+<p>This is when fine-tuning becomes valuable. You can take a pre-trained model and continue its training on your proprietary data. The process usually involves creating a small dataset of positive pairs (semantically similar sentences from your documents) and negative pairs. You might use a technique like Sentence-BERT (SBERT) for this. Even a few thousand well-curated examples can significantly boost performance for your specific use case. This helps the model learn the nuances of your particular dataset, leading to more relevant results for your users.</p>
+
+<h2>What Embeddings Don't Understand (Yet)</h2>
+
+<p>Embeddings are excellent at capturing semantic similarity based on patterns in their training data. But they don't possess true understanding or common sense. One common limitation is negation. If you embed "The cat is not on the mat" and "The cat is on the mat," their embeddings might still be quite close. The presence of "cat" and "mat" dominates the vector space, often overshadowing the "not."</p>
+
+<p>They also struggle with factual accuracy or reasoning beyond direct textual relationships. An embedding for "Paris is the capital of France" is close to "The capital of France is Paris." However, it won't inherently know that Paris is a city, or that France is a country. These are higher-level concepts. When debugging, I often look at the nearest neighbors for a query. If I see irrelevant results that share keywords but miss the core intent, it often points to these kinds of limitations. Embeddings are powerful tools, but they are statistical representations, not sentient intelligence.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/vector-databases-compared-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+<li><a href="https://www.devangshumitra.com/embedding-strategies-that-actually-scale/">Embedding Strategies That Actually Scale</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

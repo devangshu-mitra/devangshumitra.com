@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A preview of an upcoming research paper analyzing 100+ AI product launches" />
+  <meta property="og:title" content="Research Preview: Cross-Industry Patterns in AI Product Management — Devangshu Mitra" />
+  <meta property="og:description" content="A preview of an upcoming research paper analyzing 100+ AI product launches" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Research Preview: Cross-Industry Patterns in AI Product Management — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Research</span>
+            <time class="post-header__date" datetime="2025-10-03" itemprop="datePublished">Oct 3, 2025</time>
+            <span class="post-header__read-time">14 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Research Preview: Cross-Industry Patterns in AI Product Management</h1>
+          <p class="post-header__excerpt" itemprop="description">A preview of an upcoming research paper analyzing 100+ AI product launches</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Research Preview: Cross-Industry Patterns in AI Product Management</h1>
+
+<h2>When Your AI Product Works in the Lab But Fails in Production</h2>
+
+<p>I watched a clinical decision support team spend eight months building a model to predict patient deterioration in ICUs. The validation metrics looked clean - 87% sensitivity, 91% specificity. Three weeks after launch, the medical directors called. "It's triggering on stable patients. Your clinical team isn't trusting it." Within six weeks, adoption had flatlined at 12% of eligible cases.</p>
+
+<p>Same week, I was working with a pharmaceutical company on their drug discovery acceleration tool. Their data scientists had optimized their embedding model to death - improving NDCG scores by 4 points. But when researchers actually used it, they were getting back results in a different rank order than their existing search tools, and it was burning through their research budget faster because the false positive rate on novel compound predictions was silently high.</p>
+
+<p>These weren't isolated incidents. Over the past three years, I've worked on AI products across biotech, medical devices, healthcare providers, insurance platforms, and enterprise software. What's striking isn't how different these industries are - it's how similar the failure modes are, and how consistent the solutions are once you see the pattern.</p>
+
+<p>This research covers cross-industry patterns in AI product management. Not machine learning engineering, and not generic product management. The specific challenge of shipping AI products that people actually use at scale.</p>
+
+<h2>The Core Problem: AI Products Fail at the Interface Between Model and User</h2>
+
+<p>Most AI product failures I've seen don't happen because the model doesn't work. They happen because the model works - but differently than stakeholders expected, in ways that matter to real workflows.</p>
+
+<p>Let me break down what I mean with specifics.</p>
+
+<ul>
+<li><strong>The Trust Decay Problem</strong>: A model predicts X with 89% accuracy on holdout test sets, but makes systematic errors that users notice immediately. In healthcare, this is catastrophic - one physician sees the model miss twice on their cohort and stops checking it. In biotech, researchers see false positives on compounds they then have to synthesize and test. Each false positive costs 50k-200k in materials and labor. The model needs 95%+ accuracy on their specific use case, not average accuracy across a broad test set.</li>
+<li><strong>The Integration Friction Problem</strong>: The model works, but integrating its outputs into existing workflows requires manual steps. A research team using an AI-powered literature search tool has to manually filter results, cross-check against their internal database, and validate against known studies. The tool was supposed to save 3 hours per week. Instead, it saves 45 minutes because of integration friction.</li>
+<li><strong>The Silent Failure Problem</strong>: The model degrades gracefully on out-of-distribution data, but nobody notices until impact is measured. A pricing model for MedTech devices trained on Q1-Q3 data starts predicting 30% lower than actual in Q4. A diagnostic AI trained on hospital A's imaging systems gives lower sensitivity on hospital B's different scanner. Nobody measures this proactively - it gets discovered during rollout.</li>
+</ul>
+
+<p>I've seen every combination of these. What ties them together is this: the failure isn't about model quality. It's about the gap between what the model actually does and what the product needs it to do in a real user's workflow.</p>
+
+<h2>The Framework: AI Product Management as Three Overlapping Challenges</h2>
+
+<p>After working through this repeatedly across different industries, I've found that successful AI products solve three problems simultaneously. They're not sequential - they're parallel and interconnected.</p>
+
+<ol>
+<li><strong>The Model Problem</strong>: Does the model do what we need it to do, on real data, in real conditions? Not test set conditions.</li>
+<li><strong>The Integration Problem</strong>: Can users incorporate this into their workflow without breaking their existing process? Does it require less friction than the alternative?</li>
+<li><strong>The Trust Problem</strong>: Do users understand when to trust the output and when not to? Can they explain it to stakeholders who need to act on it?</li>
+</ol>
+
+<p>Most teams focus heavily on problem 1 and assume 2 and 3 will follow. They don't. I've seen this with clinical AI teams, biotech, medical devices, and enterprise software companies building AI features.</p>
+
+<p>Here's what works: you need to address all three, and you need to do it with real users, not in theory.</p>
+
+<h2>How to Apply This: A Concrete Workflow</h2>
+
+<p>This is how I've run this with six different product teams now. I'm sharing the actual process, with the stumbling blocks I had to learn the hard way.</p>
+
+<h2>Step 1: Define What "Right" Looks Like for Each Stakeholder</h2>
+
+<p>Don't define model performance in abstract terms. Define what happens if the model fails, who experiences the consequence, and what threshold of performance they can actually tolerate.</p>
+
+<p>With the clinical decision support tool I mentioned earlier, we did this wrong initially. We asked: "What's acceptable sensitivity?" The answer was "high". But we never asked: "What happens if we predict deterioration on a stable patient?" The answer: physicians see an alert, investigate, find nothing, and mentally downweight the system. Three false alerts per shift and it's noise.</p>
+
+<p>We should have asked: "How many false alerts per shift destroy trust?" The answer was one per 8-hour shift maximum. That became the real constraint - not overall sensitivity, but false positive rate on their specific cohort. We then retrained around that constraint.</p>
+
+<p>For the biotech tool, the question was: "How many false positives can we tolerate?" They could tolerate maybe 1 in 5, because each synthesis cost 50k. That's 20% false positive rate at a business level. But the data scientists were optimizing for NDCG, not for false positive rate on their specific validation set.</p>
+
+<p>Do this for every stakeholder group:</p>
+
+<ul>
+<li>The person using the tool daily (the researcher, the clinician)</li>
+<li>The person managing them (the lab manager, the department head)</li>
+<li>The person held accountable if something goes wrong (the chief medical officer, the head of R&D)</li>
+</ul>
+
+<p>Map out what failure looks like for each and the threshold they can tolerate. Write it down. This becomes your actual spec.</p>
+
+<h2>Step 2: Run a Manual Workflow First</h2>
+
+<p>Before you deploy the model, have humans do what you're asking the model to do. All the way through. Don't simulate - do the actual workflow with actual data.</p>
+
+<p>I do this for 2-4 weeks with 2-3 power users. We literally run the task manually using the data the model would see. Not sanitized data. Real data.</p>
+
+<p>Why? Because this is where you find the hidden constraints:</p>
+
+<ul>
+<li>The data you thought would be available isn't actually available 30% of the time</li>
+<li>The decision the AI is supposed to inform happens in parallel with three other decisions, not in isolation</li>
+<li>The human doing this task is actually doing 6 things at once, and inserting an AI step creates bottlenecks you didn't anticipate</li>
+<li>The time savings you calculated assumed perfect conditions - real conditions have interruptions, context switches, and exceptions</li>
+</ul>
+
+<p>With the clinical tool, running the manual workflow showed us that intensivists were making deterioration predictions by looking at four specific trending patterns, not by reviewing the full patient record. Our model was designed to ingest the full record. We were solving the wrong problem.</p>
+
+<p>With the biotech team, the manual workflow showed us that researchers were checking AI results against their institutional database of known actives before committing resources. We had to build that check into the pipeline, or the AI output was worthless to them.</p>
+
+<h2>Step 3: Design the Intervention, Not Just the Model</h2>
+
+<p>This is where most AI products fail. You design the model. You don't design the product.</p>
+
+<p>The product is: model + interface + integration + uncertainty communication + workflow change + training + monitoring + remediation.</p>
+
+<p>Let me be specific about what I mean:</p>
+
+<ul>
+<li><strong>Uncertainty communication</strong>: How does the user know when the model is confident vs. uncertain? Not in absolute calibration scores - in actionable terms. "High confidence" means what? For the clinical tool, we showed prediction probability AND the three most similar historical patients it was comparing to. That gave clinicians mental models for when to trust it.</li>
+<li><strong>Integration</strong>: How many clicks to act on the model output? How many copy-paste operations? The biotech team's old process was: run search, manually check results, copy compounds into internal database, flag for synthesis. The AI tool was: get AI results, manually check results, copy compounds... same steps. We added an "export to synthesis queue" button. That reduced friction from 3 manual steps to 1.</li>
+<li><strong>Workflow change</strong>: What does the user have to do differently? With the clinical tool, we were asking intensivists to check an alert they weren't used to checking. We needed to integrate it into their existing rounds process, not add it as a separate task. We worked with one unit to embed it into their existing dashboards and handoff protocol. Adoption jumped from 12% to 67% in that unit.</li>
+<li><strong>Monitoring</strong>: What metrics actually matter for detecting failure? Not model accuracy on a hold-out set. For the clinical tool: "What percentage of alerts are acted upon? What's the median time from alert to clinical decision?" For the biotech tool: "What percentage of AI-flagged compounds are being synthesized? What's the false positive rate we're seeing on synthesized compounds?" These are the metrics that tell you if the product is working in the real world.</li>
+</ul>
+
+<p>All of this has to be designed before launch, not iterated post-launch.</p>
+
+<h2>Step 4: Run a Tight Pilot on Real Data with Real Stakes</h2>
+
+<p>Not a sandbox. A real pilot where decisions made on AI output have actual consequences.</p>
+
+<p>This is where you find the silent failures. I run these as 4-6 week sprints:</p>
+
+<ul>
+<li>Real users (not beta testers - actual people doing their jobs)</li>
+<li>Real data (their actual cases, not anonymized subsets)</li>
+<li>Real stakes (the output actually gets used to make decisions)</li>
+<li>Real consequences (if something goes wrong, patients are affected or compounds get synthesized)</li>
+<li>Real measurement (daily tracking of the metrics you defined in step 1)</li>
+</ul>
+
+<p>With the clinical tool, we ran a 6-week pilot on one ICU. We tracked sensitivity, false positive rate, and adoption daily. Week 2: false positive rate was 8%, which was way above our tolerance. We discovered the model was flagging based on gradual changes that were clinically expected for that patient population. We retrained with population-specific baseline standards. Week 4-6: false positive rate dropped to 1.2%. Adoption moved to 64%.</p>
+
+<p>With the biotech tool, the pilot revealed that the model was flagging compounds similar to known actives, but the researchers' definition of "similar" was different than the model's. They wanted structural similarity, the model was doing pharmacophore similarity. Same false positive problem. We retuned the ranking during the pilot.</p>
+
+<p>This is where the real learning happens. In a real pilot, with real users, on real data.</p>
+
+<h2>Common Mistakes and How I've Learned to Avoid Them</h2>
+
+<p>After enough cycles through this, patterns emerge in where teams go wrong.</p>
+
+<h2>Mistake 1: Confusing Model Accuracy with Product Success</h2>
+
+<p>I see this constantly. The model has 92% accuracy. The product launches. Adoption is 15%. Leadership asks: "The model works - why isn't anyone using it?"</p>
+
+<p>Because accuracy on a test set and usefulness in a workflow are not the same thing. Accuracy doesn't tell you about:</p>
+
+<ul>
+<li>False positive rate in the specific user's sub-population</li>
+<li>How the errors are distributed - are they concentrated in edge cases or random?</li>
+<li>Whether the model is faster than the existing alternative</li>
+<li>Whether integrating the model into the workflow is actually simpler than the current process</li>
+</ul>
+
+<p>The fix: measure product success during pilot using real user behavior metrics, not model metrics. Adoption rate, time to decision, false positive rate on actual cases they care about - not test set accuracy.</p>
+
+<h2>Mistake 2: Building for the Average User, Not the Actual User Mix</h2>
+
+<p>I've seen this in healthcare specifically. The model is trained on average cases. But the 20% of users who deal with edge cases (rare presentations, unusual comorbidities, atypical disease progression) get unreliable predictions. They stop using it first. Then they tell everyone else it's unreliable.</p>
+
+<p>With the clinical tool, the pediatric intensivists had different vital sign patterns than adult ICU patients. The model trained on mixed data was mediocre on both. We built separate models and deployed both, with logic to route based on patient age. Adoption in pediatrics went from 8% to 71%.</p>
+
+<p>The fix: understand the distribution of actual use cases early. Build your pilots with representative users across that distribution. Don't assume average performance is good enough.</p>
+
+<h2>Mistake 3: Treating the AI as the Product, Not as a Component</h2>
+
+<p>The AI is part of the product. The product includes the AI, the interface, the integration, the uncertainty communication, the workflow design, and the monitoring.</p>
+
+<p>I've seen teams ship perfect models with terrible UX. "The model is right" - yes, but the user can't tell when to trust it or how to act on it. Or they ship great models with no integration - users have to manually copy results into their existing system. The model is right, but the product is friction.</p>
+
+<p>The fix: treat AI + UX + integration + monitoring as a unified product design problem. Involve the UX person, the clinical expert, and the data scientist in every decision. They all matter equally.</p>
+
+<h2>Mistake 4: Not Planning for Model Degradation</h2>
+
+<p>Models degrade. New user populations, new data distributions, domain shift - it happens. I've seen teams ship a model, see performance drop 6 months later, and not realize it until adoption starts declining.</p>
+
+<p>With a diagnostic tool we built, performance on new scanner hardware was 4 points lower than on training hardware. It took three months to detect because we weren't tracking performance by hardware type.</p>
+
+<p>The fix: build monitoring into the launch plan. Track actual performance metrics (not just volume metrics) in production. Set alerts for degradation. Plan how to respond - do you retrain? Do you adjust thresholds? Do you alert users? Decide this during design, not in a panic post-launch.</p>
+
+<h2>Real Examples Across Industries</h2>
+
+<h2>Example 1: Healthcare Provider - Clinical Documentation Assist</h2>
+
+<p>A health system wanted an AI tool to auto-complete clinical notes. The model was fine - 94% BLEU score on test data. But the physicians using it found that auto-completions were breaking their note structure in ways that made them harder to read later. The physicians started turning it off.</p>
+
+<p>The team had optimized for BLEU score (text similarity) instead of for "does this make the clinical note better and faster to write." When we redefined success as "percentage of physicians using auto-complete intentionally" instead of "model accuracy", the number was 18%.</p>
+
+<p>We ran a manual workflow study with three physicians. We found that the note structure that mattered wasn't optimized for in training - assessments and plans needed to be concise and specific to each problem. The AI was generating verbose templates. We retrained on a subset of notes that matched their preferred structure. We also added a filtering step - only show completions that preserve note structure.</p>
+
+<p>Adoption went from 18% to 63% with a lower BLEU score, because the model was now solving the right problem.</p>
+
+<h2>Example 2: Biotech - Compound Screening Prioritization</h2>
+
+<p>A drug discovery team built an AI to prioritize which compounds to synthesize based on predicted efficacy. The model showed 81% accuracy on known actives. During launch pilot, the team synthesized 30 top-ranked compounds. Only 4 were active. The false positive rate was 87%.</p>
+
+<p>The problem: the model was optimized for ranking known compounds (NDCG score). It wasn't optimized for actual discovery - identifying truly novel actives with different properties.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-management-interview-prep-50-questions-youll-actually-get-asked/">AI Product Management Interview Prep: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/course-ai-product-management-fundamentals-from-healthcare-to-enterprise/">Course: AI Product Management Fundamentals - From Healthcare to Enterprise</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/first-principles-thinking-life-sciences-pm/">First Principles Thinking for Life Sciences Product Managers: Beyond Best Practices</a></li>
+<li><a href="https://www.devangshumitra.com/the-first-principles-of-healthcare-ai-product-management-9/">The First Principles of Healthcare AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/fda-samd-guidance-product-managers/">FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs to Know</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

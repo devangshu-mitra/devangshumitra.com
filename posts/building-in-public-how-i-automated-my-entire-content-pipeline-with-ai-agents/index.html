@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I built a system of AI agents that handles ideation, scripting, editing," />
+  <meta property="og:title" content="Building in Public: How I Automated My Entire Content Pipeline with AI Agents — Devangshu Mitra" />
+  <meta property="og:description" content="I built a system of AI agents that handles ideation, scripting, editing," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building in Public: How I Automated My Entire Content Pipeline with AI Agents — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Building in Public</span>
+            <time class="post-header__date" datetime="2025-10-23" itemprop="datePublished">Oct 23, 2025</time>
+            <span class="post-header__read-time">4 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building in Public: How I Automated My Entire Content Pipeline with AI Agents</h1>
+          <p class="post-header__excerpt" itemprop="description">I built a system of AI agents that handles ideation, scripting, editing,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building in Public: How I Automated My Entire Content Pipeline with AI Agents</h1>
+
+<p>Creating content at scale with a full-time job is a logistics problem. I want to publish across 10+ platforms - long-form articles, short-form video scripts, LinkedIn posts, newsletter editions - on a consistent schedule. The bottleneck is not ideas; it is the mechanical work of transforming an idea into formatted, platform-appropriate content in a format that does not require me to spend 5-10 hours per week on tasks a machine should do. So I built a system. Here is what I built, what works, and what failed in ways I did not anticipate.</p>
+
+<h2>The Architecture: 3 Layers</h2>
+
+<p>The system has three layers that mirror how I think about reliable AI workflows generally. The first layer is directives: plain-language instruction documents that define what each workflow should do, what inputs it takes, what outputs it produces, and how to handle edge cases. Think of these as the SOPs a good employee would follow. The second layer is orchestration: an AI agent that reads the directives, makes decisions about which tools to call in which order, and handles errors. The third layer is execution: deterministic Python scripts that do the actual work - calling APIs, formatting outputs, writing files, posting to platforms. The AI handles the uncertain decisions; the scripts handle the certain computations.</p>
+
+<p>Why this separation? Because LLMs are probabilistic. They make different decisions on different runs, hallucinate formatting details, and compound errors across multi-step tasks. If I let an LLM do everything end-to-end - ideate the topic, write the post, format it for LinkedIn, post it via API - I get a 60-70% success rate at best. By pushing the deterministic work into Python scripts (API calls, text formatting, file operations) and reserving the LLM for the genuinely uncertain decisions (what angle to take on this topic, how to adapt this paragraph for a different audience), the success rate improves dramatically.</p>
+
+<h2>What Actually Works</h2>
+
+<p>The repurposing pipeline is the highest-value part of the system. I write one long-form post (like this one) and the pipeline automatically derives: a 1,200-word version for Substack, a 300-word version for LinkedIn, a 150-word thread for X, and a video script version structured for a talking-head recording. The tone adaptation - making the LinkedIn version more conversational, the Substack version more analytical - was surprisingly good out of the box with explicit instruction in the directive. I expected to need heavy manual editing. In practice, I edit about 20% of the output.</p>
+
+<p>The self-healing error correction was the architectural feature I underestimated. When a script fails - an API rate limit, a malformed response, a format it has not seen - the agent reads the error, diagnoses it, fixes the script, and retests. This turns a 30-minute debugging session into a 90-second automated fix. The key is that the agent updates the directive with what it learned: "this API requires a 1-second delay between requests." That learning persists across sessions so the next run does not make the same mistake.</p>
+
+<h2>What Failed (Honestly)</h2>
+
+<p>LLMs hallucinate formats. I cannot stress this enough. I have detailed formatting specifications in every directive - word counts, section headers, required callouts - and the agent still occasionally produces output with the wrong structure, an extra section that was not requested, or a word count 40% over spec. The fix was to add a validation script at the end of every pipeline: check output length, check required sections are present, check required sections are not duplicated. When validation fails, the pipeline re-runs with the error message as additional context. This added 15 minutes of development time per pipeline and eliminated 80% of formatting failures.</p>
+
+<p>The other failure was multi-platform auth management. Each platform has a different auth flow - OAuth2 for some, API keys for others, browser automation for the ones with no API. Maintaining valid credentials for 10+ platforms turned into its own maintenance burden. I have not solved this elegantly. My current approach is to automate the platforms with stable APIs (Ghost, LinkedIn, Substack) and handle the rest manually. The 80/20 principle applies here: automating the three highest-volume platforms covered 80% of the publishing work. The remaining platforms were not worth the maintenance cost of automation.</p>
+
+<h2>The Philosophy</h2>
+
+<p>The principle I keep coming back to is: AI should handle the 80% mechanical work so humans can focus on the 20% that requires genuine judgment. The mechanical work in content creation is adaptation, formatting, and distribution. The work that requires judgment is the original idea, the specific example that makes the abstract concrete, the decision about whether a claim is accurate. If I am spending my content time on formatting and posting, I am working below my skill level. If the AI is making the judgment calls, the content will be undifferentiated. The system works when it respects that division.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+<li><a href="https://www.devangshumitra.com/how-i-use-ai-agents-to-run-my-entire-content-operation-2/">How I Use AI Agents to Run My Entire Content Operation</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-month-1-what-worked-what-didnt-2/">Building in Public Month 1: What Worked, What Didn't</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</a></li>
+<li><a href="https://www.devangshumitra.com/building-geenie-my-personal-ai-operating-system/">Building Geenie: My Personal AI Operating System</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

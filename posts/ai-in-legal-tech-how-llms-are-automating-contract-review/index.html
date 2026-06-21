@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover how AI in legal tech is transforming contract review through LLMs" />
+  <meta property="og:title" content="AI in Legal Tech: How LLMs Are Automating Contract Review — Devangshu Mitra" />
+  <meta property="og:description" content="Discover how AI in legal tech is transforming contract review through LLMs" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI in Legal Tech: How LLMs Are Automating Contract Review — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Cross-Industry</span>
+            <time class="post-header__date" datetime="2025-09-18" itemprop="datePublished">Sep 18, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI in Legal Tech: How LLMs Are Automating Contract Review</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover how AI in legal tech is transforming contract review through LLMs</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI in Legal Tech: How LLMs Are Automating Contract Review</h1>
+
+<p>Legal technology has had false dawns before. E-discovery software in the 2000s was supposed to eliminate the document review associate. Contract management platforms in the 2010s were supposed to eliminate contract drafting work. Neither happened - they made the work faster and cheaper but the human layer remained essential.</p>
+
+<p>LLMs feel different in practice. Not because the technology is magic, but because language is the medium of legal work in a way it is not the medium of radiology or accounting. A legal document is almost entirely text. The reasoning steps of a legal professional - reading, interpreting, comparing, flagging - map more directly to what LLMs do than most professional domains. The gap between what LLMs can do and what legal work requires is narrower here than almost anywhere else.</p>
+
+<p>I have been watching this space closely because the document intelligence patterns in legal technology mirror what my team builds in healthcare. Clinical trial protocols and NDA agreements are different documents, but the core technical problem - extracting structured information from dense unstructured text, reasoning across long documents, flagging deviations from expected patterns - is the same.</p>
+
+<hr>
+
+<h2>Contract Analysis: What Is Actually Working</h2>
+
+<h3>Harvey AI</h3>
+
+<p>Harvey is the most talked-about legal AI, partly because of its pedigree (Allen & Overy, PwC, Cleary Gottlieb as early partners) and partly because its use cases are concrete and measurable. Harvey's core product is a fine-tuned LLM trained on legal data that assists lawyers with contract review, due diligence, and legal research.</p>
+
+<p>The contract review use case is Harvey's strongest application. In M&A due diligence, a deal might require reviewing 500-2,000 contracts to surface material risks - change of control provisions, assignment restrictions, non-competes, indemnification clauses. Previously this required armies of first-year associates billing at $300-400/hour. Harvey's contract review can process the same corpus in hours, flagging deviations from the expected clause library and surfacing high-risk provisions for senior attorney review.</p>
+
+<p>The accuracy story is more nuanced. Harvey performs well on standard commercial contract types (NDAs, MSAs, SOWs) and degrades on highly bespoke or jurisdiction-specific agreements where its training data is thinner. The firms using it well have stopped asking "is Harvey right?" and started asking "what did Harvey flag that we need to verify?" - which is the correct mental model for AI-assisted legal work.</p>
+
+<h3>Ironclad and Contract Lifecycle Management</h3>
+
+<p>Ironclad's approach is different from Harvey's. Rather than a general legal AI layer, Ironclad built AI into the contract lifecycle management workflow - creation, negotiation, execution, and post-signature obligations management. The AI features handle clause suggestion during drafting ("parties in this industry typically include X clause here"), redline analysis ("counterparty's proposed language deviates from your standard on these three dimensions"), and obligation extraction post-signature ("this contract requires quarterly reporting by March 15th").</p>
+
+<p>The obligation extraction use case is underappreciated. Most companies have hundreds of active contracts with embedded obligations - notice requirements, renewal deadlines, SLA commitments, regulatory reporting duties - that currently live in a spreadsheet maintained by a paralegal. AI-powered obligation extraction creates a living, searchable obligations register that updates as contracts are added. The business value (avoiding missed renewal windows, SLA breaches, contractual penalties) is easy to quantify and does not require changing how lawyers work.</p>
+
+<hr>
+
+<h2>Legal Research: CoCounsel and the Thomson Reuters Bet</h2>
+
+<p>Thomson Reuters paid $650 million for Casetext in 2023. Casetext's primary product, CoCounsel, is a legal research assistant built on GPT-4. The acquisition was Thomson Reuters betting that AI-native legal research would displace traditional database search.</p>
+
+<p>The bet appears to be paying off. CoCounsel's contract review, deposition preparation, and legal research features are now integrated into Westlaw. The research workflow shift is meaningful: instead of a lawyer formulating Boolean search queries against a case law database, they describe their legal question in natural language and get a synthesized answer with cited cases.</p>
+
+<p>The cited case problem is where legal LLMs have had their most public failures. Early LLM legal tools hallucinated case citations - inventing plausible-sounding but nonexistent case names and citations. This is catastrophic in a legal context: filing a brief that cites a nonexistent case is a sanctions-level error. The firms and tools that caught this early - and it is well-documented that some did not - built citation verification as a hard gate before any output reached users. This is the legal equivalent of the clinical AI hallucination problem: the failure mode is not just wrong, it is harmful in specific, measurable ways.</p>
+
+<p>The current generation of legal research AI solves this through grounded generation - the model is only permitted to cite cases that exist in the verified database. The quality of the research depends heavily on the quality and coverage of the underlying case law corpus. This is why the established players (Thomson Reuters, LexisNexis) have structural advantages: their data moats compound over decades and are genuinely hard to replicate.</p>
+
+<hr>
+
+<h2>Compliance Automation</h2>
+
+<p>Compliance is a large language model's natural habitat. The inputs are dense regulatory text that changes frequently. The required output is structured analysis of how specific policies, contracts, or business activities comply with specific regulatory requirements. The work is high-volume, repetitive, and requires specialized knowledge that is expensive to acquire and maintain in human experts.</p>
+
+<p>The current compliance AI use cases include:</p>
+
+<ul>
+<li><strong>Regulatory change monitoring:</strong> Track regulatory updates across jurisdictions and automatically flag which internal policies, contracts, and processes are affected. Previously required teams of regulatory affairs specialists manually reviewing hundreds of pages of federal register notices.</li>
+<li><strong>Policy gap analysis:</strong> Compare internal policies against regulatory requirements and surface gaps. Useful for GDPR compliance assessments, SOC 2 audit prep, and FDA submission readiness reviews.</li>
+<li><strong>Third-party risk assessment:</strong> Extract compliance-relevant provisions from vendor contracts and score vendors against internal risk criteria. Large organizations have thousands of vendor agreements; manual review is not feasible.</li>
+</ul>
+
+<p>In my healthcare work, the parallels are direct. FDA submission documents - clinical study reports, investigator brochures, risk management files - are compliance documents with the same structure as regulatory compliance filings. The AI pattern is identical: extract structured information from dense text, compare against a requirements framework, surface gaps and anomalies. The healthcare-specific wrinkle is that PHI handling requirements add a layer of data classification and access control that general legal compliance tools do not need.</p>
+
+<hr>
+
+<h2>Document Review in Litigation</h2>
+
+<p>E-discovery AI has been in use longer than most AI legal applications - predictive coding (technology-assisted review) has been court-accepted since around 2012. But LLMs have significantly expanded what AI-assisted document review can do.</p>
+
+<p>Classic TAR handled relevance classification: is this document relevant to the litigation? Modern LLM-assisted review does more: it identifies key custodians, extracts key facts, groups related documents by topic, and surfaces potential privilege issues. The throughput improvement is substantial - a document review that took a team of 20 contract attorneys six weeks now takes a team of 5 two weeks, with the AI handling initial classification and humans focused on privilege review and key document identification.</p>
+
+<p>The billing model implication is significant. Litigation support work billed by the hour for document review was a substantial revenue stream for large law firms and legal services companies. That work is compressing. The firms repositioning fastest are using the time savings to do higher-quality analysis - spending the recovered hours on deposition strategy and brief drafting rather than document classification - and capturing the value as competitive differentiation rather than trying to bill the hours they no longer need.</p>
+
+<hr>
+
+<h2>Litigation Prediction</h2>
+
+<p>The most speculative legal AI application - and the one that attracts the most hype and the most skepticism - is litigation prediction. Tools like Lex Machina (now LexisNexis) and Premonition analyze historical case outcomes to predict litigation outcomes based on judge tendencies, case type, venue, and opposing counsel track record.</p>
+
+<p>The honest assessment: litigation prediction is useful for base rate calibration and is not useful as a decision engine. Knowing that a specific judge rules for plaintiffs 73% of the time in breach of contract cases in SDNY tells you something about how to frame settlement negotiations. It does not tell you whether to take a specific case to trial. The variables that drive individual case outcomes - quality of evidence, witness credibility, unpredictable jury dynamics - are not in the historical data.</p>
+
+<p>This mirrors the clinical prediction problem I see in healthcare AI. Population-level risk models are accurate and useful for triage and resource allocation. Individual-level predictions for specific patients require much higher confidence bars before they influence clinical decisions. Legal AI will face the same epistemological boundary.</p>
+
+<hr>
+
+<h2>What Builders Can Learn From Legal AI</h2>
+
+<p>Several patterns in legal AI are generalizable to other document-intensive domains:</p>
+
+<ol>
+<li><strong>Grounded generation beats general generation for high-stakes outputs.</strong> Restrict the model to cite only verified sources. The hallucination problem is not a model quality problem - it is an architectural choice about whether you let the model generate freely or constrain it to a verified corpus.</li>
+<li><strong>Obligation extraction is a high-ROI, low-risk entry point.</strong> In any domain with complex contractual or regulatory obligations, extracting and structuring those obligations into a searchable register is valuable, measurable, and does not require the model to make judgment calls.</li>
+<li><strong>The data moat is real.</strong> Thomson Reuters' advantage in legal AI is not its AI capability - it is decades of curated, verified case law that smaller entrants cannot replicate. In healthcare, the EHR vendors have the same structural advantage. Build your integration strategy around the data moats, not around the models.</li>
+<li><strong>Change the question from accuracy to appropriate use.</strong> Legal AI is not replacing legal judgment - it is expanding the surface area of work that legal professionals can cover. The ROI comes from redirecting human attention to the work that requires human judgment, not from eliminating the human layer.</li>
+</ol>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-hr-from-resume-screening-to-predictive-attrition-2/">AI in HR: From Resume Screening to Predictive Attrition</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework/">LLM Evaluation Framework for Regulated and Clinical Contexts</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework-beyond-benchmarks/">LLM Evaluation Framework: Beyond Benchmarks</a></li>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

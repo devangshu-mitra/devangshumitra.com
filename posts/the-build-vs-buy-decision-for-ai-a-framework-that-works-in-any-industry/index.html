@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The build vs buy decision for AI is more complex than traditional software" />
+  <meta property="og:title" content="The Build vs Buy Decision for AI: A Framework That Works in Any Industry — Devangshu Mitra" />
+  <meta property="og:description" content="The build vs buy decision for AI is more complex than traditional software" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Build vs Buy Decision for AI: A Framework That Works in Any Industry — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2026-03-06" itemprop="datePublished">Mar 6, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</h1>
+          <p class="post-header__excerpt" itemprop="description">The build vs buy decision for AI is more complex than traditional software</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Build vs Buy Decision for AI: A Framework That Works in Any Industry</h1>
+
+<p>The build vs buy question comes up in almost every AI product planning conversation I've been part of. It's one of the decisions that most dramatically shapes what you ship, when you ship it, and whether it actually differentiates your product.</p>
+
+<p>In traditional software, build vs buy is primarily a cost and speed question: can you buy this capability cheaply enough and fast enough that building it yourself isn't worth the effort? In AI, the decision is significantly more complex - the right answer varies by industry, by where your differentiation lives, by your data assets, and by the regulatory environment you operate in.</p>
+
+<p>I've worked through this decision at Mamaearth (CPG / D2C), Edxcare (EdTech), and HCLTech (Healthcare / Enterprise). Each context produced different answers, and understanding why is more useful than the answers themselves.</p>
+
+<hr>
+
+<h2>The Four Options (It's Not Binary)</h2>
+
+<p>The first mental model correction: build vs buy is not a binary choice. There are at least four options:</p>
+
+<ol>
+<li><strong>Build from scratch</strong>: Train your own models on your own data. Maximum differentiation potential, maximum investment, maximum time to market.</li>
+<li><strong>Build on open-source foundations</strong>: Use open-source models (Llama, Mistral, Falcon) as your base, customize on your infrastructure. Good middle-ground on cost and control.</li>
+<li><strong>Buy and customize</strong>: Use a commercial AI platform (Azure AI, AWS Bedrock, Google Vertex) and fine-tune or RAG-augment with your proprietary data. Vendor handles the model; you handle the differentiation layer.</li>
+<li><strong>Buy and configure</strong>: Use a commercial AI product (Salesforce Einstein, Microsoft Copilot, OpenAI APIs) with minimal customization. Fastest to market, least differentiation.</li>
+</ol>
+
+<p>Most AI product decisions are really about choosing among options 2, 3, and 4. Option 1 (full build) is the right answer for very few companies - primarily those building AI as their core product, with the data and talent to justify it.</p>
+
+<h2>The Decision Framework</h2>
+
+<h3>Dimension 1: Where Does Your Differentiation Live?</h3>
+
+<p>This is the most important question. Start here before anything else.</p>
+
+<ul>
+<li><strong>If differentiation lives in the model itself</strong> (your approach to the AI problem is the product): Build. Examples: Waymo's self-driving system, Deepmind's AlphaFold, Isomorphic Labs' drug discovery engine.</li>
+<li><strong>If differentiation lives in your data</strong>: Buy the model, build the data pipeline and fine-tuning layer. Your proprietary data is the moat; the model is infrastructure. Examples: Spotify's recommendation engine (their data is the moat, not their model), most healthcare AI systems.</li>
+<li><strong>If differentiation lives in your workflow integration</strong>: Buy and configure. The AI is a capability enhancement to a differentiated workflow, not the source of differentiation itself. Examples: most enterprise B2B SaaS adding AI features to existing workflows.</li>
+<li><strong>If you're experimenting and don't know yet</strong>: Buy and configure. Prove the concept before committing to a build investment.</li>
+</ul>
+
+<h3>Dimension 2: Total Cost of Ownership</h3>
+
+<p>The TCO calculation for AI is different from traditional software because the costs are distributed across training, inference, and maintenance in ways that are easy to underestimate.</p>
+
+<p><strong>Build costs include:</strong></p>
+
+<ul>
+<li>Data collection, cleaning, and labeling (often the largest cost and most underestimated)</li>
+<li>Model training compute (GPUs, cloud compute)</li>
+<li>ML engineering talent (significantly more expensive than software engineering)</li>
+<li>Inference infrastructure (serving models at production scale is not trivial)</li>
+<li>Ongoing retraining as data distributions shift</li>
+<li>Model monitoring, debugging, and maintenance</li>
+</ul>
+
+<p><strong>Buy costs include:</strong></p>
+
+<ul>
+<li>Vendor licensing or API fees (often scales with usage in ways that are expensive at high volume)</li>
+<li>Integration engineering (connecting vendor APIs to your systems)</li>
+<li>Vendor dependency risk (pricing changes, API deprecation, company risk)</li>
+<li>Data egress and processing costs for sending data to vendor</li>
+</ul>
+
+<p>The crossover point where build becomes cheaper than buy depends heavily on your usage volume and the complexity of your AI use case. For most enterprise AI applications, buy is cheaper at low-to-medium volume; build becomes competitive at very high volume or when vendor pricing has increased significantly.</p>
+
+<blockquote><p><strong>My rule of thumb:</strong> If you're making fewer than 1 million AI API calls per month, buy almost certainly has lower TCO than build when you include full engineering costs. If you're above 10 million calls per month, run a rigorous TCO analysis - the build case may start to close.</p></blockquote>
+
+<h3>Dimension 3: Vendor Lock-In Risk</h3>
+
+<p>Vendor lock-in in AI has dimensions that don't exist in traditional software:</p>
+
+<ul>
+<li><strong>Model lock-in</strong>: Your prompt engineering, fine-tuning, and evaluation are optimized for a specific model. Switching models requires significant re-work.</li>
+<li><strong>Data lock-in</strong>: If your training data or fine-tuning datasets live in a vendor's platform, extraction may be difficult.</li>
+<li><strong>API dependency</strong>: If a vendor deprecates or significantly prices an API you depend on, your product breaks or your economics collapse.</li>
+<li><strong>Capability ceiling</strong>: If your vendor's model capabilities plateau and your product requires more advanced AI, you may be stuck.</li>
+</ul>
+
+<p>Mitigation strategies:</p>
+
+<ul>
+<li>Abstract your AI calls behind an internal interface so you can swap models without rewriting application code</li>
+<li>Maintain model-agnostic evaluation datasets so you can quickly assess alternative models</li>
+<li>Monitor vendor pricing quarterly and build a switching cost estimate into your strategic plans</li>
+<li>For critical AI capabilities, evaluate at least two alternatives annually to maintain optionality</li>
+</ul>
+
+<h3>Dimension 4: Regulatory Constraints</h3>
+
+<p>This dimension is industry-specific and often decisive.</p>
+
+<p><strong>Healthcare:</strong> HIPAA prohibits sending PHI to third-party AI systems without a Business Associate Agreement (BAA). Many consumer AI APIs don't offer BAAs, which means healthcare organizations must either use providers that offer BAAs, deploy models in their own infrastructure, or build themselves. This often pushes the decision toward open-source models deployed on-premise or in VPC environments, even when TCO would otherwise favor commercial APIs.</p>
+
+<p><strong>Financial Services:</strong> Model explainability requirements under ECOA and FCRA mean that buying black-box models for credit decisioning requires the vendor to provide explainability guarantees that many won't offer. This pushes some fintech use cases toward build-or-open-source, especially in underwriting and fraud decisions.</p>
+
+<p><strong>EdTech:</strong> FERPA and COPPA constraints on student data limit what can be sent to commercial AI APIs without specific consent mechanisms. Platforms serving K-12 often build or self-host to avoid data governance complications.</p>
+
+<p><strong>CPG/Retail:</strong> Relatively low regulatory constraints on AI use compared to the above industries. Buy almost always wins on TCO and speed, with the primary constraint being competitive sensitivity of proprietary consumer behavior data.</p>
+
+<h3>Dimension 5: Team Capability</h3>
+
+<p>Honest assessment: does your team have the capability to execute a build successfully? This means:</p>
+
+<ul>
+<li>ML engineers who can manage training infrastructure, model evaluation, and production deployment</li>
+<li>Data engineers who can build and maintain training data pipelines</li>
+<li>PMs who understand enough about AI to write meaningful specs and evaluate model quality</li>
+<li>Leadership willing to absorb the longer timeline and higher risk of a build approach</li>
+</ul>
+
+<p>Most teams overestimate their capability for AI builds. The gap between "we have some ML engineers" and "we can build and operate production AI" is enormous. Underestimating this gap is one of the leading causes of failed AI initiatives.</p>
+
+<h2>Industry-Specific Calculus</h2>
+
+<h3>Healthcare: Regulatory-First Thinking</h3>
+
+<p>In healthcare, the regulatory constraint often determines the answer before the economic analysis. If you're handling PHI, your options are vendors with BAAs (Azure, AWS, Google Cloud, Databricks - major platforms have them), self-hosted open-source, or build. The economic build vs buy analysis then happens within this constrained set.</p>
+
+<p>My typical recommendation for healthcare organizations: start with buy (commercial platform with BAA), build your differentiation layer (clinical AI models fine-tuned on your patient population data, workflow integrations with your EHR), and keep the underlying foundation model as bought infrastructure.</p>
+
+<h3>CPG/D2C: Speed Is the Moat</h3>
+
+<p>In consumer goods and D2C, speed to market is often more valuable than technical differentiation. The competitive advantage in CPG is brand, supply chain, and customer relationships - not AI model quality. At Mamaearth, the right answer for almost every AI use case was buy-and-configure. We used Segment for data, commercial recommendation APIs, and vendor-provided personalization tools. We won on speed and data volume, not model sophistication.</p>
+
+<h3>FinTech: Compliance Complexity Shapes the Stack</h3>
+
+<p>In fintech, the explainability requirements for certain use cases (lending, insurance) make some commercial AI models unsuitable without vendor commitments to explainability. For back-office automation (document processing, customer service, operational workflows), buy dominates. For credit and underwriting, many organizations are building or using specialized AI underwriting vendors (Zest AI, Upstart's API) rather than general-purpose LLMs.</p>
+
+<h3>EdTech: Personalization Requires Your Data</h3>
+
+<p>In edtech, the differentiating asset is your understanding of how your specific student population learns. The base model is commodity; the adaptation layer informed by your learning data is the moat. The architecture of choice is buy-and-customize - commercial foundation model plus fine-tuning and RAG augmented with your proprietary learning outcome data.</p>
+
+<h2>The Build vs Buy Scorecard</h2>
+
+<p>I use a simple scoring exercise when the decision is unclear. Score each option from 1-5 on these dimensions:</p>
+
+<ul>
+<li>Speed to first user value</li>
+<li>Total cost of ownership over 3 years</li>
+<li>Differentiation potential</li>
+<li>Regulatory compliance confidence</li>
+<li>Team capability match</li>
+<li>Vendor risk exposure</li>
+</ul>
+
+<p>No option wins on all six. The exercise surfaces which dimensions matter most for your specific situation and forces explicit discussion of tradeoffs rather than implicit assumptions.</p>
+
+<hr>
+
+<p>There is no universally correct answer to build vs buy for AI. The correct answer depends on where your differentiation lives, what your regulatory environment requires, what your team can execute, and what your competitive timeline demands. The teams that make this decision well aren't the ones with the most sophisticated analysis - they're the ones who ask the right questions before committing to an architecture that will constrain their roadmap for years.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/the-roi-of-ai-how-to-build-a-business-case-your-cfo-will-approve-2/">The ROI of AI: How to Build a Business Case Your CFO Will Approve</a></li>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-prompt-engineering-a-life-sciences-product-managers-decision-framework/">RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager's Decision Framework</a></li>
+<li><a href="https://www.devangshumitra.com/genai-build-vs-buy-matrix/">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

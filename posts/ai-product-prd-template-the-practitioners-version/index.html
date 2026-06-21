@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A PRD template built specifically for AI products — not a generic PM template" />
+  <meta property="og:title" content="AI Product PRD Template: The Practitioner&#39;&#39;s Version — Devangshu Mitra" />
+  <meta property="og:description" content="A PRD template built specifically for AI products — not a generic PM template" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI Product PRD Template: The Practitioner''s Version — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Templates</span>
+            <time class="post-header__date" datetime="2025-08-31" itemprop="datePublished">Aug 31, 2025</time>
+            <span class="post-header__read-time">11 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI Product PRD Template: The Practitioner''s Version</h1>
+          <p class="post-header__excerpt" itemprop="description">A PRD template built specifically for AI products — not a generic PM template</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI Product PRD Template: The Practitioner's Version</h1>
+
+<h2>Why Your Standard PRD Falls Apart When AI Gets Involved</h2>
+
+<p>Six months into building a clinical decision support tool at a hospital system, our product team hit a wall. The PRD we'd written looked solid - user stories, acceptance criteria, wireframes, the whole structure. Then our ML engineer asked: "What's the acceptable false negative rate for sepsis detection?" The room went quiet.</p>
+
+<p>Nobody had written that down. We'd specified the UI, the API contract, the deployment infrastructure. But we'd completely skipped the decision that actually mattered - the performance threshold that determined whether this tool helped or harmed patients.</p>
+
+<p>That's when I realized standard product requirements documents aren't built for AI. They assume deterministic outputs and controllable behavior. They don't account for the uncertainty, the performance-confidence tradeoffs, or the fact that your model will behave differently on Tuesday's data than it did on Monday's.</p>
+
+<p>Over the last five years, I've written PRDs for AI products across biotech, medical devices, enterprise software, and healthcare systems. I've learned what needs to be different. This template reflects what actually matters when you're shipping AI.</p>
+
+<h2>The Core Problem: Standard PRDs Miss the AI-Specific Decisions</h2>
+
+<p>Here's what I've seen go wrong repeatedly:</p>
+
+<ul>
+<li><strong>Performance left ambiguous.</strong> A claims processing AI shipped with no agreed-upon accuracy threshold. When it hit 87% accuracy on validation data, nobody knew if that was acceptable. It wasn't. Back to the drawing board.</li>
+<li><strong>Failure modes unspecified.</strong> An oncology risk stratification model never documented what happens when it hits a case outside its training distribution. In production, it either crashed or returned nonsense. Both were bad.</li>
+<li><strong>Data quality buried in technical specs.</strong> A diagnostic imaging tool required imaging data from 2019-2023 to match training data, but nobody told the clinical teams. They uploaded 2024 data. Model performance tanked.</li>
+<li><strong>Human workflows ignored.</strong> A revenue cycle AI was "99% accurate" at medical coding suggestions, but coders still had to review 100% of recommendations. It actually slowed them down because the suggestions were wrong in unpredictable ways.</li>
+<li><strong>Edge cases treated like nice-to-haves.</strong> A pathology AI never specified what to do with tissue stains it hadn't seen before. When new stains appeared, it either guessed or threw errors.</li>
+</ul>
+
+<p>The pattern is clear: teams write PRDs for the happy path, then get surprised by everything AI actually does.</p>
+
+<h2>The PRD Framework That Actually Works for AI Products</h2>
+
+<p>I've settled on a structure that keeps the core PM discipline while adding the decisions that AI requires. It's not a template you fill in and forget. It's a conversation starter that forces your team to make decisions together.</p>
+
+<p>The core sections:</p>
+
+<ol>
+<li><strong>Problem and Success Metrics</strong> - Same as any product, but explicit about what "success" means for AI</li>
+<li><strong>Model Behavior and Performance</strong> - The decision-making requirements specific to the ML system</li>
+<li><strong>Data and Training</strong> - What data goes in, quality constraints, update frequency</li>
+<li><strong>Failure Modes and Graceful Degradation</strong> - How the product behaves when the model is wrong</li>
+<li><strong>Human Workflows and Integration</strong> - How humans actually use this, not how the model works in isolation</li>
+<li><strong>Monitoring and Drift Detection</strong> - What gets watched, thresholds for action, who gets alerted</li>
+<li><strong>Scope Boundaries</strong> - What this AI does, what it explicitly does not do, where humans decide</li>
+</ol>
+
+<p>This is different from a standard PRD because three of those seven sections wouldn't exist for non-AI products. The other four get reframed around AI-specific constraints.</p>
+
+<h2>How to Apply This Template in Practice</h2>
+
+<p>Let me walk through this with a real example from a payer network I worked with. They wanted to build an AI system for prior authorization reviews - automating the initial screening on requests to identify obvious approvals and obvious denials.</p>
+
+<h3>Section 1: Problem and Success Metrics</h3>
+
+<p>Standard part, but critical foundation:</p>
+
+<p><em>Problem:</em> Prior authorization reviews take 48-72 hours. Obvious cases (routine surgery, standard treatment) represent 35% of volume. We're delaying necessary care while reviewing cases that have clear answers.</p>
+
+<p><em>Success metrics:</em></p>
+
+<ul>
+<li>Process 30% of requests with AI decision alone (no human review)</li>
+<li>Reduce review time for remaining requests from 48h to 36h (because AI flags complexity)</li>
+<li>Maintain denial accuracy within 2 percentage points of our best human reviewers</li>
+<li>Get clinical leadership sign-off on decision logic before launch</li>
+</ul>
+
+<p>Notice those are about business impact, not just accuracy. The AI system is successful if it changes the workflow, not if it achieves some abstract accuracy target.</p>
+
+<h3>Section 2: Model Behavior and Performance</h3>
+
+<p>This is where it gets AI-specific. You're defining the actual behavior thresholds:</p>
+
+<p><em>Decision Rules:</em></p>
+
+<ul>
+<li>AI can issue "APPROVE" decisions on requests that match pre-defined evidence-based pathways (surgical procedures with specific diagnoses). Confidence threshold: 95%+ on training validation set.</li>
+<li>AI can issue "FLAG FOR CLINICAL REVIEW" for requests with multiple diagnoses or off-label treatments. No confidence threshold - any request gets flagged.</li>
+<li>AI cannot issue "DENY" decisions. All denials go to human reviewers regardless of model confidence. (This was a key stakeholder requirement - denying care requires human judgment.)</li>
+</ul>
+
+<p><em>Accuracy Requirements:</em></p>
+
+<ul>
+<li>False approval rate (AI approves something that humans would deny): less than 0.5%</li>
+<li>False flagging rate (AI flags something obvious that 95% of humans would approve): less than 5%</li>
+</ul>
+
+<p>See the asymmetry? False approvals are heavily penalized. False flags are tolerated because the worst outcome is a slight delay for a case that would be approved anyway.</p>
+
+<p><em>Performance on Subgroups:</em></p>
+
+<ul>
+<li>Medicare population (65+ years old): accuracy within 3 percentage points of overall</li>
+<li>Commercial population with high complexity flags (4+ diagnoses): no minimum accuracy, all to review</li>
+<li>Pediatric cases: separate evaluation, minimum 90% accuracy before approval decisions allowed</li>
+</ul>
+
+<p>We'd learned from a different project that a model with 92% overall accuracy was 78% accurate on pediatric cases. Without explicitly testing subgroups, you ship something that helps on average but fails for specific populations.</p>
+
+<h3>Section 3: Data and Training</h3>
+
+<p>Be explicit and specific:</p>
+
+<p><em>Training Data:</em></p>
+
+<ul>
+<li>Source: 18 months of approved and denied PA requests (Jan 2023-June 2024)</li>
+<li>Size: 47,000 requests, split 70-15-15 train-validation-test</li>
+<li>Exclusions: requests with incomplete diagnosis codes, requests from facilities with less than 50 total requests, requests from new providers (less than 6 months data)</li>
+<li>Class balance: training set rebalanced to 1:2 approval-denial ratio to match clinical relevance (false denials are worse than false approvals)</li>
+</ul>
+
+<p><em>Feature Engineering:</em></p>
+
+<ul>
+<li>Diagnosis codes converted to ICD-10 mapped to clinical concepts (not raw codes)</li>
+<li>Procedure codes to CPT mapped to surgical complexity categories</li>
+<li>Provider prior approval rate included as signal (providers who get 95% approvals have different patterns than providers at 60%)</li>
+<li>Recency decay: requests from past 3 months weighted 1.5x to capture policy changes</li>
+</ul>
+
+<p><em>Data Refresh:</em></p>
+
+<ul>
+<li>Retraining: monthly, always on full historical set (48 months rolling window)</li>
+<li>Validation check: if accuracy on last month's held-out data drops below 90%, do not deploy</li>
+<li>Feature monitoring: track feature distributions weekly, alert if diagnosis distribution shifts >10%</li>
+</ul>
+
+<h3>Section 4: Failure Modes and Graceful Degradation</h3>
+
+<p>This section saves your product in production:</p>
+
+<p><em>Model doesn't achieve performance targets:</em> Fall back to human review queue for all requests. This is a development iteration, not a customer-facing failure.</p>
+
+<p><em>Model confidence below threshold (80%):</em> Route to review queue automatically with flag "High uncertainty case, recommend review by senior reviewer."</p>
+
+<p><em>Novel diagnosis code or procedure code:</em> Flag as "out of distribution" and route to human review. Do not attempt prediction.</p>
+
+<p><em>Provider metadata missing:</em> Fall back to diagnosis-procedure match only. Do not use provider historical rate as signal.</p>
+
+<p><em>Stale model (no retraining for >30 days):</em> System enters read-only mode. AI provides decision explanations but humans must confirm all decisions. Alert ops immediately.</p>
+
+<p><em>Model performance drops below acceptable levels in production:</em></p>
+
+<ul>
+<li>If detected via monitoring (see Section 6): Disable new decisions, route all requests to review, alert clinical team within 15 minutes</li>
+<li>Root cause analysis within 4 hours</li>
+<li>Do not re-enable until root cause is understood and fix is tested</li>
+</ul>
+
+<p>Having these defined upfront means nobody's arguing about the right response when something breaks at 11pm.</p>
+
+<h3>Section 5: Human Workflows and Integration</h3>
+
+<p>This is where the AI actually lives. Not in isolation, but in how humans work:</p>
+
+<p><em>Workflow for APPROVE decisions:</em></p>
+
+<ul>
+<li>AI marks request as approved with explanation</li>
+<li>Request goes to approval queue (no human review)</li>
+<li>System generates approval letter automatically</li>
+<li>Compliance team gets daily summary of approvals (10-minute review, spot check)</li>
+</ul>
+
+<p><em>Workflow for FLAG decisions:</em></p>
+
+<ul>
+<li>AI provides flagged request with explanation of why it's complex</li>
+<li>Request goes to clinical reviewer queue with one-line summary: "Multiple diagnoses detected" or "Off-label procedure"</li>
+<li>Reviewer reads full request + AI reasoning, makes decision</li>
+<li>Reviewer time: 6 minutes average (down from 15 minutes without AI)</li>
+</ul>
+
+<p><em>Reviewer interface requirements:</em></p>
+
+<ul>
+<li>Show AI reasoning (which features drove the decision, in plain English)</li>
+<li>Show similar past decisions (3 prior cases with same diagnosis-procedure combo, what was decided)</li>
+<li>Allow one-click approval/denial/refer, with mandatory comment for any override of AI</li>
+<li>Track reviewer agreement with AI (for continuous validation)</li>
+</ul>
+
+<p><em>Training and rollout:</em></p>
+
+<ul>
+<li>Clinical reviewers see system 2 weeks before launch, reviewing 100 cases with AI reasoning to get comfortable</li>
+<li>Day 1 launch: AI only handles "obvious approve" cases (>98% confidence), humans review everything else</li>
+<li>Week 2: if human-AI agreement is 96%+ and accuracy checks pass, expand to APPROVE threshold</li>
+<li>Quarterly: reviewer accuracy review by clinical director</li>
+</ul>
+
+<h3>Section 6: Monitoring and Drift Detection</h3>
+
+<p>Production is where the model's real behavior emerges:</p>
+
+<p><em>Daily Metrics:</em></p>
+
+<ul>
+<li>Approval rate (what % of requests get AI approval): should be 28-32%. If outside range, alert.</li>
+<li>Human override rate (how often reviewers disagree with AI): should be <4%. If higher, model may be drifting.</li>
+<li>Distribution of flagged reasons: track top 10 reasons, alert if new reason suddenly appears</li>
+</ul>
+
+<p><em>Weekly Validation:</em></p>
+
+<ul>
+<li>Sample 50 AI approvals from past week, have senior reviewer check them. If any are questionable, manual audit of 500 approvals.</li>
+<li>Compare current week diagnosis distribution to training data distribution. If major diagnosis codes appear that weren't in training, alert.</li>
+</ul>
+
+<p><em>Monthly Analysis:</em></p>
+
+<ul>
+<li>Measure accuracy on last month's approved requests (use delayed ground truth - any subsequent appeals or denials)</li>
+<li>Segment by provider, diagnosis group, complexity level - ensure no subgroup accuracy has dropped >5%</li>
+<li>Review false approvals (requests that were later questioned or denied) - was there a pattern?</li>
+</ul>
+
+<p><em>Action Thresholds:</em></p>
+
+<ul>
+<li>Approval rate drops below 28% or above 32%: investigate within 24 hours. Likely data shift or model issue.</li>
+<li>Human override rate exceeds 6%: suspend new approvals, enter manual review mode, scheduled retraining</li>
+<li>Any subgroup accuracy drops below 88%: disable AI for that subgroup until retraining</li>
+<li>False approval count in a week exceeds 3: initiate root cause analysis, do not deploy next model until resolved</li>
+</ul>
+
+<p>This is not theoretical. Every threshold came from something that actually happened in production.</p>
+
+<h3>Section 7: Scope Boundaries</h3>
+
+<p>Define what this AI does and doesn't do. Be explicit about the gaps:</p>
+
+<p><em>What this AI handles:</em></p>
+
+<ul>
+<li>Routine surgical procedures with standard diagnoses</li>
+<li>Medication approvals for standard indications</li>
+<li>Diagnostic imaging with standard clinical workup</li>
+</ul>
+
+<p><em>What requires human decision always:</em></p>
+
+<ul>
+<li>Novel treatments (anything approved in last 12 months)</li>
+<li>Off-label uses</li>
+<li>Patients with 5+ comorbidities</li>
+<li>Any request that conflicts with plan-level medical management protocol</li>
+<li>All denials</li>
+</ul>
+
+<p><em>What this AI does NOT do:</em></p>
+
+<ul>
+<li>Determine medical necessity (judges whether the condition warrants treatment)</li>
+<li>Assess patient risk (does not evaluate if patient can tolerate procedure)</li>
+<li>Override plan policy (AI follows rules but cannot create new exceptions)</li>
+</ul>
+
+<p>The boundaries matter because they're where future confusion lives. If you don't define them now, your team will discover them the hard way in production.</p>
+
+<h2>Common Mistakes and How to Avoid Them</h2>
+
+<p><strong>Mistake 1: Writing accuracy requirements without context.</strong> "The model must achieve 95% accuracy" tells you nothing. 95% on what? At what cost? Biotech teams I work with often nail this - they know that a 95% detection rate means 5% of real mutations get missed. But software teams sometimes skip this rigor.</p>
+
+<p>Fix: Always write accuracy in terms of what matters to users. "False negative rate of <2%" is actionable. "95% accuracy" is not.</p>
+
+<p><strong>Mistake 2: Treating the model as a black box in the PRD.</strong> I've seen teams write detailed user stories for "Show AI recommendation to user" without ever defining what recommendation the AI actually makes. Then when the model predicts something unexpected, nobody knows if that's working as designed.</p>
+
+<p>Fix: Write out example predictions. "If user uploads a chest X-ray of a 55-year-old with a cigarette pack history and a 2cm nodule,</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-alignment-canvas-for-ai-products/">Stakeholder Alignment Canvas for AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/how-to-write-a-prd-for-an-ai-feature-template-included/">How to Write a PRD for an AI Feature (Template Included)</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-to-write-a-prd-for-an-ai-feature-template-included/">How to Write a PRD for an AI Feature (Template Included)</a></li>
+<li><a href="https://www.devangshumitra.com/prd-template-ai-products/">PRD Template for AI Products in Regulated Industries</a></li>
+<li><a href="https://www.devangshumitra.com/product-metrics-dashboard/">Product Metrics Dashboard Template for Enterprise AI</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

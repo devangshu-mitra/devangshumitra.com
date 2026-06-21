@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover how Recursion Pharmaceuticals leverages AI-first drug discovery" />
+  <meta property="og:title" content="Recursion Pharmaceuticals: AI-First Drug Discovery — Devangshu Mitra" />
+  <meta property="og:description" content="Discover how Recursion Pharmaceuticals leverages AI-first drug discovery" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Recursion Pharmaceuticals: AI-First Drug Discovery — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Teardowns</span>
+            <time class="post-header__date" datetime="2026-02-28" itemprop="datePublished">Feb 28, 2026</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Recursion Pharmaceuticals: AI-First Drug Discovery</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover how Recursion Pharmaceuticals leverages AI-first drug discovery</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Recursion Pharmaceuticals: AI-First Drug Discovery</h1>
+
+<p>Recursion was founded in 2013 on a thesis that most biologists would have found provocative: that drug discovery is fundamentally a search problem, and that it could be automated the same way other search problems have been automated. Eleven years later, they have raised over $1 billion, signed $150M+ partnerships with Roche/Genentech, and are one of the most closely watched companies in biotech AI. Here is how they built it.</p>
+
+<h2>Core Thesis</h2>
+
+<p>Biology is a search problem. You want to find molecules that cause a specific biological effect in humans. The search space is incomprehensibly large - there are more drug-like molecules than atoms in the observable universe. Traditional drug discovery is slow and expensive because it searches this space manually, with scientists running experiments one at a time, guided by biological intuition built over decades.</p>
+
+<p>Recursion's founding insight: if you can automate the experiment - run it robotically, at scale, capturing detailed data from every run - you can compress the search from years to months. And if you apply machine learning to the resulting dataset, you can learn patterns that would be invisible to any individual scientist.</p>
+
+<p>This is not a software company that decided to try biology. It is a biology company that automated itself to run like software.</p>
+
+<h2>The Recursion Operating System (RecursionOS)</h2>
+
+<p>The OS is the core platform - the thing that makes the thesis operational. Three components:</p>
+
+<h3>Automated Wet Labs</h3>
+
+<p>Recursion built and operates highly automated laboratory facilities - liquid handling robots, automated imaging systems, environmental controls - that can run hundreds of thousands of experiments per week. A human biologist running experiments manually might generate tens or hundreds of data points per week. Recursion's automated labs generate millions.</p>
+
+<p>This is the capital-intensive part of the platform. Lab automation at scale requires significant upfront investment in equipment, facility, and software to orchestrate everything. It is not a software-only model - it is a hardware-plus-software model where the hardware is a competitive moat.</p>
+
+<h3>High-Content Imaging</h3>
+
+<p>When Recursion runs a cellular experiment, they do not just measure whether a cell lives or dies. They capture high-resolution fluorescence microscopy images of the cells - images that contain thousands of measurable features about cell morphology, protein localization, organelle structure, and more.</p>
+
+<p>The key architectural decision: use cellular images as the primary data type. This was a deliberate choice over other experimental readouts (gene expression, proteomics, cell viability alone). Why? Images are information-rich in a way that scalar measurements are not. A cell's visual phenotype is a compressed representation of its biology. And computer vision - the AI field - was advancing rapidly in the early 2010s in ways that made image analysis tractable at scale.</p>
+
+<p>Recursion built their core ML platform around analyzing these images. They call the approach "phenomics" - the systematic measurement of biological phenotype at scale.</p>
+
+<h3>Machine Learning Layer</h3>
+
+<p>The ML platform does several things: embed cellular images into a shared mathematical space where biological similarity translates to geometric proximity; identify compounds that cause similar cellular phenotypes to known drugs (which may indicate similar mechanisms of action); and predict which cell models and genetic perturbations are most informative for a given disease hypothesis.</p>
+
+<p>The models improve as the dataset grows - a standard ML flywheel dynamic. But in biology, the dataset takes physical experiments to build. This is why the automated lab capacity is not separable from the ML value - you cannot outsource the data generation and retain the model quality advantage.</p>
+
+<h2>Dataset Scale</h2>
+
+<p>Recursion has generated trillions of data points across their cellular experiments. The scale matters for two reasons beyond the obvious one of model performance.</p>
+
+<p>First, the dataset enables discovery in rare disease and rare biology where no existing literature exists. Small datasets cannot power meaningful ML in rare contexts. At Recursion's scale, even rare diseases have enough experimental coverage to find signal.</p>
+
+<p>Second, the breadth of the dataset creates a map of biology - a "map of cellular space" as they describe it - where any new experiment can be contextualized against millions of prior experiments. This map is itself a product. Partners can query it to explore their own hypotheses without running every experiment from scratch.</p>
+
+<h2>Partnership Model</h2>
+
+<p>Recursion has structured its commercial model around large pharma partnerships that fund platform access in exchange for discovery rights in specific disease areas:</p>
+
+<ul>
+<li><strong>Roche/Genentech - $150M:</strong> Collaboration to discover programs in oncology and neuroscience using the Recursion OS.</li>
+<li><strong>Bayer:</strong> Multi-program collaboration in cardiometabolic and fibrotic diseases.</li>
+<li><strong>Sanofi:</strong> Collaboration covering oncology, rare diseases, and infectious diseases.</li>
+</ul>
+
+<p>These deals provide non-dilutive capital that funds continued platform development while generating milestone and royalty potential from the programs that advance. The deal structure is important: pharma partners get access to Recursion's platform and dataset for specific therapeutic areas, but Recursion retains the platform itself. They are selling discovery output, not the OS.</p>
+
+<h2>Pipeline</h2>
+
+<p>Recursion has 40+ programs in their discovery and development pipeline. The distribution is across oncology, rare disease, and inflammation - reflecting both where the unmet need is highest and where the platform's phenomics approach has shown strongest predictive value.</p>
+
+<p>As of 2024, several programs are in Phase 1 and Phase 2 clinical trials, with the furthest programs in rare disease (NF2-related schwannomatosis) and oncology. Clinical validation is the critical open question for the platform story - do the computational predictions actually translate to clinical benefit in patients?</p>
+
+<h2>Key Architecture Decisions</h2>
+
+<p><strong>Why build labs vs. partner with CROs?</strong> Contract Research Organizations can run experiments on your behalf. Why did Recursion build their own facilities? Three reasons. Data quality: when you own the lab, you control the protocols, the equipment, and the metadata captured. Standardization is critical for ML - inconsistencies in how experiments are run introduce noise that degrades model performance. Speed: CROs have queues; your own lab runs on your schedule. And most importantly, the data belongs entirely to Recursion. There is no contractual ambiguity about who owns the experimental results.</p>
+
+<p><strong>Why cellular images vs. other data types?</strong> Gene expression data (transcriptomics), protein quantification (proteomics), and other omics approaches are all valid ways to measure cellular biology. Recursion chose high-content imaging for three reasons: cost per data point (imaging is cheaper at scale than sequencing-based approaches), information density per image (thousands of features vs. scalar readouts), and the trajectory of computer vision (a rapidly improving AI field that Recursion could use without building from scratch).</p>
+
+<p><strong>Why a broad platform vs. a single disease?</strong> Most biotech companies focus on one disease or one mechanism. Recursion built a platform that spans biology. The case for this: a platform generates more data diversity, which makes the models more strong; it creates more optionality for partnership; and if the platform works, the expected value is much higher than any single disease area. The case against: platform companies in biotech have historically underdelivered because the path from platform to approved drug is very long. Recursion accepted this tension and bet on the platform.</p>
+
+<h2>Challenges</h2>
+
+<p><strong>Long timelines to clinical validation.</strong> Drug development takes 10-15 years from discovery to approval. Recursion was founded in 2013 and their most advanced programs are still in Phase 2 as of 2024. The question "does the platform actually produce better drugs?" will not be answered definitively for years. This creates a sustained investor relations challenge and a strategic tension: continue investing in the platform before clinical proof, or slow down to reduce burn?</p>
+
+<p><strong>Platform vs. pipeline tension.</strong> As programs advance to clinical trials, the organization needs different capabilities - clinical development teams, regulatory affairs, medical affairs. These are not platform capabilities. Scaling into clinical development changes the company's character and cost structure. Recursion has been working through this tension, hiring clinical development leadership while trying to maintain the platform's R&D velocity.</p>
+
+<p><strong>Phenomics' limits.</strong> High-content cellular imaging is a powerful tool for phenotypic screening. It is less powerful for understanding mechanism of action precisely, for working with certain cell types that do not image well, and for diseases where the relevant biology is in tissues or organs rather than cell culture. Recursion has been expanding their data modalities to address this, but phenomics is not a universal tool.</p>
+
+<h2>What You Can Learn as a PM</h2>
+
+<p><strong>Platform strategy requires patience that most product cycles cannot accommodate.</strong> Recursion's platform took 5+ years to reach a scale where the ML models became truly compelling. Most PM environments reward quarterly outcomes. If you are building a platform in Life Sciences & Healthcare, you need leadership alignment on a multi-year investment horizon before you start - or you will be asked to pivot before the flywheel spins up.</p>
+
+<p><strong>The data generation method is the product.</strong> For Recursion, the automated lab is not infrastructure support for the real product. It is the product. This is the deepest lesson from the Recursion model: in data-driven businesses, how you generate data is as much a product decision as what you build with the data. Decisions about data quality, metadata capture, experimental standardization, and data ownership all flow from product leadership, not just data science.</p>
+
+<p><strong>First-principles thinking creates defensible architectures.</strong> Recursion did not copy existing drug discovery workflows and automate them. They asked: what is the fundamental task of drug discovery, and what is the most efficient way to do it if we have no legacy constraints? That question led to choices - automated labs, cellular phenomics, ML-first platform - that were unusual in 2013 and are still genuinely differentiated in 2024.</p>
+
+<p><strong>Partnership structures signal strategic intent.</strong> When Recursion signed the Roche/Genentech deal, they structured it as platform access in a specific area, not as a full company acquisition or an asset sale. That structure tells you something about how they see their long-term position: they believe the platform is worth more than any individual program, and they are unwilling to trade away the platform for short-term capital. As a PM, understanding why your company structures partnerships the way it does tells you what leadership actually believes about where the value lives.</p>
+
+<p><strong>Validate the core hypothesis as early as possible, even cheaply.</strong> Recursion's clinical programs are the validation of the entire platform thesis. They have invested heavily before that validation is complete. The risk is real. If you are building a platform product in Life Sciences & Healthcare, find the earliest, cheapest test of the core hypothesis - the thing that, if true, makes everything else make sense - and validate it before scaling the investment.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-tempus/">How Tempus Built a $6B Clinical AI Platform</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-viz-ai/">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</a></li>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-tempus/">How Tempus Built a $6B Clinical AI Platform</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-viz-ai/">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

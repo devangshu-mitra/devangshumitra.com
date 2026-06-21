@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Not the Elon Musk cliche - a practical explanation of first-principles thinking" />
+  <meta property="og:title" content="First Principles for Product Managers — Devangshu Mitra" />
+  <meta property="og:description" content="Not the Elon Musk cliche - a practical explanation of first-principles thinking" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>First Principles for Product Managers — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Research</span>
+            <time class="post-header__date" datetime="2025-11-04" itemprop="datePublished">Nov 4, 2025</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">First Principles for Product Managers</h1>
+          <p class="post-header__excerpt" itemprop="description">Not the Elon Musk cliche - a practical explanation of first-principles thinking</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>First Principles for Product Managers</h1>
+
+<p>First-principles thinking is the most overused phrase in tech that is also genuinely one of the most useful tools I have. The problem is that most descriptions of it are either too abstract to be usable ("reason from fundamental truths!") or reduced to the Elon Musk rocket story without explaining the underlying method.</p>
+
+<p>Let me try to explain what it actually is, how I use it, and when it's worth the effort.</p>
+
+<hr>
+
+<h2>Section 1: What First-Principles Thinking Actually Means</h2>
+
+<p>First-principles thinking is the practice of decomposing a problem or belief into its fundamental components, testing each component independently, and rebuilding your conclusion from the ground up rather than borrowing from existing frameworks or conventional wisdom.</p>
+
+<p>The contrast is reasoning by analogy: "Company X did this, it worked for them, so we should do the same." Analogical reasoning is fast and often right. It's also the source of many of the worst product decisions I've seen, because it borrows not just the answer but also the assumptions that made the answer right for someone else - which may not hold for you.</p>
+
+<p>Here's a concrete example from my own work. The conventional wisdom in enterprise AI sales is that you need a proof of concept before a customer will commit to a contract. That's the analogy: AI vendors do POCs, therefore we do POCs. But what does the POC actually accomplish? It demonstrates technical feasibility, builds trust that the team can execute, and lets the customer evaluate fit. Once I decomposed it that way, I asked: are there ways to accomplish each of those goals faster or cheaper than a 3-month POC? In some cases, yes - a well-structured demo with real customer data, an independent technical audit, and reference calls with existing customers can accomplish the same goals in 2 weeks. We tried it. It worked for certain customer profiles. First principles found a path that the analogy would have hidden.</p>
+
+<p><strong>The actual practice</strong></p>
+
+<p>Step 1: State the belief or decision clearly. "We need to build a mobile app for this feature." "We should price at $X/seat." "This customer will buy if we add feature Y."</p>
+
+<p>Step 2: List every assumption embedded in that statement. What are you taking for granted? What would have to be true for this to be right?</p>
+
+<p>Step 3: For each assumption, ask: do I actually know this is true, or am I borrowing it from convention, analogy, or someone else's decision? If I had to verify this from scratch, what evidence would I look at?</p>
+
+<p>Step 4: Test the assumptions you're least confident about first. Not all of them need to be tested - some are so foundational (gravity, basic economics) that testing them would be a waste. Focus on the ones that are both uncertain and consequential.</p>
+
+<p>Step 5: Rebuild the conclusion using only the assumptions that survived testing. The resulting answer may look identical to the original, or it may be completely different. Either is fine - you've now grounded it in evidence rather than convention.</p>
+
+<p><strong>The Elon Musk thing</strong></p>
+
+<p>The rocket story is real and it's a good example, but it creates a misleading impression that first-principles thinking is only for billion-dollar problems. I use it on mundane product decisions several times a week. It doesn't require breakthrough insights. It requires slowing down long enough to notice your assumptions.</p>
+
+<p>The hardest part is not the decomposition. The hardest part is being honest about which assumptions are actually tested versus which you've borrowed from somewhere and forgotten to question. Most assumptions in product management are borrowed, and they're borrowed for good reasons - analogical reasoning is efficient and usually works. First-principles thinking is for when you have reason to believe the usual answer is wrong for your context.</p>
+
+<hr>
+
+<h2>Section 2: Applying It to Product Decisions</h2>
+
+<p>Let me walk through four decision categories where I've found first-principles thinking most useful.</p>
+
+<p><strong>Prioritization</strong></p>
+
+<p>The conventional approach: RICE score everything, rank by score, execute from the top. This is borrowed wisdom, and it embeds assumptions: that you can reliably estimate reach, impact, confidence, and effort; that the resulting ranking maps to actual value; that the top item in the backlog is the right thing to work on right now.</p>
+
+<p>A first-principles examination of prioritization asks: what is the decision actually trying to accomplish? Usually: maximize value delivered to customers and the business given resource constraints over a given time horizon. What assumptions does RICE embed? That all items are substitutable and can be ranked on a single axis. That effort estimates are reliable. That impact is knowable in advance.</p>
+
+<p>When I've rebuilt prioritization from those components, I often arrive at a different process: instead of ranking all items, I'm making a small number of binary choices. Is this the most important problem we could be working on right now? If yes, is there a better way to solve it than what's currently in the backlog? This is slower than running RICE scores, but it catches the cases where the entire backlog is optimizing for the wrong thing.</p>
+
+<p>The case where RICE failed me: we had a beautifully prioritized backlog of feature improvements for an enterprise product. Every item had high reach, high impact, and high confidence scores. First-principles examination of what "value" actually meant to our enterprise customers revealed that they cared almost entirely about one thing: reducing time to value in onboarding. Nothing in our backlog addressed this directly. We were optimizing efficiently for the wrong objective.</p>
+
+<p><strong>Feature Trade-offs</strong></p>
+
+<p>The conventional approach: compare features on customer value, engineering effort, and strategic alignment. Score each dimension, make the call. Fast, consistent, often right.</p>
+
+<p>First-principles examination: what are we actually optimizing for with this feature decision? Not "which feature is better" in the abstract, but what is the job this feature does for the customer, and what is the business outcome we're trying to move? Once you've defined those, the decision often becomes obvious without needing a scoring matrix. The matrix is a proxy for the actual question - sometimes a useful proxy, sometimes an obscuring one.</p>
+
+<p>The specific case where this matters most: when two features seem to serve the same customer need but via different mechanisms. Feature A is a UI improvement that makes the existing flow easier. Feature B is an automation that eliminates the flow entirely. A feature comparison matrix will compare them on the same axis and one will score higher. First-principles thinking asks: which outcome does the customer actually want - an easier flow, or no flow at all? They're different answers to the same problem, and the right choice depends on assumptions about customer behavior that need to be tested.</p>
+
+<p><strong>Market Entry</strong></p>
+
+<p>The conventional approach: TAM/SAM/SOM analysis, competitive space, positioning. These are useful, but they're borrowed frameworks that embed assumptions about how markets work.</p>
+
+<p>First-principles examination: who has the problem? How do they solve it today? What would it take for them to switch? What's the minimum viable version that creates enough value to earn adoption? What prevents us from serving this segment that doesn't prevent others?</p>
+
+<p>When I've used first principles here, the conclusion is often a narrower initial target market than the frameworks suggest. Frameworks optimize for market size. First principles optimize for achievability. In the early stage, a small market you can win is worth more than a large market you can't penetrate.</p>
+
+<p><strong>Pricing</strong></p>
+
+<p>The conventional approach: competitive benchmarking, cost-plus, value-based pricing framework. All valid starting points, all borrowed from somewhere.</p>
+
+<p>First-principles examination of pricing asks: what is the customer actually buying? Not the software - the outcome. What is that outcome worth to them in dollars? What determines how much of that value you can capture versus what the customer keeps? What constraints prevent you from charging more - competition, switching costs, budget cycle timing, procurement process?</p>
+
+<p>Here's what I've found: most B2B AI products are underpriced relative to the value they deliver, because pricing decisions were made by analogy to comparable software products rather than by calculating the value of the outcome. If your AI reduces a process that costs $500K/year by 40%, you've created $200K in value. Charging $20K/year because "comparable SaaS products are priced in that range" leaves $180K on the table. First principles says: start from value delivered, then work backwards to a price the customer will accept.</p>
+
+<hr>
+
+<h2>Section 3: Building a First-Principles Practice</h2>
+
+<p>First-principles thinking is a skill, not a trait. You build it through deliberate practice, not through reading about it. Here's how I've tried to build it into my daily work.</p>
+
+<p><strong>Daily habits</strong></p>
+
+<p>The most useful habit I've developed: when I find myself agreeing with a recommendation, a priority, or a direction without much resistance, I pause and ask "what would I have to believe for this to be wrong?" This is the contrarian question, and it surfaces the assumptions embedded in the agreement.</p>
+
+<p>I keep a short list - rarely more than 5 items - of the assumptions I'm operating on in a given week. Just naming them makes me more honest about which ones are tested versus borrowed. When something goes wrong, I check whether one of those assumptions failed. Over time, this improves my assumption quality.</p>
+
+<p>Write down your predictions before the data comes in. "I expect this A/B test to show X." "I think this customer will say Y in the discovery call." This forces you to surface the assumptions behind your expectations, and it tells you when your model of the world is wrong. It's uncomfortable. It's also how you get better.</p>
+
+<p><strong>Question frameworks</strong></p>
+
+<p>The questions I find most useful for first-principles examination:</p>
+
+<p>"What would I have to believe for this to be true?" - surfaces hidden assumptions.</p>
+
+<p>"If I had to build this from scratch with no prior knowledge of how it's usually done, what would I do?" - breaks path dependence.</p>
+
+<p>"What is the simplest version of the underlying problem?" - cuts through solution complexity to find if you're solving the right thing.</p>
+
+<p>"Who benefits from the current approach staying the same?" - identifies whose interests are embedded in conventional wisdom.</p>
+
+<p>"What would change if I discovered that [core assumption] was wrong?" - tests sensitivity to assumptions.</p>
+
+<p><strong>When to use it vs when to trust heuristics</strong></p>
+
+<p>This is the most important calibration question, and most treatments of first-principles thinking get it wrong by suggesting you should always reason from first principles.</p>
+
+<p>Use first principles when: the stakes are high and the conventional answer is unverified, you have reason to believe your context differs from the context where the conventional wisdom developed, the conventional approach keeps failing and you can't explain why, or the decision is novel enough that analogies don't cleanly apply.</p>
+
+<p>Trust heuristics when: the decision is low-stakes and reversible, the conventional wisdom is well-tested in contexts similar to yours, the cost of first-principles analysis exceeds the value of a marginally better decision, or you need to act quickly and the stakes don't justify the delay.</p>
+
+<p>Most daily PM decisions fall into the second category. Use heuristics and frameworks - they exist because they work. Reserve first-principles thinking for the decisions that are high-stakes, novel, or where you have a nagging sense that the conventional answer doesn't fit your situation. That's when the extra investment pays off.</p>
+
+<p>The meta-lesson: first-principles thinking is not an alternative to frameworks - it's a tool for knowing when to trust them and when to set them aside. The PM who applies first principles indiscriminately wastes time. The PM who never questions conventions makes predictable mistakes. The skill is knowing the difference.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-break-into-ai-pm/">Break Into AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-first-principles-of-healthcare-ai-product-management-9/">The First Principles of Healthcare AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/mlops-for-product-managers-what-you-need-to-know/">MLOps for Product Managers: What You Need to Know</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-thinking-life-sciences-pm/">First Principles Thinking for Life Sciences Product Managers: Beyond Best Practices</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

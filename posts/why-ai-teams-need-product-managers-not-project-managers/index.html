@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most enterprise AI teams are staffed and managed like software delivery projects." />
+  <meta property="og:title" content="Why AI Teams Need Product Managers, Not Project Managers — Devangshu Mitra" />
+  <meta property="og:description" content="Most enterprise AI teams are staffed and managed like software delivery projects." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Why AI Teams Need Product Managers, Not Project Managers — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Career</span>
+            <time class="post-header__date" datetime="2025-09-14" itemprop="datePublished">Sep 14, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Why AI Teams Need Product Managers, Not Project Managers</h1>
+          <p class="post-header__excerpt" itemprop="description">Most enterprise AI teams are staffed and managed like software delivery projects.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Why AI Teams Need Product Managers, Not Project Managers</h1>
+
+<p>Here's a tell: if your AI team has a Gantt chart with a model training milestone in week 8 and a UAT phase in week 14, you're running your AI project like a software delivery project. That's a category error, and it's why the Gantt chart will be wrong by week 3.</p>
+
+<p>I'm not being unfair. Most enterprise AI teams are set up this way because they're staffed and managed by people with software delivery backgrounds. The organizational structures, the planning rituals, the success metrics - they all carry forward from a world where requirements are known, timelines are estimable, and the main variable is execution quality.</p>
+
+<p>AI product development doesn't work this way. The main variable isn't execution - it's discovery. And discovery is fundamentally incompatible with the project management model.</p>
+
+<h2>The Core Difference: Delivering Outputs vs Discovering Outcomes</h2>
+
+<p>Project management is optimized for delivering a known thing on time and on budget. The project manager's job is to track progress toward a defined end state, manage dependencies, and remove blockers. This works when the end state is well-defined.</p>
+
+<p>AI product development is rarely in this situation. You don't know in advance whether the model will achieve the accuracy you need. You don't know whether the accuracy you think you need is actually the right metric. You don't know whether the user workflow you've designed around the model will actually be adopted. You're not delivering a known thing - you're discovering whether a thing is worth delivering at all.</p>
+
+<p>This is the management of uncertainty, not the management of deliverables. And the skills required are different.</p>
+
+<h3>What a Project Manager Does Well in AI Contexts</h3>
+
+<p>I want to be fair: project management skills aren't useless in AI. Tracking dependencies between data pipelines, model training jobs, and infrastructure deployments is legitimate project management work. Managing vendor relationships, coordinating across teams, running standup rituals - these are real needs.</p>
+
+<p>The problem isn't that these skills are bad. The problem is that teams stop there. They manage the process but nobody is managing the problem.</p>
+
+<h3>What an AI Product Manager Does Differently</h3>
+
+<p>An AI PM's job is to be the person accountable for the question: <em>are we solving the right problem?</em> This sounds simple. It's not. It requires a specific set of skills that project management doesn't develop and often actively discourages.</p>
+
+<p><strong>Hypothesis articulation.</strong> Every AI project starts from a hypothesis: if we build a model that predicts X, users will do Y, and the business outcome will be Z. The PM's job is to make this hypothesis explicit, testable, and connected to real evidence. Not a requirements document - a hypothesis with falsification criteria.</p>
+
+<p><strong>Uncertainty quantification.</strong> What are the riskiest assumptions in this project? Where are we most likely to be wrong? What would invalidate our approach? A PM who can answer these questions gives the team a roadmap for de-risking the project. A PM who can't produces a Gantt chart.</p>
+
+<p><strong>Metric selection and interpretation.</strong> AUROC, F1, precision, recall, BLEU scores, human preference ratings - these mean different things in different contexts. An AI PM needs to understand these metrics well enough to have a genuine opinion about whether they're the right metrics for the problem, and to explain their tradeoffs to non-technical stakeholders. You don't need to be able to compute them. You need to understand what they're measuring and what they're missing.</p>
+
+<p><strong>Scope arbitration under uncertainty.</strong> When the model achieves 84% accuracy and you needed 90%, do you retrain with more data, relax the accuracy requirement, constrain the problem scope, or kill the project? This is a judgment call that requires understanding both the technical options and the business context. It's not a project management decision - it's a product decision.</p>
+
+<h2>The Discovery is Done Trap</h2>
+
+<p>In software delivery, discovery happens up front - requirements gathering, user research, design sprints - and then delivery happens. The two phases are separated. This model breaks badly in AI because discovery and delivery are interleaved - you often don't know what you're building until you've started building it.</p>
+
+<p>I've watched this play out multiple times. A team finishes discovery, hands off requirements to the ML team, and then acts surprised when the model doesn't work the way they designed it. The ML team built exactly what was specified. The specification was based on assumptions that turned out to be wrong. Whose fault is this?</p>
+
+<p>Nobody's, specifically - it's a structural problem. Discovery isn't done when you've written the PRD. In AI, discovery is ongoing throughout the project. The PM needs to be in the loop when model performance doesn't match expectations, when the data has quality issues that affect feasibility, when user testing reveals that the feature nobody wanted to cut is the one users actually care about.</p>
+
+<p>This requires a PM who can operate in ambiguity without defaulting to revisiting the requirements document. It requires someone who can say the hypothesis was wrong, here's what we learned, here's the new hypothesis - without treating that as a failure.</p>
+
+<h2>The Skills You're Actually Hiring For</h2>
+
+<p>When I'm evaluating an AI PM candidate, I care about a few specific things:</p>
+
+<h3>Technical Intuition, Not Technical Expertise</h3>
+
+<p>AI PMs don't need to write PyTorch. They need enough technical fluency to understand what's feasible, what's expensive, and what the tradeoffs are. I test this by asking them to explain a technical tradeoff in a past project in terms a non-technical executive could understand. The ability to translate between technical and business contexts is the skill - not depth of technical knowledge.</p>
+
+<h3>Comfort With Probabilistic Outcomes</h3>
+
+<p>Software delivery has binary outcomes: the feature works or it doesn't. AI has probabilistic outcomes: the model is right 87% of the time, or 91% of the time, or sometimes right and sometimes wrong in ways you don't fully understand yet. PMs who can't work with this uncertainty either artificially reduce it by picking arbitrary thresholds, or are paralyzed by it and refuse to ship until performance is good enough.</p>
+
+<p>The right relationship with probabilistic outcomes is neither of these. It's understanding what the distribution of errors looks like, which errors are acceptable, which are not, and what monitoring and fallback behaviors are in place to handle errors at production scale.</p>
+
+<h3>Experience Working through Stakeholder Expectations About AI</h3>
+
+<p>Stakeholders in non-technical organizations often have one of two dysfunctional relationships with AI: they think it can do anything and set unrealistic expectations, or they think it's fundamentally unreliable and set conservative requirements that make useful products impossible. Managing these expectations - setting them accurately, correcting them when they're wrong, and maintaining organizational trust through the inevitable failures - is one of the most important PM skills in AI contexts.</p>
+
+<p>Ask a PM candidate: how did you handle a situation where the model didn't perform as expected and stakeholders were disappointed? How they answer tells you a lot.</p>
+
+<h2>What This Means for Team Structure</h2>
+
+<p>The practical implication is that AI teams need PMs who are embedded with the technical team throughout the project, not people who receive handoffs from the technical team. This changes the reporting structure, the meeting cadence, and the definition of the PM role.</p>
+
+<p>It also means that most organizations need to retrain or replace the people managing their AI teams. Project management skills transfer partially. The mindset - managing certainty toward defined deliverables - doesn't transfer at all.</p>
+
+<p>This is uncomfortable to say, but it's true: if your AI product is stuck in a delivery mindset, no amount of technical talent will fix it. The bottleneck is management, not capability.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+<li><a href="https://www.devangshumitra.com/why-most-ai-pocs-fail-7-patterns-ive-seen-across-industries-2/">Why Most AI POCs Fail: 7 Patterns I've Seen Across Industries</a></li>
+<li><a href="https://www.devangshumitra.com/the-first-principles-of-healthcare-ai-product-management-9/">The First Principles of Healthcare AI Product Management</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/mlops-for-product-managers-what-you-need-to-know/">MLOps for Product Managers: What You Need to Know</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-thinking-life-sciences-pm/">First Principles Thinking for Life Sciences Product Managers: Beyond Best Practices</a></li>
+<li><a href="https://www.devangshumitra.com/course-first-principles-pm/">First Principles for Product Managers</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

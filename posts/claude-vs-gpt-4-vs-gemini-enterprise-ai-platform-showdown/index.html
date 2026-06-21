@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I&#39;ve spent the last two years building AI products on top of Claude, GPT-4," />
+  <meta property="og:title" content="Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown — Devangshu Mitra" />
+  <meta property="og:description" content="I&#39;ve spent the last two years building AI products on top of Claude, GPT-4," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-11-06" itemprop="datePublished">Nov 6, 2025</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</h1>
+          <p class="post-header__excerpt" itemprop="description">I've spent the last two years building AI products on top of Claude, GPT-4,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</h1>
+
+<p>Let me start with the honest answer nobody wants to give you: there is no universally best large language model. The right choice depends entirely on what you're building, how much you're spending, and what your organization's risk tolerance looks like.</p>
+
+<p>That said - I have opinions. I've built production AI systems on all three platforms. I've debugged 3am outages caused by context-window overflows. I've watched enterprise procurement teams pick models for the wrong reasons. I'm going to give you the practitioner's perspective, not the benchmark leaderboard view.</p>
+
+<h2>Quick Context: Who Published These Models?</h2>
+
+<p><strong>Anthropic Claude</strong> (currently Claude 3.5 Sonnet and Claude 3 Opus as the flagship models going forward) was built by a team that spun out of OpenAI with a safety-first mandate. Their Constitutional AI approach is real - not marketing. The models are noticeably more careful about ambiguous instructions and more likely to flag when they're uncertain.</p>
+
+<p><strong>OpenAI GPT-4</strong> (and its turbo variants) is the incumbent. GPT-4 Turbo with Vision and the o1/o1-mini reasoning models represent OpenAI's current enterprise offering. They have the most established set of tools and support, by far. There's more software, more integrations, and more developers familiar with their API.</p>
+
+<p><strong>Google Gemini</strong> (1.5 Pro and 1.5 Flash, with Gemini Ultra for premium tiers) is Google's answer to the above. The defining characteristic is the context window - Gemini 1.5 Pro's 1 million token context is the largest available in production currently. For specific situations, this really makes a huge difference.</p>
+
+<h2>The Comparison Table</h2>
+
+<p>| Dimension | Claude 3.5 Sonnet | GPT-4 Turbo | Gemini 1.5 Pro | | --- | --- | --- | --- | | Context Window | 200K tokens | 128K tokens | 1M tokens | | Input Price (per 1M tokens) | $3.00 | $10.00 | $3.50 (up to 128K) | | Output Price (per 1M tokens) | $15.00 | $30.00 | $10.50 | | Vision/Multimodal | Yes | Yes | Yes (video too) | | Function Calling | Yes (Tools API) | Yes (mature) | Yes | | JSON Mode | Yes | Yes | Yes | | Streaming | Yes | Yes | Yes | | Safety / Refusal Rate | High (conservative) | Medium | Medium | | Rate Limits (entry tier) | Moderate | Moderate | Generous (free tier) | | Enterprise Data Privacy | Strong (no training on API data) | Strong (Zero Data Retention option) | Strong (Vertex AI) | | SLA / Enterprise Contract | Yes (Claude for Enterprise) | Yes (Azure OpenAI) | Yes (Vertex AI) |</p>
+
+<p><em>Pricing currently. Always check current pricing pages - these change frequently.</em></p>
+
+<h2>Where Claude Wins</h2>
+
+<p>I default to Claude for anything involving long, complex documents that need to be understood holistically. Clinical trial protocols. Legal contracts. Enterprise architecture documents. The model's reasoning over long contexts is notably better than GPT-4 in my experience - it doesn't "forget" what it read 80,000 tokens ago as badly.</p>
+
+<p>The safety posture is also genuinely useful when you're building in regulated industries. When I was building clinical decision support tools at HCLTech, Claude's tendency to flag uncertainty and add appropriate caveats was a feature, not a bug. In healthcare AI, you want the model to say "I'm not certain about this" rather than confidently generate a wrong answer.</p>
+
+<blockquote><p><strong>Claude's Constitutional AI approach means it surfaces its own uncertainty more reliably than competitors. In high-stakes domains, that's worth the occasional over-refusal.</strong></p></blockquote>
+
+<p>Claude also tends to produce cleaner structured output - better Markdown, cleaner JSON, more consistent formatting when you're asking it to produce content at scale.</p>
+
+<h3>Claude Weaknesses</h3>
+
+<ul>
+<li>Smaller ecosystem - fewer third-party integrations built natively for Claude vs GPT-4</li>
+<li>More conservative refusals - some legitimate use cases (security research, red teaming) get blocked more aggressively</li>
+<li>No image generation (you need a separate model for that)</li>
+<li>Operator/user trust system adds complexity if you're not used to it</li>
+</ul>
+
+<h2>Where GPT-4 Wins</h2>
+
+<p>Ecosystem maturity. Full stop. If you need a tool that integrates with everything - LangChain, LlamaIndex, your internal CRM, your Zapier automations - GPT-4 is the safest bet. The developer community around OpenAI's API is an order of magnitude larger than Anthropic's.</p>
+
+<p>The reasoning models (o1, o1-mini) are also genuinely in a different category for tasks that require multi-step logical reasoning - mathematical proofs, algorithm design, complex debugging. For these specific tasks, nothing in the market currently matches o1's quality.</p>
+
+<p>Azure OpenAI is also worth calling out specifically for enterprise: if your organization is already Microsoft-first, you can deploy GPT-4 inside your Azure tenant, which solves data residency, compliance, and procurement in one shot. I've seen enterprise deals close faster purely because IT already had the Azure MSA in place.</p>
+
+<h3>GPT-4 Weaknesses</h3>
+
+<ul>
+<li>Most expensive at scale - GPT-4 Turbo input/output pricing is 2-3x Claude for comparable quality on most tasks</li>
+<li>Context window (128K) is generous but not unlimited - Gemini beats it here</li>
+<li>Quality has been inconsistent across model versions - some GPT-4 Turbo releases were noticeably worse than prior ones</li>
+<li>OpenAI's enterprise sales motion is notoriously slow compared to using Azure OpenAI</li>
+</ul>
+
+<h2>Where Gemini Wins</h2>
+
+<p>GPT-4 Weaknesses: Most expensive at scale; GPT-4 Turbo input/output pricing is 2-3x Claude for comparable quality on most tasks. Its context window (128K) is generous but not unlimited, Gemini beats it here. Quality has been inconsistent across model versions, some GPT-4 Turbo releases were noticeably worse than prior ones. OpenAI's enterprise sales motion is notoriously slow compared to using Azure OpenAI. Where Gemini Wins: The 1 million token context window is a genuine game-changer for specific uses. I've seen teams use Gemini 1.5 Pro to feed entire codebases into a single prompt for refactoring analysis. Legal teams processing entire case histories. Research teams loading entire journal databases. When you need to reason over an entire corpus at once rather than chunking and retrieving, Gemini's context window is the only answer.</p>
+
+<p>The multimodal capabilities are also the most comprehensive - Gemini supports video natively, not just images. For use cases involving video analysis, this is a significant differentiator.</p>
+
+<p>Gemini Flash is also worth highlighting: it's notably cheaper and faster than Claude or GPT-4 for classification and lightweight generation tasks. If you're doing high-volume, low-complexity inference at scale (classifying millions of documents, tagging content), Gemini Flash economics are hard to beat.</p>
+
+<h3>Gemini Weaknesses</h3>
+
+<ul>
+<li>Instruction following is less precise than Claude - the model sometimes interprets prompts more liberally than you intended</li>
+<li>The enterprise offering is more complex to work through - Vertex AI vs Google AI Studio vs Gemini API have overlapping but distinct feature sets</li>
+<li>Safety filters can be surprisingly aggressive for enterprise use cases (similar issue to Claude, but in different areas)</li>
+<li>Less mature function calling ecosystem compared to OpenAI</li>
+</ul>
+
+<h2>The Hidden Dimension: Vendor Strategy</h2>
+
+<p>Gemini Weaknesses: Instruction following is less precise than Claude; the model sometimes interprets prompts more liberally than intended. The enterprise offering is more complex to work through; Vertex AI vs Google AI Studio vs Gemini API have overlapping but distinct feature sets. Safety filters can be surprisingly aggressive for enterprise use cases (a similar issue to Claude, but in different areas). It has less developed function calling support compared to OpenAI. The Hidden Dimension: Vendor Strategy. Here's something product leaders rarely talk about in model comparisons: your AI vendor choice is a strategic decision, not just a technical one.</p>
+
+<p>If you pick OpenAI as your primary provider and they raise prices by 50%, how easy is it to migrate? If Anthropic's safety policies tighten and your use case gets blocked, what's your fallback? If Google deprecates Gemini 1.0 and your prompts break on 1.5, who owns that migration work?</p>
+
+<p>My recommendation for any production system: architect for model portability from day one. Use an abstraction layer (LangChain, LlamaIndex, or your own wrapper) so you can swap models without rewriting your application. This costs you a little performance (direct API calls are faster) but saves you enormous pain when the model space shifts - which it does, every 6 months.</p>
+
+<h2>My Actual Verdict: When to Use Each</h2>
+
+<h3>Use Claude when:</h3>
+
+<ul>
+<li>My Actual Verdict: When to Use Each Use Claude when: You're working with long, complex documents that need a complete understanding of all their parts.</li>
+<li>You're in a regulated industry (healthcare, legal, finance) and need careful, cautious results that acknowledge uncertainty.</li>
+<li>You want a lot of high-quality, structured output (like JSON, Markdown, or code).</li>
+<li>Safety and adherence to ethical guidelines are absolute must-haves for your product.</li>
+</ul>
+
+<h3>Use GPT-4 when:</h3>
+
+<ul>
+<li>Use GPT-4 when: You need the broadest range of support - with the most third-party tools, tutorials, and community help.</li>
+<li>You need top-notch reasoning for math, complex logic, or designing algorithms.</li>
+<li>Your organization primarily uses Microsoft/Azure, and you need simple purchasing processes.</li>
+<li>You're building on top of tools that are already designed for OpenAI (which many are).</li>
+</ul>
+
+<h3>Use Gemini when:</h3>
+
+<ul>
+<li>Use Gemini when: You need to process and understand very large amounts of text all at once, without breaking it up.</li>
+<li>You're working with video or need full support for various types of data.</li>
+<li>You're doing a lot of classification or tagging, especially at high volumes (using Flash pricing).</li>
+<li>Your organization primarily uses Google/GCP, and seamless integration with existing systems is important.</li>
+</ul>
+
+<h2>The real point</h2>
+
+<p>The real point is my actual verdict: when to use each. Use Claude when: You're working with long, complex documents that need to consider all parts. You're in a regulated industry (healthcare, legal, finance) and need cautious, uncertainty-aware output. You want high-quality structured output (JSON, Markdown, code) at scale. Safety and constitutional alignment are product requirements, not just nice-to-haves. Use GPT-4 when: You need the widest range of tools and support, with most third-party tools, tutorials, and community help available. You need excellent reasoning for math, complex logic, or algorithm design. Your organization is Microsoft/Azure-first and simple procurement matters. You're building on top of tools that already expect OpenAI (many do). Use Gemini when: You need to reason over very large amounts of text without splitting it up. You're processing video or need full support for various media types. You're running high-volume classification or tagging at scale (Flash pricing). Your organization is Google/GCP-first and native integration matters. The real point: Stop trying to pick one model for everything. The enterprise AI stack of today is multi-model by default. I have production systems that use Claude for document analysis, GPT-4 for customer-facing chat (it has better tool and community support), and Gemini Flash for bulk classification. The routing layer costs almost nothing to build and the cost savings are real.</p>
+
+<p>Start with Claude if you're starting from scratch today - the quality-to-price ratio is excellent, the safety posture is appropriate for regulated industries, and the API is clean. But architect from day one so you're not locked in.</p>
+
+<hr>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/aws-bedrock-vs-azure-openai-vs-google-vertex-ai/">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</a></li>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-from-poc-to-production/">Course: Enterprise GenAI - From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/talk-agentic-ai-in-the-enterprise-patterns-pitfalls-and-production/">Talk: Agentic AI in the Enterprise - Patterns, Pitfalls, and Production</a></li>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

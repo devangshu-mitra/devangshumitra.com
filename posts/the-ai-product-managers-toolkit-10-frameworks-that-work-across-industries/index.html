@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="After building AI products across healthcare, edtech, and CPG, I&#39;ve distilled" />
+  <meta property="og:title" content="The AI Product Manager&#39;&#39;s Toolkit: 10 Frameworks That Work Across Industries — Devangshu Mitra" />
+  <meta property="og:description" content="After building AI products across healthcare, edtech, and CPG, I&#39;ve distilled" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The AI Product Manager''s Toolkit: 10 Frameworks That Work Across Industries — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-12-11" itemprop="datePublished">Dec 11, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The AI Product Manager''s Toolkit: 10 Frameworks That Work Across Industries</h1>
+          <p class="post-header__excerpt" itemprop="description">After building AI products across healthcare, edtech, and CPG, I've distilled</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The AI Product Manager's Toolkit: 10 Frameworks That Work Across Industries</h1>
+
+<p>I've spent the last several years building AI products across three very different industries: consumer health at Mamaearth, personalized learning at Edxcare, and now clinical GenAI at HCLTech. The industries look nothing alike on the surface - regulatory environments, user personas, data assets, and success metrics all vary dramatically.</p>
+
+<p>But here's what I've learned: the hard problems in AI product management are <strong>fundamentally the same</strong>. Stakeholders who don't trust the model. Engineers who optimize for accuracy instead of business outcomes. Executives who want AI without understanding what it actually requires. Users who abandon features the moment they get one bad result.</p>
+
+<p>The frameworks I'm sharing below are the ones I keep reaching for. They work whether you're building a clinical decision support tool or a recommendation engine for fast-moving consumer goods.</p>
+
+<hr>
+
+<h2>1. RICE for AI: Prioritization That Accounts for Model Uncertainty</h2>
+
+<p>The classic RICE framework (Reach, Impact, Confidence, Effort) needs modification for AI products because <em>confidence</em> means something different when a model is involved.</p>
+
+<p>In standard RICE, confidence captures your certainty about the estimate. In AI product work, I split confidence into two components:</p>
+
+<ul>
+<li><strong>Business confidence</strong>: How certain are you this will drive the outcome you want?</li>
+<li><strong>Technical confidence</strong>: How certain are you the model can actually do this reliably?</li>
+</ul>
+
+<p>The modified score becomes: <code>(Reach × Impact × Business Confidence × Technical Confidence) / Effort</code></p>
+
+<p>At Edxcare, we had a feature idea to auto-generate personalized study plans using student assessment data. Business confidence was high - we knew personalized plans drove retention. Technical confidence was low - our data was sparse and noisy for new students. The combined score correctly flagged this as a deprioritized item until we had enough data density.</p>
+
+<p>At HCLTech, we used the same logic to triage GenAI features for clinical documentation. Features requiring high-confidence medical extraction from unstructured notes got low technical confidence scores until we had validated the extraction pipeline on a representative sample.</p>
+
+<blockquote><p><strong>Practical tip:</strong> Score technical confidence by running a quick feasibility spike - 2-3 days of engineering time to assess data availability, model capability, and latency constraints. Don't let engineering do a full proof-of-concept before prioritization. The spike is enough.</p></blockquote>
+
+<h2>2. AI Readiness Assessment</h2>
+
+<p>Before committing to any AI feature, run your organization through a five-dimension readiness check. I use this as a pre-mortem tool - before building, not after.</p>
+
+<ol>
+<li><strong>Data readiness</strong>: Do you have labeled data? How much? How clean? Who owns it?</li>
+<li><strong>Infrastructure readiness</strong>: Can you serve model inferences at the latency your UX requires?</li>
+<li><strong>Talent readiness</strong>: Do you have ML engineers or are you relying purely on third-party APIs?</li>
+<li><strong>Process readiness</strong>: Does your organization have workflows to handle model errors gracefully?</li>
+<li><strong>Governance readiness</strong>: Do you have policies for data use, model bias, audit trails, and user consent?</li>
+</ol>
+
+<p>At Mamaearth, when we explored AI-powered skin analysis, governance readiness was the blocker - we didn't have a clear policy for using customer selfie data. We paused the feature and invested three months in building the policy framework first. That decision prevented what could have been a significant brand and legal problem.</p>
+
+<p>In healthcare, governance readiness is almost always the longest pole. In CPG, it's usually data quality. In edtech, it's infrastructure - schools often have terrible connectivity and device heterogeneity.</p>
+
+<h2>3. The Build vs Buy Matrix</h2>
+
+<p>I'll cover this in detail in a dedicated post, but the quick version: stop treating build vs buy as a binary. There are at least four options.</p>
+
+<ul>
+<li><strong>Build from scratch</strong>: Full control, maximum effort, competitive moat potential</li>
+<li><strong>Buy and customize</strong>: Vendor foundation, your differentiation layer on top</li>
+<li><strong>Buy and configure</strong>: Pure vendor, your data and prompts only</li>
+<li><strong>Open-source and self-host</strong>: Community model, your infrastructure, middle-ground on control</li>
+</ul>
+
+<p>The decision axis isn't just cost - it's <em>where your differentiation lives</em>. If differentiation lives in the model itself, build. If it lives in the data, buy and fine-tune. If it lives in the workflow, buy and configure.</p>
+
+<h2>4. LLM Evaluation Framework</h2>
+
+<p>Most teams evaluate LLMs on benchmarks that have nothing to do with their actual use case. I use a four-layer evaluation framework instead:</p>
+
+<ol>
+<li><strong>Intrinsic quality</strong>: How good is the raw output? (Accuracy, fluency, factual grounding)</li>
+<li><strong>Task performance</strong>: Does it complete the specific task you need? (Custom test sets, not generic benchmarks)</li>
+<li><strong>User acceptance</strong>: Do real users trust and act on the output?</li>
+<li><strong>Business impact</strong>: Does the feature actually move the metric it was designed to move?</li>
+</ol>
+
+<p>Most teams only measure layer 1. Layer 4 is the only one that matters to the business. I've seen products with impressive intrinsic quality scores fail at layer 3 because users couldn't understand the output format, or at layer 4 because the feature addressed the wrong problem.</p>
+
+<blockquote><p><strong>Real example:</strong> At HCLTech, we had a clinical summarization model that scored well on ROUGE and BERTScore. But nurses weren't using it. Layer 3 audit revealed they didn't trust summaries that didn't cite the source note. We added inline citations. Adoption jumped 40% in the next sprint cycle.</p></blockquote>
+
+<h2>5. Stakeholder Alignment Canvas</h2>
+
+<p>AI projects fail at the stakeholder layer more often than the technical layer. I use a canvas with six columns for every major AI initiative:</p>
+
+<ul>
+<li><strong>Stakeholder</strong>: Name/role</li>
+<li><strong>What they care about</strong>: Their primary success metric</li>
+<li><strong>Their AI fear</strong>: What keeps them up at night about this feature</li>
+<li><strong>Their AI hope</strong>: What they're most excited about</li>
+<li><strong>Evidence they need</strong>: What would make them a champion vs a blocker</li>
+<li><strong>Engagement mode</strong>: How often and in what format do they want updates?</li>
+</ul>
+
+<p>The <em>AI fear</em> column is the most important. In healthcare, clinicians fear liability. In fintech, compliance officers fear regulatory exposure. In edtech, teachers fear replacement. Name the fear explicitly - then address it directly in your product narrative.</p>
+
+<h2>6. The Data Flywheel Audit</h2>
+
+<p>Before launching any AI feature, map your data flywheel: what data does the feature generate, how does that data feed back into improving the model, and how long until the flywheel creates a defensible moat?</p>
+
+<p>A flywheel that takes five years to spin up is a vulnerability, not a moat. A flywheel that generates signal within the first week of launch is a compounding advantage.</p>
+
+<p>At Edxcare, adaptive learning created a flywheel immediately - every student interaction taught the recommendation engine which content worked for which learning style. At HCLTech, clinical AI flywheels are slower because labeling requires physician review, which is expensive and slow.</p>
+
+<p>The audit question: <em>What's your flywheel spin time, and can you survive until it's meaningful?</em></p>
+
+<h2>7. Failure Mode Mapping</h2>
+
+<p>Every AI feature has at least three failure modes you should document before launch:</p>
+
+<ol>
+<li><strong>False positive failure</strong>: The model is wrong in the affirmative. Cost?</li>
+<li><strong>False negative failure</strong>: The model misses something it should catch. Cost?</li>
+<li><strong>Confidence calibration failure</strong>: The model is confidently wrong. Cost?</li>
+</ol>
+
+<p>In healthcare, a false negative in sepsis detection can cost a life. A false positive in fraud detection can freeze a customer's account. A confidently wrong learning recommendation can waste a student's time and erode their confidence in the platform.</p>
+
+<p>Map each failure mode, estimate the cost (financial, reputational, legal), and design explicit mitigation into the product - not as an afterthought.</p>
+
+<h2>8. The AI Trust Ladder</h2>
+
+<p>Users don't trust AI systems immediately. They climb a trust ladder, and products that skip rungs fail.</p>
+
+<ol>
+<li><strong>Awareness</strong>: User knows the AI feature exists</li>
+<li><strong>Curiosity</strong>: User tries it once</li>
+<li><strong>Skepticism</strong>: User tests it, checks its work</li>
+<li><strong>Calibrated trust</strong>: User knows when to trust it and when not to</li>
+<li><strong>Habitual use</strong>: AI is the default workflow</li>
+</ol>
+
+<p>Design features to accelerate the climb. Explainability features (show your work) help users move from skepticism to calibrated trust. Graceful degradation (acknowledge uncertainty) prevents trust collapse. Progressive disclosure (start with low-stakes tasks) lets users build confidence safely.</p>
+
+<h2>9. Regulatory Complexity Index</h2>
+
+<p>Not all AI products face the same regulatory overhead. Before committing to a roadmap, score your regulatory complexity on three dimensions:</p>
+
+<ul>
+<li><strong>Data sensitivity</strong>: Is the data PHI, PII, financial records, biometric? (1-5 scale)</li>
+<li><strong>Decision stakes</strong>: Is the AI output informational or decision-making? Does a bad output harm a person? (1-5 scale)</li>
+<li><strong>Jurisdictional complexity</strong>: How many regulatory bodies have jurisdiction? FDA, HIPAA, GDPR, state laws? (1-5 scale)</li>
+</ul>
+
+<p>A score above 10 means you need a dedicated regulatory track running in parallel to your product track. I've seen teams learn this the hard way - launching a feature and then spending nine months retrofitting compliance.</p>
+
+<h2>10. The North Star Metric Selection Framework</h2>
+
+<p>AI products tend to attract the wrong north stars. Teams optimize for accuracy, F1 score, or model performance - metrics that don't map to business outcomes.</p>
+
+<p>My framework for selecting a north star: it must be (a) measurable within your sprint cycle, (b) directly influenced by the AI feature, and (c) correlated with revenue or retention in your business model.</p>
+
+<p>In clinical AI, my north star is often <em>workflow time saved per clinician per day</em> - measurable, AI-influenced, correlated with hospital cost reduction. In edtech, it's <em>learning outcome improvement rate</em> - measurable via assessments, AI-influenced through personalization, correlated with renewal. In CPG, it's <em>recommendation click-through rate leading to conversion</em> - tight causal chain from AI to revenue.</p>
+
+<p>Accuracy is an input metric, not a north star. Pick the output metric that maps to why the business is investing in AI in the first place.</p>
+
+<hr>
+
+<h2>Putting It Together</h2>
+
+<p>These frameworks aren't meant to be applied all at once. I typically use the AI Readiness Assessment and Stakeholder Alignment Canvas before a project starts, RICE for AI and Failure Mode Mapping during discovery, the LLM Evaluation Framework during development, and the Trust Ladder and North Star Selection Framework during launch and growth.</p>
+
+<p>The through-line is this: AI product management requires you to hold two very different skill sets simultaneously. You need to understand the probabilistic, non-deterministic nature of ML systems. And you need to translate that into deterministic business outcomes that stakeholders can plan around.</p>
+
+<p>These frameworks are the bridge between those two worlds. Use them.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+<li><a href="https://www.devangshumitra.com/how-to-write-a-prd-for-an-ai-feature-template-included/">How to Write a PRD for an AI Feature (Template Included)</a></li>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/clinical-trial-ai-playbook/">Clinical Trial AI Playbook</a></li>
+<li><a href="https://www.devangshumitra.com/fda-ai-ml-regulatory-checklist/">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

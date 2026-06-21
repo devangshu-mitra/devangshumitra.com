@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn how first principles thinking helps life sciences product managers" />
+  <meta property="og:title" content="First Principles Thinking for Life Sciences Product Managers: Beyond Best — Devangshu Mitra" />
+  <meta property="og:description" content="Learn how first principles thinking helps life sciences product managers" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>First Principles Thinking for Life Sciences Product Managers: Beyond Best — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2025-05-16" itemprop="datePublished">May 16, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">First Principles Thinking for Life Sciences Product Managers: Beyond Best</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn how first principles thinking helps life sciences product managers</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>First Principles Thinking for Life Sciences Product Managers: Beyond Best Practices</h1>
+
+<p>Every PM framework - RICE, JTBD, Design Thinking - was built for consumer or enterprise SaaS. In life sciences, the biggest risks are regulatory rejection and clinical harm. This is where <strong>first principles thinking</strong> becomes essential.</p>
+
+<h2>What It Actually Is</h2>
+
+<p>Breaking problems to fundamental truths and reasoning upward - not by analogy ("X did it this way") or convention ("it's always been done this way"). In life sciences, conditions are changing rapidly. AI is new. Regulatory frameworks evolve. The "best practices" of five years ago may hinder innovation today.</p>
+
+<h2>Example 1: Challenge Compliance Assumptions</h2>
+
+<p>Conventional: "AI in clinical settings always requires FDA clearance." First principles: What specifically triggers FDA jurisdiction? The 21st Century Cures Act exempts certain CDS software. Administrative AI isn't FDA-regulated. I've seen teams waste a year pursuing unnecessary regulatory pathways.</p>
+
+<h2>Example 2: Rethink Clinical Workflows</h2>
+
+<p>Conventional: "Design AI to fit existing workflows." First principles: Are existing workflows optimized, or workarounds for limitations that no longer exist? "Fit into workflows" is often code for "don't challenge anyone."</p>
+
+<h3>First Principles for Clinical Safety and Trust</h3>
+
+<p>You cannot compromise on patient safety. Conventional thinking often suggests adding layers of human review, a "human-in-the-loop" for every AI decision. First principles ask: what is the root cause of potential harm? Is it model hallucination? Data drift? Lack of interpretability? Each requires a different mitigation strategy.</p>
+
+<p>I worked on an AI for predicting sepsis risk. The conventional approach was to flag every potential case for a clinician to review. This led to alert fatigue. Instead, we broke down the problem. What if the AI only flagged cases with a 95% confidence AND a clear, explainable rationale, like "elevated lactate and dropping blood pressure over 2 hours"? This shifted the human role from reviewing every alert to acting on high-certainty, explainable insights. It built clinician trust faster than any "human-in-the-loop" mandate.</p>
+
+<p>Consider the difference between a diagnostic AI and a workflow automation AI. A diagnostic tool carries higher inherent risk and needs rigorous validation, like a multi-site clinical trial for an FDA Class II device. An AI that automates scheduling or extracts non-clinical data from EHR notes has a different risk profile. Understanding these fundamental differences guides your safety strategy, rather than a blanket "all AI is high risk" approach.</p>
+
+<h3>First Principles for Data Governance and Privacy</h3>
+
+<p>Privacy is not just about HIPAA compliance. It is about patient trust and data utility. Conventional wisdom says "de-identify all data." First principles ask: what data elements truly identify a patient? What is the minimum necessary data for this specific AI task? De-identification can destroy valuable signal, making an AI less effective, or simply shift the re-identification risk.</p>
+
+<p>For a project predicting adverse drug events, we needed patient history. Full EHR access was blocked by institutional policy. Instead of fighting it, we asked: what specific features drive this prediction? We found that medication lists, lab results, and certain demographic fields were sufficient. We implemented a synthetic data generation pipeline for model training, matching statistical properties of real data without exposing actual patient records. This approach allowed model development to proceed months faster than waiting for full de-identification approvals, which often take six to nine months at large academic medical centers.</p>
+
+<p>Think beyond just masking PII. Consider differential privacy for aggregate analyses or homomorphic encryption for specific computations on encrypted data. These are not just security features; they are tools to unlock data utility while upholding fundamental privacy principles. You can process data without ever seeing it in plaintext, enabling collaborations that were previously impossible due to strict data sharing agreements.</p>
+
+<h3>Questioning AI Model Selection</h3>
+
+<p>The default choice for many teams is often the latest large language model or a complex deep learning architecture. First principles challenge this: what is the simplest model that meets the performance requirements for this specific task? A simpler model is often easier to validate, debug, and explain, which is critical in life sciences.</p>
+
+<p>For a task like predicting hospital readmissions, I saw a team jump straight to a transformer model. After months of training and tuning, its performance was only marginally better than a well-engineered XGBoost model. The XGBoost model, however, offered clear feature importances - "length of stay," "number of prior admissions," "specific comorbidities" - which clinicians could understand and act on. The transformer model was a black box, making it hard to integrate into clinical decision support.</p>
+
+<p>Your goal is not always the highest AUC score. Sometimes, it is the highest <em>actionable</em> AUC score. If a logistic regression model can achieve 85% of the performance of a complex neural network, but provides 100% interpretability, it might be the superior choice. You must weigh model complexity against its explainability, data requirements, and deployment overhead. For example, deploying a simple scikit-learn model on an edge device is vastly different from running a 7B parameter LLM.</p>
+
+<h2>Example 3: Question Data Architecture</h2>
+
+<p>Conventional: "Build a unified data lake first." First principles: What data does the AI actually need? Start with minimum viable data. Federated learning and API-based access can deliver value without 18 months of infrastructure.</p>
+
+<h2>Example 4: Rebuild Pricing Models</h2>
+
+<p>Conventional: "Price per-user like traditional health IT." First principles: If your AI reduces denied claims by 30%, the value is recovered revenue, not software access. Value-based pricing aligns incentives and commands 10x the price.</p>
+
+<h2>Example 5: Reimagine User Personas</h2>
+
+<p>Conventional: "The primary user is the physician." First principles: Who actually interacts with the software? Nurses, MAs, coordinators, and patients are often the actual users. The highest-use user isn't always the one with the most authority.</p>
+
+<h2>How to Practice It</h2>
+
+<ol>
+<li><strong>Ask "why" five times.</strong> Toyota's technique works in healthcare too.</li>
+<li><strong>Identify assumptions, then test them.</strong> Is this a physical law, regulation, convention, or habit?</li>
+<li><strong>Study adjacent industries.</strong> How does fintech handle compliance? Aerospace handle safety-critical AI?</li>
+<li><strong>Talk to outliers.</strong> The most innovative health systems have already challenged assumptions you haven't identified.</li>
+</ol>
+
+<h2>What matters here</h2>
+
+<ul>
+<li><strong>Best practices often encode outdated assumptions.</strong></li>
+<li><strong>First principles isn't ignoring regulations</strong> - it's understanding exactly what they require.</li>
+<li><strong>The highest-value decisions come from questioning the problem,</strong> not optimizing the solution.</li>
+<li><strong>It's slower upfront but faster overall.</strong> 30 minutes of analysis can save months of building wrong.</li>
+</ul>
+
+<p><em>See</em> <a href="https://www.devangshumitra.com/about/"><em>About</em></a> <em>and</em> <a href="https://www.devangshumitra.com/research/"><em>Research</em></a> <em>for more on my approach.</em></p>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/research-preview-cross-industry-patterns-in-ai-product-management/">Research Preview: Cross-Industry Patterns in AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/fda-samd-guidance-product-managers/">FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs to Know</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-prompt-engineering-a-life-sciences-product-managers-decision-framework/">RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager's Decision Framework</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

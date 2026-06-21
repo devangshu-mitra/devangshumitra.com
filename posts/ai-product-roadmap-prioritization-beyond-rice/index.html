@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="RICE works fine when you know what you&#39;re building. AI products break that" />
+  <meta property="og:title" content="AI Product Roadmap Prioritization: Beyond RICE — Devangshu Mitra" />
+  <meta property="og:description" content="RICE works fine when you know what you&#39;re building. AI products break that" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI Product Roadmap Prioritization: Beyond RICE — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-11-15" itemprop="datePublished">Nov 15, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI Product Roadmap Prioritization: Beyond RICE</h1>
+          <p class="post-header__excerpt" itemprop="description">RICE works fine when you know what you're building. AI products break that</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI Product Roadmap Prioritization: Beyond RICE</h1>
+
+<p>RICE - Reach, Impact, Confidence, Effort - is a reasonable prioritization framework for most software products. You estimate how many users a feature will reach, how much impact it will have, how confident you are in those estimates, and how much work it takes. Divide, rank, ship in order.</p>
+
+<p>AI products break this framework in three specific ways. First, confidence in AI features is structurally lower than in deterministic software - model outputs are probabilistic, accuracy varies across user segments, and what works in the lab often behaves differently in production. Second, AI features have compounding dependencies - a better embedding model enables five downstream features you couldn't build before. Third, the feedback loop between shipping and learning is longer and noisier than in traditional software.</p>
+
+<p>After three years of building AI products across Life Sciences and Healthcare, I've developed a modified framework that accounts for these realities.</p>
+
+<h2>What Breaks in Standard RICE</h2>
+
+<p>The Confidence component in RICE is typically a gut-check percentage - 80% if you've validated with users, 50% if you haven't, 20% if it's speculative. For AI features, confidence needs to be decomposed into at least three separate dimensions:</p>
+
+<ul>
+<li><strong>Technical confidence</strong>: Can we actually build this to the required accuracy threshold? Do we have the data? Does a similar capability exist in research?</li>
+<li><strong>Product confidence</strong>: Will users engage with this feature given AI's current limitations? Will they trust the output enough to act on it?</li>
+<li><strong>Business confidence</strong>: Will the accuracy level we can achieve actually create value, or does it need to be better than X% to matter?</li>
+</ul>
+
+<p>Collapsing these into a single confidence number hides the most important risks. A feature can have high technical confidence (we know we can build it) and low business confidence (the accuracy we can achieve isn't good enough to change user behavior).</p>
+
+<h2>The AI Prioritization Framework: RICE-E</h2>
+
+<p>I've added one dimension to RICE that changes everything: <strong>Extractability</strong>. This measures how much learning you get from building a feature regardless of whether it succeeds commercially.</p>
+
+<p>The formula: <strong>Score = (Reach x Impact x Confidence) / Effort x Extractability Multiplier</strong></p>
+
+<p>Extractability is a multiplier from 0.5 to 2.0:</p>
+
+<ul>
+<li><strong>2.0</strong> - Building this creates reusable infrastructure, labeled datasets, or model capabilities that enable 3+ future features</li>
+<li><strong>1.5</strong> - Building this creates significant learnings about user behavior or model performance that will improve future prioritization</li>
+<li><strong>1.0</strong> - Standard feature, learnings are feature-specific</li>
+<li><strong>0.5</strong> - One-off capability that creates technical debt or data silos that slow down future work</li>
+</ul>
+
+<p>This multiplier changes the ranking meaningfully. A feature with modest RICE scores but high extractability - say, building your first human feedback collection loop - often should be prioritized over a higher-RICE feature that produces isolated value.</p>
+
+<h2>Decomposing Confidence for AI</h2>
+
+<p>Use this three-part confidence assessment for every AI feature:</p>
+
+<ol>
+<li><strong>Technical Confidence (T)</strong>: Based on existing research, data availability, and model capability benchmarks. Score 0-100%.</li>
+<li><strong>Product Confidence (P)</strong>: Based on user research, comparable AI features in market, and your understanding of user trust in AI outputs in this domain. Score 0-100%.</li>
+<li><strong>Business Confidence (B)</strong>: Based on analysis of what accuracy threshold creates value - if we need 95% accuracy but can only achieve 80%, business confidence should reflect that gap. Score 0-100%.</li>
+</ol>
+
+<p>Combined confidence = T x P x B. This is multiplicative, not additive, because all three need to be true for the feature to succeed.</p>
+
+<blockquote><p>A clinical AI feature I worked on had T=90% (the ML was well-understood), P=60% (physicians were skeptical of AI recommendations), and B=40% (the accuracy we could achieve wasn't good enough for clinical decision support without human review). Combined confidence: 22%. RICE would have missed this entirely.</p></blockquote>
+
+<h2>The Dependency Map: Sequencing for Compounding Value</h2>
+
+<p>Standard RICE treats features as independent. AI features often aren't. Before scoring, map your feature backlog into a dependency graph:</p>
+
+<ul>
+<li>Which features require labeled data that another feature will generate?</li>
+<li>Which features reuse embeddings, fine-tuned models, or retrieval infrastructure built for something else?</li>
+<li>Which features become possible only after you've learned from user behavior on an earlier feature?</li>
+</ul>
+
+<p>Features that enable downstream capabilities should be prioritized earlier than their individual RICE score suggests. You're not just building one feature - you're building the platform that makes future features cheaper and faster.</p>
+
+<h2>Accuracy Thresholds as Acceptance Criteria</h2>
+
+<p>Every AI feature on your roadmap should have an explicit accuracy threshold in its definition. Not "we'll improve accuracy" but "this feature ships when precision is above 85% and recall is above 78% on our held-out test set, validated on the customer's own data."</p>
+
+<p>This threshold should feed directly into your RICE confidence score. If your current model is at 70% precision and you need 85%, your technical confidence should reflect the gap - not assume the jump will happen.</p>
+
+<h2>Quarterly Recalibration Ritual</h2>
+
+<p>AI roadmaps go stale faster than traditional software roadmaps. Model capabilities improve, new foundation models change what's possible, user trust shifts as AI becomes more familiar. I run a quarterly recalibration:</p>
+
+<ol>
+<li>Re-score every backlog item with updated technical confidence based on current model benchmarks</li>
+<li>Check whether accuracy thresholds we set 6 months ago still reflect business requirements</li>
+<li>Re-evaluate dependency maps - what new capabilities have we built that enable previously low-ranked features?</li>
+<li>Retire features that were blocked on model capability if that capability now exists off-the-shelf</li>
+</ol>
+
+<h2>Practical Prioritization Checklist</h2>
+
+<ul>
+<li>[ ] Decomposed confidence into Technical, Product, and Business components</li>
+<li>[ ] Assigned Extractability multiplier with written justification</li>
+<li>[ ] Mapped dependencies - what does this enable and what does it require?</li>
+<li>[ ] Defined accuracy threshold as acceptance criteria</li>
+<li>[ ] Verified Effort estimate accounts for data labeling, model evaluation, and monitoring setup - not just engineering time</li>
+<li>[ ] Validated with at least one domain expert that the accuracy threshold is achievable given available data</li>
+</ul>
+
+<h2>My take</h2>
+
+<p>RICE is a starting point, not a complete system for AI products. The key adaptations: decompose confidence into three components, add an extractability multiplier to capture compounding value, map dependencies before ranking, and treat accuracy thresholds as hard acceptance criteria rather than aspirations. Run quarterly recalibration because the space moves faster than your annual planning cycle.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/defining-mvp-for-ai-products-less-is-different/">Defining MVP for AI Products: Less Is Different</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+<li><a href="https://www.devangshumitra.com/launch-playbook-taking-an-ai-product-from-beta-to-ga/">Launch Playbook: Taking an AI Product from Beta to GA</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/defining-mvp-for-ai-products-less-is-different/">Defining MVP for AI Products: Less Is Different</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter-beyond-accuracy/">AI Product Metrics That Actually Matter: Beyond Accuracy</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-thinking-life-sciences-pm/">First Principles Thinking for Life Sciences Product Managers: Beyond Best Practices</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn proven mental models for AI product decisions including risk assessment" />
+  <meta property="og:title" content="Mental Models for AI Product Decisions: When to Ship vs When to Wait — Devangshu Mitra" />
+  <meta property="og:description" content="Learn proven mental models for AI product decisions including risk assessment" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Mental Models for AI Product Decisions: When to Ship vs When to Wait — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-12-31" itemprop="datePublished">Dec 31, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Mental Models for AI Product Decisions: When to Ship vs When to Wait</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn proven mental models for AI product decisions including risk assessment</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Mental Models for AI Product Decisions: When to Ship vs When to Wait</h1>
+
+<p>The most consequential decision I make as an AI PM is not which model to use or how to structure the evaluation pipeline. It is whether to ship now or wait. Get that call wrong in either direction and the consequences compound: ship too early and you erode user trust in ways that take months to repair; wait too long and a competitor defines the space while you are still perfecting your confidence threshold.</p>
+
+<p>This post is about the frameworks I use to make that call. Not as a formula - no formula survives contact with a real launch decision - but as a structured way to think through the variables before the pressure is on.</p>
+
+<hr>
+
+<h2>Why This Decision Is Different for AI</h2>
+
+<p>Traditional software features fail in discrete, diagnosable ways. An API call throws an exception. A UI element does not render. A calculation returns the wrong value. These failures are usually caught in QA and fixed before launch.</p>
+
+<p>AI features fail in probabilistic, often invisible ways. The model is wrong 7% of the time, not all the time. The failures cluster in demographic groups you did not test. The system works perfectly in your evaluation environment and degrades in production because real user queries are distributed differently than your test set. You cannot QA your way to certainty.</p>
+
+<p>This changes the ship/wait calculus fundamentally. You are not deciding whether the feature is ready. You are deciding whether the current quality level is acceptable given the cost of delay and the reversibility of the deployment.</p>
+
+<hr>
+
+<h2>Framework 1: The Reversibility Matrix</h2>
+
+<p>Jeff Bezos's Type 1 / Type 2 decision framework is well known. Type 1 decisions are irreversible, one-way doors. Type 2 decisions are reversible, two-way doors. The key insight: most decisions are Type 2, and treating them like Type 1 leads to analysis paralysis.</p>
+
+<p>For AI features, I extend this into a 2x2 matrix based on two dimensions: deployment reversibility (can you roll back quickly?) and impact reversibility (can you undo the harm if something goes wrong?).</p>
+
+<ul>
+<li><strong>Reversible deployment + reversible impact:</strong> Ship with a feature flag and a monitoring plan. Move fast.</li>
+<li><strong>Reversible deployment + irreversible impact:</strong> This is the dangerous quadrant. You can roll back the feature but cannot undo the harm. A clinical AI that misdiagnoses a patient - you can turn it off, but you cannot un-harm the patient. Requires the highest pre-ship quality bar.</li>
+<li><strong>Irreversible deployment + reversible impact:</strong> Proceed cautiously. You cannot undo the deployment easily (contract commitments, data migration, model training) but errors are correctable. Plan for the long tail.</li>
+<li><strong>Irreversible deployment + irreversible impact:</strong> Do not ship until you have exhausted uncertainty reduction. These decisions need executive sign-off and legal review.</li>
+</ul>
+
+<p>At Mamaearth, when we shipped an AI personalization engine for skincare recommendations, the deployment was reversible (feature flag) and the impact of a wrong recommendation was low (someone uses the wrong moisturizer for a week). We moved fast. In my healthcare work, a clinical risk stratification model sits in the irreversible impact quadrant regardless of how easily we can roll back the deployment. We run more evaluation cycles, more bias testing, more clinical review before launch.</p>
+
+<h2>Framework 2: Asymmetric Risk Analysis</h2>
+
+<p>Most ship/wait decisions are framed as symmetric: what is the risk of shipping versus the risk of waiting? But the risks are almost never symmetric, and recognizing the asymmetry changes the decision.</p>
+
+<p>Ask: what is the worst realistic outcome if I ship now versus the worst realistic outcome if I wait another month?</p>
+
+<p>In consumer AI features (CPG recommendations, content personalization, search ranking), the worst outcome of a premature ship is usually bad user experience for a cohort, measurable in engagement metrics, fixable in the next release. The worst outcome of waiting a month is one month of missed value delivery and competitive disadvantage. These are roughly symmetric. Ship.</p>
+
+<p>In clinical AI, the asymmetry is extreme. The worst outcome of a premature ship - a clinician acts on a wrong recommendation for a high-risk patient - can cause irreversible harm. The worst outcome of waiting another month is delayed value delivery and possibly losing a deal. This asymmetry should push you to wait until you have meaningfully higher confidence.</p>
+
+<p>The asymmetry also applies in the other direction. I have seen teams in competitive AI markets wait for a 95% confidence threshold on a feature where 80% performance with transparent uncertainty communication would have been fine - and lost meaningful market positioning in the process. Excessive caution has asymmetric costs too.</p>
+
+<h2>Framework 3: Expected Value Calculation</h2>
+
+<p>This framework is borrowed from decision theory and is most useful when you have enough data to estimate probabilities. It forces you to make your assumptions explicit.</p>
+
+<p>EV(ship now) = P(works well) × V(works well) + P(fails) × C(fails)</p>
+
+<p>Where V is the value created if the feature works and C is the cost incurred if it fails (negative number). Do the same calculation for waiting.</p>
+
+<p>The numbers are never exact. That is fine - the exercise is not to compute a precise answer but to surface which assumptions drive the decision. Usually the answer is dominated by one term. If P(fails) is very low, ship. If C(fails) is catastrophic, wait regardless of P(fails) being low. If V(works well) is enormous and C(fails) is moderate, the EV math usually favors shipping with a fast rollback mechanism.</p>
+
+<p>When I used this framework at EdTech (Edxcare), we were deciding whether to ship an adaptive learning recommendation engine that was performing well on aggregate metrics but had a 15% error rate on edge-case student profiles. The EV calculation showed: P(fails on a given student) = 15%, cost = a wasted learning module (low), value of correct recommendations for the 85% = significant engagement lift. The EV favored shipping with a fallback to human tutor review for low-confidence cases.</p>
+
+<h2>Framework 4: Competitive Window Analysis</h2>
+
+<p>This framework is underused in AI product decisions because PMs treat it as business development's problem rather than a product input. But the competitive window is a real variable in the ship/wait equation.</p>
+
+<p>Competitive window analysis asks: how does the value of shipping change over time as competitors move? In markets with strong winner-take-most dynamics, a 6-week delay can mean the difference between defining the category and being a fast follower. In markets where switching costs are high and incumbent relationships matter more than feature novelty, a 6-week delay rarely changes the competitive outcome.</p>
+
+<p>Healthcare AI enterprise sales have 9-18 month cycles. Shipping 6 weeks earlier almost never changes the competitive outcome because the purchasing decision timeline is not driven by which product ships first. Consumer AI features often have opposite dynamics - viral loops mean the first high-quality entrant captures habit formation and data network effects that compound over time.</p>
+
+<p>Know which market you are in before applying competitive pressure as a ship/wait argument. "The competitor is shipping" is a real input in some contexts and a false urgency in others.</p>
+
+<h2>Framework 5: Technical Debt Forecasting</h2>
+
+<p>The last framework is the most neglected. Every AI feature shipped at lower-than-ideal quality accumulates two kinds of technical debt: the standard code debt of cutting corners, and the AI-specific debt of user expectations shaped by early quality.</p>
+
+<p>AI user trust is asymmetric. It is slow to build and fast to destroy. A healthcare professional who trusts an AI documentation tool will use it unsupervised within weeks. That same professional who sees one bad recommendation will apply skepticism to every output for months - dramatically reducing the feature's utility even after you fix the underlying issue.</p>
+
+<p>Before deciding to ship at current quality, model the trust trajectory. If early users will encounter the failure cases frequently enough to form lasting negative impressions, the cost of those early failures is much higher than the immediate support cost. If early users will rarely encounter failure cases and you can improve rapidly before failures become salient, ship and improve.</p>
+
+<p>This calculus changes based on user population. A technical pilot with 20 sophisticated users who understand they are testing early software has different trust dynamics than a broad rollout to 50,000 clinicians who believe they are using a production tool.</p>
+
+<hr>
+
+<h2>Putting the Frameworks Together</h2>
+
+<p>In practice I run through these sequentially: Reversibility matrix first to set the quality bar, asymmetric risk to sanity check, EV calculation to surface key assumptions, competitive window to add urgency context, technical debt to model the long tail.</p>
+
+<p>The frameworks do not always point the same direction. When they conflict, I weight reversibility and asymmetric risk heaviest for clinical and compliance-sensitive features, and competitive window and EV heaviest for consumer and internal tooling features.</p>
+
+<p>The most important rule: make the decision explicit. Write it down. State the assumptions. Note which frameworks you ran and which factor was decisive. AI product decisions made under deadline pressure without explicit reasoning are how good teams ship bad features and then spend six months recovering user trust.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-management-interview-prep-50-questions-youll-actually-get-asked/">AI Product Management Interview Prep: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-supply-chain-how-predictive-models-are-replacing-just-in-time/">AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time</a></li>
+<li><a href="https://www.devangshumitra.com/building-cross-functional-ai-product-teams/">Building Cross-Functional AI Product Teams</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

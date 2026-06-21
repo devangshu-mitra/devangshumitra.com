@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How AI reduced hit-to-lead from 18 months to 4 months, identified 3 novel" />
+  <meta property="og:title" content="AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization — Devangshu Mitra" />
+  <meta property="og:description" content="How AI reduced hit-to-lead from 18 months to 4 months, identified 3 novel" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">BioPharma</span>
+            <time class="post-header__date" datetime="2026-03-21" itemprop="datePublished">Mar 21, 2026</time>
+            <span class="post-header__read-time">13 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</h1>
+          <p class="post-header__excerpt" itemprop="description">How AI reduced hit-to-lead from 18 months to 4 months, identified 3 novel</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</h1>
+
+<p>Case Study · BioPharma · Drug Discovery</p>
+
+<h1>AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</h1>
+
+<p>How we rebuilt the discovery pipeline for a rare fibrotic disease program - cutting hit-to-lead from 18 months to 4 months, surfacing 3 targets traditional screening missed, and saving $12M in preclinical spend.</p>
+
+<p>AI Drug Discovery Machine Learning Pharmaceuticals Computational Drug Design Target Identification Lead Optimization</p>
+
+<h2>The Drug Discovery Problem</h2>
+
+<p>Every drug that reaches a patient carries with it a graveyard of failed attempts. The average small-molecule program takes 12 to 15 years from target hypothesis to approval, burns through $2 to 3 billion in capital, and still fails in Phase III roughly 50% of the time. The preclinical phase alone - target identification, hit finding, and lead optimization - consumes three to five years and a disproportionate share of the total budget.</p>
+
+<p>The program I joined was a rare fibrotic disease indication with two specific problems. First, the target space was poorly mapped. The disease biology involved a network of overlapping signaling cascades, and the traditional approach - review published literature, run a high-throughput screen against known druggable proteins, pick the top hits - had produced two failed Phase I candidates in five years. Second, the chemistry optimization cycle was punishingly slow. Each design-make-test-analyze iteration took six to eight weeks. A chemist could reasonably close ten rounds per year. That math does not work when you are trying to explore a compound space with billions of viable molecules.</p>
+
+<p>The brief I was given was straightforward on paper: rebuild the discovery infrastructure to move faster and smarter. What it actually meant was standing up an AI platform that could (a) reinterpret the biology from raw omics data rather than curated databases, (b) generate and score novel chemical matter without requiring a synthesis step for every candidate, and (c) integrate the wet lab feedback loop tightly enough that the models improved in near real-time.</p>
+
+<p>External benchmarks were compelling. Insilico Medicine took INS018_055 - a TNIK inhibitor for idiopathic pulmonary fibrosis - from target hypothesis to Phase II in roughly 30 months using their PandaOmics and Chemistry42 platforms. Exscientia put DSP-1181 into first-in-human studies in 2020 after compressing what Sumitomo estimated at four to five years of traditional medicinal chemistry down to 12 months. Recursion was imaging tens of millions of cellular perturbation experiments annually and extracting mechanism-of-action signatures invisible to any literature-based approach. These were not proofs of concept - they were operating pipelines with clinical assets. The question was whether we could build the internal capability to do the same without spending five years getting there.</p>
+
+<h2>Our AI Approach</h2>
+
+<p>Before writing a single line of infrastructure code, we spent six weeks on the hardest part: defining what the models were actually supposed to do, and what data we had (or could generate) to train them. This is where most internal AI programs fail. Teams build impressive infrastructure and then discover their training data is too sparse, too biased, or too inconsistently labeled to produce models that generalize past the training set.</p>
+
+<p>We ran a data audit across four years of internal assay data - roughly 380,000 compound-activity measurements - plus ChEMBL, ExCAPE-DB, and proprietary transcriptomics from 47 patient tissue biopsies. The audit was clarifying: our ADMET data was excellent, but our target engagement data for proteins outside the known druggable space was essentially zero. Strong chemistry optimization foundation, weak target identification foundation. That asymmetry shaped every architectural decision that followed.</p>
+
+<p>For target identification, we built on AlphaFold2 structure predictions. By the time we stood this up, DeepMind had released predicted structures for over 200 million proteins in the AlphaFold Protein Structure Database - including the full human proteome and most of the key regulatory enzymes in the fibrosis cascade. This was a genuine inflection point. Before AlphaFold, structure-based target analysis on understudied proteins required running your own X-ray crystallography or cryo-EM experiments, which took months and often failed. Now we could pull a high-confidence structure prediction for any protein of interest and immediately run cavity detection, binding site analysis, and druggability scoring. We combined this with a graph neural network trained on the patient transcriptomics data to rank targets by their centrality in the disease-perturbed signaling network - not just by literature frequency, which systematically overweights well-studied proteins and creates the same blind spots in every program.</p>
+
+<p>For lead generation and optimization, we deployed a generative chemistry stack. The core was a transformer-based molecular generation model trained on 1.2 million curated bioactive compounds from ChEMBL, fine-tuned on our internal actives. We used reinforcement learning to steer generation toward multi-objective profiles: target binding affinity estimated by a graph convolutional network, predicted ADMET properties using our internal data, synthetic accessibility scoring, and selectivity against off-target proteins flagged as safety concerns in the indication. The result was a model that could generate 50,000 novel candidate structures overnight and rank them by predicted composite score before a single compound was synthesized.</p>
+
+<p>The final piece was the active learning loop. Every compound returning from the wet lab - success or failure - fed back into the model training pipeline within 48 hours. This is where the operational complexity lives. Aligning chemistry, biology, and data engineering on a shared data schema and feedback protocol required as much work as the machine learning itself, and it is the piece that most internal platform builds underestimate.</p>
+
+<h2>Technical Architecture</h2>
+
+<p>The platform ran across three interconnected layers. The biology intelligence layer ingested raw omics data, ran differential expression analysis, and fed a knowledge graph of disease-relevant protein interactions. The graph was built on Neo4j and combined internal experimental nodes with curated external sources - STRING, UniProt, Reactome, and a custom extraction pipeline that parsed disease-specific literature daily. The AlphaFold structural data sat alongside this as a precomputed feature store: for every protein in the knowledge graph, we stored binding site coordinates, druggability scores, and similarity vectors to known drug targets.</p>
+
+<p>The chemistry intelligence layer handled molecular representation, generation, and scoring. Molecules were encoded as SMILES strings and converted to graph representations for the GCN-based property prediction models. The generative model ran on GPU infrastructure on GCP, producing candidate batches that were scored in parallel across five property heads: predicted pIC50 for primary target, selectivity ratio against the three most relevant off-targets, predicted aqueous solubility, predicted microsomal stability, and a synthetic accessibility score calibrated against our in-house synthesis capacity. Candidates that passed all five thresholds went to the chemistry team for manual review. Those that failed on a single criterion were flagged with the specific failure mode so a medicinal chemist could decide whether a small structural modification might rescue the compound.</p>
+
+<p>The feedback and orchestration layer consumed more engineering time than scoped. Speed was the first problem: the wet lab ran on two-week assay turnarounds, but the active learning loop needed data back in 48 hours or it would stall. We solved this with ELN integration that auto-imported results into the training pipeline on assay completion rather than waiting for weekly reconciliation. Trust was the second: when the model recommended an unusual scaffold or a heteroaromatic that looked metabolically fragile, chemists needed to understand the reasoning. We built an attribution layer surfacing the top three structural features driving each prediction and the closest training-set analogs. Not full mechanistic interpretability - but enough to make the model's logic legible to a practicing chemist.</p>
+
+<p>The regulatory-readiness piece was something we underinvested in early and paid for later. The FDA's emerging AI/ML guidance framework and the ICH M7 mutagenicity guidelines create specific documentation requirements for any computational tool that influences a regulatory submission. We had to reconstruct model versioning, training data provenance, and validation records retroactively for compounds that had already advanced. That retrofit cost three months. For any team starting this now, build the model registry and audit trail on day one.</p>
+
+<h2>Validation Results</h2>
+
+<p>The target identification output was the first real test. The graph-based network analysis, informed by AlphaFold structural data and the patient transcriptomics, ranked 31 candidate targets. The top five included three proteins that traditional literature-based target screens had not surfaced as primary drug targets: two understudied kinases implicated in the fibrotic feedback loop and a chromatin-remodeling enzyme showing strong differential expression in late-stage patient tissue but rarely cited in drug discovery contexts because its structure had not been solved until the AlphaFold release.</p>
+
+<p>We ran confirmatory knockdown experiments on all five top-ranked targets. Three of the five showed significant phenotypic effects in primary fibroblast assays. One of the three novel targets - the chromatin-remodeling enzyme - produced the strongest phenotypic reversal, suggesting a mechanism with potentially better disease-modifying profile than the known targets the previous program had focused on. This was the clearest demonstration of value from the AI layer: not that it confirmed what we already knew, but that it pointed us somewhere the conventional approach had never looked.</p>
+
+<p>On the chemistry side, the first generation of compounds from the generative model was sobering. Predicted pIC50 correlated with measured at r = 0.61 across the first 340 compounds synthesized - better than random, but not good enough to trust without synthesis confirmation. The ADMET predictions were substantially better: solubility predictions were within 0.4 log units of measured for 78% of compounds, and the microsomal stability model had an ROC-AUC of 0.84 on the internal test set. The binding affinity models improved sharply as the active learning loop integrated wet lab data. By round six of the design-make-test cycle, the hit rate for compounds meeting our primary target threshold climbed from 12% in round one to 34%.</p>
+
+<p>Across the full hit-to-lead phase for the novel chromatin-remodeling target, we ran 11 active learning cycles. Total synthesis count: 847 compounds, down from a historical average of 2,200 to 3,100 compounds to reach a comparable lead series milestone. Time from target confirmation to lead nomination: four months. The historical average for our programs was 17 to 18 months. The cost differential, accounting for synthesis, assay reagents, FTE time, and CRO spend, came to approximately $12 million in avoided preclinical expenditure against the comparable historical baseline.</p>
+
+<h2>Impact on Pipeline</h2>
+
+<p>The immediate impact was one accelerated lead series and one novel target entering the preclinical candidate stage roughly 14 months ahead of the original project plan. But the downstream effects on the broader portfolio were more significant than those numbers suggest.</p>
+
+<p>The generative chemistry platform was redeployed to two other active programs within six months of demonstrating results on the index indication. In both cases, the platform was fine-tuned on target-specific training data rather than rebuilt from scratch - a two-week process rather than a six-month one. This is the compounding return on AI infrastructure investment that single-program analyses systematically undervalue. The first time you build it, the ROI calculation looks marginal. The second and third time, the denominator is effectively zero.</p>
+
+<p>The three novel targets we identified fed into a target prioritization process that had previously been slow and contested. Having a ranked, quantified target list with structural feasibility scores, biological validation data, and explicit uncertainty estimates changed the conversation in portfolio reviews. Program leaders could argue from data rather than advocacy. One of the deprioritized targets - a kinase that ranked 14th on the network analysis and was subsequently validated as showing minimal phenotypic effect - had been the subject of a proposed third-party licensing deal. The data from our validation experiments gave us the evidence to walk away from that deal, avoiding what we estimated was $8 million in upfront milestone costs for a target that would likely have failed in lead optimization.</p>
+
+<p>The less tangible but equally real impact was on the research team. Medicinal chemists who had spent years running through thousands of compounds in brute-force SAR campaigns were now spending their time on the problems that required human judgment: interpreting anomalous assay results, deciding which structural series had the best DMPK profile for the intended patient population, navigating the trade-offs between potency and selectivity that no automated scoring function captures fully. The productivity and satisfaction data from the team survey at 12 months were both significantly higher than the pre-program baseline. Retention of senior chemists - historically a problem in the 18-to-24-month post-hiring window when experienced medicinal chemists discovered how slow the conventional pipeline was - improved materially.</p>
+
+<p>For broader context: Recursion Pharmaceuticals runs phenomics screens at a scale that generates more biological data in a week than a traditional pharma company accumulates in a decade. BenevolentAI's collaboration with AstraZeneca - which identified baricitinib as a candidate for COVID-19-related cytokine storm using their knowledge graph - showed that AI-assisted target repurposing can compress response timelines from years to weeks. Our platform was more modest in scope but operated on the same core principles. The <a href="https://www.devangshumitra.com/blog/deep-dives/recursion-pharmaceuticals/">deep-dive on Recursion's OS platform</a> and the <a href="https://www.devangshumitra.com/blog/life-sciences/state-of-ai-healthcare/">state of AI in Life Sciences & Healthcare</a> piece on this site cover the industry-level patterns in more depth.</p>
+
+<h2>What I'd Do Differently</h2>
+
+<p><strong>Start regulatory documentation on day one.</strong> The FDA's emerging guidance on AI in drug discovery submissions requires model documentation that is far easier to generate prospectively than to reconstruct after the fact. We spent 90 days retroactively documenting models for compounds that had already advanced to IND-enabling studies. Every AI platform for a regulated discovery program needs a model registry, training data version control, and a decision log from the first week of operation - not bolted on at the end.</p>
+
+<p><strong>Invest in data quality before model sophistication.</strong> We deployed architecturally complex models before fully auditing our training data. The binding affinity prediction model underperformed for three months because a subset of historical IC50 values had been measured under inconsistent assay conditions. A two-week audit before any model development would have prevented that. The principle holds broadly: a simple model on clean data beats a sophisticated model on messy data in pharma applications.</p>
+
+<p><strong>Build the wet lab integration first.</strong> The active learning loop was the most valuable component and the last one we built. For the first five months, we ran the generative model as a batch process with manual data transfers. Defining the ELN-to-training-pipeline handoff protocol in month one - before model development began - would have compressed the path to high-quality feedback. The ML models can be iterated on. Getting lab operations and data engineering to agree on a shared schema is the hard problem.</p>
+
+<p><strong>Address human-AI collaboration friction explicitly.</strong> Deploying generative tools to experienced medicinal chemists creates a real tension. Senior chemists with 15 to 20 years of SAR intuition were also the most likely to override model recommendations without being able to fully articulate why. What worked was requiring documented justification when a model-recommended compound was not synthesized. When that compound category later appeared active in an orthogonal screen, we could reconstruct the decision. Logging practice changed the dynamic from "model vs. chemist" to a shared learning process.</p>
+
+<p>Drug discovery is still hard. AI does not change the fundamental biology - it changes how efficiently you can explore the hypothesis space. The molecules still have to work in patients, and the path from a potent in-vitro hit to a safe, efficacious drug is full of failures that no model predicts well yet. What changes is how many hypotheses you can test in a given window, and how intelligently you can prioritize the ones worth testing. That is the difference between a program that nominates a lead in four months and one that spends 18 getting to the same point.</p>
+
+<h3>Related Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/blog/deep-dives/recursion-pharmaceuticals/">Deep Dive: Recursion Pharmaceuticals and the Phenomics Platform</a></li>
+<li><a href="https://www.devangshumitra.com/blog/life-sciences/state-of-ai-healthcare/">State of AI in Life Sciences & Healthcare: 2024 Landscape</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/biopharma-regulatory-intelligence/">Automating Regulatory Intelligence: How AI Transformed Our Global Submission Process</a></li>
+<li><a href="https://www.devangshumitra.com/biopharma-supply-chain/">Predictive Supply Chain Intelligence: AI for Pharmaceutical Manufacturing and Distribution</a></li>
+<li><a href="https://www.devangshumitra.com/biopharma-pharmacovigilance/">Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance Platform</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

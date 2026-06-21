@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most healthcare GenAI pilots never reach production. Here is the 7-step checklist" />
+  <meta property="og:title" content="From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare — Devangshu Mitra" />
+  <meta property="og:description" content="Most healthcare GenAI pilots never reach production. Here is the 7-step checklist" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-02-03" itemprop="datePublished">Feb 3, 2026</time>
+            <span class="post-header__read-time">11 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare</h1>
+          <p class="post-header__excerpt" itemprop="description">Most healthcare GenAI pilots never reach production. Here is the 7-step checklist</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare</h1>
+
+<p>Most healthcare AI pilots never make it to production. I've seen brilliant prototypes die in the "valley of deployment" - that gap between a working demo and a system that runs reliably in a clinical environment. Here's the 7-step checklist I use to bridge that gap.</p>
+
+<h2>Step 1: Define Clinical Validation Metrics</h2>
+
+<p>Before writing a line of code, define what "success" means in clinical terms. Not model accuracy - clinical impact. Metrics like: time saved per clinician per day, reduction in diagnostic errors, improvement in patient throughput, or decrease in adverse events. These are the metrics that justify the investment and survive leadership review.</p>
+
+<h2>Step 2: Secure Stakeholder Alignment</h2>
+
+<p>Healthcare AI deployments fail more often from organizational resistance than technical problems. You need alignment from: clinical leadership (CMO, department heads), IT/infrastructure teams, compliance and legal, frontline clinicians who'll use the system daily, and procurement/finance for budget approval. Map each stakeholder's concerns early. Clinicians worry about workflow disruption. IT worries about integration complexity. Compliance worries about liability. Address each concern explicitly.</p>
+
+<h2>Step 3: Build Integration Infrastructure</h2>
+
+<p>The hardest step. Your AI needs to talk to EHRs, lab systems, imaging archives, and scheduling systems. This means: HL7 FHIR APIs (if available), legacy interface engines for older systems, real-time data feeds vs. batch processing decisions, and failover and degradation strategies (what happens when the AI is down?). Budget 40-60% of your implementation timeline for integration alone.</p>
+
+<h2>Step 4: Implement Human-in-the-Loop Workflows</h2>
+
+<p>No healthcare AI should operate autonomously without physician oversight (unless you want a multi-year FDA pathway). Design clear handoff points where the AI presents recommendations and a clinician reviews and acts. This isn't just good practice - it's a regulatory strategy that keeps you in Class II territory.</p>
+
+<h2>Step 5: Set Up Monitoring and Alerting</h2>
+
+<p>Production AI systems degrade. Data distributions shift. New drug formulations appear. Patient populations change. You need: model performance dashboards (precision, recall, latency), data drift detection (statistical tests on input distributions), automated alerts when performance drops below clinical thresholds, and audit logging for every prediction and clinical action.</p>
+
+<h2>Step 6: Run a Controlled Pilot</h2>
+
+<p>Don't deploy everywhere at once. Pick one unit, one workflow, one shift. Run for 30-90 days. Measure everything. Compare against your Step 1 metrics. Collect qualitative feedback from every clinician who uses the system. The pilot isn't just validation - it's where you discover the 20 things you didn't anticipate.</p>
+
+<h2>Step 7: Scale with Change Management</h2>
+
+<p>Scaling from one unit to enterprise-wide is a change management exercise, not a technical one. You need: clinical champions who advocate for the system, training programs for new users, feedback loops that capture and address user complaints quickly, and executive reporting on clinical impact metrics. The technology is the easy part. Getting humans to trust and use it consistently is the hard part.</p>
+
+<h2>Key Takeaways</h2>
+
+<ul>
+<li><strong>Define clinical metrics before technical ones.</strong> Model accuracy doesn't matter if it doesn't translate to clinical impact.</li>
+<li><strong>Budget 40-60% of timeline for integration.</strong> EHR connectivity is always harder than expected.</li>
+<li><strong>Design for human-in-the-loop from day one.</strong> It's both a safety practice and a regulatory strategy.</li>
+<li><strong>Monitor everything in production.</strong> AI systems degrade; catch it before clinicians notice.</li>
+<li><strong>Scale through change management, not technology.</strong> Clinical champions and training programs matter more than infrastructure.</li>
+</ul>
+
+<hr>
+
+<h2>Frequently Asked Questions</h2>
+
+<h2>Managing Hallucinations and Factual Accuracy with GenAI</h2>
+
+<p>This is a huge concern with GenAI in healthcare. You can't have a model invent patient data or misinterpret a diagnosis. I've seen teams struggle with this. We often use Retrieval-Augmented Generation (RAG) architectures. This means anchoring the LLM to verified clinical knowledge bases. Think Uptodate, PubMed articles, or your institution's own clinical guidelines.</p>
+
+<p>You'll need a strong fact-checking layer. This isn't just about the LLM's output. It's about the retrieval step too. Is the retrieved context accurate and relevant? I've found that having human experts review a sample of outputs daily is non-negotiable in the early stages. For example, a radiologist might review 10% of AI-generated preliminary reports. We also implement confidence scoring mechanisms. If the model's confidence is low, it flags the output for immediate human review, never letting it proceed autonomously. This reduces the risk of incorrect information reaching a clinician.</p>
+
+<h2>Data De-identification and Synthetic Data for Training</h2>
+
+<p>Getting enough high-quality, privacy-compliant data for GenAI training is a major hurdle in healthcare. Real patient data is gold, but HIPAA rules make it tough to use broadly. I've seen teams spend months on data access agreements. One approach is careful de-identification. You need tools that can remove all 18 HIPAA identifiers, not just names. Think about dates, small geographic areas, unique device IDs.</p>
+
+<p>Another powerful technique is synthetic data generation. You can train smaller models on real, de-identified data. Then use those models to create entirely new, synthetic patient records. These synthetic datasets maintain the statistical properties of the original data but contain no real patient information. I've used tools like Gretel.ai or mostly open-source differential privacy libraries for this. This lets you experiment and iterate on GenAI models much faster without touching sensitive production data. It also helps with data imbalance problems, generating more examples of rare conditions.</p>
+
+<h2>Model Versioning and Retraining Strategy</h2>
+
+<p>Your GenAI model won't be a "set it and forget it" system. Clinical practice evolves. New guidelines emerge. Drug names change. You need a clear strategy for model updates. I always push for a version control system for models, similar to code. Tools like MLflow or DVC help track model artifacts, parameters, and performance metrics across different versions.</p>
+
+<p>When a new version is ready, you can't just flip a switch. I advocate for A/B testing or canary deployments. Run the new model version alongside the old one in a limited clinical setting. Compare their performance on your defined clinical validation metrics (from Step 1). Collect feedback from the clinicians using both. Only when the new version demonstrates clear improvement and safety do you fully roll it out. This iterative approach minimizes disruption and ensures continuous improvement, especially with the rapid evolution of foundational models. You might retrain weekly or monthly, depending on data drift and clinical impact.</p>
+
+<h2>Data Governance and Anonymization Strategies</h2>
+
+<p>Healthcare data is tricky. GenAI models need lots of data. This creates tension. You must balance model performance with patient privacy. HIPAA is the baseline. It's not enough for GenAI. Anonymization isn't simple de-identification. Simply removing names and MRNs often isn't sufficient. Re-identification risks remain, especially with rare diseases or unique patient characteristics. I've seen teams struggle here.</p>
+
+<p>Consider techniques like k-anonymity or differential privacy. These add noise or generalize data points. They make re-identification harder. Tools like Google Cloud's Healthcare API offer de-identification features. They help automate some of this. You still need expert review. Synthetic data generation is another path. It creates new, artificial patient records. These records mimic real data distributions. They don't contain real patient information. This can be great for training. It avoids direct exposure of sensitive data. But synthetic data can also miss rare edge cases. Validate its fidelity carefully against real-world outcomes.</p>
+
+<h2>Model Explainability and Trust</h2>
+
+<p>Clinicians won't trust a black box. This is especially true with GenAI. It might generate a diagnosis suggestion or a treatment plan. The "why" behind the output matters. It's not enough to say "the model suggested X." A physician needs to understand the reasoning. They need to validate it with their own expertise. This builds confidence. It allows for critical review.</p>
+
+<p>Techniques like LIME (Local Interpretable Model-agnostic Explanations) or SHAP (SHapley Additive exPlanations) can help. They explain individual predictions. For transformer models, attention weights can show which input tokens influenced an output. But GenAI is complex. Sometimes the "explanation" is just a statistical correlation. It's not always a causal link. You must design interfaces that surface key supporting evidence. Show the source documents. Highlight relevant excerpts. This moves beyond just explaining the model. It explains the <em>data</em> the model used. It gives the clinician something concrete to review. This transparency is vital for adoption.</p>
+
+<h2>Cost Management and Infrastructure Optimization</h2>
+
+<p>GenAI comes with a significant operational cost. This often surprises teams. Training is expensive, but inference can be even more so at scale. Especially for large foundation models. Running NVIDIA A100s or H100s for real-time inference adds up. Each token generated has a cost. You need to monitor this. Cloud providers offer detailed billing for GPU usage. Track these numbers closely from day one.</p>
+
+<p>Consider model quantization. This reduces the precision of model weights. It shrinks model size. It also speeds up inference. You might use a smaller, specialized model for specific tasks. A Llama 3 8B model is much cheaper to run than a 70B version. Fine-tune it for a narrow domain. Implement smart caching strategies. If a common query comes up, serve the cached response. Don't re-run the model every time. Look into serverless GPU options. They scale down to zero. This saves money during off-peak hours. These optimizations are not optional. They are critical for long-term viability.</p>
+
+<h3>Data Privacy and De-identification are Non-Negotiable</h3>
+
+<p>You can't talk about healthcare AI without talking about Protected Health Information (PHI). HIPAA is just the starting point. Moving data from a clinical system to an AI model for training or inference requires strict protocols. I've seen projects stall for months trying to navigate data use agreements and de-identification strategies. It's not enough to just remove names. You need to consider indirect identifiers like rare diseases combined with birthdates and zip codes. Techniques like k-anonymity or differential privacy become essential.</p>
+
+<p>Sometimes, synthetic data generation is a viable path, especially for model development where real patient data is too sensitive or scarce. Tools like <a href="https://anonos.com/">Anonos</a> or research projects from institutions like <a href="https://www.mit.edu/">MIT's CSAIL</a> are exploring this space. Even with de-identified data, you need a strong audit trail for who accessed what, when, and for what purpose. Think about secure data enclaves and zero-trust architectures from day one. This isn't just about avoiding fines; it's about maintaining patient trust.</p>
+
+<h3>Guarding Against GenAI Hallucinations and Bias</h3>
+
+<p>Generative AI brings its own set of unique challenges to healthcare. Hallucinations are a major concern. A large language model might confidently generate a non-existent drug interaction or a fabricated symptom. This is clinically dangerous. To mitigate this, I often recommend a Retrieval Augmented Generation (RAG) architecture. Instead of letting the LLM generate freely, you ground its responses in verified, up-to-date clinical sources. Think <a href="https://www.uptodate.com/home">UpToDate</a>, internal hospital guidelines, or a trusted medical knowledge base.</p>
+
+<p>Bias is another critical area. If your training data over-represents certain demographics or under-represents others, your GenAI model will inherit and amplify those biases. This can lead to differential performance, where the AI is less accurate or even harmful for specific patient groups. You need to perform fairness audits on your datasets and model outputs. Test your model's performance across different age groups, genders, and ethnicities. Prompt engineering also plays a role. Craft prompts that explicitly instruct the model to prioritize factual accuracy and avoid speculative or biased language. It's an ongoing effort, not a one-time fix.</p>
+
+<h3>Sustaining Performance: Model Retraining and Versioning</h3>
+
+<p>Deploying an AI model is not a "set it and forget it" task. Clinical environments are dynamic. New treatment guidelines emerge. Patient demographics shift. Even EHR system updates can subtly change data formats. Your AI model will degrade over time if not maintained. You need a clear strategy for model retraining and versioning. This means establishing a regular cadence - perhaps quarterly or semi-annually - to re-evaluate model performance against fresh clinical data.</p>
+
+<p>You'll need a reliable MLOps pipeline to automate this. This includes automated data labeling processes, a version control system for models (like <a href="https://mlflow.org/">MLflow</a> or <a href="https://docs.aws.amazon.com/sagemaker/latest/dg/model-registry.html">SageMaker Model Registry</a>), and a mechanism for A/B testing new model versions in a shadow mode before full deployment. What happens if a new model version performs worse? You need a quick rollback strategy to the previous stable version. This level of operational maturity is often overlooked in pilot phases, but it's crucial for long-term clinical utility and safety.</p>
+
+<h3>How long to move a pilot to production?</h3>
+
+<p>6-18 months depending on regulatory pathway and integration complexity. Administrative AI moves in 3-6 months; clinical decision support with FDA oversight takes 12-18+ months.</p>
+
+<h3>Biggest risks when scaling healthcare AI?</h3>
+
+<p>Data drift, integration failures, clinician adoption resistance, and regulatory gaps discovered late in the process.</p>
+
+<h3>Do I need FDA clearance for hospital AI?</h3>
+
+<p>Depends on use case. CDS meeting Cures Act criteria may be exempt. Diagnostic AI typically needs 510(k). Administrative AI is not FDA-regulated.</p>
+
+<h3>How to measure healthcare AI ROI?</h3>
+
+<p>Clinical efficiency (time saved), quality improvement (error reduction), financial impact (revenue cycle), and patient outcomes (readmission rates, time-to-treatment).</p>
+
+<h3>What infrastructure for production healthcare AI?</h3>
+
+<p>HIPAA-compliant compute, model serving with failover, drift detection, audit logging, human-in-the-loop workflows, and automated alerting.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/genai-governance-life-sciences-framework/">Enterprise GenAI Governance in Life Sciences: A Framework for Responsible Deployment</a></li>
+<li><a href="https://www.devangshumitra.com/the-hidden-risks-of-llm-hallucination-in-life-sciences-what-every-product-manager-must-know/">The Hidden Risks of LLM Hallucination in Life Sciences: What Every Product Manager Must Know</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-explained-text-images-video-in-one-model-2/">Multimodal AI Explained: Text + Images + Video in One Model</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

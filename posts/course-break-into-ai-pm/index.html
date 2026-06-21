@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A practical guide to transitioning into AI PM - what&#39;s actually different," />
+  <meta property="og:title" content="Break Into AI Product Management — Devangshu Mitra" />
+  <meta property="og:description" content="A practical guide to transitioning into AI PM - what&#39;s actually different," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Break Into AI Product Management — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-09-11" itemprop="datePublished">Sep 11, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Break Into AI Product Management</h1>
+          <p class="post-header__excerpt" itemprop="description">A practical guide to transitioning into AI PM - what's actually different,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Break Into AI Product Management</h1>
+
+<p>I get asked some version of this question once a week: "I'm a PM at [traditional company] - how do I break into AI PM?" I've been on both sides of this - I was that PM once, and now I'm on AI products full-time. Here's what I actually know about making the transition.</p>
+
+<p>The honest answer is: it's more achievable than you think, and the bottleneck is usually not technical knowledge.</p>
+
+<hr>
+
+<h2>Section 1: AI PM vs Traditional PM</h2>
+
+<p>Let me start with what's the same, because it's most of the job.</p>
+
+<p>Customer discovery is the same. You are still finding out what problems people have and whether they're worth solving. The method hasn't changed.</p>
+
+<p>Prioritization frameworks are the same. RICE, ICE, story mapping - AI product work uses all of them.</p>
+
+<p>Stakeholder management is the same. You still have to align engineering, design, sales, and executives. In healthcare AI you add clinical and regulatory stakeholders, but the fundamental skill transfers.</p>
+
+<p>Writing clear requirements is the same. In fact, it's more important - ambiguous specs produce worse AI outputs than they do in traditional software, because the model interprets rather than executes.</p>
+
+<p>Now here's what's genuinely different.</p>
+
+<p><strong>Probabilistic vs deterministic outputs.</strong> Traditional software does exactly what the code says. AI outputs are probabilistic - you can influence them, but you can't fully specify them. This changes how you write acceptance criteria, how you test, and how you set user expectations. You have to become comfortable with "it works X% of the time" as a success metric.</p>
+
+<p><strong>Data is a product input, not just an engineering concern.</strong> In traditional PM, data is mostly about analytics - understanding what users do. In AI PM, data is an input to the core product capability. Data quality, data labeling, and data governance are product decisions, not just engineering decisions. You need to have opinions about them.</p>
+
+<p><strong>Failure modes are different and less visible.</strong> When traditional software breaks, you get an error. When AI fails, you get a plausible-sounding wrong answer. Your test cases and monitoring have to catch failures that don't look like failures.</p>
+
+<p><strong>Model selection and prompt design are product decisions.</strong> Which model you use, how you prompt it, what you include in context - these are decisions with real product consequences. You don't have to be an ML engineer, but you need to understand the tradeoffs.</p>
+
+<hr>
+
+<h2>Section 2: Technical Depth You Actually Need</h2>
+
+<p>Here's where most people waste time: trying to become machine learning engineers. You don't need to implement a transformer from scratch. Here's what you actually need.</p>
+
+<p><strong>What to learn</strong></p>
+
+<p>How language models work at a high level: tokenization, how attention mechanisms work conceptually, what the context window is and why it matters, why models hallucinate, and what temperature does to outputs. You need to understand this well enough to have a real conversation with your ML engineers about tradeoffs.</p>
+
+<p>Prompt engineering fundamentals: chain-of-thought prompting, few-shot examples, system prompts vs user prompts, structured outputs. Build something yourself with the OpenAI or Anthropic API. Nothing teaches this faster than hands-on experimentation.</p>
+
+<p>RAG basics: why retrieval augmented generation exists, how vector databases work conceptually, what chunking and embedding are. You don't need to implement it - you need to understand why it matters for your product.</p>
+
+<p>Evaluation fundamentals: precision, recall, F1, what calibration means, how human evaluation differs from automated evaluation. You'll be reading eval reports and making decisions based on them. Understand what you're reading.</p>
+
+<p>ML lifecycle: training, validation, testing, deployment, monitoring, retraining. Understand the pipeline so you can spec requirements at each stage and understand what your engineers are building.</p>
+
+<p><strong>What to skip (for now)</strong></p>
+
+<p>Backpropagation and gradient descent implementation. Low-level ML math beyond conceptual understanding. Custom training infrastructure. MLOps tooling internals (Kubeflow, MLflow, etc.). You can always go deeper later - but trying to learn everything before applying for jobs is a common form of procrastination that delays the transition by years.</p>
+
+<p><strong>The fastest path</strong></p>
+
+<p>Build something. Seriously. Pick an API (Anthropic, OpenAI), build a small app, deploy it. You will learn more in 20 hours of building than in 20 hours of reading. Document what you built and what you learned. That becomes the foundation of your portfolio.</p>
+
+<hr>
+
+<h2>Section 3: Building Your AI Portfolio</h2>
+
+<p>The single biggest differentiator I see in AI PM candidates is whether they have a portfolio of things they've built or done, not just jobs they've held. Here's how to build one that gets attention.</p>
+
+<p><strong>Projects that work</strong></p>
+
+<p>Build something using a public API that solves a real problem - even a small one. A document summarizer for a domain you know. A classification tool for a dataset that matters to you. A Slack bot that automates something annoying. The domain expertise you bring from your previous PM experience is actually your competitive advantage here - you understand the problem space in a way that pure engineers don't.</p>
+
+<p>Document your process, not just your output. Write a project case study: what was the problem? What did you try? What didn't work and why? What would you do differently? This is the PM thinking that hiring managers want to see. The code matters less than the reasoning.</p>
+
+<p><strong>Case studies</strong></p>
+
+<p>Take an existing AI product and analyze it deeply. Write 1000+ words on: what problem does it solve? What's the AI system doing? What are the failure modes? How is it monetized? What would you change and why? Public AI products like ChatGPT, GitHub Copilot, or Perplexity are good targets because there's a lot to analyze.</p>
+
+<p><strong>Open source contributions</strong></p>
+
+<p>Even small contributions to AI-adjacent open source projects demonstrate technical engagement. Documentation improvements, bug reports with reproduction steps, test cases, UI improvements to AI tools - these are all accessible to non-engineers and show up on your GitHub profile.</p>
+
+<p><strong>Writing and content</strong></p>
+
+<p>Writing about AI PM is itself portfolio work. A well-written analysis of a product decision, an explanation of a technical concept for a business audience, or a breakdown of an AI product's go-to-market strategy all demonstrate PM thinking publicly. LinkedIn and Substack both work.</p>
+
+<hr>
+
+<h2>Section 4: Interview Frameworks</h2>
+
+<p>AI PM interviews have the same components as traditional PM interviews with some additions. Here's how I think about each.</p>
+
+<p><strong>Product sense for AI</strong></p>
+
+<p>Classic product sense questions ("design a product for X") have a twist in AI interviews: the interviewer wants to know if you understand what AI adds versus traditional approaches. When I answer these, I'm explicit about: what the AI capability actually is, what data it needs, how I'd validate that it works, and what the failure modes are. Most candidates hand-wave the AI part and describe a mobile app with "AI inside." Don't do that.</p>
+
+<p>Framework: Problem definition (who has this problem, how painful is it?) - Solution space (what approaches exist, why AI vs non-AI?) - AI system design (what is the model doing, what data does it need, how do you evaluate it?) - Go-to-market and adoption (how does this reach users, how do you drive behavior change?) - Metrics and success definition.</p>
+
+<p><strong>Technical rounds</strong></p>
+
+<p>Not all companies run these, but large tech companies often do. The goal is not to test if you can code - it's to test if you can think technically enough to work with engineers as a peer.</p>
+
+<p>What I prepare: a clear mental model of how LLMs work, how RAG works, what makes AI products different to build and maintain. Be able to discuss tradeoffs: RAG vs fine-tuning, local vs API model, batch vs real-time inference. Know the vocabulary: context window, temperature, embeddings, hallucination, latency, throughput.</p>
+
+<p><strong>Behavioral stories</strong></p>
+
+<p>Prepare 5-7 strong stories that cover: working through technical ambiguity, working with data scientists or ML engineers, making a call with incomplete information, a product that failed and what you learned, and customer discovery that changed your direction. Frame each in terms of what was specifically hard about the AI/data dimension, not just the general PM challenge.</p>
+
+<hr>
+
+<h2>Section 5: Landing Your First AI PM Role</h2>
+
+<p>The transition is real. Here's how to make it efficiently.</p>
+
+<p><strong>Target companies that match your background</strong></p>
+
+<p>If you have healthcare PM experience, target healthcare AI companies. If you have financial services background, target fintech AI. Domain expertise plus AI interest is genuinely valuable - more valuable than AI experience without domain knowledge, at many companies. Use your existing expertise as a forcing function to find companies where you have an edge.</p>
+
+<p>Company categories: AI-native companies (Anthropic, OpenAI, Cohere, Perplexity), large tech companies building AI products (Google, Microsoft, Meta, Amazon), vertical AI companies in your domain of expertise, and traditional companies building AI into their products (there are many, and they're often less competitive for hiring).</p>
+
+<p><strong>Networking that actually works</strong></p>
+
+<p>Cold LinkedIn messages that say "I'd love to pick your brain about AI PM" rarely work. What works better: engage thoughtfully on their content before reaching out, reference a specific thing they've written or said, and ask a specific question rather than a general coffee chat request. Show that you've done homework.</p>
+
+<p>Go to meetups and conferences where AI PMs congregate: local AI meetups, ProductCon, Applied ML summit, company-hosted events. In-person introductions convert to conversations at much higher rates than cold LinkedIn.</p>
+
+<p><strong>Positioning your background</strong></p>
+
+<p>The narrative that works: "I have deep domain expertise in X, I understand the customer problems in that space, and I'm now building the AI technical knowledge to solve those problems with AI tools." This is honest, distinctive, and addresses the concern hiring managers have about AI PM candidates without domain expertise.</p>
+
+<p>Here's what won't impress anyone: 'I'm excited by AI and want to learn on the job.' It's what everyone says. You need a reason why a company would bet on you over someone who already has AI PM experience.</p>
+
+<p>One last thing: the market for AI PMs is moving fast. The skills that were differentiating 12 months ago are becoming table stakes. Keep building. The portfolio you create while transitioning becomes the portfolio you improve when you're inside the role. The discipline of continuous learning is the actual job.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-first-principles-pm/">First Principles for Product Managers</a></li>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-management-interview-prep-50-questions-youll-actually-get-asked/">AI Product Management Interview Prep: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-playbook-for-product-teams/">Prompt Engineering Playbook for Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-hr-from-resume-screening-to-predictive-attrition-2/">AI in HR: From Resume Screening to Predictive Attrition</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

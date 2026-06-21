@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Agentic AI in production is a systems engineering problem more than an AI" />
+  <meta property="og:title" content="The Agentic AI Stack: Architecture Patterns for Production Systems — Devangshu Mitra" />
+  <meta property="og:description" content="Agentic AI in production is a systems engineering problem more than an AI" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Agentic AI Stack: Architecture Patterns for Production Systems — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2026-03-02" itemprop="datePublished">Mar 2, 2026</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Agentic AI Stack: Architecture Patterns for Production Systems</h1>
+          <p class="post-header__excerpt" itemprop="description">Agentic AI in production is a systems engineering problem more than an AI</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Agentic AI Stack: Architecture Patterns for Production Systems</h1>
+
+<p>The agentic AI hype cycle peaked around mid-2024. By late 2025, teams that had shipped production agentic systems were quiet - not because the technology failed, but because they had learned that building agentic AI in production is a systems engineering problem that most initial prototypes were not designed for.</p>
+
+<p>I have built two agentic systems in production: a clinical document processing pipeline that coordinates retrieval, synthesis, and structured output across multiple specialized agents, and an internal research automation tool that orchestrates web retrieval, analysis, and report generation. Neither of them looks like the AutoGen multi-agent chat demos from 2023. Here is what production agentic architecture actually looks like.</p>
+
+<hr>
+
+<h2>When to Use Agents - And When Not To</h2>
+
+<p>Before the architecture: the most important agentic AI decision is whether to use agents at all. This sounds obvious but the field spent about 18 months in a phase where "multi-agent" was applied to problems that needed a single well-structured prompt.</p>
+
+<p>Use agents when:</p>
+
+<ul>
+<li>The task requires multiple discrete tool calls whose sequence cannot be fully predetermined</li>
+<li>The task requires dynamic planning that adapts based on intermediate results</li>
+<li>The task naturally decomposes into specialized subtasks with different tool requirements</li>
+<li>Failure recovery requires reasoning about what went wrong and trying a different approach</li>
+</ul>
+
+<p>Do not use agents when:</p>
+
+<ul>
+<li>A single well-structured prompt with chain-of-thought handles the task reliably</li>
+<li>The workflow steps are fully predetermined (use a pipeline, not an agent)</li>
+<li>You need sub-100ms latency (agent overhead is measured in seconds, not milliseconds)</li>
+<li>The task does not require tool use - a sophisticated reasoning chain without tools is not an agent, it is a prompt</li>
+</ul>
+
+<p>The practical rule: if you can write the workflow as a deterministic DAG without branching on LLM outputs, use a pipeline. If the workflow requires the LLM to decide what to do next based on what it found, use an agent.</p>
+
+<hr>
+
+<h2>Orchestration Patterns</h2>
+
+<h3>ReAct (Reasoning + Acting)</h3>
+
+<p>ReAct is the foundational agentic pattern - the agent alternates between reasoning steps ("I need to find the patient's medication history") and action steps (call the EHR API, read the result, reason about it). It is the simplest pattern and handles a wide range of single-agent tasks well.</p>
+
+<p>ReAct works well when: the task has a clear goal, the tool set is bounded, and the number of steps is small (under 10). It degrades when tasks require long-horizon planning, when intermediate results require significant interpretation before deciding the next action, or when failure in one step should trigger a fundamentally different approach rather than a retry.</p>
+
+<p>Implementation recommendation: LangGraph's agent node with tool calling is the cleanest ReAct implementation I have used. It handles tool response parsing, error recovery, and state persistence more reliably than custom ReAct loops.</p>
+
+<h3>Plan-and-Execute</h3>
+
+<p>Plan-and-Execute separates planning from execution. A planner LLM generates a step-by-step plan for the task, and an executor LLM carries out each step. The key advantage over ReAct is that the plan is visible and auditable - you can inspect what the agent intends to do before it does it, which is critical for high-stakes applications.</p>
+
+<p>In my clinical document processing pipeline, we use a plan-and-execute architecture where the planner generates a structured analysis plan ("Step 1: Extract all adverse event reports. Step 2: Identify any Grade 3+ events. Step 3: Cross-reference with protocol criteria...") that a human can review before the executor runs. This gate between planning and execution is not a feature we added for safety theater - it is genuinely useful for catching cases where the planner has misunderstood the task.</p>
+
+<p>The weakness of plan-and-execute is brittleness to mid-plan surprises. If execution step 3 reveals information that makes the original plan wrong, a pure plan-and-execute system either fails or requires re-planning. Hybrid systems that allow limited re-planning at execution time handle this better.</p>
+
+<h3>Multi-Agent Patterns</h3>
+
+<p>Multi-agent systems coordinate multiple specialized agents with defined roles. The common patterns:</p>
+
+<ul>
+<li><strong>Supervisor/worker:</strong> A supervisor agent decomposes tasks and delegates to specialized worker agents. Workers report results back; supervisor synthesizes. Clean separation of concerns, easy to test individual workers.</li>
+<li><strong>Peer collaboration:</strong> Multiple agents with equal standing contribute to a shared task. Used in critique/refinement workflows where one agent generates and another reviews. CrewAI's default model.</li>
+<li><strong>Hierarchical:</strong> Multi-level supervisor trees for very complex task decomposition. High overhead - avoid unless the task genuinely requires it.</li>
+</ul>
+
+<p>Framework guidance: LangGraph is the most production-ready for supervisor/worker patterns because its graph model makes state flow explicit and debuggable. CrewAI is faster to prototype for peer collaboration patterns. AutoGen remains the most flexible for experimental multi-agent designs but has more operational overhead in production.</p>
+
+<hr>
+
+<h2>Tool Integration Architecture</h2>
+
+<p>Tools are the atoms of agentic systems. Every tool call is a potential failure point - API error, timeout, malformed response, rate limit, authentication failure. The architecture of your tool layer determines how gracefully the system handles these failures.</p>
+
+<p>Key design principles for production tool integration:</p>
+
+<ul>
+<li><strong>Tool schemas are documentation.</strong> Every tool needs a precise name, description, and parameter schema. The LLM uses this to decide when and how to call the tool. Vague tool descriptions lead to wrong or unnecessary tool calls. "search_database" is a bad tool name. "search_clinical_trials_by_indication_and_phase" is a good tool name.</li>
+<li><strong>Tools should be idempotent where possible.</strong> An agent that calls a tool twice (due to error recovery or re-planning) should not create duplicate side effects. Design tools to be safely re-callable.</li>
+<li><strong>Tool outputs need size limits.</strong> An agent that calls a tool and receives 200KB of text will either exceed the context window or waste tokens on irrelevant content. Every tool should return the minimum useful output - summaries over full documents, structured extracts over raw API responses.</li>
+<li><strong>Build a tool registry.</strong> As tool count grows, management becomes a problem. A central tool registry with versioning, documentation, and usage analytics prevents tool proliferation and inconsistency.</li>
+</ul>
+
+<hr>
+
+<h2>Memory Systems</h2>
+
+<p>Agentic systems need memory at multiple timescales. Getting this architecture right is the difference between an agent that learns and adapts and one that starts from scratch on every invocation.</p>
+
+<h3>In-Context Memory</h3>
+
+<p>The conversation history and current task state within a single agent run. Managed by the framework (LangGraph's state graph, LangChain's memory classes). The constraint is context window size. For long-running tasks, you need a summarization strategy - compress older steps before they push critical information out of the context window.</p>
+
+<h3>Episodic Memory</h3>
+
+<p>Records of past agent runs that can be retrieved and used to inform current runs. "Last time I processed a clinical study report of this type, I found that the adverse events section was structured differently than the protocol template assumed - I should check for that." Implemented with a vector store and similarity retrieval. This is the memory layer most teams skip and most wish they had built earlier.</p>
+
+<h3>Semantic Memory</h3>
+
+<p>Factual knowledge the agent has access to - a knowledge base, a retrieval corpus, a structured database. Implemented with RAG. The design of this layer follows the RAG architecture principles covered separately (chunking, retrieval strategy, metadata filtering).</p>
+
+<h3>Procedural Memory</h3>
+
+<p>Learned behaviors and heuristics about how to accomplish tasks. In practice, this lives in the system prompt and tool descriptions. Updating procedural memory means updating prompts - which requires version control and testing.</p>
+
+<hr>
+
+<h2>Guardrails Architecture</h2>
+
+<p>Production agentic systems need guardrails at multiple layers. A single guardrail layer at the output stage catches problems too late and misses issues that occur mid-reasoning.</p>
+
+<p>Layer 1 - Input guardrails: Validate and sanitize inputs before they reach the agent. Catch prompt injection, PII that should not be processed, malformed inputs that will waste agent compute.</p>
+
+<p>Layer 2 - Tool call guardrails: Before any tool is called, validate that the call is appropriate given the current context. An agent should not call a "delete_record" tool in a read-only analysis context. These guardrails can be implemented as tool wrappers that check preconditions before execution.</p>
+
+<p>Layer 3 - Output guardrails: Validate agent outputs before they are returned to users or used as inputs to downstream systems. For clinical outputs, this includes schema validation, clinical plausibility checks, and confidence thresholding. Tools like Guardrails AI and NeMo Guardrails provide frameworks for this layer.</p>
+
+<p>Layer 4 - Loop detection: Production agents can get stuck in reasoning loops - calling the same tool repeatedly, re-planning endlessly, or cycling between two approaches. Implement step count limits, loop detection based on repeated tool calls, and escalation paths when limits are hit.</p>
+
+<hr>
+
+<h2>Observability: The Non-Negotiable Layer</h2>
+
+<p>An agentic system that you cannot observe is an agentic system you cannot debug, improve, or trust. Observability for agentic AI is more complex than for standard software because the execution graph is not predetermined - it emerges from the agent's decisions.</p>
+
+<p>What you need to trace for every agent run:</p>
+
+<ul>
+<li>Every LLM call: input tokens, output tokens, latency, model used, temperature settings</li>
+<li>Every tool call: tool name, inputs, outputs, latency, success/failure</li>
+<li>Full reasoning trace: each reasoning step the agent took, in order</li>
+<li>Branching decisions: where the agent chose between multiple options and why</li>
+<li>Final output: what was returned, how long the full run took, total token cost</li>
+</ul>
+
+<p>LangSmith handles this well for LangChain/LangGraph-based systems. For other frameworks, OpenTelemetry with a custom AI tracing layer is the most portable option. Arize Phoenix and Weights & Biases are strong alternatives for teams that want purpose-built AI observability.</p>
+
+<p>The operational rule I follow: if you cannot reconstruct why an agent produced a specific output, the agent is not production-ready. Every production incident investigation starts with the trace.</p>
+
+<hr>
+
+<h2>What I Would Build Differently</h2>
+
+<p>Looking back at the production systems I have shipped: I would invest earlier in the tool registry, the episodic memory layer, and the planning/execution separation. These are the architectural decisions that become expensive to retrofit once the system is in production. The guardrails and observability layers were built in from the start and have paid off every time something went wrong - which, in agentic systems, is not a question of if but when.</p>
+
+<p>The systems that have degraded gracefully in production share one property: explicit state management. When something goes wrong and you need to understand what the agent was doing and why, explicit state is your only debugging tool. Implicit state - reasoning that happens inside a black-box LLM call without tracing - is where agentic systems become unmaintainable. Design for the debug experience from day one.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-library/">Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

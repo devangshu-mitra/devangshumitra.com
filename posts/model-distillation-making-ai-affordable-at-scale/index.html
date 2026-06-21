@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="GPT-4o is extraordinary. At $15 per million output tokens, calling it a billion" />
+  <meta property="og:title" content="Model Distillation: Making AI Affordable at Scale — Devangshu Mitra" />
+  <meta property="og:description" content="GPT-4o is extraordinary. At $15 per million output tokens, calling it a billion" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Model Distillation: Making AI Affordable at Scale — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-06-27" itemprop="datePublished">Jun 27, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Model Distillation: Making AI Affordable at Scale</h1>
+          <p class="post-header__excerpt" itemprop="description">GPT-4o is extraordinary. At $15 per million output tokens, calling it a billion</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Model Distillation: Making AI Affordable at Scale</h1>
+
+<p>GPT-4o is extraordinary. At $15 per million output tokens, calling it a billion times per month is also extraordinary in a bad way. For narrow, high-volume tasks - classification, extraction, structured generation - a well-distilled smaller model often delivers 90% of the quality at 5-10% of the cost. Model distillation is how you do that systematically.</p>
+
+<h2>What Distillation Actually Is</h2>
+
+<p>In machine learning, distillation is the process of training a smaller "student" model to mimic the behavior of a larger "teacher" model. The student learns not just from hard labels (the correct answer) but from the teacher's soft output distribution (its confidence across all possible outputs). This richer training signal is why distilled models often perform disproportionately well relative to their size.</p>
+
+<p>In the LLM context, "distillation" is used loosely to describe two related but distinct approaches:</p>
+
+<ol>
+<li><strong>Classic distillation:</strong> Train a smaller model using the teacher's output probabilities (logits) as training signal. Requires access to the teacher's internals - only possible with open-source models or within the same model family.</li>
+<li><strong>Data distillation (knowledge transfer):</strong> Generate training data using the large model, then fine-tune a smaller model on that data. Works with any model including closed APIs like GPT-4o. This is the practical approach for most product teams.</li>
+</ol>
+
+<h2>The Data Distillation Pipeline</h2>
+
+<p>Here is the pattern I have used in production:</p>
+
+<p><strong>Step 1: Define the task precisely.</strong> Distillation works for narrow, well-defined tasks. "Classify clinical note sentiment as positive/negative/neutral" is a good candidate. "Be a helpful medical assistant" is not - the task is too broad for a small model to learn effectively.</p>
+
+<p><strong>Step 2: Generate high-quality examples using the teacher model.</strong></p>
+
+<pre><code class="language-">from openai import OpenAI
+import json
+
+def generate_training_examples(
+    inputs: list[str],
+    teacher_model: str = "gpt-4o",
+    system_prompt: str = ""
+) -&gt; list[dict]:
+    client = OpenAI()
+    training_data = []
+
+    for user_input in inputs:
+        response = client.chat.completions.create(
+            model=teacher_model,
+            messages=[
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_input}
+            ],
+            temperature=0
+        )
+        training_data.append({
+            "messages": [
+                {"role": "system", "content": system_prompt},
+                {"role": "user", "content": user_input},
+                {"role": "assistant", "content": response.choices[0].message.content}
+            ]
+        })
+
+    return training_data
+
+# Write in JSONL format for OpenAI fine-tuning
+def save_training_data(examples: list[dict], path: str) -&gt; None:
+    with open(path, "w") as f:
+        for example in examples:
+            f.write(json.dumps(example) + "
+")</code></pre>
+
+<p><strong>Step 3: Validate the teacher's outputs.</strong> Do not blindly use LLM-generated training data. Sample 10-15% of examples and review manually. The teacher model makes mistakes; training on those mistakes teaches the student to make the same ones. Particularly important for Life Sciences & Healthcare applications where errors have real consequences.</p>
+
+<p><strong>Step 4: Fine-tune the student model.</strong> For most teams, this means using OpenAI fine-tuning on GPT-4o-mini or using open-source models (Llama 3.1 8B, Mistral 7B) with tools like Hugging Face TRL or Axolotl.</p>
+
+<p><strong>Step 5: Evaluate systematically.</strong> Run your evaluation set against both the teacher and the student. The goal is not to match the teacher perfectly - it is to determine whether the quality gap is acceptable for your use case at the cost savings on offer.</p>
+
+<h2>When Distillation Makes Sense</h2>
+
+<p><strong>Good candidates for distillation:</strong></p>
+
+<ul>
+<li>High-volume narrow tasks (classification, extraction, structured output generation)</li>
+<li>Latency-sensitive applications where a smaller model is meaningfully faster</li>
+<li>Tasks where you have 500+ representative examples to learn from</li>
+<li>Situations where cost savings at scale justify the upfront investment in building and validating the pipeline</li>
+</ul>
+
+<p><strong>Poor candidates for distillation:</strong></p>
+
+<ul>
+<li>Broad, reasoning-heavy tasks where the large model's capabilities are genuinely required</li>
+<li>Tasks with rapidly changing knowledge requirements (the distilled model is static)</li>
+<li>Low-volume tasks where the cost savings do not justify the engineering investment</li>
+<li>Tasks requiring safety-critical reliability - smaller distilled models are harder to audit and have less predictable failure modes</li>
+</ul>
+
+<h2>Cost and Quality Benchmarks to Know</h2>
+
+<p>Reference points from OpenAI's research and community benchmarks:</p>
+
+<ul>
+<li>GPT-4o-mini fine-tuned on GPT-4o outputs: typically reaches 85-95% of GPT-4o accuracy on narrow tasks, at roughly 10-15x lower inference cost</li>
+<li>Llama 3.1 8B fine-tuned on GPT-4o outputs: competitive with GPT-4o-mini on many classification and extraction tasks, with zero ongoing inference cost if self-hosted</li>
+<li>The quality gap widens for tasks requiring complex reasoning, creativity, or broad knowledge</li>
+</ul>
+
+<h2>Practical Considerations</h2>
+
+<p><strong>Data quality is the bottleneck.</strong> The distilled model is bounded by the quality of its training data. If your teacher model generates inconsistent outputs, your student will be inconsistently trained. Fix prompting quality first.</p>
+
+<p><strong>Distribution shift kills distilled models.</strong> A model distilled on one input distribution fails silently when inputs drift. Monitor input distributions in production and retrain periodically.</p>
+
+<p><strong>Distillation does not transfer safety properties.</strong> A model distilled to perform a specific task does not inherit the teacher's safety behaviors. Implement your own safety checks for the student model's outputs.</p>
+
+<h2>What matters here</h2>
+
+<p>Distillation is a legitimate cost management strategy for production AI at scale. The pattern is straightforward: use a large model to generate high-quality training data for a narrow task, validate those examples, fine-tune a smaller model, and measure the quality-cost tradeoff empirically. For high-volume narrow tasks, distillation routinely delivers 90%+ quality at 10% of the cost. The engineering investment is 2-4 weeks of focused work. At meaningful scale, it pays back within the first month of deployment.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-frameworks-beyond-benchmarks/">LLM Evaluation Frameworks: Beyond Benchmarks</a></li>
+<li><a href="https://www.devangshumitra.com/mlops-for-product-managers-what-you-need-to-know/">MLOps for Product Managers: What You Need to Know</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-frameworks-beyond-benchmarks/">LLM Evaluation Frameworks: Beyond Benchmarks</a></li>
+<li><a href="https://www.devangshumitra.com/embedding-strategies-that-actually-scale/">Embedding Strategies That Actually Scale</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-explained-text-images-video-in-one-model-2/">Multimodal AI Explained: Text + Images + Video in One Model</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI product frameworks break in healthcare. Here are the five principles" />
+  <meta property="og:title" content="The First Principles of Healthcare AI Product Management — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI product frameworks break in healthcare. Here are the five principles" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The First Principles of Healthcare AI Product Management — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2025-08-14" itemprop="datePublished">Aug 14, 2025</time>
+            <span class="post-header__read-time">11 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The First Principles of Healthcare AI Product Management</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI product frameworks break in healthcare. Here are the five principles</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The First Principles of Healthcare AI Product Management</h1>
+
+<p>Most AI product management frameworks are written for consumer software. They assume fast iteration cycles, high user engagement data, A/B testable metrics, and the ability to ship fast and break things. Healthcare breaks every one of those assumptions. Iteration cycles are measured in months because of regulatory review. User engagement data is sparse because clinicians interact with your product for minutes per day, not hours. A/B testing on clinical decisions is ethically complex. And breaking things means patient harm.</p>
+
+<p>After several years building AI products in clinical trials, pharmacovigilance, and hospital operations, I have distilled a set of principles that survive contact with the actual environment. These are not frameworks borrowed from Silicon Valley and applied to healthcare. They are derived from repeated failure in a domain that punishes overconfidence.</p>
+
+<h2>Principle 1: Clinical Workflow First, AI Second</h2>
+
+<p>The instinct in AI product development is to start with the model capability and then find a clinical problem that fits. This produces technically impressive demos that fail in production. Start instead with a specific clinical workflow: who does what, when, with what information, under what time pressure? Map it with a stopwatch and a notebook, not a survey. The AI opportunity is the gap between what the workflow requires and what the current tools provide. If you cannot articulate exactly where in the workflow your AI changes what a human does, you do not have a product - you have a capability looking for a use case.</p>
+
+<h2>Principle 2: Regulatory Is a Feature, Not a Constraint</h2>
+
+<p>FDA clearance, CE marking, and HIPAA compliance are typically framed as obstacles that slow development. Reframe them as features. A cleared medical device can charge premium prices, enter hospital formularies, and survive procurement cycles that kill uncleared software. A HIPAA-compliant infrastructure signals to hospital security teams that you have done the work they would otherwise spend 18 months auditing you on. Regulatory investment is competitive moat investment. Build it early, document it properly, and treat it as a first-class product deliverable.</p>
+
+<h3>Principle 5: Data Strategy is a Product Differentiator</h3>
+
+<p>Most consumer AI products benefit from abundant, relatively clean user data. Healthcare is the opposite. I've spent countless hours in meetings just discussing data access. You'll find clinical data is siloed across different hospital systems, often locked behind legacy EMRs like Epic or Cerner. It's often inconsistent. A diagnosis code might mean one thing here, another there. Images stored as DICOM files might lack standardized metadata.</p>
+
+<p>Your product's ability to acquire, clean, and standardize this data is a major competitive advantage. This isn't just an engineering problem. It's a product problem. You need a clear strategy for data partnerships, de-identification, and ongoing data governance. I saw one team spend a year building a fantastic model, only to realize they couldn't get enough high-quality, representative data to deploy it broadly. Treat data ingestion pipelines with the same rigor as your core AI model. Sometimes, the most valuable "feature" is simply access to a well-curated, longitudinal dataset.</p>
+
+<h3>Principle 6: The High Cost of Integration</h3>
+
+<p>Building a great AI model is only half the battle. Getting it to work within a hospital's existing IT infrastructure is often harder. Hospitals don't rip and replace EMRs like Epic or Cerner. Your AI product needs to talk to them. This means navigating complex APIs, HL7 feeds, or FHIR endpoints. Each integration is often a custom project, not a plug-and-play affair.</p>
+
+<p>I've seen product roadmaps derailed by unexpected integration hurdles. A simple data pull might require weeks of IT department bandwidth and multiple security reviews. You need to budget significant time and resources for this. Map out the data flow from patient input to your AI, and then back into the clinician's workflow. Who owns each piece? What are the latency requirements? Don't assume standard protocols will just work. Plan for bespoke connectors and extensive testing. This work is unglamorous, but it's where products often live or die in healthcare.</p>
+
+<h3>Principle 7: Design for Human-in-the-Loop, Always</h3>
+
+<p>The goal of healthcare AI is rarely full automation. It's almost always augmentation. Clinicians need to remain in control. Your AI product should act as a sophisticated assistant, providing insights or flagging risks, but ultimately leaving the final decision to the human expert. This means building in explicit mechanisms for human oversight.</p>
+
+<p>Think about how a clinician might review, modify, or even ignore your AI's suggestion. Does your UI clearly present the AI's output alongside the underlying data? Is there an "override" button or a clear path to dismiss an alert? I worked on a system that predicted patient deterioration. We designed the alert to be highly configurable, letting nurses set thresholds and even snooze alerts for stable patients. If you don't design for this human interaction, your product will feel prescriptive, not helpful. Clinicians will reject it, no matter how good your model is.</p>
+
+<h3>Principle 3: Trust Demands Interpretability</h3>
+
+<p>In consumer AI, a model might recommend a movie or a product. If it's wrong, the stakes are low. In healthcare, a wrong recommendation can have serious consequences. Clinicians need to understand not just what your AI suggests, but why. I've sat in rooms where doctors grilled data scientists on feature importance. They want to know which specific patient characteristics led to a high-risk score for sepsis, for instance. A black box model, no matter how accurate in a lab, often fails at the bedside because it doesn't build trust.</p>
+
+<p>This means going beyond simple accuracy metrics. You need to design for interpretability from the start. Techniques like SHAP values or LIME can help explain individual predictions. You might also visualize attention mechanisms in transformer models to show which parts of a clinical note influenced a decision. This isn't just a technical exercise. It's a product requirement that directly impacts adoption and patient safety. If a clinician can't explain your AI's reasoning to a patient or a peer, they won't use it for critical decisions.</p>
+
+<h3>Principle 4: Clinical Impact Trumps Model Metrics</h3>
+
+<p>It's easy to get lost in the weeds of model performance: AUC scores, F1-scores, precision, recall. These are important for engineers, but they are not what hospitals buy. Hospitals care about clinical impact. Does your AI reduce average length of stay? Does it lower readmission rates for heart failure patients from 18% to 15%? Does it decrease the number of missed diagnoses for a specific condition? I've seen teams build models with fantastic technical metrics that had no measurable effect on patient care or operational efficiency once deployed.</p>
+
+<p>Measuring clinical impact requires rigorous validation, often through prospective studies or pilot programs within a hospital system. You're not just comparing your model's predictions to ground truth labels; you're comparing patient outcomes or operational metrics before and after your AI's intervention. This means defining success metrics with clinicians and hospital administrators early on. A model that achieves 90% accuracy but doesn't change a single clinical action or improve a patient's journey isn't a product; it's a research paper.</p>
+
+<h3>Principle 7: The Human-in-the-Loop is Always the Goal</h3>
+
+<p>Many AI visions involve full automation. In healthcare, that's rarely the case, nor should it be. Your AI will almost always be an assistant to a human clinician. They retain ultimate responsibility for patient care. This means your product design must account for the "human-in-the-loop" at every step. How does the AI present its insights without causing alert fatigue? How does it allow a clinician to easily override a suggestion if their clinical judgment differs? A simple "dismiss" or "disagree" button with a brief reason can be invaluable.</p>
+
+<p>I worked on a tool that helped radiologists prioritize urgent scans. The AI flagged studies, but the radiologist always made the final call. The interface needed to clearly show the AI's reasoning and allow the radiologist to quickly review the relevant images and clinical history. If the AI just gave a 'critical' score without context, it would be ignored. Designing for this collaborative interaction, where the AI augments human expertise rather than replaces it, is essential for adoption and trust in any clinical setting.</p>
+
+<h3>Principle 5: Clinical Data Is Messy, Biased, and Hard to Get</h3>
+
+<p>Most AI training happens on carefully curated datasets. Clinical data is rarely like that. I've spent months sifting through electronic health records (EHRs) from systems like Epic and Cerner. You'll find missing lab values, inconsistent free-text notes, and variations in how ICD-10 codes are applied across different facilities. This isn't just an engineering problem; it's a product challenge. You can't assume a clean, ready-to-use dataset exists.</p>
+
+<p>Bias is another critical issue. Datasets often overrepresent certain demographics or conditions. If your model is trained mostly on data from a specific hospital system in the Northeast, it might perform poorly on patients in the rural South. This can lead to disparities in care. Understanding these limitations and designing for data curation, augmentation, and adversarial testing is crucial. It means building relationships with data stewards and clinical informatics teams early on. You need to understand the provenance of your data as much as its content.</p>
+
+<h3>Principle 6: Integration Is the "Last Mile" Problem</h3>
+
+<p>Building a great AI model is one thing. Getting it into a clinician's workflow is another entirely. This "last mile" is often the hardest part. Hospitals operate complex IT environments. They have strict security protocols, often prefer on-premise deployments, and rely on legacy integration standards. When I worked on a pharmacovigilance product, we spent more time on HL7 and FHIR API integrations than on model tuning. These are not trivial tasks.</p>
+
+<p>You'll encounter IT departments with specific requirements for VPNs, data encryption at rest and in transit, and strict change management processes. A product that requires heavy lifting from the hospital's IT staff will face significant friction. Design your product for minimal integration burden. Can it run as a lightweight web application? Does it use standard, well-documented APIs? Anticipate these hurdles. Your AI's value is zero if it cannot connect to the systems clinicians actually use every day.</p>
+
+<h3>Principle 7: Trust Trumps Performance for Clinician Adoption</h3>
+
+<p>A model with 99% accuracy is useless if clinicians don't trust it. Unlike consumer software, where users might accept "black box" recommendations, clinicians need to understand why an AI made a certain suggestion. They have professional responsibility for patient outcomes. I learned that explainability isn't just a research topic; it's a product feature. If your diagnostic aid suggests "pneumonia," the physician needs to see the contributing factors: specific lung sounds, chest X-ray findings, elevated white blood cell count.</p>
+
+<p>This means designing for transparency. Provide confidence scores. Highlight the features that most influenced a prediction. Build human-in-the-loop mechanisms where clinicians can override or provide feedback. If you're building a predictive model for hospital readmissions, showing the specific risk factors for a patient (e.g., poor medication adherence, lack of social support) helps the care team intervene effectively. Without trust, even the most performant AI will sit unused.</p>
+
+<h2>Principle 3: Measure Clinical Outcomes, Not Model Metrics</h2>
+
+<p>AUC, F1 score, and accuracy are not clinical outcomes. A model with 95% AUC that does not change what clinicians do has zero clinical value. The relevant metrics are: did time-to-diagnosis change? Did treatment adherence change? Did readmission rate change? These are harder to measure - they require prospective study design, longer time horizons, and often IRB approval. But they are the only metrics that justify the cost and complexity of deploying AI in a clinical environment. If your team cannot state which clinical outcome metric will change if your product works, your product is not ready to be deployed.</p>
+
+<h2>Principle 4: The User Is Rarely the Buyer</h2>
+
+<p>In consumer software, the user and the buyer are the same person. In healthcare enterprise software, they are almost never the same. The physician uses the product; the CMO and the CFO buy it; the IT team implements it; the compliance team approves it; the nursing staff adapts their workflow around it. Each of these stakeholders has different success criteria and different veto power. A product that physicians love but that IT cannot implement securely, or that finance cannot justify in terms of ROI, will not survive past pilot. Build for the full stakeholder map, not just the end user.</p>
+
+<h2>Principle 5: Trust Compounds Slowly and Breaks Instantly</h2>
+
+<p>Clinician trust in an AI system is built case by case, across months of interaction. A physician who has seen your model flag 50 true positives and generate 3 false positives starts to develop an intuition for when to trust it and when to override it. That calibrated trust is the condition under which AI actually improves clinical decisions. But one high-profile failure - a missed diagnosis, a flagged contraindication that was wrong, an alert at the wrong moment - can destroy months of trust accumulation. Design your product to fail gracefully: when uncertain, say so. When wrong, make it easy for the clinician to override and easy for your team to learn from. The worst thing an AI product can do in healthcare is be confidently wrong.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-of-data-strategy/">First Principles of Data Strategy</a></li>
+<li><a href="https://www.devangshumitra.com/why-ai-teams-need-product-managers-not-project-managers/">Why AI Teams Need Product Managers, Not Project Managers</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

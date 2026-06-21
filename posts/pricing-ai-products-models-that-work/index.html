@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="AI product pricing is harder than SaaS pricing because the value delivered" />
+  <meta property="og:title" content="Pricing AI Products: Models That Work — Devangshu Mitra" />
+  <meta property="og:description" content="AI product pricing is harder than SaaS pricing because the value delivered" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Pricing AI Products: Models That Work — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-08-10" itemprop="datePublished">Aug 10, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Pricing AI Products: Models That Work</h1>
+          <p class="post-header__excerpt" itemprop="description">AI product pricing is harder than SaaS pricing because the value delivered</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Pricing AI Products: Models That Work</h1>
+
+<p>AI product pricing sits at an uncomfortable intersection: the value you deliver varies significantly by customer and use case, your cost to serve (model inference, compute, human review) fluctuates with usage, and enterprise buyers are increasingly sophisticated about calling out AI pricing that doesn't reflect delivered value.</p>
+
+<p>I've worked through pricing design for AI products in clinical documentation, medical device analytics, and enterprise automation. The pricing models that survive long-term are the ones that align vendor and customer incentives over the lifetime of the relationship, not just at the point of sale.</p>
+
+<h2>The Five AI Pricing Models</h2>
+
+<h3>1. Seat-Based (Per User Per Month)</h3>
+
+<p>The traditional SaaS model. Each named user pays a fixed monthly fee regardless of usage.</p>
+
+<p><strong>When it works:</strong> Your product is used daily by identifiable individuals who derive consistent value from it. Think AI writing assistants, AI-assisted code review, AI meeting summarization - tools where each user is the unit of value consumption.</p>
+
+<p><strong>When it breaks:</strong> When usage is irregular (some users use it daily, others monthly), when the AI feature is one component of a broader platform, or when your cost to serve is highly variable. A power user who makes 1,000 AI calls per day and a light user who makes 10 are paying the same under seat pricing but costing very differently to serve.</p>
+
+<p><strong>Practical range:</strong> $20-200/user/month for prosumer/SMB, $200-2,000/user/month for enterprise depending on the value delivered and alternatives in market.</p>
+
+<h3>2. Usage-Based (Consumption Pricing)</h3>
+
+<p>Customers pay per unit of AI consumption - per API call, per document processed, per prediction made, per token generated.</p>
+
+<p><strong>When it works:</strong> High-variance usage across customers, clear unit of value consumption, and cost-to-serve that scales linearly with usage. Ideal for infrastructure-layer AI products and developer tools.</p>
+
+<p><strong>When it breaks:</strong> When customers have unpredictable bills (kills trust and expansion), when the unit of consumption doesn't map clearly to value (paying per token when value is per document is confusing), or when customers need budget predictability for procurement approvals.</p>
+
+<p><strong>Mitigation:</strong> Usage-based with committed minimums - customers commit to a minimum annual consumption (giving you revenue predictability) and pay overages at standard rate. This is the model OpenAI, Anthropic, and Google use for enterprise API contracts.</p>
+
+<h3>3. Outcome-Based Pricing</h3>
+
+<p>Customers pay based on measured business outcomes your AI delivers: cost savings, revenue generated, time saved, cases resolved.</p>
+
+<p><strong>When it works:</strong> Outcomes are clearly attributable to your AI, measurable without dispute, and large enough that a share of them is economically meaningful. Revenue cycle AI that demonstrably improves collections rate. Fraud detection AI where prevented fraud is the measurable outcome.</p>
+
+<p><strong>When it breaks:</strong> When attribution is disputed (was that revenue improvement from the AI or from the sales team's effort?), when measurement requires accessing sensitive customer financial data, or when the customer isn't willing to share outcome data with you.</p>
+
+<p><strong>Structure:</strong> A base fee covering costs and baseline value, plus a variable component tied to measured outcomes with a cap to protect customers from unexpected exposure. Split the outcome improvement 20-40% to vendor, 60-80% to customer.</p>
+
+<h3>4. Tiered Feature-Based</h3>
+
+<p>Multiple tiers (Free/Starter/Pro/Enterprise) with different AI capabilities at each tier. Higher tiers get more AI calls, more sophisticated models, or additional AI features.</p>
+
+<p><strong>When it works:</strong> You have a genuine product hierarchy where capabilities increase meaningfully across tiers, and there's a natural upgrade path as customers grow. Effective for PLG (product-led growth) motions where individuals trial on free and expand to enterprise.</p>
+
+<p><strong>When it breaks:</strong> When tier differences are artificial (you're limiting usage rather than enabling capabilities), when enterprise buyers see the tiering as a negotiating tactic rather than genuine segmentation, or when your cost structure doesn't support the free or low-cost tiers.</p>
+
+<h3>5. Platform Plus AI Usage (Hybrid)</h3>
+
+<p>A platform subscription covers base product access, with AI features billed separately as an add-on (per seat, per usage, or included above a tier).</p>
+
+<p><strong>When it works:</strong> AI is a significant enhancement to an existing product and you want flexibility to price it separately without changing the core pricing model. Notion AI ($10/user/month add-on) and Salesforce Einstein (per-feature add-on) use this model.</p>
+
+<p><strong>When it breaks:</strong> When the AI is the core value proposition, not a feature - in that case, hiding it behind an add-on model undervalues your differentiator. Also breaks when customers resent paying twice for what they see as one product.</p>
+
+<h2>Cost Structure: What Drives AI Pricing Math</h2>
+
+<p>Before setting prices, understand your per-unit cost to serve:</p>
+
+<ul>
+<li><strong>Model inference cost</strong>: Token cost at current API rates, or infrastructure cost if self-hosted. This is often surprisingly low per individual interaction - the issue is volume.</li>
+<li><strong>Human review cost</strong>: For AI products with human-in-the-loop, the human review cost per case is often 10-50x the model inference cost. Price must cover this.</li>
+<li><strong>Infrastructure</strong>: Embedding generation, vector database, caching, monitoring. Often 20-40% of total COGS for AI products.</li>
+<li><strong>Model retraining</strong>: Amortized across customers, but meaningful for fine-tuned or custom models.</li>
+</ul>
+
+<blockquote><p>A clinical AI product I worked on had inference costs under $0.02 per document processed. But adding HIPAA-compliant infrastructure, human review for edge cases, and model monitoring, the true COGS was $0.35 per document. Pricing at $1-2 per document gave a healthy margin; pricing against a per-seat model that assumed 50 documents per user per month was underwater at the actual usage rate of 200+ documents per day for some users.</p></blockquote>
+
+<h2>Pricing Traps Specific to AI Products</h2>
+
+<ul>
+<li><strong>The race to the bottom on accuracy</strong>: Competing on price by reducing model quality. Users eventually notice and churn. Compete on trust and outcomes instead.</li>
+<li><strong>Free tier with unlimited AI</strong>: If your AI costs something to run, unlimited free usage doesn't work. Build metered free tiers with explicit limits.</li>
+<li><strong>Pricing on inputs rather than outputs</strong>: Customers care about documents processed, questions answered, hours saved - not about tokens consumed. Price on the output unit that matches how customers think about value.</li>
+<li><strong>No ceiling on usage-based billing</strong>: Enterprise buyers need budget predictability. Usage-based pricing without a cap is a procurement blocker for many organizations.</li>
+</ul>
+
+<h2>Practical Pricing Design Checklist</h2>
+
+<ul>
+<li>[ ] Calculated true COGS per unit at realistic usage volume</li>
+<li>[ ] Identified the unit of value consumption that maps to how buyers think about value</li>
+<li>[ ] Validated pricing with 5+ buyer conversations before committing</li>
+<li>[ ] Built usage cap options into usage-based pricing for enterprise</li>
+<li>[ ] Checked competitive pricing space (direct and adjacent)</li>
+<li>[ ] Confirmed pricing survives a 3x usage spike without going underwater</li>
+<li>[ ] Defined expansion path - how does pricing evolve as customers grow?</li>
+</ul>
+
+<h2>Where this lands</h2>
+
+<p>Match your pricing model to how customers consume and experience value, not how you incur costs. Usage-based aligns incentives but needs committed minimums for enterprise. Outcome-based is most defensible but requires measurable attribution. Always calculate true COGS including human review and infrastructure before setting prices. Build billing caps into any consumption model for enterprise buyers. Price on the output unit, not the input cost.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/defining-mvp-for-ai-products-less-is-different/">Defining MVP for AI Products: Less Is Different</a></li>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-dashboard-what-to-track-and-why/">AI Product Metrics Dashboard: What to Track and Why</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

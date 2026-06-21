@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The beta-to-GA transition for AI products is more complex than traditional" />
+  <meta property="og:title" content="Launch Playbook: Taking an AI Product from Beta to GA — Devangshu Mitra" />
+  <meta property="og:description" content="The beta-to-GA transition for AI products is more complex than traditional" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Launch Playbook: Taking an AI Product from Beta to GA — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-10-19" itemprop="datePublished">Oct 19, 2025</time>
+            <span class="post-header__read-time">14 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Launch Playbook: Taking an AI Product from Beta to GA</h1>
+          <p class="post-header__excerpt" itemprop="description">The beta-to-GA transition for AI products is more complex than traditional</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Launch Playbook: Taking an AI Product from Beta to GA</h1>
+
+<h2>The Beta-to-GA Gap Nobody Talks About</h2>
+
+<p>You've got 2,000 beta users on your AI product. Accuracy is 87% on your test set. The core loop works. Your early adopters are genuinely happy - they're running it in production workflows, finding real value. The executive team wants to know when you launch.</p>
+
+<p>Then you hit the wall.</p>
+
+<p>The wall looks like this: a healthcare provider tells you their clinical team won't use your AI system unless it integrates with their EHR in a specific way you didn't anticipate. A biopharm customer needs audit logs that meet FDA requirements but your current logging architecture wasn't built for that scale. Your support team is spending 6 hours a day on Slack answering the same question about how the model handles edge cases in your domain.</p>
+
+<p>I've watched this happen three times now - once with a clinical decision support tool, once with a drug discovery platform, and once with a radiology AI system being deployed across a health system. Each time, the team had built something genuinely useful. But the gap between "works well for our beta customers" and "ready for 500+ customers" is brutal, and it's not just about polish.</p>
+
+<p>The real problem isn't your AI model. It's that you're about to expose your product to an order of magnitude more operational complexity, regulatory scrutiny, and heterogeneous use cases than your beta cohort represented. And most AI product teams underestimate what that actually requires.</p>
+
+<h2>What Changes Between Beta and GA (Beyond Feature Completeness)</h2>
+
+<p>When I say "operational complexity," I don't mean a few extra features. I mean your product is about to encounter real constraints you've never seen:</p>
+
+<ul>
+<li><strong>Input distribution shifts you can't predict.</strong> Your beta customers are sophisticated early adopters using your system exactly as you designed it. Your GA customers will use it wrong in creative ways. A medical AI might see patient populations you never tested on. A materials science model might get fed chemical structures in formats you never encountered. A document processing system might receive PDFs with OCR that's worse than your training data.</li>
+<li><strong>Regulatory and compliance walls.</strong> In healthcare especially, but increasingly across life sciences and enterprise - your GA launch isn't just a product milestone. It's a compliance checkpoint. HIPAA audit trails. FDA 21 CFR Part 11 if you're near clinical validation. SOC 2 requirements from enterprise customers. Your beta users might have waived these. Your GA customers won't.</li>
+<li><strong>Scale-dependent failure modes.</strong> I worked on a drug discovery AI that was buttery smooth at 50 concurrent users and completely fell apart at 200. Not because of load balancing - we'd tested that. But because the queue depth exposed a bug in how we were caching model outputs, and at higher concurrency we hit it every time. This doesn't show up in beta.</li>
+<li><strong>Real support demand you can't outsource.</strong> Your 2,000 beta users are self-sufficient. They Slack you or file tickets and give you context. Your GA users will expect support to actually solve their problems, often without understanding what they did wrong, and they'll get frustrated quickly if you can't answer their questions at 2am on a Friday.</li>
+<li><strong>Integration expectations.</strong> Beta customers work around your API limitations. GA customers want it to just work with their existing systems - their EHR, their data warehouse, their MLOps platform, their favorite monitoring tool. You'll get requests for integrations you never planned for.</li>
+<li><strong>Heterogeneous deployment models.</strong> Your beta users might all be cloud-native or all on-prem or all comfortable with your SaaS offering. Your GA customers will want some of each - a hospital system that needs on-prem deployment, an enterprise that needs air-gapped infrastructure, a startup that wants multi-tenant cloud. You need to support at least two of these well, or you'll lose deals.</li>
+</ul>
+
+<p>The teams that transition smoothly from beta to GA aren't the ones with perfect products. They're the ones that saw this coming and built the infrastructure - both technical and organizational - to handle it.</p>
+
+<h2>The GA Readiness Framework</h2>
+
+<p>I've started using a simple framework to assess whether an AI product is actually ready to leave beta. It covers five dimensions. If you're weak on more than one, you're not ready.</p>
+
+<ol>
+<li><strong>Robustness against distribution shift.</strong> Can your model handle the top 5 kinds of inputs that are different from your training data? Do you have monitoring in place to detect when inputs are out of distribution? Can you quantify your performance degradation as distribution shift increases? For a healthcare AI, this might mean "we've tested on 8 different EHR systems and we gracefully handle OCR quality down to 60%." For a chemistry model, it might mean "we tested on 15 different molecular formats and we have a clear performance curve."</li>
+<li><strong>Observability and diagnostics at customer sites.</strong> You need to see what's happening in production without relying on customers to tell you something broke. For clinical AI, this means detailed logging of model inputs, outputs, confidence scores, and any override decisions - all without violating privacy. For other domains, it means you know which inputs produced which outputs, why the model made that decision (or at least what features mattered), and whether that decision looks anomalous. You should be able to answer "why did the model say X for customer Y's batch on Thursday" without customer involvement.</li>
+<li><strong>Support playbooks for the most common problems.</strong> Before you launch, your support team should have written, tested responses for: the top 3 ways customers will misuse your system, the top 3 failure modes that aren't actually failures, the top 3 "is this expected?" questions. I'm talking about actual documentation, not Slack conversations. For a clinical AI, this might be "model scored low on this case - here's how to interpret it and here's when you should contact us vs. when this is working as designed." When your support team can solve 70% of issues with documentation, you're ready. When you're explaining things for the first time on every support ticket, you're not.</li>
+<li><strong>Compliance and audit readiness.</strong> Before you have your first GA customer, you should have already gone through at least a dry-run compliance audit. Not the full thing - but a partner or your own team playing the role of the auditor. For healthcare, this means HIPAA audit trails, data retention policies, breach notification procedures, and documentation of your security model are all real. For enterprise, it means SOC 2 Type II report if you're handling sensitive data, or clear documentation of what you're not covering. You should know which regulations apply to your product in which geographies. You should know which ones are actually blockers and which ones you can solve with documentation.</li>
+<li><strong>Operational support for deployment models you claim to support.</strong> If you say you support on-prem, you need to have deployed it yourself at least twice, documented the process, and have someone on the team who can help customers when it goes wrong. This doesn't mean you support every possible infrastructure - it means you support the ones you say you do, really support them, with runbooks and everything. I've seen AI products claim "we support on-prem deployment" as a sales feature and then have zero operational capability to actually deploy or support it. That's a disaster.</li>
+</ol>
+
+<p>You can assess each dimension on a 1-5 scale. Most teams hit 3s and 4s on some dimensions and 1s and 2s on others. Your job before GA is to get everything to at least a 3, and ideally to 4 on anything that would block a deal.</p>
+
+<h2>The Concrete Steps: 12 Weeks to GA Launch</h2>
+
+<p>I'm going to walk through what actually happened on a medical AI launch I led. Timeline was 12 weeks from "let's prepare for GA" to "we're launching." This was a decision support tool for oncology, so stakes were high, but the playbook transfers.</p>
+
+<p><strong>Weeks 1-2: Readiness audit and roadmap.</strong></p>
+
+<p>We brought in a mix of people - me (product), our VP of Clinical Affairs, our head of infrastructure, and someone from our legal/compliance team. We spent a day going through the framework above, honestly assessing where we were. We did it ruthlessly. We were a 4 on robustness (we'd tested on multiple hospital systems), a 2 on observability (we were logging some things but not systematically), a 3 on support playbooks (we had started documenting but not comprehensively), a 1 on compliance (we knew we needed to be HIPAA-compliant but hadn't done the audit), and a 2 on operational deployment (we'd done it once, weren't confident we could do it again).</p>
+
+<p>Based on that, we built a 12-week roadmap with these initiatives:</p>
+
+<ul>
+<li>Observability overhaul: instrument the entire system to capture every input, every model output, every decision, with privacy-preserving logging (weeks 1-6)</li>
+<li>Compliance project: run a HIPAA risk assessment, implement the key controls, prepare for audit (weeks 2-10)</li>
+<li>Support documentation: write support playbooks, FAQs, troubleshooting guides (weeks 3-11)</li>
+<li>Deployment hardening: clean up and automate our on-prem deployment, document it, run a second deployment in a test environment (weeks 4-9)</li>
+<li>Pre-launch customer pilots: identify 5 GA-ready customers and run them through a GA-like experience with all our new infrastructure (weeks 8-12)</li>
+</ul>
+
+<p>We assigned ownership. I owned the overall readiness and pilot customers. My counterpart in clinical affairs owned the support playbooks and clinical compliance aspects. Infrastructure owned observability and deployment. Legal/compliance owned the compliance workstream. Every owner reported weekly on a dashboard.</p>
+
+<p><strong>Weeks 3-6: Build observability and support infrastructure.</strong></p>
+
+<p>This is where most teams cut corners. We didn't. We added structured logging to every API call, every model inference, every customer action. We tagged everything with sanitized customer IDs and timestamps. We implemented a privacy-preserving "replay" system where we could reconstruct what happened in a customer's account without seeing their actual patient data. This took 3 engineers for 4 weeks and it felt like overhead until we launched.</p>
+
+<p>Meanwhile, our clinical team and a technical writer were sitting with our 10 most engaged beta customers, doing customer interviews specifically about "what confused you" and "what would you like us to explain better." They wrote the first version of our support playbooks - essentially decision trees for common problems. Examples: "Model gave low confidence - is this normal?" -> "Here's how to interpret confidence scores. Here's when low confidence means the model is uncertain vs. when it means the input is outside the training distribution. Here's when you should contact us." We tested these playbooks with our beta customers and they said "yes, this would have helped me."</p>
+
+<p><strong>Weeks 5-8: Compliance and deployment hardening.</strong></p>
+
+<p>Compliance was actually straightforward once we got started. We ran a HIPAA risk assessment using a standard framework. Most of it was already covered - we had encryption, access controls, audit trails, breach notification procedures. The gaps were: we didn't have a formal data retention policy (we now delete everything after 7 years unless the customer contracted otherwise), we didn't have formal documentation of our security model (I spent a week writing that), and we needed a formal business associate agreement (legal handled this but I reviewed it for product implications).</p>
+
+<p>For deployment, we took our existing on-prem deployment and had an infrastructure engineer document every step. Then another engineer deployed it from scratch using only the documentation. They hit 8 failures. We fixed them and they deployed again. The second time was smooth. Then we created an installer that automated most of the process. We had a runbook for common problems: "customers seeing slow inference" -> "check that they have adequate GPU memory" -> "check that they're not running backups during peak hours." By week 8 we were confident we could deploy on-prem, support it, and handle most issues.</p>
+
+<p><strong>Weeks 8-12: Pre-launch pilots and dry-run launch.</strong></p>
+
+<p>We identified 5 customers who were GA-ready - they had the infrastructure we claimed to support, they had the compliance appetite we needed, they were willing to work with us closely. We essentially ran a "GA experience" with them: they deployed using our standard process, they used the system in production, they hit issues and we handled them using our support playbooks, we collected all their feedback and observability data. We learned that:</p>
+
+<ul>
+<li>Our deployment process took longer than we documented (3 hours instead of 1.5) because we hadn't accounted for infrastructure variability at customer sites</li>
+<li>Our support playbooks were too technical - oncology nurses didn't need to understand what "out of distribution" meant, they needed simple decision trees</li>
+<li>We needed better error messages - when the model couldn't run, customers got cryptic logs instead of useful guidance</li>
+<li>Our observability was working but we hadn't built the right dashboards for customers to understand how the system was performing on their data</li>
+</ul>
+
+<p>We fixed all of these in the final 3 weeks. The pre-launch pilots weren't perfect, but they exposed things that would have been disasters at scale.</p>
+
+<h2>What We Got Wrong (And How You Can Avoid It)</h2>
+
+<p>Before we launched, I thought our biggest risk was model performance on new data. Turns out the biggest risk was none of the things we expected.</p>
+
+<p><strong>Mistake 1: Underestimating how different real customers use your system.</strong></p>
+
+<p>Our beta customers were all large academic medical centers with strong clinical informatics teams. They used the model exactly as we designed it. Our first GA customer was a mid-sized community hospital with less infrastructure expertise. They wanted to integrate our model into their weekly tumor board meeting workflow in a way we hadn't anticipated - they wanted the model output exported to PowerPoint in a specific format, they wanted it to work offline in some cases, they wanted a simplified interface for non-technical clinicians. We had to build all of this in the first month. The fix: before you launch, you need to have at least one customer from each major customer category you're targeting. If you're targeting both large systems and community hospitals, talk to a community hospital during beta, not after launch.</p>
+
+<p><strong>Mistake 2: Building compliance infrastructure that's too complex for support to manage.</strong></p>
+
+<p>We implemented comprehensive audit logging that was technically perfect. It was also impossible for our support team to query. A customer would ask "can you tell me what happened on this case" and our support people had to ask engineering to run a query. We burned 30 hours of engineering time in the first month answering support questions that should have been self-service. We built a simple web interface that let support pull logs without involving engineering. Problem solved. The fix: compliance infrastructure has to be operationalized for your support team's skills, not just for auditors.</p>
+
+<p><strong>Mistake 3: Assuming documentation is enough for edge cases.</strong></p>
+
+<p>We had comprehensive docs about how the model handles certain kinds of cases. Documentation doesn't help when a customer hits a case they don't recognize. We added a "send this to us" button that automatically packaged up the inputs and outputs and sent them to our team, with customer permission. Turns out this was way more valuable than documentation - we built a database of edge cases and used it to improve the model and add better error messages. The fix: if something is complex enough to need documentation, it's probably complex enough to justify a "call home" feature that lets you gather data on how customers are hitting it.</p>
+
+<p><strong>Mistake 4: Not preparing for "why did your model say X?"</strong></p>
+
+<p>In healthcare, explainability matters less because people are already used to AI/ML providing scores, but "why did it do that" questions still come up constantly. We had a paper trail of which features mattered for each prediction, but we weren't surfacing it well in the product or in support. We built a simple feature importance visualization that showed customers which patient factors most influenced the model's output. It didn't fully explain the model - it's still a black box in some ways - but it gave clinicians enough confidence to trust the system. The fix: before you launch, have your answer ready for "why did the model make this decision" that's true, simple, and doesn't oversell your explainability.</p>
+
+<h2>Three Real-World Examples of GA Transitions</h2>
+
+<p><strong>Example 1: Materials Science AI (MedTech company)</strong></p>
+
+<p>They had a model that predicted material properties and was being used by 20 beta customers in R&D. When they went to GA, they needed to support two new things they hadn't done in beta: they needed to integrate with customers' materials databases (each customer had a different schema) and they needed to provide predictions on batches of materials, not just individual cases. The</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-roadmap-prioritization-beyond-rice/">AI Product Roadmap Prioritization: Beyond RICE</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-for-ai-products-a-pms-survival-guide-2/">Stakeholder Management for AI Products: A PM's Survival Guide</a></li>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-playbook-for-product-teams/">Prompt Engineering Playbook for Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

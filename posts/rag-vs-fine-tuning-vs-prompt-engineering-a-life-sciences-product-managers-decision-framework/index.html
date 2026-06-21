@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Three techniques. One wrong choice can cost you six months and $500K. Here" />
+  <meta property="og:title" content="RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager&#39;&#39;s — Devangshu Mitra" />
+  <meta property="og:description" content="Three techniques. One wrong choice can cost you six months and $500K. Here" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager''s — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2025-04-28" itemprop="datePublished">Apr 28, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager''s</h1>
+          <p class="post-header__excerpt" itemprop="description">Three techniques. One wrong choice can cost you six months and $500K. Here</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager's Decision Framework</h1>
+
+<p>Three techniques. One wrong choice can cost you six months and $500K. Here is the framework I use to pick the right approach for every life sciences AI use case.</p>
+
+<p>As a product manager building 10+ GenAI products across clinical trials, MedTech, and BioPharma at HCLTech, I've had to make this decision repeatedly. Each time, the stakes are high - regulated industries don't forgive expensive pivots.</p>
+
+<h2>The Three Approaches, Explained Simply</h2>
+
+<p><strong>Prompt Engineering</strong> is writing better instructions for an existing LLM. No model changes. You're working within the model's existing knowledge. Cost: nearly zero. Time: hours to days.</p>
+
+<p><strong>Retrieval Augmented Generation (RAG)</strong> connects the LLM to external data sources - your drug database, clinical guidelines, EHR data - at inference time. The model retrieves relevant context before generating a response. Cost: moderate (vector DB, embedding pipeline). Time: weeks.</p>
+
+<p><strong>Fine-Tuning</strong> retrains the model on your domain-specific data, permanently changing its weights. The model "learns" your domain. Cost: high ($1K-$50K+ in compute, plus data curation). Time: weeks to months.</p>
+
+<h2>When to Use Each: The Decision Framework</h2>
+
+<p>...Risk: retrieval quality limits output quality, potential for information overload if too much context is retrieved. Fine-Tuning: $10K-$100K+ setup, months to deploy, good for deep domain understanding and precise output. Risk: high data curation cost, catastrophic forgetting, model drift, and complex MLOps.</p>
+
+<h2>Hybrid Approaches and Iteration</h2>
+
+<p>You don't always pick just one method. Sometimes, the best strategy is to combine them or iterate. I often start with prompt engineering for an initial proof-of-concept. It's fast. I can validate a use case for, say, summarizing medical journal abstracts within a day or two. This quickly shows if the core idea has merit.</p>
+
+<p>If the results aren't precise enough, or if the model hallucinates, I then layer in RAG. This adds external knowledge. For that abstract summarizer, RAG would pull from specific sections of the journal article or related clinical guidelines. You get better grounding. This step moves the project from hours to weeks, adding a vector database and an embedding pipeline.</p>
+
+<p>Fine-tuning usually comes last, if at all. I only consider it when I need deep, ingrained stylistic changes or very specific output formats. For instance, if the RAG system summarizes well but doesn't format adverse event mentions consistently in a specific JSON structure, I might fine-tune a smaller model. That fine-tuned component then works alongside the RAG system. This layered approach manages both risk and cost. You avoid jumping straight to the most expensive, data-intensive option.</p>
+
+<h2>Latency and Throughput Considerations</h2>
+
+<p>The choice between these techniques heavily impacts how fast your application feels. Prompt engineering is generally the fastest. It's a single API call to a hosted LLM. Response times for a simple query often sit in the low hundreds of milliseconds, say 200-500ms. This works well for interactive user interfaces where immediate feedback is critical, like a chatbot assisting a clinician.</p>
+
+<p>RAG adds latency. You have to perform a search in a vector database, retrieve relevant documents, then send those documents along with the query to the LLM. This extra</p>
+
+<h2>The Hidden Cost of Data Curation</h2>
+
+<p>People often focus on compute costs. The real budget killer is data curation. For prompt engineering, you mostly refine your instructions. Data cleanup is minimal. RAG is different. You need clean, chunkable documents. Each document needs good metadata. That metadata helps with precise retrieval. Imagine a 10,000-page clinical trial dossier. You can't just dump it in. It needs processing. This means identifying sections, chapters, figures. It means extracting key entities. Tools like Unstructured.io help with parsing PDFs. But human review is always part of the process.</p>
+
+<p>Fine-tuning has the highest data burden. You need thousands of examples. Each example must be perfectly labeled. For extracting adverse events from medical notes, a human expert must mark every single event. This takes specialized annotators. They use platforms like Labelbox or Prodigy. A single dataset for fine-tuning a BERT-sized model for a specific clinical task can easily cost $50,000-$200,000 in annotation labor alone. This upfront investment is often overlooked when comparing approaches.</p>
+
+<h2>Trust and Auditability in Pharma AI</h2>
+
+<p>In life sciences, "correct" isn't enough. You need to prove <em>why</em> something is correct. Regulatory bodies like the FDA demand traceability. Prompt engineering offers some transparency. You can show the exact prompt used. But the model's internal reasoning remains a black box. RAG excels here. When a RAG system answers a question about drug interactions, it cites specific sections from your drug database. You can click through to the source PDF. This direct attribution is gold for audit trails. It reduces the risk of ungrounded responses.</p>
+
+<p>Fine-tuning is the hardest to audit. The model's weights change. Its "knowledge" is diffused across millions of parameters. You cannot point to a specific data point that led to a specific output. This lack of interpretability means fine-tuned models are often used for upstream tasks. Think entity extraction or classification. They don't typically provide direct clinical decision support without heavy human oversight. Proving causation or even correlation in a fine-tuned model's output for a GxP environment is a significant hurdle.</p>
+
+<h2>The Ongoing Burden: Maintenance and Model Drift</h2>
+
+<p>Deploying an AI system is just the start. Maintenance is continuous. Prompt engineering is the easiest. You adjust prompts as needed. New instructions take minutes to deploy. RAG systems require more effort. Your external data sources constantly change. New clinical guidelines arrive. Drug formularies update. This means regularly updating your vector database. You need pipelines to re-embed new documents. You also need to monitor retrieval quality. If your embedding model isn't performing well, your RAG system suffers.</p>
+
+<p>Fine-tuning presents the biggest MLOps challenge. The real world evolves. New medical terminology emerges. Drug names change. This causes model drift. A fine-tuned model might become less accurate over time. Retraining is necessary. This means re-collecting, re-curating, and re-labeling new data. Then you re-train the model. This is a costly, time-consuming cycle. It requires strong data versioning and continuous validation. Ignoring drift can lead to silently degrading performance. This is unacceptable in a clinical setting.</p>
+
+<h3>Start with Prompt Engineering When:</h3>
+
+<ul>
+<li>You're prototyping or validating a use case</li>
+<li>The task relies on general knowledge the model already has</li>
+<li>You need results today, not next quarter</li>
+<li>The output format matters more than domain depth (summarization, reformatting, extraction)</li>
+</ul>
+
+<p>Example: Generating patient-friendly summaries of clinical trial protocols. GPT-4 already knows medical terminology; you just need to instruct it on tone and reading level.</p>
+
+<h3>Use RAG When:</h3>
+
+<ul>
+<li>Accuracy depends on current, specific data (drug formularies, institutional protocols, recent guidelines)</li>
+<li>You need source attribution - "which guideline says this?"</li>
+<li>The knowledge base changes frequently</li>
+<li>You need to ground responses in verified sources to reduce <a href="https://www.devangshumitra.com/glossary/">hallucination</a></li>
+</ul>
+
+<p>Example: A clinical decision support tool that answers physician questions using your hospital's specific formulary and care pathways. The model needs to cite which protocol it's referencing.</p>
+
+<h3>Fine-Tune When:</h3>
+
+<ul>
+<li>The model needs to deeply understand domain-specific language patterns (medical abbreviations, clinical note shorthand)</li>
+<li>You need consistent output formatting that prompt engineering can't reliably achieve</li>
+<li>Inference cost matters at scale (fine-tuned smaller models can outperform prompted large models)</li>
+<li>You have high-quality, curated training data</li>
+</ul>
+
+<p>Example: An NLP model that extracts structured data from pathology reports. The language is highly specialized, and the extraction format must be precise and consistent.</p>
+
+<h2>The Hybrid Approach: What Production Systems Actually Use</h2>
+
+<p>In practice, most production life sciences AI systems combine approaches. The pattern I see working best:</p>
+
+<ol>
+<li><strong>Fine-tune a base model</strong> on medical literature for domain language understanding</li>
+<li><strong>Add RAG</strong> for real-time data retrieval (current guidelines, drug databases, patient-specific context)</li>
+<li><strong>Use prompt engineering</strong> for task-specific instructions and output formatting</li>
+</ol>
+
+<p>This layered approach gives you domain depth (fine-tuning) + current accuracy (RAG) + task flexibility (prompting).</p>
+
+<h2>Cost-Benefit Analysis for Life Sciences</h2>
+
+<p>Here's the decision matrix I use:</p>
+
+<ul>
+<li><strong>Prompt Engineering:</strong> $0-$1K setup, hours to deploy, good for prototyping and general tasks. Risk: inconsistency, no data grounding.</li>
+<li><strong>RAG:</strong> $5K-$50K setup, weeks to deploy, good for data-grounded Q&A and decision support. Risk: retrieval quality limits output quality.</li>
+<li><strong>Fine-Tuning:</strong> $10K-$100K+ setup, months to deploy, good for specialized language understanding and consistent extraction. Risk: data quality dependency, model drift.</li>
+</ul>
+
+<h2>Common Mistakes I've Seen</h2>
+
+<ul>
+<li><strong>Fine-tuning when RAG would suffice.</strong> If your problem is "the model doesn't know about our specific drug database," that's a retrieval problem, not a training problem.</li>
+<li><strong>Skipping prompt engineering.</strong> Teams jump to fine-tuning without testing whether better prompts solve the problem. Always test prompting first.</li>
+<li><strong>Ignoring the regulatory implications.</strong> Fine-tuned models are harder to validate and explain to regulators. RAG systems with clear source attribution are easier to audit.</li>
+<li><strong>Underestimating RAG infrastructure.</strong> RAG isn't just "add a vector database." It requires chunking strategy, embedding model selection, retrieval ranking, and continuous index maintenance.</li>
+</ul>
+
+<h2>Key Takeaways</h2>
+
+<ul>
+<li><strong>Always start with prompt engineering</strong> to validate the use case before investing in RAG or fine-tuning.</li>
+<li><strong>RAG is usually the right choice</strong> for clinical applications because it provides data grounding and source attribution.</li>
+<li><strong>Fine-tune only when you have clear evidence</strong> that domain language understanding is the bottleneck.</li>
+<li><strong>Production systems combine all three</strong> - fine-tuning for domain depth, RAG for current data, prompting for task control.</li>
+<li><strong>Regulatory considerations favor RAG</strong> over fine-tuning because retrieved sources are auditable.</li>
+</ul>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/fda-samd-guidance-product-managers/">FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs to Know</a></li>
+<li><a href="https://www.devangshumitra.com/ai-clinical-trial-patient-recruitment/">How AI Is Transforming Clinical Trial Patient Recruitment: A Product Manager's Perspective</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

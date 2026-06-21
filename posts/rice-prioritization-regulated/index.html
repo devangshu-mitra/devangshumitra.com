@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn how to apply RICE prioritization framework in regulated industries" />
+  <meta property="og:title" content="RICE Prioritization for Regulated Industries — Devangshu Mitra" />
+  <meta property="og:description" content="Learn how to apply RICE prioritization framework in regulated industries" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RICE Prioritization for Regulated Industries — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2026-03-04" itemprop="datePublished">Mar 4, 2026</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RICE Prioritization for Regulated Industries</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn how to apply RICE prioritization framework in regulated industries</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RICE Prioritization for Regulated Industries</h1>
+
+<p>Standard RICE (Reach, Impact, Confidence, Effort) breaks down for regulated AI products. When a feature requires 18 months of FDA clearance, a standard RICE score that ignores that constraint produces a prioritization list that is confidently wrong.</p>
+
+<p>This is the modified RICE framework I use for Life Sciences & Healthcare AI product decisions. It adds two factors: Regulatory Risk and Compliance Timeline. The rest of this post explains the formula, the rubric, and three worked examples.</p>
+
+<hr>
+
+<h2>Standard RICE - Quick Refresher</h2>
+
+<p>Standard RICE formula:</p>
+
+<p><code>RICE Score = (Reach x Impact x Confidence) / Effort</code></p>
+
+<ul>
+<li><strong>Reach:</strong> How many users affected per time period</li>
+<li><strong>Impact:</strong> How much it moves the needle for each user (1-3 scale)</li>
+<li><strong>Confidence:</strong> How sure you are of your estimates (10-100%)</li>
+<li><strong>Effort:</strong> Person-months to ship</li>
+</ul>
+
+<p>This works well for consumer software. For regulated AI products, it fails in two ways: it ignores regulatory approval timelines that can make a high-RICE feature unshippable for 12-24 months, and it doesn't penalize features that introduce significant compliance exposure.</p>
+
+<hr>
+
+<h2>Modified RICE for Regulated Industries</h2>
+
+<p>Modified formula:</p>
+
+<p><code>Regulated RICE = (Reach x Impact x Confidence) / (Effort x Regulatory Weight)</code></p>
+
+<p>Where <strong>Regulatory Weight</strong> is a multiplier from 1.0 (no regulatory impact) to 5.0 (requires PMA or equivalent). It increases the effective effort of features with regulatory burden.</p>
+
+<p>A separate <strong>Compliance Timeline</strong> flag is added as a gate, not a score factor. If a feature cannot ship for 12+ months due to regulatory clearance, it gets flagged regardless of its numeric score. High-scoring features that are gated get moved to a "future planning" queue, not the active backlog.</p>
+
+<hr>
+
+<h2>Scoring Rubric</h2>
+
+<h3>Reach (users per quarter)</h3>
+
+<p>| Score | Definition | | --- | --- | | 1 | Affects fewer than 100 users / a single clinical unit | | 2 | 100-500 users / department-level impact | | 3 | 500-2,000 users / enterprise-wide at one account | | 4 | 2,000-10,000 users / multiple accounts or health systems | | 5 | 10,000+ users / platform-level or market-wide reach |</p>
+
+<h3>Impact (per user)</h3>
+
+<p>| Score | Definition | | --- | --- | | 0.25 | Marginal convenience improvement - saves minutes, no workflow change | | 0.5 | Moderate improvement - removes a manual step or reduces errors in a secondary task | | 1.0 | Meaningful improvement - changes the primary workflow, measurable time or quality gain | | 2.0 | High impact - solves a high-frequency pain point, reduces adverse events or major rework | | 3.0 | High ceiling - enables a clinical or operational outcome that was previously impossible |</p>
+
+<h3>Confidence</h3>
+
+<p>| Score | Definition | | --- | --- | | 20% | Hypothesis only - no user research, no data, gut feel | | 40% | Some qualitative evidence - a few user interviews or anecdotes | | 60% | Mixed evidence - user research done, no outcome data | | 80% | Strong qualitative + some quantitative evidence, or validated by pilot | | 100% | Validated with outcome data from a controlled study or production data |</p>
+
+<h3>Effort (person-months)</h3>
+
+<p>Scoring Rubric Reach (users per quarter) Score Definition 1 Affects fewer than 100 users or a single clinical unit 2 100-500 users or department-level impact 3 500-2,000 users or enterprise-wide at one account 4 2,000-10,000 users or multiple accounts or health systems 5 10,000+ users or platform-level or market-wide reach Impact (per user) Score Definition 0.25 Marginal convenience improvement: saves minutes, no workflow change 0.5 Moderate improvement: removes a manual step or reduces errors in a secondary task 1.0 Meaningful improvement: changes the primary workflow, with measurable time or quality gain 2.0 High impact: solves a frequent pain point, reduces adverse events or major rework 3.0 Groundbreaking: makes possible a clinical or operational outcome that was previously impossible Confidence Score Definition 20% Hypothesis only: no user research, no data, just a gut feeling 40% Some qualitative evidence: a few user interviews or anecdotes 60% Mixed evidence: user research done, but no outcome data 80% Strong qualitative plus some quantitative evidence, or validated by pilot 100% Validated with outcome data from a controlled study or production data Effort (person-months) Use actual person-months of engineering plus clinical plus data work. Don't forget: data labeling, model evaluation, clinical validation, documentation for regulatory submission, integration testing. These inflate effort significantly compared to consumer software estimates.</p>
+
+<h3>Regulatory Weight (multiplier)</h3>
+
+<p>| Multiplier | Definition | | --- | --- | | 1.0 | No regulatory impact - purely operational or administrative, no clinical decision support | | 1.5 | Informational output only - displays information but makes no recommendations | | 2.0 | Non-SaMD decision support - aids clinical judgment but has a clear human override and is not marketed as diagnostic | | 3.0 | SaMD with existing 510(k) predicate - roughly 6-12 months clearance timeline | | 4.0 | De Novo SaMD - no clear predicate, 12-18 months | | 5.0 | PMA or breakthrough device - 2+ years, highest regulatory burden |</p>
+
+<hr>
+
+<h2>Worked Examples</h2>
+
+<h3>Example 1 - High Priority (AI-Assisted Prior Authorization Drafting)</h3>
+
+<p><strong>Feature:</strong> LLM-based tool that drafts prior authorization letters from structured patient data, reviewed and submitted by the care team.</p>
+
+<p>| Factor | Score | Reasoning | | --- | --- | --- | | Reach | 4 | Used by care coordinators across multiple health system accounts | | Impact | 2.0 | Prior auth is a top-3 workflow pain point - reduces average 45-min task to ~8 min | | Confidence | 80% | Validated in 6-week pilot at one site; strong user signal | | Effort | 4 months | LLM integration + EHR data pipeline + human review UI + testing | | Regulatory Weight | 1.5 | Drafting aid, not diagnostic - human always reviews before submission |</p>
+
+<p><strong>Score:</strong> (4 x 2.0 x 0.80) / (4 x 1.5) = 6.4 / 6 = <strong>1.07</strong></p>
+
+<p><strong>Compliance gate:</strong> Not triggered - ships as non-SaMD with appropriate labeling</p>
+
+<p><strong>Decision:</strong> High priority. Real ROI, clear regulatory path, validated demand.</p>
+
+<h3>Example 2 - The Trap (Autonomous Sepsis Alert)</h3>
+
+<p><strong>Feature:</strong> ML model that autonomously pages the rapid response team when it predicts sepsis onset, without requiring a nurse to review first.</p>
+
+<p>| Factor | Score | Reasoning | | --- | --- | --- | | Reach | 3 | ICU and step-down units across one health system | | Impact | 3.0 | Sepsis is a leading cause of inpatient mortality - a genuine step-change if it works | | Confidence | 60% | Retrospective validation done; no prospective study yet | | Effort | 6 months | Model + integration + alert routing + workflow change management | | Regulatory Weight | 5.0 | Autonomous clinical decision-making with patient safety implications = PMA territory |</p>
+
+<p><strong>Score:</strong> (3 x 3.0 x 0.60) / (6 x 5.0) = 5.4 / 30 = <strong>0.18</strong></p>
+
+<p><strong>Compliance gate:</strong> Triggered - PMA pathway is 2+ years minimum</p>
+
+<p><strong>Decision:</strong> Do not prioritize. Redesign as a clinician-reviewed alert (Regulatory Weight drops to 2.0, score improves to ~0.45) and deprioritize the fully autonomous version to a future planning queue.</p>
+
+<p><em>Note: This is "the trap" because the surface-level clinical impact (3.0) makes it feel like the most important thing to build. The regulatory weight reveals it's actually the most expensive thing to build, with the longest runway to value.</em></p>
+
+<h3>Example 3 - The Surprise (Clinical Trial Eligibility Screener)</h3>
+
+<p><strong>Feature:</strong> NLP model that scans EHR data and flags patients who may be eligible for active clinical trials, surfacing the list to the trials coordinator weekly.</p>
+
+<p>| Factor | Score | Reasoning | | --- | --- | --- | | Reach | 2 | Research coordinators at trial-running academic medical centers | | Impact | 2.0 | Manual screening takes 4-6 hours per trial per week; this reduces it to 30 min review | | Confidence | 80% | Research coordinators have been explicit about this pain point; NLP accuracy validated | | Effort | 3 months | NLP model is largely reusable from existing entity recognition pipeline | | Regulatory Weight | 1.5 | Informational only - coordinator always reviews list before contacting patients |</p>
+
+<p><strong>Score:</strong> (2 x 2.0 x 0.80) / (3 x 1.5) = 3.2 / 4.5 = <strong>0.71</strong></p>
+
+<p><strong>Compliance gate:</strong> Not triggered</p>
+
+<p><strong>Decision:</strong> Prioritize ahead of several higher-reach features. The low regulatory weight and high confidence make this a clean win. It also opens a new buyer segment (research coordinators) and a new commercial narrative around trial acceleration.</p>
+
+<p><em>Note: This is "the surprise" because it looks like a niche feature for a small persona. The combination of low regulatory weight, high confidence, and reusable infrastructure makes it punch above its weight.</em></p>
+
+<hr>
+
+<h2>Summary Prioritization Table Template</h2>
+
+<p>| Feature | Reach | Impact | Confidence | Effort | Reg. Weight | Score | Compliance Gate? | Decision | | --- | --- | --- | --- | --- | --- | --- | --- | --- | | [Feature A] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | | [Feature B] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | | [Feature C] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] | [ ] |</p>
+
+<p>One practical note: run this exercise with your regulatory lead in the room, not after the fact. Regulatory weight estimates change significantly based on how a feature is designed and labeled. The best way to get a 5.0 feature to 2.0 is to redesign it with human oversight built in from the start - which is a lot easier to do in the requirements phase than in post-launch remediation.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/prd-template-ai-products/">PRD Template for AI Products in Regulated Industries</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework/">LLM Evaluation Framework for Regulated and Clinical Contexts</a></li>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-supply-chain-how-predictive-models-are-replacing-just-in-time/">AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time</a></li>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

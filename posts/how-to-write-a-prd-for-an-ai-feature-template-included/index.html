@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn how to write a PRD for an AI feature with our step-by-step guide and" />
+  <meta property="og:title" content="How to Write a PRD for an AI Feature (Template Included) — Devangshu Mitra" />
+  <meta property="og:description" content="Learn how to write a PRD for an AI feature with our step-by-step guide and" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How to Write a PRD for an AI Feature (Template Included) — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Templates</span>
+            <time class="post-header__date" datetime="2026-01-04" itemprop="datePublished">Jan 4, 2026</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How to Write a PRD for an AI Feature (Template Included)</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn how to write a PRD for an AI feature with our step-by-step guide and</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How to Write a PRD for an AI Feature (Template Included)</h1>
+
+<p>The first AI PRD I ever wrote was a disaster. I used the same template I had for growth features at Mamaearth - user story, acceptance criteria, metrics, launch plan. We shipped the feature. It worked in demo. In production it hallucinated on 12% of queries, we had no rollback plan, and it took three weeks to debug because we had not defined what "working correctly" meant for a generative output.</p>
+
+<p>That experience taught me that AI features need a fundamentally different PRD structure. Not because the fundamentals of product management change - user needs still drive everything - but because the failure surface of AI systems is qualitatively different from deterministic software. You cannot just write "success = 95% uptime." You need to define what the model should and should not do, what happens when it is wrong, and how you will know it is drifting before your users notice.</p>
+
+<p>This guide walks through every section of an AI PRD with explanations of why each section exists. The full template is at the end.</p>
+
+<hr>
+
+<h2>Part 1: The Standard Sections (With AI-Specific Extensions)</h2>
+
+<h3>Problem Statement and User Need</h3>
+
+<p>No change from standard PRD practice here. Define the problem, the user, and the current pain. What I add for AI features is an explicit statement of <em>why AI is the right solution</em> - not just "AI can do this" but "this problem has the properties that make AI the appropriate tool." Those properties are: the task is too complex for rule-based logic, the input space is too variable for deterministic handling, or the output quality scales with learned patterns from data.</p>
+
+<p>If you cannot articulate why AI specifically (versus a lookup table, a rule engine, or a simpler ML model), that is a flag. Some features get AI applied because it is fashionable, not because it is right.</p>
+
+<h3>Goals and Non-Goals</h3>
+
+<p>For AI features, the non-goals section is as important as the goals. Be explicit about what the model will not do. "The assistant will not provide clinical advice" is a non-goal. "The summarizer will not interpret ambiguous legal clauses" is a non-goal. These non-goals define the guardrail requirements later.</p>
+
+<hr>
+
+<h2>Part 2: AI-Specific Sections</h2>
+
+<h3>Model Requirements</h3>
+
+<p>This section does not exist in standard PRDs. It defines the technical requirements the AI model must meet independent of business logic. Cover:</p>
+
+<ul>
+<li><strong>Task type:</strong> Classification, generation, extraction, retrieval, ranking. This determines model architecture and evaluation approach.</li>
+<li><strong>Latency requirement:</strong> p50, p95, p99. Real-time features (autocomplete, live suggestions) have different constraints than async features (background summarization, nightly reports).</li>
+<li><strong>Context window requirement:</strong> How much input does the model need to see at once? For document analysis, this drives chunking strategy and model selection.</li>
+<li><strong>Output format:</strong> Free text, structured JSON, classification label, ranking score. Structured outputs require schema validation and error handling that free text does not.</li>
+<li><strong>Model provider preference and fallback:</strong> Which model(s) are in scope? What is the fallback if the primary provider has an outage?</li>
+<li><strong>Cost ceiling:</strong> Cost per 1000 queries or per user per month. AI features have variable costs that traditional features do not - this needs to be defined upfront.</li>
+</ul>
+
+<h3>Data Dependencies</h3>
+
+<p>This is where AI PRDs most commonly fail. Teams scope the model requirements carefully and then discover in week 3 of development that the training data does not exist, the retrieval corpus is not clean, or the fine-tuning dataset requires six months of annotation work.</p>
+
+<p>Map out every data dependency:</p>
+
+<ul>
+<li><strong>Training data (if fine-tuning):</strong> Source, size, format, annotation requirements, PII handling, consent status</li>
+<li><strong>Retrieval corpus (if RAG):</strong> Source documents, refresh cadence, access control, chunking strategy</li>
+<li><strong>Inference-time data:</strong> What user data is passed to the model at runtime? Who owns it? What is the data retention policy?</li>
+<li><strong>Evaluation dataset:</strong> How will you measure model quality? Who creates the ground truth? How many examples? How often does it refresh?</li>
+<li><strong>Feedback data:</strong> How do user signals (thumbs up/down, corrections, dwell time) feed back into model improvement?</li>
+</ul>
+
+<p>For healthcare features, add a column for PHI classification on every data element. For fintech, add PCI/PII classification. Knowing data sensitivity early prevents rebuilds when legal reviews the design.</p>
+
+<h3>Evaluation Criteria</h3>
+
+<p>Define what "good" means before you build. This is the section most PMs skip and most engineers wish they had.</p>
+
+<p>Evaluation criteria for AI features have three layers:</p>
+
+<ol>
+<li><strong>Automated metrics:</strong> ROUGE, BLEU, BERTScore for text generation. Precision/recall/F1 for classification. MRR, NDCG for retrieval. These are fast and cheap to run on every deployment.</li>
+<li><strong>Human evaluation rubric:</strong> A scored rubric (1-5) for dimensions that automated metrics cannot capture - accuracy, helpfulness, tone, safety. Define the rubric before launch and use it for pre-launch sign-off and periodic audits.</li>
+<li><strong>Business metrics:</strong> Task completion rate, time-to-decision, error escalation rate, user retention delta. These take weeks to measure but are the only metrics that actually matter.</li>
+</ol>
+
+<p>Also define the minimum bar to ship. "We will not launch until automated metric X exceeds threshold Y on our evaluation dataset" gives the team a clear target and prevents premature launches driven by deadline pressure.</p>
+
+<h3>Failure Modes</h3>
+
+<p>This is the section that separates thoughtful AI PMs from everyone else. Every AI feature has a failure surface. Map it out explicitly.</p>
+
+<p>Common failure modes by category:</p>
+
+<ul>
+<li><strong>Hallucination:</strong> Model generates plausible but incorrect output. Especially dangerous in healthcare (wrong dosing), legal (false case citations), fintech (wrong rate quotes). Mitigation: grounding in retrieved sources, output verification, confidence scoring.</li>
+<li><strong>Refusal:</strong> Model declines to answer valid queries. Causes user frustration and task abandonment. Mitigation: system prompt tuning, fallback to search, graceful degradation messaging.</li>
+<li><strong>Distribution shift:</strong> Production queries look different from the evaluation dataset. Model performs well in testing and degrades post-launch. Mitigation: production query logging, continuous eval on live traffic samples.</li>
+<li><strong>Context overflow:</strong> Input exceeds context window, leading to truncation and degraded outputs. Mitigation: input length validation, chunking strategy, longer-context model fallback.</li>
+<li><strong>Prompt injection:</strong> Adversarial input manipulates model behavior. Mitigation: input sanitization, sandboxed tool use, output filtering.</li>
+<li><strong>Latency spike:</strong> High traffic or complex queries cause response time SLA violations. Mitigation: request queuing, async fallback, simpler model for degraded mode.</li>
+</ul>
+
+<p>For each failure mode, document: likelihood (high/medium/low), severity (critical/major/minor), detection mechanism, and mitigation.</p>
+
+<h3>Bias and Fairness Testing</h3>
+
+<p>Non-negotiable for any AI feature touching users. Define the bias dimensions relevant to your use case and the testing protocol before development starts.</p>
+
+<p>For a clinical documentation AI: Does it perform equivalently across patient demographics (age, gender, race, insurance status)? For a hiring AI assistant: Does it recommend or filter differently across protected classes? For a financial advice AI: Does it give different quality recommendations to different income brackets?</p>
+
+<p>Document: which demographic slices to test, the minimum sample size per slice, the maximum acceptable performance gap, and who signs off on the fairness review before launch.</p>
+
+<h3>User Feedback Loops</h3>
+
+<p>AI features need feedback loops that traditional features do not. The model improves - or degrades - based on signals from production. Define explicitly:</p>
+
+<ul>
+<li>What explicit feedback mechanisms exist (thumbs, ratings, corrections)?</li>
+<li>What implicit signals are collected (query reformulations, task abandonment, downstream actions)?</li>
+<li>How does feedback flow into model improvement (fine-tuning queue, RLHF pipeline, retrieval corpus updates)?</li>
+<li>What is the feedback-to-improvement cycle time?</li>
+<li>Who owns the feedback review process?</li>
+</ul>
+
+<h3>Rollback Plan</h3>
+
+<p>Every AI feature needs a rollback plan that is more detailed than "we will revert the deployment." AI features often have infrastructure dependencies - vector stores, fine-tuned model weights, inference endpoints - that make rollback non-trivial.</p>
+
+<p>Define: the rollback trigger conditions (metric drops below X, error rate exceeds Y, critical safety issue detected), the rollback procedure step by step, the estimated time to rollback, the degraded experience users see during rollback, and who has the authority to trigger it.</p>
+
+<hr>
+
+<h2>Part 3: Governance and Compliance</h2>
+
+<p>For regulated industries, add a compliance section that covers: relevant regulations (HIPAA, GDPR, FDA CDS guidance, EU AI Act), compliance review sign-off required before launch, audit logging requirements, model card documentation, and data residency constraints.</p>
+
+<p>This section often drives timeline more than engineering complexity. Getting legal and compliance review scheduled early prevents launch delays.</p>
+
+<hr>
+
+<h2>The Full Template</h2>
+
+<hr>
+
+<h3>AI Feature PRD Template v2.1</h3>
+
+<p><strong>Feature Name:</strong> [Name]\</p>
+
+<p><strong>Author:</strong> [PM Name]\</p>
+
+<p><strong>Date:</strong> [Date]\</p>
+
+<p><strong>Status:</strong> [Draft / In Review / Approved]\</p>
+
+<p><strong>Stakeholders:</strong> [Engineering, Data Science, Legal, Design, Compliance]</p>
+
+<h3>1. Problem Statement</h3>
+
+<p>[1-2 paragraphs. The user problem, current pain, and why AI is the right solution for this specific problem.]</p>
+
+<h3>2. Goals and Non-Goals</h3>
+
+<p><strong>Goals:</strong> [Bullet list of what this feature will accomplish]\</p>
+
+<p><strong>Non-Goals:</strong> [Explicit list of what the model will not do - these become guardrail requirements]</p>
+
+<h3>3. User Stories</h3>
+
+<p>[As a [user type], I want to [action] so that [outcome]. Include happy path and edge case stories.]</p>
+
+<h3>4. Model Requirements</h3>
+
+<ul>
+<li>Task type: [classification / generation / extraction / retrieval / ranking]</li>
+<li>Latency: p50 < Xms, p95 < Yms, p99 < Zms</li>
+<li>Context window: [tokens required per request]</li>
+<li>Output format: [free text / structured JSON / label / score]</li>
+<li>Primary model: [GPT-4o / Claude 3.5 / Gemini 1.5 / fine-tuned model]</li>
+<li>Fallback model: [simpler model or rule-based fallback]</li>
+<li>Cost ceiling: $X per 1000 queries</li>
+</ul>
+
+<h3>5. Data Dependencies</h3>
+
+<ul>
+<li>Training data (if fine-tuning): [source, size, annotation status, PII classification]</li>
+<li>Retrieval corpus (if RAG): [source, refresh cadence, access control, chunk size]</li>
+<li>Inference-time data: [user data passed at runtime, retention policy, consent basis]</li>
+<li>Evaluation dataset: [source, size, refresh cadence, owner]</li>
+<li>Feedback data: [collection mechanism, storage, use in model improvement]</li>
+</ul>
+
+<h3>6. Evaluation Criteria</h3>
+
+<ul>
+<li>Automated metrics: [metric name, threshold, evaluation frequency]</li>
+<li>Human eval rubric: [dimensions, scoring scale, reviewer profile, sample size]</li>
+<li>Business metrics: [primary KPI, secondary KPIs, measurement window]</li>
+<li>Minimum bar to ship: [explicit pass/fail criteria before launch authorized]</li>
+</ul>
+
+<h3>7. Failure Modes</h3>
+
+<p>[Table with columns: Failure Mode | Likelihood | Severity | Detection | Mitigation]</p>
+
+<h3>8. Bias and Fairness Testing</h3>
+
+<ul>
+<li>Demographic slices to test: [list]</li>
+<li>Minimum sample per slice: [N]</li>
+<li>Maximum acceptable performance gap: [X%]</li>
+<li>Fairness review sign-off: [who, when]</li>
+</ul>
+
+<h3>9. User Feedback Loops</h3>
+
+<ul>
+<li>Explicit feedback: [mechanism, storage, owner]</li>
+<li>Implicit signals: [what is collected, how used]</li>
+<li>Improvement cycle: [how feedback flows to model updates, cycle time]</li>
+</ul>
+
+<h3>10. Rollback Plan</h3>
+
+<ul>
+<li>Trigger conditions: [metric thresholds, safety signals, who can trigger]</li>
+<li>Rollback procedure: [step by step]</li>
+<li>Time to rollback: [estimated]</li>
+<li>Degraded experience: [what users see during rollback]</li>
+<li>Authority: [who approves rollback decision]</li>
+</ul>
+
+<h3>11. Compliance and Governance</h3>
+
+<ul>
+<li>Applicable regulations: [HIPAA / GDPR / FDA / EU AI Act / other]</li>
+<li>Compliance review required: [yes/no, reviewer, deadline]</li>
+<li>Audit logging: [what is logged, retention period]</li>
+<li>Model card: [link or owner]</li>
+<li>Data residency: [constraints]</li>
+</ul>
+
+<h3>12. Launch Plan</h3>
+
+<ul>
+<li>Rollout strategy: [percentage rollout / feature flag / cohort-based]</li>
+<li>Monitoring plan: [dashboards, alerts, on-call rotation]</li>
+<li>Communication plan: [internal stakeholders, user-facing messaging]</li>
+</ul>
+
+<hr>
+
+<p>The template is a starting point, not a straitjacket. Healthcare features need more depth in the compliance and bias sections. Consumer features need more depth in the feedback loop and experimentation sections. Internal tooling features can skip some governance overhead. Calibrate depth to stakes.</p>
+
+<p>The discipline the template enforces - thinking through failure modes before building, defining evaluation criteria before writing code, mapping data dependencies before scoping timelines - is worth more than any specific section. AI products fail because teams skip this thinking, not because they used the wrong framework.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-alignment-canvas-for-ai-products/">Stakeholder Alignment Canvas for AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+<li><a href="https://www.devangshumitra.com/prd-template-ai-products/">PRD Template for AI Products in Regulated Industries</a></li>
+<li><a href="https://www.devangshumitra.com/pm-portfolio-template/">PM Portfolio Template</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

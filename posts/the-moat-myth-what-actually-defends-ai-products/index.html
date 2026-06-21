@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The most common AI startup pitch includes the line about a proprietary model" />
+  <meta property="og:title" content="The Moat Myth: What Actually Defends AI Products — Devangshu Mitra" />
+  <meta property="og:description" content="The most common AI startup pitch includes the line about a proprietary model" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Moat Myth: What Actually Defends AI Products — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-06-15" itemprop="datePublished">Jun 15, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Moat Myth: What Actually Defends AI Products</h1>
+          <p class="post-header__excerpt" itemprop="description">The most common AI startup pitch includes the line about a proprietary model</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Moat Myth: What Actually Defends AI Products</h1>
+
+<p>In 2023, I reviewed a pitch deck from an AI startup that had built a contract analysis tool. Their differentiation claim: a proprietary transformer model trained on 2 million legal contracts, achieving 94% accuracy on clause identification. Their competitors were at 89%.</p>
+
+<p>Six months later, Claude and GPT-4 were both achieving 92%+ on similar tasks out of the box. The 5-point accuracy advantage had evaporated. The startup had to completely reframe its value proposition.</p>
+
+<p>This story is not unusual. It is, in fact, the modal outcome for AI products that stake their defensibility on model performance. And yet the proprietary model pitch persists because it's concrete, measurable, and technically impressive. It's just not a moat.</p>
+
+<h2>Why Model Accuracy Is Not a Moat</h2>
+
+<p>A moat, in competitive strategy, is a structural advantage that's costly or impossible for competitors to replicate. The five classic moats are: switching costs, network effects, cost advantages, intangible assets (brands, patents), and efficient scale.</p>
+
+<p>Model accuracy is none of these. It's a performance metric that reflects the current state of your training data, architecture choices, and compute investment. It can be matched by:</p>
+
+<ul>
+<li>A competitor with the same training data and more compute</li>
+<li>A foundation model provider who improves their base model</li>
+<li>A competitor who fine-tunes a foundation model on the same domain</li>
+<li>You, six months from now, after your competitor catches up</li>
+</ul>
+
+<p>The fundamental problem is that model performance is increasingly determined by factors that aren't proprietary: compute scale, transformer architectures, and training techniques that get published in papers and replicated within months. The ceiling for what any well-funded team can achieve keeps rising. Your 94% is someone else's 96% twelve months from now.</p>
+
+<h2>What Actually Creates Defensibility</h2>
+
+<h3>Data Flywheels - But Only When They Work</h3>
+
+<p>I covered this in more detail in the data strategy post, but the short version is: a data flywheel that genuinely gets better with use - where user feedback is captured, converted to training signal, and reflected in model improvement on a fast loop - is a real moat. The key word is genuinely. Most claimed data flywheels are data collection processes dressed in flywheel language.</p>
+
+<p>Duolingo has a real data flywheel. Every learner interaction - correct answers, mistakes, time-on-task, skip patterns - feeds back into their model. Their language learning models are meaningfully better today than they were three years ago because they have data that reflects 500 million learning interactions. A new entrant can build a comparable model from public data, but they can't replicate three years of feedback from half a billion users.</p>
+
+<h3>Workflow Integration and Switching Costs</h3>
+
+<p>This is the most underrated moat in enterprise AI. Once your AI product is embedded in a team's daily workflow - integrated with their tools, trained on their data, configured for their specific processes - the cost of switching isn't just the cost of buying a new product. It's the cost of re-integrating, re-training, and losing the accumulated customization.</p>
+
+<p>Epic's clinical AI capabilities have this moat by default. They're not necessarily the most technically sophisticated - in some cases they're mediocre. But they're embedded in the EHR workflow that hospitals have spent years configuring. Replacing Epic's AI with a best-of-breed external solution means building and maintaining integrations that introduce latency, compliance risk, and operational complexity. For most health systems, the switching cost exceeds the performance gain.</p>
+
+<p>This is why enterprise AI companies should be thinking about workflow depth, not model accuracy. Every additional step your product handles in the user's workflow is another switching cost. Every integration you own is a barrier your competitor has to replicate. Accuracy is table stakes. Workflow embeddedness is the moat.</p>
+
+<h3>Proprietary Data That Cannot Be Purchased or Scraped</h3>
+
+<p>Not all proprietary data creates a moat - I made this point in the data strategy post. But certain categories of proprietary data genuinely cannot be replicated:</p>
+
+<ul>
+<li>Outcomes data from closed systems (health outcomes, financial returns, legal case outcomes) that are never published</li>
+<li>Real-time behavioral data from a platform with network effects (transaction data, search data, communication patterns)</li>
+<li>Expert-curated labeled data from a specialized domain where the labelers are scarce</li>
+</ul>
+
+<p>If you have this kind of data and you're training models on it, the model performance advantage is real and sustainable - not because the model architecture is better, but because the training data is irreplaceable.</p>
+
+<h3>Institutional Knowledge Encoded in Prompts and Pipelines</h3>
+
+<p>This one is newer and underappreciated. As AI products mature, the value increasingly lives in the system design - the prompting strategies, the retrieval architectures, the fallback behaviors, the evaluation frameworks - rather than in the model itself. This institutional knowledge takes months to develop and test. It encodes hard-won lessons about failure modes, edge cases, and domain-specific quirks.</p>
+
+<p>A competitor who buys the same foundation model still needs to replicate this institutional knowledge. That's months of work, not days. And by the time they've replicated it, you've moved further ahead.</p>
+
+<p>Anthropic's Constitutional AI methodology, the custom system prompts that enterprise companies have built for their specific workflows, the evaluation uses that catch regressions - these are institutional knowledge that creates a genuine lag advantage, even if not a permanent one.</p>
+
+<h3>Domain Expertise That Shapes the Product</h3>
+
+<p>The deepest moat of all is domain expertise that's baked into every layer of the product: the problem framing, the failure mode handling, the evaluation criteria, the user interface, the trust calibration. This is hard to explain and impossible to measure, but it shows up in reliability and user trust over time.</p>
+
+<p>The clinical AI products that get used are the ones where the failure modes reflect clinical understanding - where the system knows what it doesn't know, where it defers to human judgment on specific categories of cases, where the confidence calibration matches clinical intuition. Building this requires deep domain expertise embedded in the product team, not just in the model.</p>
+
+<p>A new entrant with a technically superior model but no clinical domain expertise will build a tool that clinicians don't trust, even if the accuracy numbers are better. Domain expertise is a moat because it takes years to accumulate and can't be purchased or scraped.</p>
+
+<h2>The Practical Implication</h2>
+
+<p>If you're building an AI product, ask yourself: in two years, after foundation models have improved another two generations, what still differentiates us? If your answer involves model accuracy, you have a problem. If your answer involves workflow integration, proprietary data, institutional knowledge, or domain expertise - you're building a moat.</p>
+
+<p>The shift in framing is: stop thinking about AI as the product and start thinking about AI as the engine. The product is the workflow transformation. The product is the data flywheel. The product is the domain-specific reliability that users trust. The AI model is infrastructure - valuable, necessary, but not differentiated.</p>
+
+<p>This reframing changes your investment priorities. Less time optimizing model performance. More time deepening workflow integration. More time building labeling pipelines that capture user feedback. More time encoding domain expertise into your evaluation framework.</p>
+
+<p>These are less glamorous investments than training a new model. They're also much harder to replicate.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/why-most-ai-products-fail-before-they-launch/">Why Most AI Products Fail Before They Launch</a></li>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/why-most-ai-products-fail-before-they-launch/">Why Most AI Products Fail Before They Launch</a></li>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/why-domain-expertise-beats-model-performance/">Why Domain Expertise Beats Model Performance</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

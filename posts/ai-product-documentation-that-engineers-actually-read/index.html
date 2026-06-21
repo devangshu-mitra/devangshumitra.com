@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI product documentation fails for the same reason: it&#39;&#39;s written for" />
+  <meta property="og:title" content="AI Product Documentation That Engineers Actually Read — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI product documentation fails for the same reason: it&#39;&#39;s written for" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI Product Documentation That Engineers Actually Read — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-05-31" itemprop="datePublished">May 31, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI Product Documentation That Engineers Actually Read</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI product documentation fails for the same reason: it''s written for</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI Product Documentation That Engineers Actually Read</h1>
+
+<p>I've read a lot of AI product requirements documents. Most of them describe what a product should do for a user without giving engineers and data scientists the information they need to build it correctly. The gap isn't malice or incompetence - it's that PMs are trained to write for stakeholder alignment and user stories, not for the technical decisions that determine whether an AI product gets built right.</p>
+
+<p>AI products need additional documentation layers that traditional software doesn't: model cards that capture what the model should and shouldn't do, accuracy specifications that give engineers measurable acceptance criteria, and edge case documentation that's detailed enough to actually inform training data decisions.</p>
+
+<h2>The AI Product Requirements Document</h2>
+
+<p>An AI PRD has all the components of a standard PRD plus several additions:</p>
+
+<h3>Standard Sections (Still Needed)</h3>
+
+<ul>
+<li>Problem statement and user need</li>
+<li>Success metrics (business and user-facing)</li>
+<li>User stories and acceptance criteria</li>
+<li>Scope and out-of-scope</li>
+<li>Dependencies and timeline</li>
+</ul>
+
+<h3>AI-Specific Additions</h3>
+
+<p><strong>Model Performance Specification</strong>: This is the most important addition and the one most often missing. It should include:</p>
+
+<ul>
+<li>Target accuracy by metric (precision, recall, F1, or domain-specific metrics)</li>
+<li>The test set composition: what data will be used to evaluate the model, and why it's representative of production</li>
+<li>Minimum viable accuracy threshold: the floor below which the feature doesn't ship</li>
+<li>Segmented accuracy requirements: if performance for a specific user segment matters, specify it explicitly</li>
+<li>Latency requirements: P50 and P95 response time targets</li>
+</ul>
+
+<p><strong>Input Specification</strong>: What does the model receive as input? This should be explicit about format, length constraints, handling of missing or malformed inputs, and preprocessing steps that are the PM's requirement vs. the engineer's implementation decision.</p>
+
+<p><strong>Output Specification</strong>: What should the model return? This is where most AI PRDs are weakest. "The model should return the most relevant recommendation" is not an output specification. The output specification should define: format (JSON schema, structured text, classification label), confidence score requirements (does the output need a confidence value?), handling of low-confidence cases, and what failure outputs look like.</p>
+
+<p><strong>Edge Cases and Failure Modes</strong>: A section that explicitly documents the inputs and scenarios where the model is expected to fail or behave differently. This section directly informs training data requirements and test case design. Engineers cannot write good tests without it.</p>
+
+<p><strong>Human Oversight Requirements</strong>: What cases require human review? How is the review queue triggered? What does the reviewer see and what can they do? This is a product requirement, not an implementation detail.</p>
+
+<h2>The Model Card: Documentation the ML Team Owns</h2>
+
+<p>A model card is documentation that lives with the model, not the product. It's maintained by the ML team and describes the model itself rather than the product it's embedded in. PMs should require model cards for every AI feature, even if the ML team writes them.</p>
+
+<p>A minimal model card for an internal AI feature should cover:</p>
+
+<ul>
+<li><strong>Model description</strong>: What does the model do? What architecture? What training approach?</li>
+<li><strong>Training data</strong>: What was the model trained on? What time period? What demographics or case mix? What's known to be underrepresented?</li>
+<li><strong>Evaluation results</strong>: Performance metrics on the evaluation set, segmented by relevant subgroups</li>
+<li><strong>Intended use</strong>: What the model is designed to do and for whom</li>
+<li><strong>Out-of-scope use</strong>: What the model should not be used for - specific enough to be actionable</li>
+<li><strong>Known limitations</strong>: Where the model underperforms, edge cases it handles poorly, populations it hasn't been tested on</li>
+<li><strong>Ethical considerations</strong>: Potential bias concerns, fairness limitations, privacy considerations</li>
+</ul>
+
+<p>Model cards also serve as reference documentation when a new team member joins and needs to understand what the model does without reverse-engineering it from the training code.</p>
+
+<h2>API Documentation for AI Features</h2>
+
+<p>If your AI feature exposes an internal or external API, the documentation needs additional sections beyond standard API docs:</p>
+
+<ul>
+<li><strong>Confidence score interpretation</strong>: If the API returns a confidence score, document what it means. "A confidence of 0.9 means the model is highly confident" is not useful. "Confidence above 0.85 corresponds to a historical precision of 93% on the validation set; confidence below 0.6 indicates the model has low certainty and the output should be treated as a suggestion requiring verification" is useful.</li>
+<li><strong>Error vs uncertainty distinction</strong>: Document the difference between an API error (system failure) and a low-confidence output (the model doesn't know). These require different client-side handling.</li>
+<li><strong>Input handling documentation</strong>: What happens with inputs outside the model's training distribution? What happens with empty or malformed inputs? Document these explicitly rather than letting callers discover them in production.</li>
+<li><strong>Rate limiting and SLA context</strong>: For AI APIs, latency varies more than for deterministic APIs. Document the P95 latency, not just average.</li>
+</ul>
+
+<h2>Writing Documentation Engineers Will Use</h2>
+
+<p>The structure matters, but the writing quality matters more. Documentation engineers use has these characteristics:</p>
+
+<ul>
+<li><strong>Specific over general</strong>: "Precision above 85% measured on the Q4 2025 clinical notes validation set" beats "high accuracy."</li>
+<li><strong>Testable over aspirational</strong>: Every requirement should be verifiable. If you can't write a test that checks whether the requirement is met, the requirement is too vague.</li>
+<li><strong>Distinguishes requirements from suggestions</strong>: "MUST achieve 85% precision" vs "SHOULD handle multilingual inputs." Engineers need to know what's a hard requirement vs a quality-of-life request.</li>
+<li><strong>Explains the why</strong>: "Precision target is 85% because false positives require manual physician review at an average of 8 minutes per case; above 85%, the system is cost-neutral; below, it creates net negative cost." Engineers who understand the why make better implementation tradeoffs.</li>
+</ul>
+
+<blockquote><p>The best AI PRD feedback I got from an ML engineer: "I could write the test suite from this document without asking you any questions." That's the target. If an ML engineer needs to ask clarifying questions about accuracy requirements, edge case handling, or output specifications, the PRD isn't done.</p></blockquote>
+
+<h2>Documentation That Evolves</h2>
+
+<p>AI documentation needs to evolve with the model. The accuracy specification that shipped in Q1 is stale after Q2 retraining. Build a documentation update step into your model retraining process: when a new model version ships, the model card and accuracy specifications get updated to reflect the new version's performance characteristics.</p>
+
+<p>Version the documentation alongside the model. Engineers debugging a production issue need to know which model version they're debugging against and what the expected performance characteristics were for that version.</p>
+
+<h2>Where this lands</h2>
+
+<p>Add a model performance specification to every AI PRD with explicit accuracy targets and test set composition. Add an output specification that's precise enough to test against. Add edge case documentation that's detailed enough to inform training data decisions. Require model cards for every AI feature - they live with the model, not the product. For APIs, document confidence score interpretation, error vs uncertainty distinction, and P95 latency. Write requirements that are specific, testable, and explain the why behind thresholds. Update documentation when model versions change.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ethics-and-responsible-ai-a-pms-practical-guide/">Ethics and Responsible AI: A PM's Practical Guide</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+<li><a href="https://www.devangshumitra.com/user-research-for-ai-products-what-changes/">User Research for AI Products: What Changes</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

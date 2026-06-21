@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="This debate has been running in data engineering circles for years, and" />
+  <meta property="og:title" content="Databricks vs Snowflake for AI/ML Workloads — Devangshu Mitra" />
+  <meta property="og:description" content="This debate has been running in data engineering circles for years, and" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Databricks vs Snowflake for AI/ML Workloads — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-06-17" itemprop="datePublished">Jun 17, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Databricks vs Snowflake for AI/ML Workloads</h1>
+          <p class="post-header__excerpt" itemprop="description">This debate has been running in data engineering circles for years, and</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Databricks vs Snowflake for AI/ML Workloads</h1>
+
+<p>The Databricks vs Snowflake debate used to be easy: Databricks for ML, Snowflake for analytics. Both platforms have spent the last two years trying to collapse that distinction, and they've both made significant progress. Which means the choice is harder now - but also more consequential.</p>
+
+<p>I've worked on data platforms that span both tools. Here's what actually matters when you're deciding where to run your AI and ML workloads.</p>
+
+<h2>The Foundational Architecture Difference</h2>
+
+<p>This is the part that sales reps won't tell you clearly, but it's the most important thing to understand.</p>
+
+<p><strong>Databricks</strong> is built on Apache Spark. At its core, it's a distributed compute engine that sits on top of your data lake (typically an open format like Delta Lake). The storage and compute are fundamentally decoupled - you pay for compute when you use it, your data lives in object storage (S3/ADLS/GCS) in open formats that other tools can read.</p>
+
+<p><strong>Snowflake</strong> is built around a proprietary storage layer. Your data is stored in Snowflake's micro-partition format, which is highly optimized for SQL analytics. You get excellent query performance out of the box, but your data is in a format that requires Snowflake to read it. They've added external table support and data sharing, but the core is still Snowflake's storage.</p>
+
+<p>This architectural difference cascades into almost every other dimension of comparison. It's not right or wrong - it's a reflection of different philosophies about what a data platform should be.</p>
+
+<h2>Feature Comparison Table</h2>
+
+<p>| Dimension | Databricks | Snowflake | | --- | --- | --- | | Primary Approach | Code-first (Python/Scala/SQL) | SQL-first with Python extensions | | ML Framework | MLflow (native, best-in-class) | Snowpark ML (growing, less mature) | | Storage Format | Delta Lake (open) | Proprietary micro-partitions | | GPU Support | Yes (native) | Limited (via Snowpark Container Services) | | Streaming Data | Excellent (Spark Structured Streaming) | Good (Snowpipe Streaming) | | SQL Analytics | Good (but Spark SQL is verbose) | Excellent (fastest SQL warehouse) | | BI Tool Integration | Good | Excellent (direct connector for all tools) | | Data Sharing | Delta Sharing | Snowflake Data Sharing (mature) | | Governance (Unity Catalog) | Excellent (Unity Catalog) | Good (native governance) | | Feature Store | Databricks Feature Store | Snowflake Feature Store (newer) | | Model Registry | MLflow Model Registry | Snowflake Model Registry (emerging) | | LLM/Gen AI Features | MosaicML integration, DBRX model | Cortex AI (LLM functions in SQL) | | Cost Model | DBU (compute hours) + storage | Credits (per second) + storage | | Startup Cost | Higher (cluster setup overhead) | Lower (instant warehouse start) | | Vendor Lock-in Risk | Low (open formats) | Medium (proprietary storage) |</p>
+
+<h2>MLflow vs Snowpark ML: The ML Engine Comparison</h2>
+
+<p>Feature Comparison Table Dimension Databricks Snowflake Primary Approach Code-first (Python/Scala/SQL) SQL-first with Python extensions ML Framework MLflow (native, best-in-class) Snowpark ML (growing, less mature) Storage Format Delta Lake (open) Proprietary micro-partitions GPU Support Yes (native) Limited (via Snowpark Container Services) Streaming Data Excellent (Spark Structured Streaming) Good (Snowpipe Streaming) SQL Analytics Good (but Spark SQL is verbose) Excellent (fastest SQL warehouse) BI Tool Integration Good Excellent (direct connector for all tools) Data Sharing Delta Sharing Snowflake Data Sharing (mature) Governance (Unity Catalog) Excellent (Unity Catalog) Good (native governance) Feature Store Databricks Feature Store Snowflake Feature Store (newer) Model Registry MLflow Model Registry Snowflake Model Registry (emerging) LLM/Gen AI Features MosaicML integration, DBRX model Cortex AI (LLM functions in SQL) Cost Model DBU (compute hours) + storage Credits (per second) + storage Startup Cost Higher (cluster setup overhead) Lower (instant warehouse start) Vendor Lock-in Risk Low (open formats) Medium (proprietary storage) When comparing MLflow and Snowpark ML for ML engines, this is the area that matters most for ML heavy workloads, and it's where Databricks has the most lasting advantage.</p>
+
+<p><strong>MLflow</strong> is the industry standard for ML experiment tracking. It's open source, widely adopted, and the Databricks-managed version is the most mature MLOps platform available without building your own. Experiment tracking, model registry, model serving - all of it is production-grade and battle-tested at scale. If you have a team of ML engineers who live in Python notebooks, MLflow running on Databricks is the natural home.</p>
+
+<p><strong>Snowpark ML</strong> is Snowflake's answer, and it's made impressive progress since launch. The key selling point is that you can train models using your data where it already lives, without moving it. For organizations with strict data governance requirements, this matters. But the toolset is smaller, GPU support is limited, and your ML engineers will need to learn Snowflake-specific patterns that don't transfer to other platforms.</p>
+
+<blockquote><p><strong>If your ML team thinks in Python and builds custom models, they'll be more productive on Databricks. If your data team thinks in SQL and wants to add ML capabilities with minimal workflow disruption, Snowpark ML is the path of least resistance.</strong></p></blockquote>
+
+<h2>GenAI Workloads: Who's Winning Today?</h2>
+
+<p>Both platforms have made aggressive moves into generative AI, and this is the most rapidly evolving dimension of comparison.</p>
+
+<p>Databricks acquired MosaicML and built DBRX, their open-source foundation model. More practically, the Databricks AI Playground and the managed model serving infrastructure make it straightforward to fine-tune open-source LLMs (Llama, Mistral, etc.) on your own data and serve them at scale. For organizations that want to run their own models - either for cost reasons or data privacy - Databricks is ahead.</p>
+
+<p>Snowflake Cortex is taking a different approach: LLM functions that run directly in SQL. <code>SELECT SNOWFLAKE.CORTEX.SUMMARIZE(column_name) FROM my_table</code> - that's the experience they're optimizing for. For analytics and BI teams that want AI capabilities without learning a new approach, Cortex's SQL-native method is clever. But it's more limited in what you can do.</p>
+
+<h2>Cost Model Close look</h2>
+
+<p>This is where teams consistently get surprised, so I want to be specific.</p>
+
+<p><strong>Databricks DBUs (Databricks Units):</strong> You pay for compute when clusters are running. The cost depends on cluster size, instance type, and tier (Standard vs Premium vs Enterprise). The trap is idle clusters - if you're not careful about auto-termination settings, you pay for compute that isn't doing anything. Also, Databricks costs are typically 2-3x higher than raw AWS/Azure/GCP compute because of the platform markup.</p>
+
+<p><strong>Snowflake Credits:</strong> Snowflake charges per-second of warehouse usage, with warehouses that start and stop automatically. The per-credit pricing is transparent but can surprise teams that run large warehouses for long-running queries. The XL warehouse is 16x the cost of an XS warehouse, and it's easy to overprovision. On the other hand, auto-suspend means idle warehouses cost nothing.</p>
+
+<p>In my experience, Snowflake tends to be cheaper for SQL-heavy analytics workloads, Databricks tends to be cheaper for ML training workloads. For mixed workloads, the difference is usually within 15-20% and depends heavily on your team's usage patterns.</p>
+
+<h2>Data Governance: Unity Catalog vs Snowflake Native</h2>
+
+<p>Governance has become a first-order concern for enterprise AI, especially in regulated industries like healthcare where I spend most of my time.</p>
+
+<p>Databricks Unity Catalog is the stronger offering for organizations with complex data mesh architectures. Fine-grained access controls, lineage tracking, data tagging - it handles multi-cloud and hybrid environments well. The ability to govern data that lives outside Databricks (external tables) is also important for organizations that aren't 100% on Databricks.</p>
+
+<p>Snowflake's native governance is solid and well-integrated. For organizations that live entirely in Snowflake, it's sufficient. The weakness is multi-platform governance - if your data space spans Databricks, Snowflake, and some on-premise systems, you'll need a third-party governance tool anyway.</p>
+
+<h2>Ecosystem and Integrations</h2>
+
+<p>For its connections and integrations, Snowflake has a broader network of partners for traditional analytics tools. Tableau, Power BI, Looker, Sigma - all have excellent native Snowflake connectors that just work. For organizations where BI is the primary output of the data platform, this matters.</p>
+
+<p>Databricks integrates better with the ML and AI toolchain. Hugging Face, MLflow (obviously), Weights & Biases, deep native integration with cloud ML services (SageMaker, Azure ML, Vertex). If your team is building AI pipelines rather than BI dashboards, Databricks is the better-integrated choice.</p>
+
+<h2>The Honest Verdict: When Each Wins</h2>
+
+<h3>Databricks wins when:</h3>
+
+<ul>
+<li>ML engineering is a core competency - you have data scientists writing Python, training custom models, running experiments</li>
+<li>You need GPU workloads for fine-tuning LLMs or training deep learning models</li>
+<li>You're building real-time ML pipelines with streaming data</li>
+<li>Vendor lock-in risk is a serious concern and open formats matter to your architecture team</li>
+<li>You need a unified platform for both ELT pipelines and ML workflows without tool proliferation</li>
+</ul>
+
+<h3>Snowflake wins when:</h3>
+
+<ul>
+<li>Your team is SQL-first and BI/analytics is the primary output</li>
+<li>You want to add ML capabilities without disrupting an existing analytics workflow</li>
+<li>Data sharing with external partners is important (Snowflake's data marketplace is unmatched)</li>
+<li>Your BI tools have native Snowflake connectors and you want the simplest possible architecture</li>
+<li>You want GenAI features that SQL analysts can use without learning Python</li>
+</ul>
+
+<h2>The Increasingly Common Answer: Both</h2>
+
+<p>I need to be direct about something: most mature data organizations end up running both. Analytics teams use Snowflake; ML teams use Databricks. The data lake (Delta Lake or Iceberg on S3/ADLS) sits in the middle and both platforms can read from it.</p>
+
+<p>This isn't tool sprawl - it's appropriate specialization. Forcing ML engineers to work with Snowflake's SQL-first approach when they want to write PyTorch training loops is frustrating and slows them down. Forcing analytics engineers to manage Spark clusters when they want to run SQL queries is equally miserable.</p>
+
+<p>If you're a smaller organization that can only afford one, pick the one that matches where most of your team currently works. If you're a growing organization building out both analytics and ML capabilities, start with one and plan the other in your 18-month roadmap.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/aws-bedrock-vs-azure-openai-vs-google-vertex-ai/">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-frameworks-beyond-benchmarks/">LLM Evaluation Frameworks: Beyond Benchmarks</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-ai-product-lifecycle-from-poc-to-production/">The AI Product Lifecycle: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/the-architecture-of-production-ml-pipelines/">The Architecture of Production ML Pipelines</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-month-1-what-worked-what-didnt-2/">Building in Public Month 1: What Worked, What Didn't</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

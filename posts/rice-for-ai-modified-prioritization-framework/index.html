@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Standard RICE doesn&#39;t work for AI products because &#39;confidence&#39; means something" />
+  <meta property="og:title" content="RICE for AI: Modified Prioritization Framework — Devangshu Mitra" />
+  <meta property="og:description" content="Standard RICE doesn&#39;t work for AI products because &#39;confidence&#39; means something" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RICE for AI: Modified Prioritization Framework — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-12-07" itemprop="datePublished">Dec 7, 2025</time>
+            <span class="post-header__read-time">12 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RICE for AI: Modified Prioritization Framework</h1>
+          <p class="post-header__excerpt" itemprop="description">Standard RICE doesn't work for AI products because 'confidence' means something</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RICE for AI: Modified Prioritization Framework</h1>
+
+<h2>RICE for AI: Modified Prioritization Framework</h2>
+
+<p>Last quarter, I watched a team spend six weeks building a sophisticated RAG retrieval optimization for their clinical decision support system. The engineering effort was solid - they reduced latency by 200ms and improved relevance scores by 8 points. When we measured actual adoption, the feature moved the needle for maybe 15% of users. Meanwhile, three simpler requests sat in backlog: better error messages when the AI couldn't answer, clearer confidence scores, and a way to surface when the underlying data was stale.</p>
+
+<p>The team had defaulted to optimizing what was technically interesting rather than what would actually move adoption and outcomes. This happens constantly in AI product work, and it's not because people are bad at prioritization - it's because the standard RICE framework (Reach, Impact, Confidence, Effort) doesn't account for the specific dynamics of AI products.</p>
+
+<p>RICE works reasonably well for feature prioritization in traditional software. But AI products operate under different constraints. Your model's hallucination rate might torpedo user trust faster than a delayed feature. Your inference costs could spike unexpectedly when usage patterns change. Your data quality issues might be invisible until they cascade through an entire user workflow. And your ability to measure impact gets genuinely complicated when you're dealing with probabilistic outputs.</p>
+
+<p>I've been refining a modified RICE approach specifically for AI products. It's not a replacement for the original framework - it's an adaptation that accounts for what actually kills or saves AI products.</p>
+
+<h2>Where Standard RICE Breaks Down for AI</h2>
+
+<p>The four components of RICE are straightforward: Reach (how many people will this affect), Impact (how much will it improve their experience or outcomes), Confidence (how sure are you about those numbers), and Effort (how much work is required). You multiply Reach times Impact, apply a Confidence factor, then divide by Effort. Higher scores rise in your backlog.</p>
+
+<p>On paper, this makes sense. In AI product reality, it creates some specific failure modes:</p>
+
+<ul>
+<li><strong>Impact gets measured without considering model behavior.</strong> You estimate that a feature will improve user satisfaction by 2 points on a 10-point scale. But you haven't accounted for what happens when your model fails in specific scenarios. You might get that 2-point improvement for 70% of users and a 5-point <em>decrease</em> for the other 30% who hit edge cases. Standard RICE treats this as a single impact number and misses the distribution entirely.</li>
+<li><strong>Reach doesn't account for trust decay.</strong> A feature reaches 500 users. But if those 500 users experience the system hallucinating twice, your effective reach drops to 50 users who still engage regularly. The actual Reach number becomes stale within weeks.</li>
+<li><strong>Effort estimation ignores inference cost velocity.</strong> You estimate a feature will take 3 sprints to build. You don't estimate the compounding cost of adding another 200ms to your inference pipeline across millions of requests per day. By month 6, you're spending 40% more on infrastructure than you budgeted.</li>
+<li><strong>Confidence values don't reflect model drift.</strong> You're 85% confident that your NLP model will extract clinical entities with 92% accuracy. That confidence was based on your validation set from three months ago. Your actual production accuracy is now 81% because your user population shifted. Your Confidence estimate becomes meaningless.</li>
+<li><strong>The framework doesn't separate outcome risk from delivery risk.</strong> Building a new AI capability carries two distinct risks: the risk that you won't ship it (delivery risk) and the risk that you ship it but it doesn't produce the outcomes you expected (outcome risk). RICE conflates these into a single Confidence number.</li>
+</ul>
+
+<p>I realized this after shipping a conversational search feature for a payer platform. RICE predicted it would reach 300 users, deliver medium impact (reduce support tickets by 8%), take 4 sprints, and warranted 85% confidence. The math looked good. We built it, shipped it, and adoption flatlined at 60 users. Not because we failed at delivery - the system worked. But the model kept suggesting appeals for denied claims without understanding the specific payer rules, creating liability concerns that users feared. The outcome risk wasn't captured in our prioritization at all.</p>
+
+<h2>The Modified RICE Framework for AI Products</h2>
+
+<p>Here's what I've been using instead. It keeps the structure of RICE but adds five specific modifications that matter for AI:</p>
+
+<p><strong>Modified RICE = (Reach x Impact x Outcome Confidence) / (Delivery Effort + Inference Cost Burden + Hallucination Risk Tax)</strong></p>
+
+<p>Let me break down what changed:</p>
+
+<ul>
+<li><strong>Split Confidence into Outcome Confidence and Delivery Risk.</strong> Keep delivery risk implicit in Effort estimation (because good estimation already accounts for uncertainty). But make Outcome Confidence explicit - this is "how confident are we that the AI will actually behave as we expect in production?" This is separate from "can we ship this?"</li>
+<li><strong>Add Inference Cost Burden to the denominator.</strong> Calculate not just engineering effort, but the estimated monthly inference cost increase. If a feature adds 50ms to latency across 10M daily requests, that's real cost that should be weighted against benefits. Express it in the same unit as engineering effort (e.g., "equivalent to 2 sprints of AWS spend per quarter").</li>
+<li><strong>Add Hallucination Risk Tax to the denominator.</strong> For any feature relying on model outputs, estimate the probability-weighted cost of model failures. A hallucination that reaches 5% of users and creates compliance risk might be worth 3 sprint-equivalents of risk tax. A hallucination that affects 0.1% of users and is merely confusing might be worth 0.5.</li>
+<li><strong>Adjust Reach for trust decay.</strong> Don't just estimate how many people can access the feature. Estimate how many will <em>continue</em> to use it after month 1, month 3, and month 6 based on similar features' retention curves. Use the month-3 number as your Reach, not the theoretical maximum.</li>
+<li><strong>Calculate Impact across the outcome distribution, not a single point estimate.</strong> Instead of "Impact = 2 points improvement," map it as: "70% of users see 2-point improvement, 25% see neutral, 5% see 2-point degradation." Outcome Confidence is lower when you have a fatter tail of negative outcomes.</li>
+</ul>
+
+<p>This sounds more complex, but it's actually forcing you to think about things you should be thinking about anyway. You're just making the invisible costs visible.</p>
+
+<h2>How to Apply Modified RICE: Step by Step</h2>
+
+<p>I'll walk through a real example from a recent medtech project where we were prioritizing between three features for an AI-assisted radiology platform.</p>
+
+<p><strong>Feature A: Improved lung nodule detection sensitivity</strong></p>
+
+<p>The radiologists wanted higher sensitivity in detecting small nodules (less than 3mm). Currently the system detects 87% of nodules down to 2mm. Getting to 94% would require fine-tuning on a proprietary dataset and integrating a second ensemble model.</p>
+
+<p>Step 1: Estimate Reach using month-3 retention.</p>
+
+<p>The system currently has 420 active radiologists. We estimate 100% of them would benefit from better detection. But would they all <em>use</em> the feature at month 3? We looked at adoption curves for previous model improvements. Sensitivity improvements typically see 85% sustained engagement at month 3 (people trust better detection and rely on it). So Reach = 357 radiologists.</p>
+
+<p>Step 2: Map Impact across the outcome distribution.</p>
+
+<p>We talked to 15 radiologists. Outcomes ranged widely:</p>
+
+<ul>
+<li>60% said this would eliminate 1-2 cases per month they currently miss, materially improving their workflow (Impact = 3 points on our 5-point scale, measuring workflow improvement + clinical confidence)</li>
+<li>25% said they'd catch these through multi-read practice anyway, so marginal benefit (Impact = 0.5)</li>
+<li>15% expressed concern that higher sensitivity might increase false positives and require additional callbacks (Impact = -1, net negative because of downstream work)</li>
+</ul>
+
+<p>We weighted this: (0.6 x 3) + (0.25 x 0.5) + (0.15 x -1) = 1.58. Round to 1.6 for our calculation.</p>
+
+<p>Step 3: Establish Outcome Confidence.</p>
+
+<p>We had test data showing 94% sensitivity was achievable. But in production, model performance often drifts. Our historical drift rate for detection models is 2-3 percentage points per year. We were also adding a second model ensemble, which introduces integration risk. We set Outcome Confidence at 0.70 (70% confident we'll achieve the expected outcomes in production).</p>
+
+<p>Step 4: Estimate Delivery Effort.</p>
+
+<p>Fine-tuning: 1.5 sprints. Ensemble integration: 2 sprints. Validation and safety testing: 2 sprints. Total: 5.5 sprints.</p>
+
+<p>Step 5: Quantify Inference Cost Burden.</p>
+
+<p>Adding a second detection model would run on every image. Average cost per inference: $0.003. With 420 radiologists analyzing an average 8 cases per day, that's 3,360 inferences daily, or $10/day, or $300/month. Over a year, that's $3,600, which we estimated as equivalent to 0.7 sprints of AWS spend.</p>
+
+<p>Step 6: Quantify Hallucination Risk Tax.</p>
+
+<p>For detection models, "hallucination" means false positives and false negatives beyond the model's expected rate. We'd be pushing sensitivity higher, which typically increases false positive rate. Our data showed that at 94% sensitivity, false positive rate would be ~6% (vs current 2%). On 3,360 daily inferences, that's 200 additional false positives per day. Not all are costly - some are already-suspected findings. But maybe 10% create unnecessary callbacks or follow-up imaging. We estimated this as a moderate clinical risk. Risk Tax = 2 sprints-equivalent.</p>
+
+<p>Step 7: Calculate the score.</p>
+
+<p>Numerator: 357 (Reach) x 1.6 (Impact) x 0.70 (Outcome Confidence) = 399.8</p>
+
+<p>Denominator: 5.5 (Delivery Effort) + 0.7 (Inference Cost) + 2 (Risk Tax) = 8.2</p>
+
+<p>Score: 399.8 / 8.2 = 48.8</p>
+
+<p><strong>Feature B: Better error messages and confidence score display</strong></p>
+
+<p>When the model was uncertain or encountered an image it couldn't analyze, the system showed a generic error. Radiologists found this frustrating - they wanted to know whether to trust a "uncertain" result or assume the model was broken. We wanted to surface model confidence scores and explain failure modes.</p>
+
+<p>Step 1: Reach.</p>
+
+<p>All 420 active radiologists encounter errors and uncertain cases. Maybe 70% engage with the uncertainty information regularly (the other 30% work mostly on straightforward cases). Month-3 engagement for UI improvements is typically 75%. Reach = 220.</p>
+
+<p>Step 2: Impact distribution.</p>
+
+<p>We asked radiologists about this separately. This was less about clinical improvement and more about reducing friction:</p>
+
+<ul>
+<li>70% said this would make them more confident in their workflow, reducing hesitation (Impact = 1.5 points)</li>
+<li>20% said it would help occasionally (Impact = 0.5)</li>
+<li>10% said they'd ignore it and just use their judgment anyway (Impact = 0)</li>
+</ul>
+
+<p>Weighted: (0.7 x 1.5) + (0.2 x 0.5) + (0.1 x 0) = 1.15</p>
+
+<p>Step 3: Outcome Confidence.</p>
+
+<p>This wasn't about model behavior - it was about UX. The only outcome risk was "will radiologists actually look at these scores?" Our confidence was higher here: 0.85.</p>
+
+<p>Step 4: Delivery Effort.</p>
+
+<p>This was straightforward feature work. Design: 0.5 sprints. Backend to expose confidence scores: 1 sprint. Frontend: 1 sprint. Testing: 0.5 sprints. Total: 3 sprints.</p>
+
+<p>Step 5: Inference Cost Burden.</p>
+
+<p>Zero. We're just displaying information the model already calculates. Cost Burden = 0.</p>
+
+<p>Step 6: Hallucination Risk Tax.</p>
+
+<p>Near zero. We're not changing model behavior, just displaying it differently. Risk Tax = 0.2 (minimal, just in case the display itself creates confusion in edge cases).</p>
+
+<p>Step 7: Calculate.</p>
+
+<p>Numerator: 220 x 1.15 x 0.85 = 215.3</p>
+
+<p>Denominator: 3 + 0 + 0.2 = 3.2</p>
+
+<p>Score: 215.3 / 3.2 = 67.3</p>
+
+<p><strong>Feature C: Automated quality monitoring for input data</strong></p>
+
+<p>We'd had several incidents where images arriving from certain hospitals had preprocessing issues - DICOM headers were malformed, or compression artifacts corrupted the image. The model would silently process these degraded images and produce lower-quality predictions. We wanted to add automated checks upstream and flag suspicious images.</p>
+
+<p>Step 1: Reach.</p>
+
+<p>All radiologists benefit from this indirectly. But it's not a user-facing feature - it's infrastructure. Reach is measured by "radiologists whose experience improves because of fewer model failures" = 420. Month-3 engagement for reliability improvements: 95% (people love things that just work). Reach = 399.</p>
+
+<p>Step 2: Impact distribution.</p>
+
+<p>This prevents bad outcomes rather than enabling good ones. For most radiologists (80%), this is invisible - they'll never hit the issue. For 15% who work with those problematic hospitals, it prevents 1-2 cases per month where they'd have caught the poor output quality anyway through manual review. For 5%, it prevents cases where they would have missed the quality issue and potentially acted on poor data. Impact: (0.80 x 0.1) + (0.15 x 1.5) + (0.05 x 2.5) = 0.45 (lower overall impact, but concentrated in high-risk scenarios)</p>
+
+<p>Step 3: Outcome Confidence.</p>
+
+<p>High confidence here - we can validate data quality checks against known bad examples. Outcome Confidence = 0.88.</p>
+
+<p>Step 4: Delivery Effort.</p>
+
+<p>Building DICOM validation: 1.5 sprints. Implementing quality checks: 1.5 sprints. Testing against production images: 1 sprint. Monitoring and alerting: 0.5 sprints. Total: 4.5 sprints.</p>
+
+<p>Step 5: Inference Cost Burden.</p>
+
+<p>Quality checks run before inference, so they don't add to inference costs. Burden = 0.</p>
+
+<p>Step 6: Hallucination Risk Tax.</p>
+
+<p>Risk of false positives (flagging good images as bad) and false negatives (missing corrupted ones). We estimated 2% false positive rate would create unnecessary friction. Risk Tax = 1.5 sprints-equivalent.</p>
+
+<p>Step 7: Calculate.</p>
+
+<p>Numerator: 399 x 0.45 x 0.88 = 158.2</p>
+
+<p>Denominator: 4.5 + 0 + 1.5 = 6</p>
+
+<p>Score: 158.2 / 6 = 26.4</p>
+
+<p><strong>The ranking:</strong></p>
+
+<ol>
+<li>Feature B (Better error messages): 67.3</li>
+<li>Feature A (Improved detection sensitivity): 48.8</li>
+<li>Feature C (Data quality monitoring): 26.4</li>
+</ol>
+
+<p>This ran counter to our initial instinct. Feature A felt more clinically significant. But the modified RICE framework surfaced what we should have noticed earlier: Feature B had lower risk, lower cost, wider value distribution, and simpler outcome validation. We'd ship it, learn fast, and build trust</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-alignment-canvas-for-ai-products/">Stakeholder Alignment Canvas for AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-ai-in-life-sciences-a-framework-for-enterprise-decision-makers/">Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Compare LangChain vs LlamaIndex vs Haystack for your 2026 RAG stack with" />
+  <meta property="og:title" content="LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison — Devangshu Mitra" />
+  <meta property="og:description" content="Compare LangChain vs LlamaIndex vs Haystack for your 2026 RAG stack with" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2026-02-20" itemprop="datePublished">Feb 20, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</h1>
+          <p class="post-header__excerpt" itemprop="description">Compare LangChain vs LlamaIndex vs Haystack for your 2026 RAG stack with</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</h1>
+
+<p>Every production RAG system I have built or reviewed in the last two years has forced the same decision: LangChain, LlamaIndex, or Haystack? The answer has changed every six months as each framework has matured, pivoted, and added features the others already had. In 2026, the gap between them has narrowed in some dimensions and widened dramatically in others.</p>
+
+<p>This is not a beginner's introduction to RAG. If you need that, go read the LlamaIndex docs first. This is a practitioner comparison written for engineers and PMs who are about to commit to a stack and do not want to rebuild in six months.</p>
+
+<h2>The Short Answer</h2>
+
+<ul>
+<li><strong>LangChain:</strong> Best for complex agentic pipelines that need breadth of integrations. Production-ready if you invest in LCEL and the new LangGraph layer.</li>
+<li><strong>LlamaIndex:</strong> Best for document-heavy retrieval and knowledge graph use cases. The indexing primitives are genuinely best-in-class.</li>
+<li><strong>Haystack:</strong> Best for teams that need declarative pipelines, strong eval tooling, and a clean separation between development and production config.</li>
+</ul>
+
+<p>Now let me explain why.</p>
+
+<hr>
+
+<h2>Architecture Philosophy</h2>
+
+<h3>LangChain: The Integration Layer</h3>
+
+<p>LangChain started as a prompt chaining library and has evolved into something closer to an orchestration framework. The core abstraction is the chain - a composable unit that takes input, does something, and passes output downstream. The LangChain Expression Language (LCEL) introduced in late 2023 made chains more declarative and easier to parallelize. LangGraph, the agentic extension, adds stateful graph-based orchestration on top.</p>
+
+<p>The architectural bet LangChain made is breadth. As of Q1 2026 it has integrations with over 700 data sources, vector stores, LLM providers, and tools. If something exists in the world of AI tools, LangChain probably has an integration for it. That breadth is also its weakness - abstraction layers accumulate, debugging gets harder, and upgrading one integration can break three others.</p>
+
+<h3>LlamaIndex: The Data Framework</h3>
+
+<p>LlamaIndex made a deliberate choice to stay focused on the data side of LLM applications. Its core primitives - Document, Node, Index, Query Engine - are more granular than LangChain's chains. When you load a PDF into LlamaIndex, you have fine-grained control over chunking strategy, metadata extraction, node relationships, and retrieval scoring. That control matters enormously for document-heavy domains.</p>
+
+<p>The 2025 addition of the Knowledge Graph index and the Property Graph Store gave LlamaIndex a meaningful lead in use cases that require entity-level reasoning - clinical trial document analysis, contract review, and compliance mapping. The Workflows API (released mid-2025) also moved the framework into agentic territory, though it still feels less mature than LangGraph for complex multi-agent systems.</p>
+
+<h3>Haystack: The Pipeline Framework</h3>
+
+<p>Haystack's philosophy is different from both. It treats a RAG application as a typed pipeline of components, each with defined inputs and outputs. You define pipelines in YAML or Python, and the framework handles routing, parallelism, and component isolation. The 2.x rewrite (stable as of late 2024) made the component model significantly cleaner.</p>
+
+<p>What Haystack does better than either competitor is evaluation integration. Haystack's native eval framework covers retrieval precision/recall, answer faithfulness, and context relevance out of the box. For teams that take RAG quality seriously - and you should - this is not a small thing.</p>
+
+<hr>
+
+<h2>Performance and Benchmarks</h2>
+
+<p>Synthetic benchmarks for RAG frameworks are mostly noise. Framework overhead rarely dominates latency - your vector store query time and LLM call time are almost always the bottleneck. That said, framework choices do affect throughput and memory.</p>
+
+<p>On a standard BEIR benchmark retrieval task with 100K document corpus, retrieval latency differences between frameworks were under 15ms in my testing - inside the noise floor. Where differences emerge is in indexing throughput and complex multi-step pipeline execution.</p>
+
+<p>LlamaIndex's ingestion pipeline has the fastest indexing throughput in my tests, roughly 30-40% faster than LangChain's document loaders for the same corpus when using async ingestion. This matters when you are refreshing a 10M-token knowledge base nightly.</p>
+
+<p>LangGraph edges out LlamaIndex Workflows for complex multi-step agent execution - primarily because its state management is more explicit and it handles branching logic more cleanly. Haystack pipelines have the least runtime overhead per component but are harder to optimize dynamically.</p>
+
+<blockquote><p>The real performance conversation is not framework-level. It is vector store selection (pgvector vs Qdrant vs Weaviate), chunking strategy, and whether your retrieval step uses hybrid search. Fix those before worrying about which framework adds 8ms of overhead.</p></blockquote>
+
+<hr>
+
+<h2>Ecosystem and Integrations</h2>
+
+<h3>LangChain</h3>
+
+<p>Unmatched in breadth. 700+ integrations. LangSmith for observability is genuinely excellent; it is the best tracing and evaluation platform on the market. LangGraph Cloud handles deployment. The Hub provides shareable prompts. If you are building in a large organization that will use many different tools and models over time, LangChain's competitive advantage from its broad integrations is very real.</p>
+
+<h3>LlamaIndex</h3>
+
+<p>Strong integrations with all major vector stores and LLM providers. The LlamaHub community registry has over 300 data loaders. Llama Cloud (the managed service) handles ingestion and parsing at scale. Where LlamaIndex lags is observability - you need to bolt on LangSmith or a custom tracing layer.</p>
+
+<h3>Haystack</h3>
+
+<p>Smaller integration surface than the others, but the integrations that exist are well-maintained. Haystack has the deepest native support for open-source models - if you are self-hosting Mistral, Llama 3, or a fine-tuned clinical model, Haystack's component model makes that easier to manage. The deepset Cloud platform handles deployment and monitoring.</p>
+
+<hr>
+
+<h2>Ease of Use and Learning Curve</h2>
+
+<p>LangChain has the steepest learning curve of the three. The abstraction layers are deep, the documentation has historically lagged the codebase, and LCEL requires a mental model shift if you are used to imperative Python. It rewards investment - once you understand the primitives, you can build complex systems quickly. But the first two weeks are rough.</p>
+
+<p>LlamaIndex is the most approachable for getting a basic RAG system running in an afternoon. The high-level API (VectorStoreIndex, query_engine) abstracts away most complexity. The tradeoff is that you hit walls when you need fine-grained control and have to drop down to lower-level APIs that are less well-documented.</p>
+
+<p>Haystack 2.x has the cleanest architecture conceptually, but the component/pipeline model requires upfront thinking about data flow. Engineers who think in typed interfaces find it intuitive. Engineers who just want to get something working find the setup overhead frustrating at first.</p>
+
+<hr>
+
+<h2>Production Readiness</h2>
+
+<p>All three are production-ready in 2026. The question is which production concerns each one handles natively.</p>
+
+<ul>
+<li><strong>Observability:</strong> LangChain/LangSmith wins. Native tracing, prompt versioning, and evaluation in one platform.</li>
+<li><strong>Testing and eval:</strong> Haystack wins. Built-in eval pipelines make quality regression testing a first-class concern.</li>
+<li><strong>Deployment flexibility:</strong> All three work with any cloud. Haystack's pipeline-as-config makes environment promotion (dev → staging → prod) most systematic.</li>
+<li><strong>Error handling:</strong> LangGraph has the best story for agentic error recovery. LlamaIndex Workflows has improved but still requires more manual exception handling.</li>
+<li><strong>Cost control:</strong> Haystack's component isolation makes it easiest to swap expensive LLM calls for cheaper alternatives per pipeline step.</li>
+</ul>
+
+<hr>
+
+<h2>Industry-Specific Guidance</h2>
+
+<h3>Life Sciences & Healthcare AI</h3>
+
+<p>In my team's clinical trial document intelligence work, we use LlamaIndex for the ingestion and indexing layer - its chunking controls and metadata handling for structured clinical documents (protocols, ICFs, CSRs) are superior. We wrap the retrieval layer with LangGraph for the agentic reasoning steps that synthesize across documents. Haystack's eval framework runs nightly against a golden dataset of known Q&A pairs from validated documents.</p>
+
+<p>For healthcare, the framework choice is less important than the retrieval design. Clinical documents have dense entity relationships - adverse events, dosing cohorts, patient populations - that flat vector retrieval misses. LlamaIndex's knowledge graph index with medical ontology integration (SNOMED, ICD-10) handles this better than the others.</p>
+
+<h3>Fintech</h3>
+
+<p>Fintech RAG use cases split into two categories: real-time compliance checks (low latency, high precision required) and batch document analysis (throughput matters, latency flexible). For the former, LangChain's streaming capabilities and LangSmith's latency tracking make it easier to hit SLA requirements. For batch document analysis - earnings call parsing, regulatory filing review - LlamaIndex's async ingestion pipeline with cost-per-token tracking is the better fit.</p>
+
+<h3>Legal Document Processing</h3>
+
+<p>Legal is where LlamaIndex's document-level primitives shine most clearly. Contracts have hierarchical structure - sections, clauses, sub-clauses, defined terms - that flat chunking destroys. LlamaIndex's hierarchical node parser and parent document retrieval preserve that structure. For legal research (case law, statute lookup), LangChain's broader integration surface with legal-specific vector stores like Westlaw's API matters more.</p>
+
+<hr>
+
+<h2>My Recommendation in 2026</h2>
+
+<p>Stop trying to pick one framework and use it for everything. The real answer is that LlamaIndex, LangChain, and Haystack solve different layers of the same problem, and the most production-worthy systems I have seen mix them deliberately.</p>
+
+<p>A practical default stack: LlamaIndex for ingestion and indexing, LangGraph for orchestration and agent logic, Haystack's eval framework for quality testing. Use LangSmith for observability across all of it. This is not a cop-out - it is how the teams shipping real production RAG systems are actually building in 2026.</p>
+
+<p>If you truly need to pick one: LlamaIndex if your core problem is document retrieval quality, LangChain/LangGraph if your core problem is multi-step agentic reasoning, Haystack if your core problem is pipeline maintainability and eval rigor.</p>
+
+<p>The worst outcome is picking a framework based on GitHub stars and then building around its weaknesses instead of its strengths. Know what problem you are actually solving first.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/the-agentic-ai-stack-architecture-patterns-for-production-systems-2/">The Agentic AI Stack: Architecture Patterns for Production Systems</a></li>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

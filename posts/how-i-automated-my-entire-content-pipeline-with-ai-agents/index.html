@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I have a full-time job at HCLTech, a side brand, a D2C startup, and I&#39;&#39;m" />
+  <meta property="og:title" content="How I Automated My Entire Content Pipeline with AI Agents — Devangshu Mitra" />
+  <meta property="og:description" content="I have a full-time job at HCLTech, a side brand, a D2C startup, and I&#39;&#39;m" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How I Automated My Entire Content Pipeline with AI Agents — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Building in Public</span>
+            <time class="post-header__date" datetime="2025-07-03" itemprop="datePublished">Jul 3, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How I Automated My Entire Content Pipeline with AI Agents</h1>
+          <p class="post-header__excerpt" itemprop="description">I have a full-time job at HCLTech, a side brand, a D2C startup, and I''m</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How I Automated My Entire Content Pipeline with AI Agents</h1>
+
+<p>Let me tell you the problem first: I have a full-time role leading AI products at HCLTech, a personal brand I'm building from scratch, a D2C handloom brand called Ethlore, and approximately 4 hours per evening to work on all of it. Publishing consistent, quality content without automation is not a strategy - it's a fantasy.</p>
+
+<p>So I built Geenie. Not the Marvel one, unfortunately. A personal AI operating system that handles the parts of my content pipeline that don't require my specific judgment. Here's what it looks like from the inside.</p>
+
+<h2>The 3-Layer Architecture</h2>
+
+<p>The system I built follows a strict separation of concerns across three layers:</p>
+
+<p><strong>Layer 1: Directives (What to do)</strong>\</p>
+
+<p>These are Markdown files in a <code>directives/</code> folder. Each one is essentially an SOP - it defines goals, inputs, tools, expected outputs, and edge cases. Think of them as the instructions you'd give a knowledgeable employee: thorough enough that they can execute without constant check-ins, but not so prescriptive that they can't adapt.</p>
+
+<p>I have directives for everything: how to research and draft a blog post, how to batch-publish to Ghost, how to generate the weekly newsletter, how to run analytics and surface the top-performing posts. About 40 directives in total, covering every repeatable workflow in my content operation.</p>
+
+<p><strong>Layer 2: Orchestration (Decision-making)</strong>\</p>
+
+<p>This is the AI layer - Claude, specifically. Its job is intelligent routing: read the directive, determine the right sequence of execution steps, handle errors, and ask for clarification on ambiguous inputs. It doesn't do the actual work. It decides what work to do and in what order.</p>
+
+<p>The orchestrator also self-improves. When it hits an error - an API rate limit, a malformed response, a scraping block - it fixes the execution script, tests the fix, and updates the directive with what it learned. The system gets smarter with every failure. I call this self-annealing.</p>
+
+<p><strong>Layer 3: Execution (The actual work)</strong>\</p>
+
+<p>Deterministic Python scripts in an <code>execution/</code> folder. These handle API calls, data processing, file operations, content formatting. They're fast, testable, and reliable. When the orchestrator says "publish batch 3," the execution script handles every API call, JWT token refresh, rate limiting, and error retry without further AI involvement.</p>
+
+<p>Why this architecture? Because AI is probabilistic. 90% accuracy per step compounds badly: five steps at 90% each gives you 59% end-to-end success. The solution is to push complexity into deterministic code and let the AI focus on the decisions that actually require judgment.</p>
+
+<h2>The Content Research Pipeline</h2>
+
+<p>When I want to publish a new post, the flow starts with a topic directive. I describe what I want to write about - the angle, the target audience, the approximate length, any specific examples I want included. The orchestrator takes that and calls a research script that pulls from multiple sources: recent AI papers, industry news, my own prior posts (to avoid redundancy and to find linking opportunities), and keyword data.</p>
+
+<p>The research output is a structured JSON object: topic, key points, supporting evidence, potential objections, related posts for internal linking. It takes about 90 seconds to generate what would have taken me 2-3 hours of manual research.</p>
+
+<p>The draft is then generated from the research output - not from scratch. This distinction matters. Drafting from a structured research object produces more coherent, better-cited content than prompting a blank generation. The output still requires my editing pass, but it's editing, not writing. That's a 10x productivity difference for me personally.</p>
+
+<h2>Batch Publishing to Ghost</h2>
+
+<p>Ghost has an excellent Admin API. My execution layer uses it to publish posts in configurable batches, handling:</p>
+
+<ul>
+<li>JWT token generation and refresh (Ghost tokens expire every 5 minutes)</li>
+<li>Rate limiting (1.5 second delays between posts)</li>
+<li>Tag management (creating tags that don't exist yet)</li>
+<li>Meta title, meta description, and excerpt population</li>
+<li>Status management (draft vs. published)</li>
+<li>Error logging with retry logic</li>
+</ul>
+
+<p>A typical batch run publishes 10-20 posts in under 2 minutes with zero manual intervention. The posts come out formatted correctly, tagged appropriately, and SEO-ready. I review a random sample after each batch to check quality, but I've never had to roll back a batch.</p>
+
+<h2>The Newsletter Generator</h2>
+
+<p>Every week the system automatically:</p>
+
+<ol>
+<li>Pulls the last 7 days of posts from Ghost's Content API</li>
+<li>Ranks them by expected value (based on topic freshness, depth, and my personal weighting)</li>
+<li>Drafts a newsletter with a brief intro, 3-5 featured posts with summaries, and a closing thought</li>
+<li>Formats it for Ghost's email feature</li>
+<li>Saves it as a draft for my final review before sending</li>
+</ol>
+
+<p>I still do the final edit and send manually. That's intentional. The newsletter is the highest-trust touchpoint with my audience. I want a human hand on it, even if the 80% draft is automated.</p>
+
+<h2>Content Analytics Automation</h2>
+
+<p>I run a weekly analytics pull that compares content performance across three dimensions: search traffic (via Search Console API), engagement (time on page, scroll depth), and social sharing. The output is a Google Sheet that I review every Sunday.</p>
+
+<p>The system also generates a recommendation: which topic clusters are gaining momentum, which posts need internal link reinforcement, which comparison posts could be updated to stay evergreen. It's not magic - it's pattern matching against data I'd be reading anyway, surfaced in a more actionable format.</p>
+
+<h2>The Audio Pipeline</h2>
+
+<p>Every published post automatically gets queued for an audio version. I'm using ElevenLabs for voice synthesis - my cloned voice, trained on 30 minutes of clean audio. The pipeline converts the HTML post to clean text (stripping code blocks, formatting for audio), submits to ElevenLabs, and saves the output to a CDN folder.</p>
+
+<p>The audio player widget on each post loads from that CDN path. It's not perfect - ElevenLabs occasionally mispronounces technical terms - but the production quality is good enough that multiple readers have mentioned the audio option as a feature they actually use.</p>
+
+<h2>The Honest Trade-offs</h2>
+
+<p>Automation removes friction and introduces distance. When I write every word manually, I'm deeply connected to every piece. When 80% of the scaffolding is generated, I have to work harder to maintain that connection - to make sure my actual perspective shows up in the editing pass rather than defaulting to whatever the AI drafted.</p>
+
+<p>I've also had to develop a discipline around reviewing automated output. The temptation when a batch runs cleanly is to skip the spot-check. I've learned to resist that. The quality drift that comes from unreviewed automation is slow and hard to detect until it's a problem.</p>
+
+<p>The system works because I built it around my actual workflow constraints: limited time, need for consistency, high quality bar, strong opinions about voice and framing. If your constraints are different, the architecture would look different too. This isn't a template - it's a design pattern applied to a specific context.</p>
+
+<h2>What's Next</h2>
+
+<p>I'm currently building the analytics feedback loop - where content performance data automatically informs the next batch of topic suggestions. If comparison posts are outperforming think-pieces, the system should learn that and weight future research accordingly.</p>
+
+<p>I'm also adding A/B testing for headlines. Ghost supports draft versions, and I can use the API to test two titles on the same content and track which one gets more organic clicks. This is table stakes for a real content operation.</p>
+
+<p>The thing I keep coming back to: building this system has taught me more about content strategy than reading about content strategy ever did. When you automate something, you're forced to make the implicit explicit. You have to define what "good" looks like in terms a machine can evaluate. That discipline improves your own thinking, not just your output.</p>
+
+<p>The pipeline is open - if you want to see specific parts of the code, or want to understand how any particular piece works, just ask.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-geenie-my-personal-ai-operating-system/">Building Geenie: My Personal AI Operating System</a></li>
+<li><a href="https://www.devangshumitra.com/how-i-use-ai-agents-to-run-my-entire-content-operation-2/">How I Use AI Agents to Run My Entire Content Operation</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-how-i-automated-my-entire-content-pipeline-with-ai-agents-9/">Building in Public: How I Automated My Entire Content Pipeline with AI Agents</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-geenie-my-personal-ai-operating-system/">Building Geenie: My Personal AI Operating System</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-how-i-automated-my-entire-content-pipeline-with-ai-agents-9/">Building in Public: How I Automated My Entire Content Pipeline with AI Agents</a></li>
+<li><a href="https://www.devangshumitra.com/talk-agentic-ai-in-the-enterprise-patterns-pitfalls-and-production/">Talk: Agentic AI in the Enterprise - Patterns, Pitfalls, and Production</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

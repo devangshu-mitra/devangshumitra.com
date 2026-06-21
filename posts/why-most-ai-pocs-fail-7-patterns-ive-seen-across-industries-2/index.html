@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I have watched more AI POCs fail than succeed across healthcare, CPG, edtech," />
+  <meta property="og:title" content="Why Most AI POCs Fail: 7 Patterns I&#39;&#39;ve Seen Across Industries — Devangshu Mitra" />
+  <meta property="og:description" content="I have watched more AI POCs fail than succeed across healthcare, CPG, edtech," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Why Most AI POCs Fail: 7 Patterns I''ve Seen Across Industries — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-05-25" itemprop="datePublished">May 25, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Why Most AI POCs Fail: 7 Patterns I''ve Seen Across Industries</h1>
+          <p class="post-header__excerpt" itemprop="description">I have watched more AI POCs fail than succeed across healthcare, CPG, edtech,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Why Most AI POCs Fail: 7 Patterns I've Seen Across Industries</h1>
+
+<p>The AI POC failure rate is not a secret. By most estimates, 70-85% of enterprise AI projects do not make it from proof of concept to production. I have been close enough to enough of them - both the failures and the rare successes - to have a strong opinion about why.</p>
+
+<p>The failures are not random. The same patterns show up across industries, company sizes, and AI modalities. Once you have seen them enough times, you can spot them early. Here are the seven patterns I have seen kill AI POCs most consistently, with the fix for each one.</p>
+
+<hr>
+
+<h2>Pattern 1: Demo-Driven Development</h2>
+
+<p>The POC is designed to impress a demo audience rather than solve a real problem. The team picks the most visually impressive AI capability, the cleanest example inputs, and the most favorable evaluation conditions. The demo lands. Stakeholders are excited. Then the vendor or team tries to turn the demo into a production system and discovers that the impressive demo worked because of a specific input format that real data never produces, or a capability that is 5x too slow for actual workflows, or a quality level that degrades badly when inputs are slightly noisier.</p>
+
+<p>I saw this pattern at Edxcare when we evaluated an AI tutoring system. The vendor demo used polished, well-structured student questions. Our actual student population typed on mobile phones in their second language and often submitted incomplete or grammatically fragmented queries. The demo accuracy was 90%. Real-data accuracy was 58%.</p>
+
+<p><strong>The fix:</strong> Test with your data, not their data. In the first week of any POC, run your actual production data through the system - the messiest, most representative sample you can find. The quality gap between demo data and production data is the single most reliable predictor of POC failure.</p>
+
+<hr>
+
+<h2>Pattern 2: The Data Quality Illusion</h2>
+
+<p>The team assumes the data is ready. It is not. This pattern is so common it deserves a specific name. Data quality problems are invisible until you start building against the data, and by then you have committed timelines and stakeholder expectations based on an assumption that was never verified.</p>
+
+<p>Common manifestations: training data exists but is not labeled for the specific task the AI needs to learn; retrieval corpus exists but is inconsistently formatted, partially outdated, or not accessible at the required latency; evaluation dataset does not reflect the actual distribution of production queries; ground truth is defined differently by different subject matter experts.</p>
+
+<p>In a healthcare AI POC I ran, we were building a clinical document classifier. The training data existed in the EHR - but the document type labels were applied inconsistently by different clinical departments over 5 years, resulting in mislabeled training examples that would have trained the model to replicate classification errors.</p>
+
+<p><strong>The fix:</strong> Start every AI POC with a data audit. Before writing a line of model code, spend two weeks profiling the data: completeness, consistency, label quality, representation across the intended use population. Treat the data audit as a go/no-go gate. A POC built on bad data produces results that are bad in ways that are hard to diagnose and expensive to fix.</p>
+
+<hr>
+
+<h2>Pattern 3: Stakeholder Misalignment</h2>
+
+<p>Different stakeholders have different definitions of success, and nobody reconciled them before the POC started. The engineering team defines success as "model accuracy above threshold X." The business owner defines success as "reduces headcount by Y." The end users define success as "does not add steps to my workflow." The POC delivers on the engineering metric, fails the business metric, and the users hate it.</p>
+
+<p>At Mamaearth, we built a customer service AI that reached 85% query resolution accuracy - which the ML team celebrated. The business team's success criterion was 60-second average handle time reduction. The AI resolved queries accurately but slowly (12-second response latency), which actually increased handle time in some workflows. The metrics were never reconciled upfront.</p>
+
+<p><strong>The fix:</strong> Run a success criteria alignment workshop before the POC starts. Get all stakeholders in a room (or a doc), list every proposed success metric, and force agreement on: which metric is the primary success criterion, what the minimum bar is for each metric, and what happens if metrics conflict. Document it. Revisit it at the midpoint review.</p>
+
+<hr>
+
+<h2>Pattern 4: Scope Creep Under the Hood</h2>
+
+<p>The POC starts with a focused use case and expands mid-flight as stakeholders see the demo and request extensions. Each extension sounds small. Cumulatively they transform a focused POC into an under-resourced MVP attempt that does none of the jobs well.</p>
+
+<p>The specific AI version of this pattern: the original POC scope is to summarize clinical notes. Midway through, someone asks "can it also answer questions about the note?" Then "can it flag important values?" Then "can it integrate with the EHR to pull context?" Each feature is technically feasible. Together they require three different architectural patterns, different evaluation datasets, and different compliance reviews. The original 8-week POC becomes a 6-month project that still does not have a clear success criteria.</p>
+
+<p><strong>The fix:</strong> Define the POC scope in a one-page document with a section titled "Out of Scope for This POC" that is as detailed as the in-scope section. When extension requests arrive, add them to a parking lot explicitly marked as Phase 2. Protect the POC scope ruthlessly. A successful narrow POC is worth more than a failed broad one.</p>
+
+<hr>
+
+<h2>Pattern 5: The Pilot Trap</h2>
+
+<p>The POC succeeds. The pilot launches. The pilot succeeds on the metrics. The organization declares victory and then... nothing happens. The AI product sits in pilot status for 12-18 months, never scaling, gradually losing the champion who drove the original POC, and eventually being quietly deprecated when priorities shift.</p>
+
+<p>The pilot trap is not a technology problem - it is an organizational change management problem. AI pilots that fail to scale almost always fail because the path from pilot to production was never planned. Who owns the production infrastructure? How does model improvement get prioritized? Who retrains the model when data drifts? What is the support escalation path? These questions seem like production problems and get deferred during the pilot - and then the pilot ends and nobody wants to own the answers.</p>
+
+<p><strong>The fix:</strong> Before the pilot launches, write the production handoff plan. Define: the engineering team that will own production, the model maintenance process, the escalation path, the vendor contract structure (if applicable), and the budget line. If you cannot get agreement on the production plan, the pilot has a very low probability of scaling regardless of how well it performs.</p>
+
+<hr>
+
+<h2>Pattern 6: Validation Theater</h2>
+
+<p>The POC appears to be validated but is not. This pattern is subtle and more common in regulated industries (healthcare, fintech, legal) where validation is a process requirement. The team runs validation steps that technically satisfy the requirement - a UAT session, a clinical review, a model accuracy report - without those steps actually stress-testing the system against real failure conditions.</p>
+
+<p>Validation theater often looks like: testing only on the best-case input distribution (not the long tail), using subject matter expert reviewers who are biased toward the technology working (the people who championed the POC), testing at low query volume (the system that handles 50 test queries may not handle 5,000 production queries), and defining evaluation criteria after seeing the results.</p>
+
+<p>In healthcare AI, validation theater can mean patient harm. In fintech, it can mean regulatory violations discovered post-launch. In CPG, it usually just means a feature that looks good in review meetings and underperforms in production.</p>
+
+<p><strong>The fix:</strong> Adversarial validation. Deliberately test against the failure conditions you mapped during PRD: adversarial inputs, demographic edge cases, high-load scenarios, ambiguous inputs, out-of-distribution queries. Include at least some reviewers who are skeptical of the technology or who will not personally benefit from the project being declared a success. The goal of validation is to break the system before users do.</p>
+
+<hr>
+
+<h2>Pattern 7: Integration Underestimation</h2>
+
+<p>The AI model works. The integration does not. This is the most technically frustrating failure pattern because the hard part - building an AI that performs well - succeeded, and the POC is killed by the plumbing.</p>
+
+<p>Enterprise AI integration is genuinely hard. EHR APIs have access control, throttle limits, and data format inconsistencies. Legacy systems were not designed for real-time AI inference. SSO and identity systems add authentication overhead. Compliance and security reviews add weeks to any new integration. Data pipelines that look simple in architecture diagrams require months of engineering when the source system has a decade of schema debt.</p>
+
+<p>The pattern is: the AI model is demoed via direct API access to a clean copy of the data. The production integration requires going through the EHR API, the hospital network firewall, the VPN, the authentication proxy, and a data transformation layer that handles 7 different historical schema versions. The "2-week integration" becomes a 4-month project that consumes the engineering bandwidth originally budgeted for model improvement.</p>
+
+<p><strong>The fix:</strong> Treat integration as a first-class risk, not an implementation detail. In the POC planning phase, do an integration discovery sprint: map every data source and system the AI needs to access, identify the access method, test a minimal integration proof-of-concept, and get a realistic estimate from the engineers who will own it. Double their estimate for budget and timeline purposes. Integration surprises are the most common reason a successful AI POC fails to scale.</p>
+
+<hr>
+
+<h2>The Common Thread</h2>
+
+<p>Every one of these failure patterns has the same root cause: decisions made under optimism rather than evidence. Demo-driven development optimizes for the best case. Data quality assumptions are made without verification. Success criteria are left ambiguous because alignment is hard. Scope expands because saying no is uncomfortable. Production plans are deferred because the pilot feels far away. Validation is designed to pass rather than to fail. Integration is estimated without discovery.</p>
+
+<p>The teams that consistently turn AI POCs into production systems share one habit: they do the uncomfortable work upfront. They test with bad data before they know if the model works. They align on success criteria before they see the results. They plan the production handoff before the pilot starts. This upfront work is not sexy and does not make for good conference talks. It is why some AI projects ship and others spend a year in perpetual pilot status.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+<li><a href="https://www.devangshumitra.com/the-shadow-ai-problem-when-your-team-uses-ai-tools-you-dont-know-about-2/">The Shadow AI Problem: When Your Team Uses AI Tools You Don't Know About</a></li>
+<li><a href="https://www.devangshumitra.com/why-ai-teams-need-product-managers-not-project-managers/">Why AI Teams Need Product Managers, Not Project Managers</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/openai-vs-anthropic-vs-google-enterprise-ai-platform-comparison-2026/">OpenAI vs Anthropic vs Google: Enterprise AI Platform Comparison 2026</a></li>
+<li><a href="https://www.devangshumitra.com/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/">Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-ai-in-life-sciences-a-framework-for-enterprise-decision-makers/">Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

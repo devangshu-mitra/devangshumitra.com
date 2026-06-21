@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Compare Flatiron Health vs Medidata real-world evidence platforms to choose" />
+  <meta property="og:title" content="Flatiron Health vs. Medidata: Real-World Evidence Platforms Compared — Devangshu Mitra" />
+  <meta property="og:description" content="Compare Flatiron Health vs Medidata real-world evidence platforms to choose" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Flatiron Health vs. Medidata: Real-World Evidence Platforms Compared — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-02-09" itemprop="datePublished">Feb 9, 2026</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Flatiron Health vs. Medidata: Real-World Evidence Platforms Compared</h1>
+          <p class="post-header__excerpt" itemprop="description">Compare Flatiron Health vs Medidata real-world evidence platforms to choose</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Flatiron Health vs. Medidata: Real-World Evidence Platforms Compared</h1>
+
+<p>Real-world evidence (RWE) has moved from a nice-to-have supplement to clinical trials to a critical component of regulatory submissions, payer negotiations, and clinical decision-making. Flatiron Health and Medidata (a Dassault Systèmes company) represent two distinct approaches to generating and analyzing RWE, and understanding their differences matters for anyone building products in the clinical evidence space.</p>
+
+<h2>Origin and Focus</h2>
+
+<p><strong>Flatiron Health</strong> (acquired by Roche in 2018 for $1.9B) started as an oncology-focused EHR company and evolved into a real-world data platform. Their core asset is a curated, longitudinal oncology dataset derived from 280+ community cancer clinics using Flatiron's OncoEMR and partner EHR systems. They've expanded beyond oncology but it remains their stronghold.</p>
+
+<p><strong>Medidata</strong> (acquired by Dassault Systèmes in 2019 for $5.8B) started as a clinical trial management platform (Medidata Rave) and expanded into synthetic control arms and RWE through Medidata Acorn AI. Their core asset is 30,000+ clinical trials with 9M+ patient records, plus partnerships with health data aggregators.</p>
+
+<h2>Data Sources and Quality</h2>
+
+<p><strong>Flatiron:</strong> Structured EHR data + manually abstracted clinical data from medical charts. Flatiron employs 3,000+ clinical data abstractors (technology-assisted) who review physician notes, pathology reports, and imaging results to extract structured endpoints like progression-free survival, line of therapy, and biomarker status. This human-in-the-loop curation is expensive but produces research-grade data that the FDA has accepted in regulatory submissions.</p>
+
+<p><strong>Medidata:</strong> Clinical trial data (structured, protocol-defined) + claims data + EHR partnerships. Medidata's trial data is inherently high-quality because it's collected under GCP protocols with monitoring. Their RWE offering (Acorn AI) synthesizes trial data with real-world claims to build synthetic control arms - using historical trial patients as comparators for single-arm studies.</p>
+
+<h2>Regulatory Acceptance</h2>
+
+<p><strong>Flatiron:</strong> Strong FDA track record. Flatiron data has been used in 20+ FDA submissions, including label expansions and post-marketing commitments. The FDA's Oncology Center of Excellence has specifically cited Flatiron data in guidance documents. Roche/Genentech uses Flatiron data extensively for regulatory strategy.</p>
+
+<p><strong>Medidata:</strong> Growing regulatory footprint, particularly for external control arms. Medidata's synthetic control arm approach was used in Bavarian Nordic's FDA approval of JYNNEOS (smallpox/monkeypox vaccine) - one of the first approvals using synthetic controls. The approach is gaining traction for rare diseases where randomized controlled trials are impractical.</p>
+
+<h2>AI and Analytics</h2>
+
+<p><strong>Flatiron:</strong> NLP models for chart abstraction acceleration (reducing manual review time by 40-60%), automated endpoint detection, and cohort identification. Flatiron's AI is primarily used to make human curation faster, not to replace it. Their approach prioritizes data quality over automation speed.</p>
+
+<p><strong>Medidata:</strong> AI-powered patient matching for clinical trials, synthetic control arm generation using propensity score matching and causal inference, and predictive enrollment modeling. Medidata's Intelligent Trials platform uses ML to optimize trial design, site selection, and patient recruitment.</p>
+
+<h2>Use Cases</h2>
+
+<p><strong>Choose Flatiron</strong> for: oncology-specific RWE studies, FDA regulatory submissions requiring curated real-world data, comparative effectiveness research, post-marketing safety surveillance in oncology, and commercial analytics (market share, treatment patterns).</p>
+
+<p><strong>Choose Medidata</strong> for: clinical trial optimization and design, synthetic/external control arms for single-arm trials, multi-therapeutic area RWE (Medidata's trial data spans all disease areas), and integrated trial-to-RWE workflows where you need both clinical trial management and real-world evidence from one platform.</p>
+
+<h2>Data Governance and Lineage</h2>
+
+<p>When you work with RWE for regulatory purposes, tracing data back to its origin is non-negotiable. This is where data governance frameworks become critical. Flatiron Health, with its deeply integrated OncoEMR, maintains a tight chain of custody from patient visit to abstracted data point. They track every manual abstraction, noting who performed it, when, and any subsequent quality checks. This detailed audit trail is essential for satisfying regulators, especially for the FDA's expectations around data integrity and the principles of 21 CFR Part 11 concerning electronic records. The ability to show an unbroken lineage for each data element offers a high level of confidence.</p>
+
+<p>Medidata, by contrast, often works with a wider array of data sources. When combining clinical trial data with claims or external EHR data for synthetic control arms, the challenge shifts to harmonizing disparate datasets. Each source comes with its own data dictionary and collection methodology. Medidata Acorn AI's approach involves sophisticated mapping and normalization techniques. They establish clear data provenance, documenting the transformations applied to each dataset. This transparency is crucial for regulators reviewing external control arm submissions. They need to understand how different data types are integrated and how potential biases from varied collection methods are addressed.</p>
+
+<h2>Clinical Workflow Integration</h2>
+
+<p>The impact of these platforms on actual clinical operations differs significantly. Flatiron's model is deeply embedded in oncology clinics using OncoEMR. Data collection for research often happens as a byproduct of routine care. Their abstractors work with the raw clinical notes and reports generated by physicians and nurses. This means clinic staff usually don't have to perform extra data entry for research purposes. The challenge for clinics lies more in ensuring complete documentation and consenting patients for data use. It's a continuous, passive flow of information from patient interaction to research dataset.</p>
+
+<p>Medidata's primary integration point is the clinical trial itself, via Medidata Rave EDC. For RWE, their integration involves connecting to various external data partners. This isn't about influencing a specific clinic's day-to-day EHR usage directly. Instead, it's about intelligent ingestion and harmonization of large, pre-existing datasets. For instance, in a rare disease trial, Medidata might integrate registry data or specific claims data feeds to build a more complete picture of patient journeys. This approach less directly impacts the individual clinician's workflow but requires strong data sharing agreements and technical integrations with data vendors.</p>
+
+<h2>Operational Models and Talent</h2>
+
+<p>Building these platforms requires distinct operational models and talent pools. Flatiron's emphasis on human-in-the-loop data abstraction means a significant investment in a specialized workforce. I've observed that managing thousands of clinical data abstractors involves rigorous training programs, ongoing quality assurance, and inter-rater reliability checks. Their operational focus is on scaling this human curation while maintaining consistency. AI tools serve to make these abstractors more efficient, like using natural language processing to pre-highlight relevant sections in a physician's note, not to replace their judgment.</p>
+
+<p>Medidata's operational strength lies in its biostatistical and data science expertise, coupled with clinical trial operations knowledge. Their team focuses on developing sophisticated algorithms for patient matching, causal inference, and predictive modeling. The talent here leans heavily towards quantitative methods and software engineering. When they acquire external data, the challenge is less about manual abstraction and more about data engineering, harmonization, and statistical validity. They build the frameworks to make diverse data speak a common language, then apply advanced analytics to derive insights for trial design or synthetic controls.</p>
+
+<h2>The Convergence</h2>
+
+<p>Both platforms are converging toward the same vision: an integrated evidence generation platform that spans clinical trials and real-world data. Flatiron is adding trial capabilities (Flatiron Edge for decentralized trials). Medidata is deepening RWE partnerships. The winner will be whoever can smoothly connect prospective trial data with retrospective real-world data in a single analytical environment.</p>
+
+<p>For product managers in clinical evidence, the lesson is clear: the artificial boundary between "clinical trial data" and "real-world data" is dissolving. Build your products for a world where evidence is continuous, not episodic.</p>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/fdas-new-ai-guidance-decoded-what-builders-need-to-know/">FDA's New AI Guidance Decoded: What Builders Need to Know</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

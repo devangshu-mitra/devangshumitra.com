@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI teams only measure model accuracy. Here&#39;s the 4-layer framework I" />
+  <meta property="og:title" content="AI Product Metrics Dashboard: What to Track and Why — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI teams only measure model accuracy. Here&#39;s the 4-layer framework I" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI Product Metrics Dashboard: What to Track and Why — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-06-21" itemprop="datePublished">Jun 21, 2025</time>
+            <span class="post-header__read-time">14 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI Product Metrics Dashboard: What to Track and Why</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI teams only measure model accuracy. Here's the 4-layer framework I</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI Product Metrics Dashboard: What to Track and Why</h1>
+
+<h2>The Dashboard That Saved Us From Shipping Garbage</h2>
+
+<p>Six months into launching an AI-powered clinical decision support tool, we had a problem nobody saw coming. The model was technically accurate - it passed all our validation benchmarks, held 92% precision on the test set, and our data science team was convinced it was production-ready. But three months after launch, we discovered something alarming: doctors were using it for exactly 8% of eligible patient cases.</p>
+
+<p>We had optimized the wrong things. We spent months chasing model metrics while ignoring the metrics that actually mattered: adoption, trust, and whether the tool was solving a real clinical workflow problem. The precision number was meaningless if clinicians didn't trust the output enough to use it. The recall was irrelevant if the tool created more work than it saved.</p>
+
+<p>That's when I realized we needed a different kind of dashboard - not a data science dashboard, but a product dashboard that tracked the intersection of what the model does, what users do, and whether the business actually benefits.</p>
+
+<p>I've built or rebuilt the metrics framework on five AI products since then. This is what I've learned about what actually matters to track.</p>
+
+<h2>Why Standard ML Metrics Fail as Product Metrics</h2>
+
+<p>Here's the thing about model performance metrics: they're necessary but they're also a trap. When I talk to product teams building AI systems, most are tracking accuracy, precision, recall, F1 score, RMSE - the standard ML handbook metrics. These tell you something useful about the model in isolation. They tell you almost nothing about whether the product is working.</p>
+
+<p>I worked on a demand forecasting AI for a retail supply chain. The model achieved 94% accuracy on hold-out test data. But the product was failing. We shipped forecasts that were technically correct but operationally useless. Here's why: the model was accurate at the aggregated level (total SKU demand for the month) but made terrible predictions at the store-location-SKU level, which is what actually mattered for inventory allocation. The aggregate accuracy masked granular failures.</p>
+
+<p>More broadly, I've seen three specific ways standard metrics mislead:</p>
+
+<ul>
+<li><strong>They hide distribution shift.</strong> Your model might maintain 88% accuracy overall but performance might have degraded catastrophically in one geographic region or for one customer segment. If you're only watching a single global accuracy number, you miss this entirely. I learned this painfully when a diagnostic AI we built for cancer detection worked great on academic datasets but failed significantly on images from older scanner hardware used in rural clinics.</li>
+<li><strong>They don't capture user behavior changes.</strong> A precision of 92% doesn't tell you if users are ignoring the model's predictions because they've learned it makes systematic mistakes in ways they don't trust. I watched a recommendation engine technically improve its metrics while the click-through rate dropped because the algorithm had become "too safe" - users knew it wouldn't surprise them with anything actually useful.</li>
+<li><strong>They miss the cost of false positives versus false negatives.</strong> A fraud detection system that's 95% accurate might be worthless if the 5% it misses cost you 10x what the caught fraud saves. But if you're only looking at an F1 score, you're blind to this trade-off. Different applications have completely different cost structures that a single metric can't capture.</li>
+</ul>
+
+<p>The dashboard I eventually built tracks model metrics, but it's only one quadrant. The other three quadrants answer: Is the product being used? Is it solving the user problem? Is it creating value?</p>
+
+<h2>The Four-Quadrant Framework That Actually Works</h2>
+
+<p>I've settled on a framework with four interconnected areas to track, and I've used some version of this on every AI product I've worked on since that clinical decision support disaster.</p>
+
+<p><strong>Quadrant 1: Model Performance - What the AI Actually Does</strong></p>
+
+<p>This is your baseline. You need to know if the model works as designed. But be specific about what that means for your use case.</p>
+
+<ul>
+<li><strong>Primary task metric:</strong> The metric that directly maps to your product promise. Not accuracy - the thing that matters. For a resume screening tool, it might be "time to first qualified candidate identified." For a radiology AI, it's sensitivity and specificity for the specific pathology, measured on data that represents real clinical variation.</li>
+<li><strong>Segment performance:</strong> Break your primary metric by the segments that matter operationally. Geography, customer cohort, data distribution, temporal pattern - whatever dimension determines whether your product works reliably across your market. I track this as a heatmap, flagging immediately when any segment drops below an acceptable threshold.</li>
+<li><strong>Failure mode specificity:</strong> Don't just track the number of errors. Track the types of errors your model makes and whether they're acceptable. When we built the demand forecasting tool, we separated "over-forecast by 10-20%" from "over-forecast by 200%" - very different operational impacts. Same aggregate error metric, totally different products.</li>
+<li><strong>Latency and computational cost:</strong> A model that works perfectly but takes 45 seconds to run is functionally broken for real-time applications. I've seen too many AI products built with beautiful accuracy and terrible operational characteristics. Track inference time, GPU/CPU utilization, and cost per prediction as core metrics, not afterthoughts.</li>
+</ul>
+
+<p><strong>Quadrant 2: Usage and Accessibility - Are Users Actually Using It</strong></p>
+
+<p>This is where I started paying attention after the clinical tool failure. A product nobody uses is a product that's not actually a product.</p>
+
+<ul>
+<li><strong>Active usage rate:</strong> What percentage of eligible users/cases are actually using the AI output? Not engagement rate in the marketing sense - specifically, for situations where the AI could be applied, how often is it? The clinical tool was 8%. Once we understood that number, we could actually diagnose the problem.</li>
+<li><strong>Interaction depth:</strong> How are users engaging with the AI output? Are they just looking at the recommendation, or are they drilling into explanations, comparing alternatives, using it to make a decision? On a product I built for biomarker prioritization in drug discovery, tracking whether scientists were clicking through to the underlying evidence was more predictive of actual adoption than the model's ranking accuracy.</li>
+<li><strong>Time-to-action:</strong> How long between the user seeing the AI output and taking an action? Long latency often means the output arrived too late or wasn't trust-worthy enough to drive immediate action. When this metric spiked, it usually pointed to a specific workflow problem or a trust issue.</li>
+<li><strong>Abandonment and fallback patterns:</strong> When users don't use the AI output, what do they do instead? Run a competing tool? Make a manual decision? This tells you whether you're solving the right problem or just adding another step to an existing workflow. I've found that segmenting abandonment - which user types abandon, in which contexts, at what frequency - is way more valuable than a single abandonment rate.</li>
+</ul>
+
+<p><strong>Quadrant 3: User Trust and Satisfaction - Do Users Actually Believe It</strong></p>
+
+<p>This one's harder to quantify, but it's critical. I've seen technically superior AI products fail because users didn't trust them, and mediocre ones succeed because they built trust.</p>
+
+<ul>
+<li><strong>Confidence in output:</strong> Direct signal if you can get it. After users see the AI recommendation, do they express confidence in it? For some products, this is a explicit rating. For others, it's implicit - do they agree with it, do they use it? I've found that confidence drops systematically when the model makes specific types of errors, even if those errors are rare. One false negative on a cancer detection recommendation can destroy confidence across an entire user segment.</li>
+<li><strong>Explainability consumption:</strong> Do users actually read/use the explanations you provide? If you built an explainable AI but users never look at the explanations, you spent effort on the wrong thing. I track which explanations get expanded, which get copied, which get shared with colleagues. Low numbers suggest either the explanations aren't valuable or the UI is burying them.</li>
+<li><strong>Override rate:</strong> When the AI makes a recommendation, how often do users go with a different choice? High override rates aren't always bad - sometimes your model is wrong and users know it. But if override rates are consistently high and concentrated in specific scenarios, you have a model-user alignment problem. When this happened with the demand forecasting tool, we discovered the model was missing seasonal patterns that field teams understood intuitively.</li>
+<li><strong>Comparative trust markers:</strong> If users have access to alternative information sources or tools, which do they trust more? This is sometimes explicit (surveys) but more often implicit (which information do they act on first). When a recommendation came from your AI but they checked a competing tool before acting, that's a trust deficit you need to address.</li>
+</ul>
+
+<p><strong>Quadrant 4: Business Impact - Does This Actually Matter</strong></p>
+
+<p>This is the easiest to measure and the easiest to get wrong. I've seen teams measure business metrics that have almost nothing to do with whether the product actually works.</p>
+
+<ul>
+<li><strong>Decision velocity improvement:</strong> The most direct impact metric for decision support AI. How much faster can users make decisions when using the AI? Be specific - measure the time from problem identification to decision, comparing cohorts with and without the AI. I've found that velocity gains tend to be in the 20-40% range for well-designed systems; if you're seeing smaller improvements, the AI isn't actually changing the workflow.</li>
+<li><strong>Cost per outcome:</strong> What's the actual cost structure change? For a clinical tool, it might be cost per diagnosis made. For supply chain, cost per unit forecasted. The key is measuring the cost of achieving the outcome with and without the AI. This often reveals that your AI is working but not efficiently enough to justify the computational cost.</li>
+<li><strong>Quality improvement on outcomes that matter:</strong> Be ruthlessly specific about what quality means. Not "user satisfaction with recommendations" - actual outcome quality. For the clinical tool, quality meant diagnostic accuracy and treatment appropriateness. For the forecasting tool, it was fill rate (inventory available when needed) and markdown percentage (excess inventory written off). These are the metrics that justify why you built this product in the first place.</li>
+<li><strong>Value realization timeline:</strong> When did users start getting value? This matters because there's often a lag between deployment and impact. The clinical tool took 3 months for usage to reach 30% (the tipping point where enough clinicians trusted it to change behavior). If you're measuring impact at week 4 and seeing nothing, you might kill a product that's actually working.</li>
+</ul>
+
+<h2>Building the Dashboard: The Actual Implementation</h2>
+
+<p>I've built these dashboards differently depending on the product maturity stage and organizational setup. Here's my practical process.</p>
+
+<p><strong>Month 1-2: Data Foundation</strong></p>
+
+<p>Before you build dashboards, you need instrumentation. Most AI products have terrible instrumentation because we tend to focus on model training data and not enough on product usage data.</p>
+
+<ol>
+<li>Map every place where your AI output touches a user. For a diagnostic tool, that's the interface showing the recommendation. For a backend system, it's the API call. Every touchpoint needs an event.</li>
+<li>Instrument user actions around the AI output. Which buttons did they click? Did they expand explanations? How long did they look at the screen? Did they take an action and what was it? Don't go crazy here - pick 8-12 critical behaviors that map to your four quadrants.</li>
+<li>Connect the AI output to the actual outcome. This is where most teams fail. Your system makes a recommendation, but what actually happened as a result? Did the user act on it? Did the outcome match the recommendation? You need a way to trace from prediction to outcome, which often requires changes to how you log and store data.</li>
+<li>Get baseline measurements before deploying to production. Run the AI on historical data and measure what the metrics would have been. This gives you a control to compare against once you ship.</li>
+</ol>
+
+<p><strong>Month 2-3: Metric Definition and Acceptance Criteria</strong></p>
+
+<p>Before you launch, decide what success looks like. I do this in a structured way:</p>
+
+<ul>
+<li>For each quadrant, define the primary metric and the acceptable range. This shouldn't be a guess - it should be based on your baseline, comparable products, or business requirements. For the clinical tool, we defined "active usage rate above 25% within 3 months" based on historical adoption patterns for similar decision support tools.</li>
+<li>Define leading indicators - metrics that predict whether your primary metrics will hit targets. For usage adoption, leading indicators might include time-to-first-use, initial interaction depth, and early confidence signals. These let you course-correct faster than waiting for full-cycle usage data.</li>
+<li>Define which metrics are go/no-go versus diagnostic. Usage rate might be go/no-go - if it doesn't hit 20% in 90 days, you need a product intervention. But override rate might be diagnostic - it tells you something's wrong, but you need to investigate further before taking action.</li>
+<li>Set review cadence. I check core metrics daily but review the full dashboard weekly. This catches catastrophic failures immediately but avoids over-reacting to noise. Monthly deep dives go into segment performance and failure mode analysis.</li>
+</ul>
+
+<p><strong>Month 3 onwards: Operating Rhythm</strong></p>
+
+<p>Once you're live, the dashboard becomes part of how you actually run the product.</p>
+
+<ul>
+<li><strong>Daily standups (5 minutes):</strong> Model performance - are we seeing any catastrophic failures, significant latency degradation, or error rate spikes? This is your "the system is on fire" check.</li>
+<li><strong>Weekly reviews (30 minutes):</strong> Full dashboard. Are usage metrics tracking to target? Are there any segment performance issues? Are we seeing trust/confidence signals declining anywhere? This is where you catch problems early enough to actually do something about them.</li>
+<li><strong>Monthly deep dives (2-3 hours):</strong> Dig into the diagnostic metrics. If usage is below target, why? Are we in certain verticals but not others? Early in the deployment window or plateauing? Are there specific override patterns that reveal model weaknesses? These sessions usually spawn product or model improvement work.</li>
+<li><strong>Quarterly reviews:</strong> Step back. Are the metrics we're tracking still the right ones? Have we learned something that should change how we measure success? I've found that what matters changes as products mature - early on, it's all about adoption. Later, it's about expanding use cases or improving efficiency.</li>
+</ul>
+
+<h2>Common Mistakes and How to Avoid Them</h2>
+
+<p>I've made all of these. Here's what I'd tell my earlier self.</p>
+
+<p><strong>Mistake 1: Using aggregated metrics when you should be segmented</strong></p>
+
+<p>This is the most common failure. You're looking at "average usage is 40%" but actually, in one geographic region, it's 65%, and in another, it's 18%. The aggregated metric hides the fact that you have a regional problem - maybe the data quality is poor in one region, or the workflow is different, or there's a language barrier.</p>
+
+<p>I now segment everything from day one - by geography, customer size, user role, data source, time since deployment. If a metric looks good aggregated but there's a segment where it's terrible, that's a real product problem you need to fix.</p>
+
+<p><strong>Mistake 2: Treating correlation between metrics as causation</strong></p>
+
+<p>You notice that whenever confidence scores are high, usage is high. So you assume confident users use the tool more. But actually, high-confidence recommendations come from high-quality input data, which is also the scenario where users actually need decision support most. You're seeing the same underlying cause drive both metrics.</p>
+
+<p>I now explicitly test which metrics have causal relationships versus which are just correlated signals of something else. This prevents me from building wrong solutions to wrong problems.</p>
+
+<p><strong>Mistake 3: Optimizing for easy-to-measure metrics instead of important ones</strong></p>
+
+<p>Latency is easy to measure. Clinical outcome improvement is hard. So I've watched teams optimize latency obsessively while ignoring whether the tool was actually improving clinical decisions. They'll get latency down to 100ms when it only matters if you get under 5 seconds, and meanwhile the model is missing critical cases.</p>
+
+<p>I now explicitly separate "easy to measure" from "important" and accept that I'll spend more energy on the important ones. Sometimes that means building custom measurement infrastructure or running small studies. Worth it.</p>
+
+<p><strong>Mistake 4: Waiting too long for perfect data</strong></p>
+
+<p>You want to measure "patient outcome 90 days after diagnosis" but that means waiting 90 days for signal. During that time, you're flying blind on whether the product</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter-beyond-accuracy/">AI Product Metrics That Actually Matter: Beyond Accuracy</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter-beyond-accuracy/">AI Product Metrics That Actually Matter: Beyond Accuracy</a></li>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

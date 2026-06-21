@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A PM-friendly guide to RAG architecture decisions. Covers the decision tree," />
+  <meta property="og:title" content="RAG Architecture Decision Guide: When to Use What — Devangshu Mitra" />
+  <meta property="og:description" content="A PM-friendly guide to RAG architecture decisions. Covers the decision tree," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RAG Architecture Decision Guide: When to Use What — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-06-09" itemprop="datePublished">Jun 9, 2025</time>
+            <span class="post-header__read-time">12 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RAG Architecture Decision Guide: When to Use What</h1>
+          <p class="post-header__excerpt" itemprop="description">A PM-friendly guide to RAG architecture decisions. Covers the decision tree,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RAG Architecture Decision Guide: When to Use What</h1>
+
+<h2>The Wrong Architecture Cost Us Six Months</h2>
+
+<p>We were building a clinical decision support tool for a major health system. Doctors needed fast answers: given a patient's labs, imaging, and history, what's the most likely diagnosis and what should we test next? Simple enough on paper.</p>
+
+<p>Our first instinct was straightforward RAG. We chunked 50GB of clinical literature, threw it at a vector database, and pointed an LLM at it. The system worked. Answers came back in under 2 seconds. Clinicians hated it.</p>
+
+<p>The problem wasn't speed or accuracy on obvious cases. It was edge cases. A 52-year-old woman with elevated liver enzymes and fatigue would retrieve textbook hepatitis content, miss the fact that she was on a specific medication that caused autoimmune hepatitis, and confidently suggest workups for viral hepatitis. The retrieval was "correct" but clinically dangerous because it lacked context about drug interactions and patient-specific nuances.</p>
+
+<p>We rebuilt it. Twice. First as a hybrid system mixing RAG with fine-tuned embeddings. Then as a multi-stage system combining retrieval with entity extraction and structured reasoning. The second rebuild took three months of engineering and validation that we could have avoided with better upfront architecture thinking.</p>
+
+<p>This is the real problem RAG architecture decisions hide: there's no one-size-fits-all answer. You need a framework to match the right architecture to your actual use case, data characteristics, and operational constraints. That's what I'm sharing here.</p>
+
+<h2>Understanding Your Actual Constraint</h2>
+
+<p>Before you pick an architecture, you need to name the real bottleneck. Most teams skip this and start building. Don't.</p>
+
+<p>RAG architectures sit on a spectrum. On one end: simple retrieval augmented generation. You embed queries, fetch similar documents, pass them to an LLM. It's stateless, fast, and good for factual Q&A. On the other end: dense retrieval chains with ranking, re-ranking, entity extraction, knowledge graphs, and multi-hop reasoning. It's stateful, slower, and handles complex reasoning better.</p>
+
+<p>Your constraint determines where on that spectrum you actually need to be. I've seen teams build toward the complex end because it felt like the "real" AI approach. I've also seen teams stay at the simple end and suffer from cascading failures because they needed reasoning they couldn't express through retrieval.</p>
+
+<p>Here's how to diagnose your actual constraint:</p>
+
+<ul>
+<li><strong>Recall constraint:</strong> Are queries failing because the system can't find relevant information? This shows up as "the answer is in the docs but the system gave you something else." Clinical decision support, legal research, and compliance checking hit this hard. You need better retrieval.</li>
+<li><strong>Precision constraint:</strong> Are you getting relevant results but noisy ones? The system retrieves three documents, two are useful, one contradicts the question. This is common in customer support and product documentation. You need better ranking or filtering.</li>
+<li><strong>Reasoning constraint:</strong> Are you getting relevant information but the LLM can't synthesize it correctly? The docs say "Patient has condition A and is on drug B" but the model doesn't infer "A+B is contraindicated." You need structured reasoning, not just better retrieval.</li>
+<li><strong>Latency constraint:</strong> Does your use case demand sub-second responses? Clinical workflows, real-time monitoring, and interactive applications have hard latency budgets. Simple RAG wins here. Multi-stage systems may not fit.</li>
+<li><strong>Freshness constraint:</strong> How often does your source data change? Constantly-updating information (news, stock prices, real-time monitoring) needs different architecture than static knowledge (medical guidelines, legal precedent). Real-time indexing vs. batch processing is a fundamental split.</li>
+<li><strong>Hallucination constraint:</strong> How bad is wrong information? In research synthesis, slightly inaccurate is maybe acceptable. In clinical medicine or legal advice, hallucination is unacceptable. This drives toward retrieval-grounded approaches and away from pure generation.</li>
+</ul>
+
+<p>Most projects actually have 2-3 primary constraints, not one. Name them explicitly. Write them down. This is the most important step and I've never seen a team regret spending 2 hours getting this right.</p>
+
+<h2>A Decision Framework That Actually Works</h2>
+
+<p>Once you name your constraints, here's the framework I use to pick an architecture:</p>
+
+<p><strong>Start with a constraint matrix.</strong> Make three columns: constraint, impact (high/medium/low), and current capability. For the clinical decision support tool, it looked like this:</p>
+
+<ul>
+<li>Recall: High impact, low capability (missing edge cases)</li>
+<li>Reasoning: High impact, low capability (drug interactions not surfaced)</li>
+<li>Latency: Medium impact, medium capability (2 seconds acceptable, not 10)</li>
+<li>Hallucination: High impact, medium capability (sometimes wrong)</li>
+<li>Freshness: Medium impact, medium capability (guidelines change monthly)</li>
+</ul>
+
+<p>This immediately told us: don't optimize for latency, optimize for recall and reasoning. Simple RAG was the wrong choice.</p>
+
+<p><strong>Map constraints to architectural patterns.</strong> High recall + high reasoning = you need retrieval that goes beyond keyword/semantic similarity. High precision + latency = you need fast ranking. High hallucination risk = you need grounding and verification.</p>
+
+<p>Here's the mapping I've found reliable:</p>
+
+<ul>
+<li><strong>Simple RAG (embed -> retrieve -> generate):</strong> High precision, low hallucination risk, good latency, weak reasoning. Use for: FAQs, customer support, product documentation, straightforward fact lookup.</li>
+<li><strong>Hierarchical RAG (chunk at multiple levels):</strong> Better recall on complex documents, moderate latency. Use for: technical documentation, legal contracts, long clinical notes where context matters.</li>
+<li><strong>Multi-stage retrieval (retrieve -> rank -> re-rank):</strong> High precision, acceptable latency, medium recall. Use for: semantic search, information retrieval where you want the best results in top-5.</li>
+<li><strong>Retrieval + reasoning (retrieve facts, structure them, reason explicitly):</strong> High recall, high reasoning, slower, grounded outputs. Use for: medical diagnosis, legal analysis, technical troubleshooting, any domain where you need to infer beyond what's explicitly stated.</li>
+<li><strong>Knowledge graphs + RAG:</strong> Excellent for multi-hop reasoning and relationship discovery. Slower to build and maintain. Use for: entity-rich domains (pharma drug interactions, organizational hierarchies, supply chain), when relationships matter as much as facts.</li>
+<li><strong>Agentic RAG (retrieval as a tool within reasoning loop):</strong> Best reasoning, slowest, highest complexity. Use for: research synthesis, root cause analysis, domains where you don't know what you need to retrieve until you start reasoning.</li>
+</ul>
+
+<p>For our clinical tool: retrieval + reasoning (with knowledge graph for drug interactions) was the right call. Not the flashiest architecture, but it matched our constraints.</p>
+
+<h2>Building It Step by Step</h2>
+
+<p>Let's say you've decided on multi-stage retrieval. Here's how you actually build it without wasting three months:</p>
+
+<p><strong>Phase 1: Establish a baseline (1-2 weeks)</strong></p>
+
+<p>Build simple RAG first. Seriously. Chunk your documents, embed them, set up a basic vector store, wire it to an LLM. It takes a week. You'll learn more from a working baseline than from architecture debates. Run it against your test set. Measure recall, precision, latency. This becomes your north star.</p>
+
+<p>For the clinical tool, simple RAG gave us 62% recall on test cases. Good enough to see it fail. That 62% number was crucial - we knew exactly what we were trying to improve.</p>
+
+<p><strong>Phase 2: Diagnose failures (1-2 weeks)</strong></p>
+
+<p>Take the cases where simple RAG failed. Actually read them. Categorize failures:</p>
+
+<ul>
+<li>Retrieval failures: the right document exists but wasn't retrieved</li>
+<li>Ranking failures: the right document was retrieved but ranked low</li>
+<li>Generation failures: the right documents were provided but the LLM misinterpreted them</li>
+</ul>
+
+<p>For us: 40% of failures were retrieval (drug interaction information was in the database but semantic search didn't find it), 35% were reasoning (docs were retrieved but the model didn't synthesize across multiple documents), 25% were ranking (too many results, good answer buried).</p>
+
+<p>This distribution tells you exactly what to build next. We needed better retrieval for entities (drugs) and better ranking. This is not obvious without doing the work.</p>
+
+<p><strong>Phase 3: Targeted improvement (2-4 weeks)</strong></p>
+
+<p>Don't rebuild everything. Fix the top failure category first. For us: retrieval. We added entity recognition before embedding queries. Instead of searching for "patient on lisinopril with elevated liver enzymes", we extracted "drug: lisinopril, finding: hepatotoxicity" and used that to bias retrieval toward drug-safety content. Recall jumped to 78%.</p>
+
+<p>Then we tackled ranking. We added a learned ranker on top of semantic search. Not a heavy model - just a small classifier that scored retrieved documents. This pushed precision up and got good answers into the top-3. Latency stayed under 3 seconds.</p>
+
+<p><strong>Phase 4: Structured reasoning (3-6 weeks)</strong></p>
+
+<p>Only after retrieval and ranking are working do you add reasoning. We added a structured extraction step: given retrieved documents, extract entities and relationships. Then explicit reasoning: if drug X causes adverse effect Y and patient is on drug X, flag it. This is the phase where you might add a knowledge graph, but only if your failures specifically require it.</p>
+
+<p>We didn't need a full knowledge graph. We needed to connect drug names to known hepatotoxic drugs. A small structured reference table plus explicit reasoning rules was enough.</p>
+
+<p><strong>Phase 5: Verification and grounding (ongoing)</strong></p>
+
+<p>At each stage, measure against your original constraint list. Did latency creep up past acceptable? Are hallucinations increasing? Is recall actually better on real cases or just your test set?</p>
+
+<p>We validated everything against a holdout test set of 200 real patient cases reviewed by clinicians. That's the only score that mattered. Test set metrics are useful signals, but clinical relevance is the truth.</p>
+
+<h2>Mistakes I've Seen (And Made)</h2>
+
+<p><strong>Building for scale before proving utility.</strong> Teams optimize for throughput, latency, and cost before validating that the system actually works for real use cases. You end up with a fast system that gives wrong answers. I've seen this destroy projects. Build for correctness first. Scale the correct solution.</p>
+
+<p><strong>Assuming vector similarity is retrieval.</strong> It's not. Vector databases are great for semantic search but terrible for exact matching, numeric ranges, and categorical filtering. For clinical data: a vector search might find "elevated liver enzymes" but miss "patient is on acetaminophen" (crucial context). Use hybrid search. Combine vector similarity with keyword/attribute matching. This alone improved our clinical tool's recall by 12 points.</p>
+
+<p><strong>Fine-tuning for the wrong problem.</strong> Teams fine-tune embeddings or language models thinking it'll fix retrieval. Sometimes it helps. Usually it doesn't. The problem is often architectural (you need structured reasoning, not better embeddings). I've watched teams spend 4 weeks fine-tuning embeddings for 2 point gains when a better chunking strategy would've given 15 points. Diagnosis before solution.</p>
+
+<p><strong>Ignoring chunking strategies.</strong> Everyone talks about retrieval and generation. Nobody talks about chunking. It's where a huge amount of failure lives. Chunks too small: you lose context. Chunks too large: retrieval becomes noisy. For clinical documents, we shifted from fixed 512-token chunks to semantic boundaries (by clinical concept). Retrieval precision jumped 18 points. Chunking is not boring - it's where half your wins live.</p>
+
+<p><strong>Not measuring what you care about.</strong> Teams measure NDCG and MRR because they're standard IR metrics. They don't measure whether the system actually helps users. We measured both: retrieval metrics plus clinician satisfaction and decision quality. Turns out you can have high retrieval metrics and still have clinicians distrust the system if explanations don't match their mental model. Measure what matters for your actual user.</p>
+
+<p><strong>Treating RAG as retrieval-only.</strong> RAG is "Retrieval Augmented Generation" but teams focus 80% on retrieval and 20% on the generation side. The LLM side matters enormously. Prompt engineering, model selection, output grounding - these can be bigger levers than retrieval optimization. We spent weeks improving retrieval by 5 points. Switching from GPT-3.5 to GPT-4 and using better prompts gave us 12 points. The models matter.</p>
+
+<h2>Real Examples: Where Each Architecture Won</h2>
+
+<p><strong>Simple RAG for a medical device company's support system</strong></p>
+
+<p>They had 2,000 customer support tickets a week, mostly "how do I..." questions. Simple RAG: embed the knowledge base, retrieve relevant docs, generate answers. Fast, cheap, worked. 88% of tickets resolved without escalation. Why it worked: questions had clear answers in the knowledge base, latency mattered (support reps needed answers in seconds), hallucination was low-risk (worst case: customer gets sent to human support). Simple RAG was perfect. Over-architecture would've wasted resources.</p>
+
+<p><strong>Hierarchical RAG for a biotech contract analysis tool</strong></p>
+
+<p>Analyzing licensing agreements, clinical trial protocols, manufacturing contracts. Documents were 50-200 pages, dense with technical detail. Simple retrieval failed because relevant information was scattered across sections. We chunked hierarchically: document -> section -> paragraph. Retrieval first found the right document, then the right section, then the relevant paragraph. Precision and recall both improved. The hierarchy matched the actual structure of how humans read contracts.</p>
+
+<p><strong>Multi-stage retrieval for a MedTech search application</strong></p>
+
+<p>Sales engineers needed to find clinical evidence quickly. "Show me studies on this device's efficacy in this patient population." Simple semantic search gave too many results, good ones buried. We added a second stage: retrieve 50 candidates semantically, then rank by relevance to the specific population, study quality, recency. Top-5 results were now 85% relevant vs. 40% with simple retrieval. Still fast (sub-1 second), better results.</p>
+
+<p><strong>Retrieval + reasoning for a payer's prior authorization system</strong></p>
+
+<p>Pre-auth needed to check: is this medication indicated for this diagnosis? Is the patient on conflicting medications? Does the clinical picture match guideline recommendations? You can't answer these by retrieving treatment guidelines and hoping the LLM reasons correctly. We built explicit retrieval (fetch relevant guidelines), structured extraction (extract indication, contraindications, preferred agents), and rule-based reasoning (check if patient data matches guideline criteria). Accuracy jumped from 78% to 94%. Reasoning wasn't implicit in RAG, it was explicit in the architecture.</p>
+
+<p><strong>Agentic RAG for a pharma research synthesis system</strong></p>
+
+<p>Researchers needed to synthesize safety signals across clinical trials, case reports, pharmacovigilance databases. You don't know what to retrieve until you start investigating. We built an agent: given a safety question, the system decides what to retrieve (specific drug interactions? adverse event profiles? trial populations?), retrieves it, reasons about what it found, and decides if it needs more information. Slower (30-60 seconds) but researchers got synthesized answers they couldn't have generated manually. High-complexity architecture justified by complexity of the problem.</p>
+
+<h2>Your Next Steps</h2>
+
+<p><strong>This week:</strong> Write down your constraints. Spend 90 minutes with your team listing the actual hard requirements. Recall? Latency? Reasoning? Hallucination risk? Freshness? Name them. Estimate their impact and your current capability. Don't skip this.</p>
+
+<p><strong>Next week:</strong> Build simple RAG. Actually build it, don't design it. Run your test cases. Measure recall, precision, latency. Document what fails and why. This is your baseline.</p>
+
+<p><strong>Two weeks out:</strong> Diagnose your top failures. Are they retrieval? Ranking? Generation? Reasoning? Don't try to fix everything - fix the top category. That's your Phase 2</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework-beyond-benchmarks/">LLM Evaluation Framework: Beyond Benchmarks</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The most expensive decision in AI product development is the decision to" />
+  <meta property="og:title" content="Why AI Products Should Launch Ugly — Devangshu Mitra" />
+  <meta property="og:description" content="The most expensive decision in AI product development is the decision to" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Why AI Products Should Launch Ugly — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-07-05" itemprop="datePublished">Jul 5, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Why AI Products Should Launch Ugly</h1>
+          <p class="post-header__excerpt" itemprop="description">The most expensive decision in AI product development is the decision to</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Why AI Products Should Launch Ugly</h1>
+
+<p>There's a clinical decision support tool I know that has been in development for four years. It's technically excellent - the model is well-validated, the UX is clean, the integration is solid. It's also never been used by a patient-facing clinician in a real care setting, because every time it's close to launch, the team identifies another accuracy gap or edge case or workflow issue that delays it further.</p>
+
+<p>Meanwhile, a simpler competitor shipped eighteen months ago with a model that was, frankly, not as good. They now have usage data from 40 hospitals, thousands of clinician feedback points, and a product that has been improved through real-world use in ways the first team can't simulate no matter how many synthetic test cases they generate.</p>
+
+<p>The first team optimized for launch quality. The second team optimized for learning. The second team won.</p>
+
+<h2>The Fundamental Problem with Perfectionism in AI</h2>
+
+<p>AI products have a property that most software doesn't: <strong>the data you need to improve them only exists after real users use them</strong>. Edge cases you couldn't anticipate in development appear in the first week of production. Failure modes that seemed theoretical in testing turn out to be common patterns in the real world. User behaviors that weren't in your training distribution show up at 2x the rate you expected.</p>
+
+<p>The only way to get this data is to ship. Which means every day you spend perfecting the pre-launch version is a day you're not getting the real-world data that would make your product genuinely better.</p>
+
+<p>This creates a paradox: the product that launches with 85% accuracy and iterates will almost always surpass the product that launches at 95% accuracy twelve months later, because the 85% product has twelve months of real-world feedback that the 95% product doesn't. The longer you wait, the further behind you fall on the learning curve - even if your model is technically better at the moment of your delayed launch.</p>
+
+<h2>What Launching Ugly Actually Means</h2>
+
+<p>I want to be specific about what I mean, because this argument gets misused to justify shipping bad products.</p>
+
+<p>Launching ugly does not mean:</p>
+
+<ul>
+<li>Shipping a product that is unsafe or harmful. In healthcare, ugly has limits. You don't launch a clinical AI that hasn't met basic safety requirements.</li>
+<li>Shipping a product that you know is wrong in systematic ways and hiding that from users.</li>
+<li>Shipping without any feedback mechanism, so you can't learn from what goes wrong.</li>
+<li>Shipping to all users simultaneously when you could start with a small, consenting pilot group.</li>
+</ul>
+
+<p>Launching ugly does mean:</p>
+
+<ul>
+<li>Shipping before all edge cases are handled, with explicit disclosure of current limitations.</li>
+<li>Launching a narrower scope than you originally planned, doing the core use case well.</li>
+<li>Shipping an interface that works before it's polished, because function matters more than form at this stage.</li>
+<li>Accepting that the first version will need iteration and building the feedback infrastructure to enable that iteration.</li>
+</ul>
+
+<p>The minimum viable AI product isn't the minimum viable feature set. It's the minimum confidence that the product is useful and safe enough to learn from at scale.</p>
+
+<h2>The MVP Framework for AI</h2>
+
+<p>Standard MVP thinking translates awkwardly to AI because the quality floor is different. An MVP web app can launch with bugs and missing features - users are forgiving of imperfect software. An MVP AI system that gives wrong medical advice or approves fraudulent transactions isn't just imperfect - it's harmful. The floor is higher.</p>
+
+<p>The AI MVP framework I use has three requirements:</p>
+
+<h3>1. Accurate on the core case, with explicit scope limitation</h3>
+
+<p>The first version should be highly accurate on a narrow, well-defined problem. Not all problems - one problem. The scoping discipline is: what is the single highest-value use case we can handle reliably? Ship that. Explicitly tell users what the tool doesn't handle yet. Let them come to you with the use cases they need next.</p>
+
+<p>When I was at Edxcare building learning recommendations, the first version only recommended content from three subject areas where we had enough training data for reliable recommendations. We told learners clearly: we currently support Math, Science, and English, with more subjects coming soon. Learners in those three subjects got a great experience. We gathered real usage data. Within three months, we had enough to expand to five more subjects. This beat the alternative of building a mediocre system across all twelve subjects at launch.</p>
+
+<h3>2. Failing gracefully on out-of-scope cases</h3>
+
+<p>The corollary to narrow scope is that the product must handle out-of-scope cases gracefully rather than generating wrong outputs confidently. An AI that says it's not confident about this and recommends manual review is infinitely more trustworthy than an AI that gives a wrong answer with high confidence.</p>
+
+<p>This is a technical requirement: your model needs confidence calibration, and your product needs a graceful degradation path for low-confidence outputs. This is also a design requirement: the UX needs to make it easy for users to know when they're getting the AI's best guess versus when they're getting something it's certain about.</p>
+
+<h3>3. A feedback loop that captures when the model is wrong</h3>
+
+<p>The most important thing you build in the first version isn't the model. It's the feedback mechanism. How do users tell you when the output is wrong? How do you capture their corrections? How does that feedback flow back into your model improvement process?</p>
+
+<p>At minimum, this is a thumbs up / thumbs down on AI outputs. Better is a mechanism that captures specific corrections - the AI said X but I changed it to Y. Best is a workflow design where the natural user action of overriding or editing the AI's output is captured as training signal automatically.</p>
+
+<p>Google Maps improves its routing not primarily through satellite data updates but through the millions of users whose actual routes deviate from its recommendations. Every deviation is a correction signal. Every search for a business that Maps got wrong is a data point. The feedback loop is embedded in the product itself.</p>
+
+<h2>Managing the Risk of Launching Early</h2>
+
+<p>The risks of launching early are real. Users will encounter failure modes. Some of them will lose trust in the product. In some domains, failures have real consequences. These risks need to be managed, not dismissed.</p>
+
+<p>The tools for managing early launch risk:</p>
+
+<p><strong>Phased rollout.</strong> Start with users who have explicitly opted in to early access and understand the product's current limitations. This surfaces failure modes without exposing them to your full user base. Run a phased rollout - 5% of users, then 20%, then 50%, then 100% - so you can catch systematic failures before they're widespread.</p>
+
+<p><strong>Human-in-the-loop for high-stakes decisions.</strong> For decisions with significant consequences, keep a human review step in the initial version. Not because the human will necessarily catch every error the AI misses, but because it creates accountability, captures corrections as training signal, and maintains user trust during the period when trust is being established.</p>
+
+<p><strong>Clear scope communication.</strong> Tell users what the product is for, what it's not for, and what its current limitations are. Users who understand the product's scope are forgiving of failures within that scope. Users who expected more than the product delivers are unforgiving of failures they didn't expect.</p>
+
+<p><strong>Monitoring before, during, and after launch.</strong> Instrument everything. Track model performance, user feedback rates, override rates, and explicit error reports. Build dashboards that give you real-time visibility into how the product is performing. Problems you can see are problems you can fix. Problems you can't see become trust failures.</p>
+
+<h2>The Competitive Argument</h2>
+
+<p>Beyond the learning argument, there's a competitive argument for launching early. In most AI product categories, the winner is not determined by who builds the best model before launch. It's determined by who accumulates the most usage data and user feedback fastest after launch.</p>
+
+<p>This is because the gap between a 90% model and a 95% model is almost always closable - with enough data, enough feedback, and enough iterations, you can get there. But the gap between 12 months of real-world usage data and zero months of real-world usage data isn't closable by training a better model. That data doesn't exist yet.</p>
+
+<p>The teams that launch early and learn fast are playing a different game than the teams that launch late with a better model. They're not competing on pre-launch model performance. They're competing on post-launch learning velocity. And in that game, the calendar advantage compounds.</p>
+
+<p>Launch ugly. Learn fast. Improve continuously. That's how AI products actually get good.</p>
+
+<hr>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/why-most-ai-products-fail-before-they-launch/">Why Most AI Products Fail Before They Launch</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/why-most-ai-products-fail-before-they-launch/">Why Most AI Products Fail Before They Launch</a></li>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-alignment-canvas-for-ai-products/">Stakeholder Alignment Canvas for AI Products</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

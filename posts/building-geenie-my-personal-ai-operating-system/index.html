@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I&#39;m building an AI operating system for my life — not just a productivity" />
+  <meta property="og:title" content="Building Geenie: My Personal AI Operating System — Devangshu Mitra" />
+  <meta property="og:description" content="I&#39;m building an AI operating system for my life — not just a productivity" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building Geenie: My Personal AI Operating System — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Building in Public</span>
+            <time class="post-header__date" datetime="2025-04-13" itemprop="datePublished">Apr 13, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building Geenie: My Personal AI Operating System</h1>
+          <p class="post-header__excerpt" itemprop="description">I'm building an AI operating system for my life — not just a productivity</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building Geenie: My Personal AI Operating System</h1>
+
+<p>About six months ago I started calling my collection of automation scripts "Geenie" - partly as a joke, partly as an aspiration. The joke has slowly become serious. What started as a handful of Python scripts for publishing blog posts has grown into something that genuinely touches every major domain of my life. This is the story of building it, and why I think personal AI operating systems are the most underrated category of the current AI moment.</p>
+
+<h2>The Vision: A Full Life OS</h2>
+
+<p>I operate across four distinct domains, and they all have different rhythms, different tools, and different failure modes:</p>
+
+<p><strong>Work (HCLTech)</strong>: Leading AI product development across clinical trials, MedTech, and BioPharma platforms. High-stakes, fast-moving, requires deep domain knowledge and stakeholder management.</p>
+
+<p><strong>Content Creation</strong>: Building devangshumitra.com as a thought leadership platform - 155+ posts, 5 content pillars, podcast and video in progress. Requires consistent output and a functioning distribution strategy.</p>
+
+<p><strong>Ethlore</strong>: A D2C handloom saree brand I'm building with my brother. Sourcing from Indian weavers, Shopify storefront, early-stage marketing. Requires operational discipline and capital efficiency.</p>
+
+<p><strong>Personal</strong>: Health, finances, family, immigration, the unglamorous machinery of a life. Requires systems that work without constant attention, because attention is the scarce resource.</p>
+
+<p>The vision for Geenie isn't to automate any one of these domains. It's to create a unified operating layer that reduces the cognitive overhead of managing all four simultaneously.</p>
+
+<h2>The Architecture</h2>
+
+<p>I've written about the three-layer architecture before, but here's a quick recap:</p>
+
+<p><strong>Directives</strong> are Markdown SOPs in a <code>directives/</code> folder. They define what to do and why. They're living documents that get updated as the system learns. I have ~40 directives covering everything from batch publishing to meeting processing to analytics automation.</p>
+
+<p><strong>Orchestration</strong> is the AI layer - Claude acting as a thin routing layer. It reads directives, sequences execution steps, handles errors, and updates directives with learnings. It doesn't do the work. It decides what work to do.</p>
+
+<p><strong>Execution</strong> is deterministic Python. Fast, testable, reliable. No AI in the hot path unless it's genuinely necessary for the task.</p>
+
+<p>This separation exists because AI is probabilistic and business logic is deterministic. Mixing them produces systems that are unpredictably wrong. Separating them produces systems where the AI handles decisions and the code handles operations - and failures in either layer are diagnosable.</p>
+
+<h2>Modal: Serverless Infrastructure for Geenie</h2>
+
+<p>I deploy scheduled jobs and webhook-triggered workflows to Modal, a serverless compute platform. Modal handles the infrastructure concerns I don't want to think about: scaling, cold starts, secret management, GPU access when I need it.</p>
+
+<p>The Modal deployments run nightly or weekly jobs: analytics pulls, newsletter generation, content performance scoring, Ethlore inventory alerts. They're triggered on schedules, not manually. I wake up in the morning and the system has already done its overnight work.</p>
+
+<p>Every Modal job is wrapped with a Slack run logger I built - it posts to a private Slack channel when a job starts, completes, or fails. This means I have a real-time audit trail of everything Geenie is doing, without having to check dashboards. The Slack notification is the dashboard.</p>
+
+<h2>Self-Annealing: The Feature That Changed Everything</h2>
+
+<p>The most important feature in Geenie isn't a specific capability - it's the self-annealing loop. When a script fails, the system:</p>
+
+<ol>
+<li>Reads the error message and stack trace</li>
+<li>Fixes the script</li>
+<li>Tests the fix</li>
+<li>Updates the directive with what it learned</li>
+<li>Appends a changelog entry</li>
+</ol>
+
+<p>The system gets stronger with every failure. APIs change their rate limits - the directive gets updated. A scraping target changes its HTML structure - the parser gets fixed and the new selector gets documented. An authentication token format changes - the auth module gets updated and the new format gets noted for future reference.</p>
+
+<p>This is what makes Geenie feel different from a collection of automation scripts. A collection of scripts degrades over time as dependencies drift and APIs change. A self-annealing system actually improves over time because every error is a learning opportunity.</p>
+
+<h2>What's Working</h2>
+
+<p>The content pipeline is genuinely running. Posts go from topic idea to published in a few hours with maybe 30 minutes of my actual attention. The analytics pull surfaces actionable insights I would have missed if I were reading raw data manually. The newsletter draft appears in Ghost every Sunday morning ready for my editing pass.</p>
+
+<p>The Slack notification layer has been more valuable than I expected. I never have to wonder "did that job run?" - I can see in Slack exactly what ran, when, and whether it succeeded. Observability is underrated in personal automation systems.</p>
+
+<p>The directive-as-SOP pattern has made the system much more maintainable than I expected. When I want to change how something works, I update the directive first, then the execution script. Future-me (or future AI sessions) can understand what a script is supposed to do without reading the code.</p>
+
+<h2>What's Not Working Yet</h2>
+
+<p>The Ethlore integration is underdeveloped. I have Geenie handling some content marketing for Ethlore, but the inventory and order management automation I want hasn't been built yet. The Shopify APIs are well-documented - I just haven't had the time to build the integration properly. It's on the roadmap for Q2.</p>
+
+<p>The personal domain is the hardest to systematize. Finance tracking, habit management, health logging - these involve data sources that are fragmented, inconsistent, and deeply personal. I've started, stalled, and restarted this piece several times. The systems thinking that works cleanly for content doesn't map as neatly onto personal life. That's a real tension I don't have a clean answer to yet.</p>
+
+<p>The work domain automation is constrained by corporate IT. The most valuable automation for my HCLTech work would involve internal systems I can't hook into programmatically. I've built around the edges - meeting notes processing, stakeholder update drafting, research synthesis - but the core workflow still runs on corporate tools.</p>
+
+<h2>Why I'm Building This</h2>
+
+<p>The practical reason: I have too much to do and not enough time. Automation is the only sustainable path to maintaining quality across four demanding domains simultaneously.</p>
+
+<p>The philosophical reason: I think the biggest use point for individuals in the AI era is building personal systems that amplify your specific capabilities. Generic AI tools make everyone better at everything. Custom AI systems make you dramatically better at your specific work. That asymmetry is real, and it compounds over time.</p>
+
+<p>The experimental reason: I'm building AI products professionally. The best way to understand what enterprise users need from AI systems is to be a power user of those systems yourself. Every friction point I hit building Geenie is a product insight about what enterprise AI needs to do better.</p>
+
+<p>Geenie is 40% of the way to the vision. That's not a complaint - it's a trajectory. The parts that are working are working well, and the parts that aren't working have clear paths forward. That's a good place to be six months into building something that didn't exist at all a year ago.</p>
+
+<p>If you're building something similar - a personal AI OS, a life automation system, a workflow that actually reflects how you work rather than how productivity gurus think you should work - I'd genuinely love to compare notes. The space is under-documented and the builders are scattered. Find me on LinkedIn or reply here.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-personal-brand-from-scratch-month-1-retrospective/">Building a Personal Brand from Scratch: Month 1 Retrospective</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-month-1-what-worked-what-didnt-2/">Building in Public Month 1: What Worked, What Didn't</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+<li><a href="https://www.devangshumitra.com/talk-agentic-ai-in-the-enterprise-patterns-pitfalls-and-production/">Talk: Agentic AI in the Enterprise - Patterns, Pitfalls, and Production</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-how-i-automated-my-entire-content-pipeline-with-ai-agents-9/">Building in Public: How I Automated My Entire Content Pipeline with AI Agents</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most companies have a data infrastructure strategy but not a data strategy." />
+  <meta property="og:title" content="First Principles of Data Strategy — Devangshu Mitra" />
+  <meta property="og:description" content="Most companies have a data infrastructure strategy but not a data strategy." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>First Principles of Data Strategy — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Research</span>
+            <time class="post-header__date" datetime="2025-09-23" itemprop="datePublished">Sep 23, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">First Principles of Data Strategy</h1>
+          <p class="post-header__excerpt" itemprop="description">Most companies have a data infrastructure strategy but not a data strategy.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>First Principles of Data Strategy</h1>
+
+<p>I want to draw a distinction that most organizations miss: there's a difference between a data infrastructure strategy and a data strategy. Infrastructure is about where data lives and how you access it. Strategy is about what data you collect, why you collect it, and how it creates compounding value over time.</p>
+
+<p>Most companies have the first. Few have the second. And the ones that win in AI almost always have both.</p>
+
+<h2>Data as a Byproduct vs Data as a Product</h2>
+
+<p>When data is a byproduct, it's the residue of your operations. You run a hospital, so you have patient records. You run an e-commerce site, so you have transaction logs. You run a support operation, so you have ticket histories. This data exists because your business runs, not because you designed a data asset.</p>
+
+<p>When data is a product, you've made deliberate decisions about what to collect, at what granularity, with what structure, to enable specific downstream capabilities. You're not just capturing what happens to exist - you're designing for the data you'll need in two years to build capabilities you haven't built yet.</p>
+
+<p>The difference matters because byproduct data is usually structured for operational use, not for training or inference. It has gaps, inconsistencies, and quality issues that are fine for operations but fatal for ML. Product data is designed with future use in mind.</p>
+
+<p>Walmart's supply chain data is a product. They've spent decades building the infrastructure to capture granular sell-through data at the SKU and store level, specifically because that data powers their demand forecasting and replenishment systems. That data asset is worth more than most of their technology. It's not a byproduct of running stores - it's a deliberate investment in a data asset.</p>
+
+<h2>The Data Flywheel</h2>
+
+<p>A data flywheel is a self-reinforcing loop where more users generate more data, which improves your model, which improves your product, which attracts more users. This is the mechanism behind Google Search, Spotify recommendations, and Amazon product ranking. Understanding whether you can build a flywheel is one of the most important questions in AI product strategy.</p>
+
+<p>Most companies think they have a flywheel when they have a data collection process. They're not the same thing. A flywheel requires three conditions:</p>
+
+<ol>
+<li><strong>The data generated by use actually improves the model.</strong> Not all usage data is training signal. Click data, for example, is notoriously noisy - people click on things they regret, things they ignore after clicking, things they misidentify. You need data that captures revealed preference, not just behavior.</li>
+<li><strong>The improvement from more data is meaningful at scale.</strong> Most models exhibit diminishing returns on data past a certain volume. If you already have 10 million training examples, the marginal value of the next 10 million might be negligible. A flywheel only creates compounding advantage if improvement continues to scale.</li>
+<li><strong>The loop is fast enough to matter.</strong> If it takes six months to collect data, retrain the model, and deploy it, your flywheel is too slow to be a real competitive advantage. You need a loop that can run in weeks, not quarters.</li>
+</ol>
+
+<p>In healthcare, I've seen data flywheel claims that don't hold up. A company collects EHR data from 100 hospitals, trains a clinical risk model, deploys it, and claims they have a flywheel because each new hospital adds data. But the model only retrains quarterly, the data requires extensive manual annotation before it becomes training signal, and the accuracy improvement from adding hospitals 101-200 is marginal. That's not a flywheel. That's a data collection process.</p>
+
+<h2>Labeling Economics</h2>
+
+<p>One of the most underappreciated costs in enterprise AI is labeling. Not data collection - data labeling. Getting humans to annotate your training examples, classify your edge cases, evaluate your model outputs. This is frequently the bottleneck between having data and having useful data.</p>
+
+<p>The economics of labeling are brutal at scale. Clinical NLP tasks - extracting diagnoses from notes, identifying adverse drug events, coding procedures - require medical professionals who cost $60-150/hour. At industrial volumes, the labeling budget easily exceeds the model training budget.</p>
+
+<p>There are three approaches to this problem, and most teams default to the most expensive one:</p>
+
+<h3>Human Annotation (Most Expensive)</h3>
+
+<p>Pay domain experts to label data. Appropriate for high-stakes, low-volume tasks where accuracy matters enormously and edge cases are frequent. Clinical trials eligibility screening. Financial statement fraud detection. Legal document review. Don't use this for high-volume, lower-stakes tasks.</p>
+
+<h3>Programmatic Labeling</h3>
+
+<p>Use rules, heuristics, and weak supervision to generate noisy labels at scale, then use techniques like label smoothing and noise modeling to deal with the noise. Snorkel AI built an entire platform around this. The tradeoff is label quality: you get 85-90% accuracy labels at 1/10th the cost of human annotation. For many applications, that's sufficient.</p>
+
+<h3>Feedback Loops from Deployment</h3>
+
+<p>The most efficient labeling is when users provide implicit or explicit feedback on model outputs during normal use. When a radiologist overrides an AI recommendation, that's a label. When a user edits an AI-generated summary, that's a label. When someone marks an email as not-spam after your filter caught it, that's a label. Designing your product to capture these feedback signals is one of the highest-use data strategy decisions you can make.</p>
+
+<p>At Edxcare, we built an adaptive learning system where student engagement signals - time-on-task, replay behavior, quiz attempts - served as implicit labels for content quality and difficulty calibration. We never had to pay anyone to annotate. The students' behavior was the annotation. This fundamentally changed our labeling economics.</p>
+
+<h2>Data Moats: What's Real and What's Not</h2>
+
+<p>The term data moat gets thrown around in AI strategy discussions as if collecting data automatically creates defensibility. It usually doesn't. Here's what actually creates a data moat versus what just feels like one.</p>
+
+<h3>Real Data Moats</h3>
+
+<p><strong>Proprietary data that cannot be replicated:</strong> Decades of patient outcomes from an integrated health system. Real-time financial transaction data from processing millions of payments. User behavior data from a platform that has network effects. This data exists because of your specific position in a market that's hard to replicate.</p>
+
+<p><strong>Data with increasing marginal value:</strong> Some data types get more valuable as you accumulate more of it, not less. Rare disease phenotypes. Long-tail language patterns. Niche domain expertise. For these, having 10x more data isn't marginally better - it's categorically better because you're covering cases your competitors can't even see.</p>
+
+<p><strong>Data you've structured specifically for AI:</strong> The same raw data, organized for machine consumption rather than operational use, is a different asset entirely. Epic's EHR data becomes a moat when they structure it in ways that enable population health models. The underlying data might be commodity - the structured, curated, AI-ready version of it isn't.</p>
+
+<h3>Fake Data Moats</h3>
+
+<p><strong>Large volumes of generic data:</strong> Having 100 million customer records doesn't create a moat if someone else also has 100 million customer records. Volume without uniqueness isn't a moat - it's a cost center.</p>
+
+<p><strong>Data that's already available elsewhere:</strong> Web-scraped data. Publicly available financial filings. Open government datasets. These aren't moats. They're commodities. Everyone has access to them.</p>
+
+<p><strong>Historical data that doesn't reflect current distribution:</strong> Data that's years old and represents a market or user base that no longer exists doesn't create defensibility. It creates models that are confidently wrong about the current world.</p>
+
+<h2>The Data Strategy Questions Worth Asking</h2>
+
+<p>When I'm evaluating an AI product's data strategy, I ask these questions:</p>
+
+<ul>
+<li>What data does this product generate that we don't have today?</li>
+<li>Is that data a training signal for improving the model, or is it just operational logs?</li>
+<li>What's our labeling strategy? What does a label cost, and how many do we need?</li>
+<li>What data would a competitor need to replicate our AI capability? Do they have access to it?</li>
+<li>What does our data look like in two years if we execute well? What's the asset we're building?</li>
+</ul>
+
+<p>Most teams can answer the first question and struggle with the rest. The rest are the questions that determine whether you're building a data strategy or just a data infrastructure.</p>
+
+<h2>The Uncomfortable Conclusion</h2>
+
+<p>Building a real data strategy is slow, expensive, and doesn't produce results for 18-24 months. That's why most organizations don't have one - they have a data infrastructure strategy dressed up in the language of data strategy.</p>
+
+<p>The organizations that do it right - Google, Amazon, Epic, Palantir - made explicit decisions years in advance about what data assets they wanted to own, structured their products to generate that data, and invested in the labeling and curation infrastructure to make the raw data useful. They treated data as a capital asset, not an operational byproduct.</p>
+
+<p>That framing is the starting point. If your data is a byproduct of your operations, you're at the mercy of whatever your operations happen to produce. If your data is a product you're deliberately building, you're building an asset that compounds.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+<li><a href="https://www.devangshumitra.com/the-first-principles-of-healthcare-ai-product-management-9/">The First Principles of Healthcare AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-legal-tech-how-llms-are-automating-contract-review/">AI in Legal Tech: How LLMs Are Automating Contract Review</a></li>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

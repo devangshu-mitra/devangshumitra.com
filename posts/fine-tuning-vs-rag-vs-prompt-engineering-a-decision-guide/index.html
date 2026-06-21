@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The three main approaches to customizing AI behavior are not interchangeable." />
+  <meta property="og:title" content="Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide — Devangshu Mitra" />
+  <meta property="og:description" content="The three main approaches to customizing AI behavior are not interchangeable." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-04-07" itemprop="datePublished">Apr 7, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</h1>
+          <p class="post-header__excerpt" itemprop="description">The three main approaches to customizing AI behavior are not interchangeable.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</h1>
+
+<p>I've made the wrong call on this decision more than once - including at Edxcare where we spent six weeks building a fine-tuned model that was solvable in three days with better prompt engineering. Let me save you that mistake.</p>
+
+<h2>The Core Distinction</h2>
+
+<ul>
+<li><strong>Prompt engineering</strong> changes how you <em>ask</em> the model. Weights unchanged. You're steering existing capabilities.</li>
+<li><strong>RAG</strong> changes what <em>information</em> the model has at inference time. Weights unchanged. You're adding external knowledge.</li>
+<li><strong>Fine-tuning</strong> changes the model's <em>weights</em>. You're modifying the model itself - its style, specialized knowledge, default behaviors.</li>
+</ul>
+
+<p>Prompt engineering and RAG are inference-time interventions. Fine-tuning is a training-time intervention. The cost, complexity, and failure modes are completely different.</p>
+
+<h2>Start Here: Can Prompting Solve It?</h2>
+
+<p>Before considering anything more complex, exhaust prompt engineering first. Prompt engineering can solve: tone and format consistency, output schemas (JSON), multi-step reasoning (chain-of-thought), role specialization, constraint enforcement, and few-shot learning.</p>
+
+<p>At HCLTech, we were building a medical coding assistant. Initial accuracy was around 62%. Before touching the architecture, we iterated on the prompt: added chain-of-thought instructions, included 5 worked examples, specified ICD-10 code format explicitly, and instructed the model to explain its reasoning before giving the code. Accuracy jumped to 81%. We then moved to RAG - no fine-tuning needed.</p>
+
+<h2>The RAG Decision</h2>
+
+<p>Use RAG when the problem is <strong>knowledge</strong>, not capability:</p>
+
+<ul>
+<li>The model doesn't know your proprietary information</li>
+<li>The model's training data is stale</li>
+<li>You need citations or source attribution</li>
+<li>Your knowledge base changes frequently</li>
+<li>Relevant context is too large to fit in a prompt but can be retrieved selectively</li>
+</ul>
+
+<pre><code class="language-">from openai import OpenAI
+from pinecone import Pinecone
+
+def rag_query(user_question: str, k: int = 5) -&gt; str:
+    client = OpenAI()
+    q_embedding = client.embeddings.create(
+        model="text-embedding-3-small",
+        input=user_question
+    ).data[0].embedding
+
+    pc = Pinecone(api_key="...")
+    index = pc.Index("your-index")
+    results = index.query(vector=q_embedding, top_k=k, include_metadata=True)
+    context = "\n\n".join([r["metadata"]["text"] for r in results["matches"]])
+
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[
+            {"role": "system", "content": "Answer based on provided context. If not in context, say so."},
+            {"role": "user", "content": f"Context:\n{context}\n\nQuestion: {user_question}"}
+        ]
+    )
+    return response.choices[0].message.content</code></pre>
+
+<p><strong>RAG failure modes:</strong> Retrieval misses (fix: hybrid search, reranking), context overload (fix: reduce K, use MMR), chunk boundary problems (fix: overlap, parent-child retrieval).</p>
+
+<h2>The Fine-Tuning Decision</h2>
+
+<p>Fine-tuning is appropriate when:</p>
+
+<ul>
+<li>Style/format can't be prompted consistently even with extensive examples</li>
+<li>Latency and cost constraints are severe and the task is narrow and high-volume</li>
+<li>Capability gaps exist that examples don't fix (rare for frontier models)</li>
+</ul>
+
+<p><strong>When fine-tuning is NOT the answer:</strong> knowledge base changes frequently, you haven't tried RAG + better prompts yet, fewer than a few hundred high-quality training examples, task requires factual accuracy about the real world (fine-tuning can increase confident hallucination).</p>
+
+<h2>Decision Tree</h2>
+
+<ol>
+<li>Knowledge gap? Use <strong>RAG</strong>.</li>
+<li>Format/style issue? Try <strong>prompt engineering</strong> first (10+ iterations), then consider fine-tuning.</li>
+<li>Severe cost/latency constraints + narrow high-volume task? <strong>Fine-tune a smaller model</strong>.</li>
+<li>Reasoning capability gap? Try <strong>chain-of-thought</strong> or a stronger base model first.</li>
+<li>Everything at once? <strong>RAG + prompt engineering</strong> first, then measure.</li>
+</ol>
+
+<h2>Cost Reality Check</h2>
+
+<p><strong>Prompt engineering:</strong> Zero additional infrastructure cost. <strong>RAG:</strong> Embedding costs ($0.02/M tokens), vector DB hosting ($70-500/month), 50-200ms added latency. <strong>Fine-tuning:</strong> ~$25/M training tokens for GPT-4o-mini. Self-hosted GPU: $300-1,500/month.</p>
+
+<h2>Hybrid Architectures: Combining Approaches</h2>
+
+<p>Sometimes, you need both. Fine-tuning a model for a specific style or domain knowledge, and then using RAG to inject current, specific facts. I saw this with a financial advisory firm building an internal tool. They wanted their assistant to speak exactly like their senior advisors - formal, precise, and referencing specific internal policies. Prompting alone couldn't consistently nail that tone across all scenarios. So, we fine-tuned a small Llama 3 variant on thousands of internal memos and client communications. This taught the model the firm's unique voice and internal lexicon.</p>
+
+<p>Then, we layered RAG on top. When an advisor asked about a client's specific portfolio or the latest market data, the RAG system pulled real-time information from Bloomberg terminals and internal databases. The fine-tuned model then processed this retrieved information, answering in that consistent, advisor-like tone. This combination gave them both the "how" (style, domain understanding) from fine-tuning and the "what" (current facts) from RAG. It's not one or the other; it's often a sequence.</p>
+
+<h2>The Operational Reality of Fine-Tuning</h2>
+
+<p>The decision to fine-tune isn't just about capability; it's about operational burden. When you fine-tune, you commit to a data pipeline. You need high-quality examples, often thousands of them. Acquiring and cleaning this data is a project itself. At a previous role, for a specialized chatbot, we spent two months just curating 5,000 conversational turns. This involved manual review, de-duplication, and ensuring consistent labeling.</p>
+
+<p>Then comes model management. You're not just calling an API; you're deploying your own model variant. This means version control for your datasets and models, monitoring performance drift, and managing updates. If your domain changes, you might need to re-fine-tune, which restarts the data collection and training cycle. This is a significantly heavier lift than updating a prompt or refining your RAG retrieval strategy. Consider the long-term maintenance implications before diving in.</p>
+
+<h2>Prompt Engineering as System Design</h2>
+
+<p>Sometimes, prompt engineering isn't just a quick fix; it's a core part of your system's design. I've seen complex applications built almost entirely around sophisticated prompting strategies, especially when working with models like GPT-4o. You can design multi-agent systems where different "personas" are defined by their prompts. One prompt might be for an "analyzer," another for a "summarizer," and a third for a "fact-checker."</p>
+
+<p>You can also build self-correction loops. An initial prompt asks the model to generate an output. A second prompt, acting as a critic, asks the model to evaluate its own output against specific criteria and identify flaws. A third prompt then asks the model to revise its original output based on the critic's feedback. This pattern reduces errors significantly without changing model weights or adding a vector database. It's an architectural choice, using the model's own reasoning ability to improve its performance dynamically.</p>
+
+<h2>The Combination That Works Best</h2>
+
+<p>In production, the most strong AI features combine all three: well-engineered system prompt + RAG for proprietary/dynamic knowledge + fine-tuning only for residual gaps with sufficient data and volume to justify it. At Edxcare, our learning assistant covered 95% of use cases with prompt engineering + RAG alone.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/vector-databases-compared-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-prompt-engineering-a-decision-framework/">Fine-Tuning vs Prompt Engineering: A Decision Framework</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-patterns-when-to-use-what/">RAG Architecture Patterns: When to Use What</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+<li><a href="https://www.devangshumitra.com/the-complete-guide-to-ai-model-evaluation/">The Complete Guide to AI Model Evaluation</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

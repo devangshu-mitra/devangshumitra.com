@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="AI in HR promises efficiency and objectivity. The reality is more nuanced" />
+  <meta property="og:title" content="AI in HR: From Resume Screening to Predictive Attrition — Devangshu Mitra" />
+  <meta property="og:description" content="AI in HR promises efficiency and objectivity. The reality is more nuanced" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI in HR: From Resume Screening to Predictive Attrition — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Cross-Industry</span>
+            <time class="post-header__date" datetime="2026-02-11" itemprop="datePublished">Feb 11, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI in HR: From Resume Screening to Predictive Attrition</h1>
+          <p class="post-header__excerpt" itemprop="description">AI in HR promises efficiency and objectivity. The reality is more nuanced</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI in HR: From Resume Screening to Predictive Attrition</h1>
+
+<p>Few domains of enterprise AI carry more ethical weight than human resources. The decisions that HR AI systems support - who gets interviewed, who gets promoted, who gets flagged as a flight risk - affect real people's livelihoods and careers. The consequences of bias in HR AI are not a degraded recommendation or an irrelevant search result. They are a job not offered, a promotion not given, a talented employee pushed out before anyone noticed they were unhappy.</p>
+
+<h2>The Space: What AI in HR Can Do</h2>
+
+<h3>Resume Parsing and Candidate Matching</h3>
+
+<p>The most widespread HR AI application, and the one with the longest history. Resume parsing extracts structured information from unstructured resume text - job titles, dates, skills, education, certifications - and populates an ATS (Applicant Tracking System). Candidate matching ranks applicants against job requirements using ML models trained on historical hiring decisions.</p>
+
+<p>The companies that have built mature products here:</p>
+
+<ul>
+<li><strong>Eightfold AI:</strong> Uses deep learning to match candidates to roles based on inferred skills rather than keyword matching. Their approach surfaces candidates who have the capabilities for a role even when their resume does not use the exact keywords the job description does - a meaningful improvement over keyword-based ATS matching.</li>
+<li><strong>HireVue:</strong> Automated interview platform that combines structured video interviews with AI-based assessment of responses. Controversial (discussed in the bias section below), but used by many large enterprise employers.</li>
+<li><strong>Pymetrics:</strong> Neuroscience-based assessment games that measure cognitive and emotional traits, using AI to match traits to job performance profiles. An approach designed to reduce resume bias by moving away from credentials entirely.</li>
+</ul>
+
+<h3>Performance Prediction and Management</h3>
+
+<p>AI applications that analyze performance data - objective metrics, peer feedback, manager ratings, project outcomes - to identify high-potential employees, flag early performance issues, and predict promotion readiness. The best implementations use AI to surface patterns that are hard for managers to see across large teams: consistent positive feedback from cross-functional collaborators that a single manager would not have visibility into, for example.</p>
+
+<h3>Attrition Modeling and Retention</h3>
+
+<p>Attrition modeling is one of the HR AI applications with the clearest and most measurable ROI. Replacing an employee costs 50-200% of their annual salary, depending on role seniority and specialization. If an AI model can identify employees with high attrition risk 90 days before they leave, HR and managers have a window to intervene - a retention conversation, a development opportunity, a compensation adjustment.</p>
+
+<p>The signals that attrition models typically incorporate:</p>
+
+<ul>
+<li>Tenure and promotion velocity (employees who feel stalled are higher risk)</li>
+<li>Manager change frequency (employees who have had multiple manager transitions are higher risk)</li>
+<li>External market salary benchmarks vs current compensation</li>
+<li>Engagement survey scores and trends</li>
+<li>Internal job posting views (sometimes available in HR systems)</li>
+<li>Commute time and remote work patterns (post-pandemic, commute burden correlates with attrition in some populations)</li>
+</ul>
+
+<p>IBM's Watson Workforce Analytics pioneered this space and demonstrated measurable retention improvements at enterprise scale. Google's People Operations team has published research on the effectiveness of predictive attrition models. The technology is mature - the organizational change management challenge (training managers to act on the outputs) is the harder problem.</p>
+
+<h3>Skills Gap Analysis and Workforce Planning</h3>
+
+<p>As AI transforms job functions, workforce planning requires understanding not just headcount but skill profiles - what skills does the current workforce have, what skills will the business need in three years, and where is the gap? AI systems can inventory existing skill profiles from resumes, learning management systems, and project history, then map them against projected role requirements to identify where hiring, upskilling, or redeployment is needed.</p>
+
+<p>This application is particularly relevant at HCLTech - understanding where our workforce has AI/ML skills, cloud architecture skills, and emerging technology skills versus where client demand is heading is a meaningful competitive advantage in workforce planning for a technology services company at our scale.</p>
+
+<h2>The Bias Challenge: Front and Center</h2>
+
+<p>I promised to address this directly, so let me be specific about where bias in HR AI actually comes from and what it looks like in practice.</p>
+
+<h3>Training Data Bias</h3>
+
+<p>The most common source. If you train a candidate matching model on 10 years of historical hiring decisions, the model learns the patterns in those decisions - including whatever biases existed in the hiring managers who made them. Amazon famously built and then scrapped a resume screening AI in 2018 after discovering it penalized resumes that contained the word women's (as in women's chess club) and downgraded graduates of all-women's colleges - because the training data reflected a decade of male-dominated tech hiring.</p>
+
+<p>This is not an Amazon-specific problem. Any model trained on historical decisions inherits the biases in those decisions. The question is whether you test for bias explicitly before deployment.</p>
+
+<h3>Proxy Variable Bias</h3>
+
+<p>Variables that seem neutral can act as proxies for protected characteristics. Zip code correlates with race in many US metropolitan areas due to historical residential segregation. Attendance patterns correlate with disability and caregiving responsibilities. Commute time correlates with socioeconomic status. A model that uses any of these as features - even without explicit demographic data - can produce discriminatory outputs.</p>
+
+<h3>Video Interview AI</h3>
+
+<p>HireVue and competitors that use computer vision to analyze facial expressions, tone of voice, and body language in video interviews have been the subject of significant criticism and regulatory scrutiny. The premise - that AI can assess interview performance more objectively than humans - is undermined by evidence that these systems may encode racial and disability bias through facial recognition patterns and speech pattern analysis. HireVue removed the facial analysis component from its product in 2021 under regulatory pressure, but the broader category of AI-assessed video interviews remains controversial.</p>
+
+<h3>What Good Bias Testing Looks Like</h3>
+
+<p>For any HR AI system you are evaluating or building:</p>
+
+<ol>
+<li><strong>Disparate impact analysis:</strong> Measure selection rates across demographic groups. If the system is selecting certain candidate groups at significantly lower rates than others after controlling for relevant qualifications, that is a disparate impact signal requiring investigation. The 4/5ths rule (a commonly used EEOC guideline) states that selection rates below 80% of the highest group's rate may indicate adverse impact.</li>
+<li><strong>Feature importance audit:</strong> Examine which features drive the model's decisions. If high-weight features are potential proxies for protected characteristics, remove or reweight them.</li>
+<li><strong>Independent audit:</strong> For high-stakes HR AI systems (screening, promotion decisions), commission an independent third-party bias audit. EEOC and state regulators are increasingly expecting this documentation.</li>
+</ol>
+
+<h2>The Regulatory Space</h2>
+
+<p>HR AI is one of the most actively regulated AI application areas:</p>
+
+<ul>
+<li><strong>New York City Local Law 144:</strong> Requires employers to conduct bias audits on AI tools used in hiring decisions and publish the results. First-of-its-kind municipal regulation - likely a model for other jurisdictions.</li>
+<li><strong>EU AI Act:</strong> Classifies AI used in employment contexts as high risk, requiring conformity assessments, human oversight, and transparency documentation before deployment.</li>
+<li><strong>Illinois AIAV Act:</strong> Requires employers to notify candidates before using AI video interview analysis and to provide information about the characteristics being analyzed.</li>
+</ul>
+
+<p>The regulatory trend is clear: HR AI is getting more scrutiny, not less. Build compliance into your evaluation and deployment process now, before a regulatory examination forces a retroactive remediation.</p>
+
+<h2>Building a Responsible HR AI Program</h2>
+
+<ol>
+<li><strong>Start with augmentation, not replacement:</strong> The most defensible and most effective HR AI implementations keep humans in the decision loop. AI surfaces candidates, flags attrition risks, and identifies skill gaps. Managers and HR professionals make the decisions. Never deploy HR AI in fully automated decision mode for consequential outcomes.</li>
+<li><strong>Test for bias before deploying:</strong> Conduct disparate impact analysis on every HR AI system before it touches a real candidate or employee. This is not optional - it is legal protection for your organization and the right thing to do.</li>
+<li><strong>Explain to employees how AI is used:</strong> Transparency builds trust. Employees who know their performance data is used in attrition modeling have a right to understand how. Companies that are transparent about AI use in HR decisions face fewer legal challenges than those that are opaque.</li>
+<li><strong>Review and retrain regularly:</strong> Bias in training data shifts over time as your workforce demographics and hiring patterns change. Annual re-evaluation of bias metrics is not enough for high-volume systems. Build continuous monitoring into your MLOps infrastructure.</li>
+</ol>
+
+<blockquote><p>HR AI is not inherently biased, but it requires active work to make it fair. That work is not a constraint on AI capability - it is the minimum ethical requirement for deploying AI in contexts that affect people's livelihoods.</p></blockquote>
+
+<p>The organizations that get HR AI right will have a meaningful talent advantage - faster hiring, better retention, more accurate workforce planning. The organizations that get it wrong will face regulatory fines, reputational damage, and genuine harm to the employees and candidates affected by biased systems. The investment in getting it right is worth it, and it is not optional.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-in-supply-chain-how-predictive-models-are-replacing-just-in-time/">AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time</a></li>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-management-interview-prep-50-questions-youll-actually-get-asked/">AI Product Management Interview Prep: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/course-break-into-ai-pm/">Break Into AI Product Management</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

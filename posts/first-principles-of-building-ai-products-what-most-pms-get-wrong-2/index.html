@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Building AI products requires breaking almost every mental model that made" />
+  <meta property="og:title" content="First Principles of Building AI Products: What Most PMs Get Wrong — Devangshu Mitra" />
+  <meta property="og:description" content="Building AI products requires breaking almost every mental model that made" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>First Principles of Building AI Products: What Most PMs Get Wrong — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Research</span>
+            <time class="post-header__date" datetime="2025-05-05" itemprop="datePublished">May 5, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">First Principles of Building AI Products: What Most PMs Get Wrong</h1>
+          <p class="post-header__excerpt" itemprop="description">Building AI products requires breaking almost every mental model that made</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>First Principles of Building AI Products: What Most PMs Get Wrong</h1>
+
+<p>I was three months into my first serious AI product role when I made a mistake that still embarrasses me. We had a clinical AI feature with 94% accuracy on our test set. I wrote it up in the product spec as "94% accurate" and used that number as the primary justification for launch.</p>
+
+<p>The feature flopped. Users didn't trust it. And when I dug into why, I discovered that our test set was carefully curated - it didn't represent the messy, ambiguous real-world cases that clinicians actually encountered. In those cases, the model was much less reliable. The number I'd anchored on was technically true and practically meaningless.</p>
+
+<p>That was my introduction to the first principle failures that haunt AI product development. I've since seen the same mistakes - with different industry wrappers - in edtech, CPG, and enterprise software. The patterns are consistent enough that I've started thinking of them as a taxonomy.</p>
+
+<p>Here are the ones that matter most.</p>
+
+<hr>
+
+<h2>Mistake 1: Confusing Model Accuracy with Product Value</h2>
+
+<p>This is the most common mistake and the hardest to correct because it feels so logical. If the model is more accurate, the product is better. Right?</p>
+
+<p>Wrong. Model accuracy is a necessary condition, not a sufficient one. Product value is a function of:</p>
+
+<ul>
+<li>Accuracy in the <em>actual distribution</em> of inputs users will provide (not your test set)</li>
+<li>Whether users can identify when the model is wrong (calibration)</li>
+<li>Whether the workflow change required to use the output is worth the accuracy gain</li>
+<li>Whether the error cases are tolerable to users</li>
+</ul>
+
+<p>At Edxcare, we built a content recommendation model that hit 88% accuracy in offline evaluation. In production, engagement with recommendations was lower than with our previous rule-based system. Investigation revealed that the 12% error cases were highly visible - the model sometimes recommended content that was clearly far below the student's level. One bad recommendation eroded trust more than ten good recommendations built it.</p>
+
+<p>The fix was to add a confidence threshold - only show recommendations when the model's confidence exceeded a calibrated cutoff. Effective accuracy in production rose to 96%, user trust recovered, and engagement exceeded baseline.</p>
+
+<blockquote><p><strong>First principle:</strong> Measure the cost of errors, not just the rate of errors. A 95% accurate model where the 5% errors are catastrophic can be worse than an 85% accurate model where errors are trivially recoverable.</p></blockquote>
+
+<h2>Mistake 2: Building for Engineers, Not Users</h2>
+
+<p>AI products are often conceived and built by technically sophisticated teams who have deep intuitions about how the model works and what it can do. This creates a systematic blind spot: the team optimizes for what's technically impressive rather than what's practically useful.</p>
+
+<p>Symptoms of this mistake:</p>
+
+<ul>
+<li>The feature surfaces probabilities or confidence scores directly to users who don't know how to interpret them</li>
+<li>The interface exposes model parameters or configuration options that users shouldn't need to think about</li>
+<li>Error messages reference model failures rather than task failures</li>
+<li>The feature requires users to understand how the AI works to use it effectively</li>
+</ul>
+
+<p>In healthcare, I've seen clinical AI features that displayed "73% confidence" scores to nurses. The nurses had no mental model for what 73% confidence meant in context. Should they act on it? Flag it? Ignore it? The number created anxiety without guidance.</p>
+
+<p>We replaced the confidence score with a signal light system: green (high confidence, act on it), yellow (moderate confidence, verify if time permits), red (low confidence, requires independent verification). Same underlying model - radically different user experience.</p>
+
+<blockquote><p><strong>First principle:</strong> Users don't care how the model works. They care whether the feature helps them do their job better. Design for the task, not the technology.</p></blockquote>
+
+<h2>Mistake 3: Ignoring the Data Flywheel</h2>
+
+<p>AI products have a compounding advantage that traditional software doesn't: they can get better over time without engineering effort, if they're designed to capture feedback loops. The data flywheel - where usage generates labeled data, which improves the model, which drives more usage - is the moat that separates AI leaders from followers.</p>
+
+<p>Most PMs don't plan the flywheel at product inception. They add it as an afterthought, after launch. By then, valuable signal has been lost and the architecture may not support the feedback mechanism needed.</p>
+
+<p>Flywheel design questions to answer before building:</p>
+
+<ul>
+<li>What implicit signal does user interaction generate? (clicks, corrections, skips, completions)</li>
+<li>What explicit signal can you capture without friction? (thumbs up/down, edit actions, flagging)</li>
+<li>How will this signal be labeled and used for retraining?</li>
+<li>What's your retraining cadence and infrastructure?</li>
+<li>How will you detect when the model has drifted from user expectations?</li>
+</ul>
+
+<p>At Mamaearth, our skin care recommendation engine didn't initially capture what happened after a recommendation was shown. We knew click rates but not whether users ultimately purchased, repurchased, or returned the recommended product. Adding purchase-and-repurchase data to the feedback loop improved recommendation quality by more than any model architecture change we made.</p>
+
+<h2>Mistake 4: Underestimating Regulatory Complexity</h2>
+
+<p>Regulatory complexity in AI is not linear - it's combinatorial. Add a new data source, double the compliance considerations. Move into a new jurisdiction, triple them. Build an AI that makes a recommendation that affects a person's health, finances, or legal status, and you're operating under a completely different regulatory regime than informational AI.</p>
+
+<p>PMs from consumer software backgrounds often have almost no intuition for this. They treat regulation as a checkbox at the end of development rather than a design constraint from the start.</p>
+
+<p>The consequences are severe: features that have to be pulled post-launch, months of retrofitting compliance into architectures not designed for it, and in the worst cases, regulatory action and fines.</p>
+
+<p>My rule: <strong>for any AI feature that affects decisions about people, bring legal and compliance into discovery, not into launch review</strong>. The cost of a 30-minute conversation with your compliance team in week one is infinitely lower than the cost of a redesign in week twelve.</p>
+
+<p>In healthcare, this is mandatory - FDA clearance for clinical decision support, HIPAA compliance for patient data, state-level regulations for telehealth. In fintech, it's CFPB scrutiny of lending algorithms, SEC rules for investment advice, and FinCEN requirements for AML. In edtech, it's FERPA for student data, COPPA for under-13 users, and state-level student data privacy laws.</p>
+
+<blockquote><p><strong>First principle:</strong> Regulation is a product requirement, not a compliance afterthought. The features you can build, the data you can use, and the decisions your AI can make are all shaped by regulatory constraints. Know those constraints before you start designing.</p></blockquote>
+
+<h2>Mistake 5: Not Planning for Failure Modes</h2>
+
+<p>Traditional software fails in predictable ways. A server goes down. A network times out. An API returns an error code. These failures are binary and recoverable.</p>
+
+<p>AI systems fail in probabilistic, context-dependent, and sometimes insidious ways. The model gives a plausible-sounding wrong answer. It works perfectly for 95% of users and consistently fails for a specific demographic. It performs well on historical data and degrades on recent data because the world has changed. It gives different answers to the same question asked in slightly different ways.</p>
+
+<p>These failure modes require different product design responses:</p>
+
+<ul>
+<li><strong>Graceful degradation</strong>: When confidence is low, fall back to a non-AI path rather than showing a low-quality AI output</li>
+<li><strong>Uncertainty communication</strong>: Signal to users when the model is operating outside its reliable range</li>
+<li><strong>Human escalation paths</strong>: Make it easy for users to override, question, or escalate AI outputs</li>
+<li><strong>Monitoring and alerting</strong>: Instrument your AI features to detect performance degradation in production</li>
+<li><strong>Rollback capability</strong>: Be able to revert to a previous model version quickly if a new deployment degrades</li>
+</ul>
+
+<h2>Mistake 6: Treating AI as a Feature, Not a System</h2>
+
+<p>A common PM framing is "let's add AI to this feature." This framing is almost always wrong. AI isn't an ingredient you add to a feature; it's a system that changes the architecture, operational requirements, and user relationship of everything around it.</p>
+
+<p>When you add AI to a product, you're also adding:</p>
+
+<ul>
+<li>Model versioning and deployment infrastructure</li>
+<li>Training data pipelines and labeling workflows</li>
+<li>Model performance monitoring</li>
+<li>Bias and fairness testing</li>
+<li>User feedback collection mechanisms</li>
+<li>Explanation infrastructure (for regulated contexts)</li>
+<li>Human review workflows for low-confidence outputs</li>
+</ul>
+
+<p>None of this shows up in a feature spec. All of it is required for a production AI system. Teams that treat AI as a feature are constantly surprised by the operational overhead that emerges after launch.</p>
+
+<h2>Mistake 7: Skipping the Human Baseline</h2>
+
+<p>Before building an AI solution, measure how good humans are at the task. This sounds obvious. Most teams don't do it.</p>
+
+<p>Why it matters: if a human expert achieves 92% accuracy on the task and your AI achieves 88%, the AI isn't ready, regardless of how impressive 88% sounds in isolation. If a human takes 20 minutes to complete a task and the AI takes 2 seconds with 80% accuracy, the AI might still be the right choice depending on volume and error cost.</p>
+
+<p>The human baseline also shapes your evaluation set. Your test cases should include the cases that trip up humans - the ambiguous, edge-case inputs where expertise matters. If your AI only works on the easy cases that humans also handle easily, you've built a toy.</p>
+
+<hr>
+
+<h2>The Underlying Pattern</h2>
+
+<p>Looking across these mistakes, the underlying pattern is the same: PMs trained on deterministic software apply deterministic mental models to probabilistic systems. Traditional software does what it's told. AI systems do what the data and training suggest is likely correct - which is a fundamentally different contract with the user.</p>
+
+<p>Building good AI products requires accepting this uncertainty and designing around it. Not hiding it, not pretending the model is more reliable than it is, but designing experiences that help users make good decisions in a world where the AI is right most of the time but not all of the time.</p>
+
+<p>That's a harder design problem than "make the button do the thing." It's also a more interesting one.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/why-most-ai-pocs-fail-7-patterns-ive-seen-across-industries-2/">Why Most AI POCs Fail: 7 Patterns I've Seen Across Industries</a></li>
+<li><a href="https://www.devangshumitra.com/why-ai-teams-need-product-managers-not-project-managers/">Why AI Teams Need Product Managers, Not Project Managers</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-of-data-strategy/">First Principles of Data Strategy</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/">Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-recursion/">Recursion Pharmaceuticals: AI-First Drug Discovery</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

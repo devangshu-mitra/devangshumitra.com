@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover 50+ production-tested healthcare AI prompts for medical diagnosis," />
+  <meta property="og:title" content="Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts — Devangshu Mitra" />
+  <meta property="og:description" content="Discover 50+ production-tested healthcare AI prompts for medical diagnosis," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Templates</span>
+            <time class="post-header__date" datetime="2025-05-29" itemprop="datePublished">May 29, 2025</time>
+            <span class="post-header__read-time">12 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover 50+ production-tested healthcare AI prompts for medical diagnosis,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</h1>
+
+<p>These prompts are drawn from production deployments in clinical summarization, medical coding, adverse event processing, and regulatory writing. They are templates - replace the bracketed placeholders with your actual data. Each prompt includes the expected input, the expected output format, and one tuning tip.</p>
+
+<h2>Clinical Summarization</h2>
+
+<p><strong>1. Discharge Summary</strong></p>
+
+<pre><code class="language-">You are a clinical documentation specialist. Summarize the following inpatient encounter into a discharge summary with these sections: Admission Diagnosis, Hospital Course, Procedures Performed, Discharge Diagnosis, Discharge Medications, Follow-Up Instructions, and Pending Results.
+
+Rules: Use only information present in the notes below. Do not infer diagnoses not explicitly stated. Flag any incomplete information with [VERIFY].
+
+ENCOUNTER NOTES:
+{encounter_notes}</code></pre>
+
+<p>Input: concatenated progress notes, nursing notes, procedure notes. Output: structured SOAP-style discharge summary. Tip: add "Write at a 6th grade reading level for the Patient Education section" if you need a patient-facing version.</p>
+
+<p><strong>2. Visit Note Summarization</strong></p>
+
+<pre><code class="language-">Summarize the following clinical visit note into 3-5 sentences covering: chief complaint, key findings, assessment, and plan. Do not add information not present in the note. If the plan section is missing, note that explicitly.
+
+VISIT NOTE:
+{visit_note}</code></pre>
+
+<p>Input: single visit note. Output: 3-5 sentence summary. Tip: for specialist notes, add "Focus on findings relevant to {specialty} consultations."</p>
+
+<p><strong>3. Lab Results Interpretation</strong></p>
+
+<pre><code class="language-">You are reviewing laboratory results for a clinical team. For the following lab values, identify: (1) values outside normal reference range, (2) values that represent a significant change from prior results if provided, (3) any combination of abnormal values that may indicate a specific clinical pattern. Do not provide a diagnosis.
+
+CURRENT LABS:
+{lab_results}
+
+PRIOR LABS (if available):
+{prior_labs}</code></pre>
+
+<p>Input: structured lab result table with reference ranges. Output: flagged abnormals with delta from prior. Tip: provide the reference ranges in the prompt - do not rely on the model's internal knowledge for lab normals, which vary by institution.</p>
+
+<p><strong>4. Medication Reconciliation</strong></p>
+
+<pre><code class="language-">Compare the following two medication lists and identify: (1) medications present in List A but not List B, (2) medications present in List B but not List A, (3) same medication with different doses or frequencies, (4) potential duplicate therapies (same drug class, different names). Return results as a table with columns: Medication, Status, Action Required.
+
+LIST A (Prior to Admission):
+{prior_meds}
+
+LIST B (Current Inpatient Orders):
+{current_meds}</code></pre>
+
+<p>Input: two medication lists. Output: reconciliation table. Tip: include "Treat brand and generic names as equivalent" to reduce false duplicates.</p>
+
+<p><strong>5. Referral Letter</strong></p>
+
+<pre><code class="language-">Draft a referral letter from a {referring_specialty} physician to a {receiving_specialty} physician. Use the following clinical information. The letter should be professional, concise (under 400 words), and include: reason for referral, relevant history, current medications, recent relevant test results, and specific clinical question for the consultant.
+
+CLINICAL INFORMATION:
+{clinical_info}</code></pre>
+
+<p>Input: structured clinical info. Output: formatted referral letter. Tip: add "Do not include patient name or DOB in the draft - I will insert them manually" for HIPAA-safe drafting workflows.</p>
+
+<h2>Medical Coding</h2>
+
+<p><strong>6. ICD-10 Code Extraction</strong></p>
+
+<pre><code class="language-">Extract ICD-10-CM diagnosis codes from the following clinical documentation. For each code: provide the code, the full code description, the supporting text from the documentation, and your confidence (High/Medium/Low). List the principal diagnosis first, followed by secondary diagnoses in order of clinical significance.
+
+DOCUMENTATION:
+{clinical_documentation}</code></pre>
+
+<p>Input: physician documentation (H&P, discharge summary, or progress note). Output: structured list with codes and supporting text. Tip: add "Apply coding guideline I.C.2 for neoplasm sequencing" for oncology cases.</p>
+
+<p><strong>7. CPT Code Suggestion</strong></p>
+
+<pre><code class="language-">Based on the following operative report or procedure note, suggest appropriate CPT codes. For each suggested code: provide the CPT code, description, the portion of the note that supports it, and flag any codes that may require modifier -51 (multiple procedures) or -22 (increased procedural services).
+
+PROCEDURE NOTE:
+{procedure_note}</code></pre>
+
+<p>Input: operative or procedure note. Output: CPT suggestions with supporting text. Tip: this is a suggestion only - add "These are suggestions for coder review, not final codes" to the output to prevent misuse.</p>
+
+<p><strong>8. HCC Risk Coding</strong></p>
+
+<pre><code class="language-">Review the following encounter documentation for HCC (Hierarchical Condition Category) coding opportunities. Identify chronic conditions that are: (1) documented but not coded, (2) coded but without supporting documentation in this encounter, (3) documented with specificity that would support a more specific HCC code. Reference CMS HCC model v28.
+
+DOCUMENTATION:
+{encounter_documentation}</code></pre>
+
+<p>Input: full encounter documentation. Output: HCC coding opportunities with specificity. Tip: include the patient's active problem list as context to improve chronic condition capture.</p>
+
+<p><strong>9. E&M Level Determination</strong></p>
+
+<pre><code class="language-">Based on the 2023 AMA E/M guidelines, determine the appropriate E/M level for the following office visit note. Evaluate: Medical Decision Making (number and complexity of problems, amount and complexity of data, risk of complications). State the MDM level (Straightforward/Low/Moderate/High), the corresponding E/M code (99202-99215 for new/established patients), and the specific elements that support this level.
+
+OFFICE VISIT NOTE:
+{office_note}</code></pre>
+
+<p>Input: office visit note. Output: E&M level with MDM breakdown. Tip: specify "new patient" or "established patient" in the prompt to get the correct code set.</p>
+
+<p><strong>10. Modifier Selection</strong></p>
+
+<pre><code class="language-">For the following surgical case with multiple procedures, determine which CPT modifiers are appropriate. Evaluate the need for: -51 (multiple procedures), -59 (distinct procedural service), -LT/-RT (laterality), -50 (bilateral), -22 (unusual procedural services), and XU/XE/XS/XP (NCCI-compliant distinct service modifiers). Provide a brief rationale for each applied modifier.
+
+PROCEDURES PERFORMED:
+{procedure_list}
+
+CASE DOCUMENTATION:
+{case_documentation}</code></pre>
+
+<p>Input: procedure list and supporting documentation. Output: modifier recommendations with rationale. Tip: include the payer in the prompt - some modifier rules are payer-specific (CMS vs commercial).</p>
+
+<h2>Adverse Event Detection</h2>
+
+<p><strong>11. AE Extraction from Narratives</strong></p>
+
+<pre><code class="language-">Extract all adverse events from the following clinical or safety narrative. For each event: event term (verbatim), event term (MedDRA-normalized if possible), onset date, resolution date or "ongoing", severity (mild/moderate/severe/life-threatening/fatal), and whether the event led to study discontinuation.
+
+NARRATIVE:
+{safety_narrative}</code></pre>
+
+<p>Input: clinical trial narrative, case report, or medical record excerpt. Output: structured AE table. Tip: add "Use MedDRA v26.1 preferred terms" to standardize terminology.</p>
+
+<p><strong>12. Seriousness Classification</strong></p>
+
+<pre><code class="language-">Classify the following adverse event report according to ICH E2A seriousness criteria. Evaluate each criterion: (1) death, (2) life-threatening, (3) hospitalization required or prolonged, (4) persistent or significant disability, (5) congenital anomaly, (6) other medically important event. State whether the event meets serious criteria, which specific criterion is met, and the supporting text.
+
+ADVERSE EVENT REPORT:
+{ae_report}</code></pre>
+
+<p>Input: AE report or medical record. Output: seriousness assessment with criterion mapping. Tip: for spontaneous reports with incomplete information, add "Apply the benefit of the doubt rule per ICH E2A Section 3."</p>
+
+<p><strong>13. Causality Assessment</strong></p>
+
+<pre><code class="language-">Perform a causality assessment for the following adverse event using the WHO-UMC scale. Evaluate: (1) temporal relationship, (2) dechallenge (event improved after stopping drug), (3) rechallenge (event recurred on re-exposure), (4) alternative explanations, (5) plausibility of mechanism. Assign one of: Certain, Probable, Possible, Unlikely, Conditional, Unassessable. Provide the rationale.
+
+DRUG: {drug_name}
+ADVERSE EVENT: {ae_description}
+CLINICAL CONTEXT: {clinical_context}</code></pre>
+
+<p>Input: drug name, AE description, clinical context. Output: WHO-UMC classification with rationale. Tip: provide concomitant medications explicitly - they are the most common source of alternative explanations.</p>
+
+<p><strong>14. ICSR Draft</strong></p>
+
+<pre><code class="language-">Draft an Individual Case Safety Report (ICSR) narrative for MedWatch/EudraVigilance submission based on the following information. The narrative should: follow chronological order, include all relevant medical history, describe the adverse event with onset and character, describe any treatment given for the event, and describe the outcome. Use ICH E2B(R3) narrative conventions. Do not include PII.
+
+SOURCE INFORMATION:
+{source_data}</code></pre>
+
+<p>Input: case data (from medical records, spontaneous report, or clinical trial). Output: ICSR narrative text. Tip: add "Flag any E2B(R3) mandatory fields that are missing from the source data" to catch gaps before submission.</p>
+
+<p><strong>15. Signal Detection</strong></p>
+
+<pre><code class="language-">Review the following aggregate data for a potential safety signal. Identify: (1) unexpected frequency of the event relative to the general population, (2) unusual patient characteristics (age, sex, indication), (3) temporal patterns, (4) outcome severity pattern. Reference relevant sections of FDA Guidance for Industry: Good Pharmacovigilance Practices. State whether this warrants formal signal evaluation.
+
+AGGREGATE DATA:
+{aggregate_safety_data}</code></pre>
+
+<p>Input: aggregate case data (counts, demographics, outcomes). Output: signal assessment narrative. Tip: provide the expected background rate if known - without it, the model cannot assess unexpectedness.</p>
+
+<h2>Patient Communication</h2>
+
+<p><strong>16. After-Visit Summary</strong></p>
+
+<pre><code class="language-">Write an after-visit summary for a patient at a 6th grade reading level. Include: what we talked about today, what we found, what you should do (medications, follow-up, activity restrictions), warning signs to watch for and when to call us or go to the ER. Use plain language. Avoid medical jargon - if you must use a medical term, define it immediately after in parentheses.
+
+VISIT INFORMATION:
+{clinical_visit_data}</code></pre>
+
+<p>Input: visit note or clinical summary. Output: patient-facing after-visit summary. Tip: add the patient's primary language if non-English and use a translation step after generation.</p>
+
+<p><strong>17. Medication Instructions</strong></p>
+
+<pre><code class="language-">Write patient-friendly medication instructions for the following prescription. Include: what this medication is for, how to take it (dose, timing, with food or not), what to do if you miss a dose, common side effects to expect, serious side effects that require calling the doctor, and any important interactions (food, alcohol, other medications).
+
+MEDICATION: {medication_name} {dose} {frequency}
+INDICATION: {indication}
+PATIENT CONTEXT: {relevant_patient_context}</code></pre>
+
+<p>Input: prescription details and indication. Output: patient-facing medication guide. Tip: add "Keep instructions under 300 words" for discharge packet formatting.</p>
+
+<p><strong>18. Care Plan Explanation</strong></p>
+
+<pre><code class="language-">Translate the following clinical care plan into a patient-friendly explanation. The patient has {health_literacy_level} health literacy. Explain: why each element of the plan is important, what the patient needs to do specifically, what success looks like, and what to do if they are unable to follow part of the plan.
+
+CARE PLAN:
+{clinical_care_plan}</code></pre>
+
+<p>Input: clinical care plan. Output: patient-friendly explanation. Tip: "low", "moderate", or "high" health literacy levels in the prompt change the vocabulary and sentence complexity meaningfully.</p>
+
+<h2>Clinical Decision Support</h2>
+
+<p><strong>19. Differential Diagnosis</strong></p>
+
+<pre><code class="language-">Generate a ranked differential diagnosis for the following presentation. For each diagnosis: probability (high/moderate/low), key supporting features present, key features that argue against it, and the next best diagnostic test to differentiate. Limit to the top 5 differentials. State clearly that this is decision support only and does not replace physician judgment.
+
+PATIENT PRESENTATION:
+{clinical_presentation}</code></pre>
+
+<p>Input: structured clinical presentation (age, sex, symptoms, signs, relevant history, labs). Output: ranked differential with reasoning. Tip: include vitals and timing explicitly - both are strong discriminators for serious diagnoses.</p>
+
+<p><strong>20. Drug Interaction Check</strong></p>
+
+<pre><code class="language-">Check the following medication list for clinically significant drug-drug interactions. For each interaction found: the interacting pair, the mechanism, the clinical consequence, the severity (contraindicated/major/moderate/minor), and the recommended management. Focus on interactions with actionable management steps.
+
+MEDICATION LIST:
+{medication_list}</code></pre>
+
+<p>Input: medication list with doses. Output: interaction table. Tip: this supplements but does not replace a commercial drug interaction database (Lexicomp, Micromedex) - say so in any clinical deployment.</p>
+
+<h2>Regulatory Writing</h2>
+
+<p><strong>21. CSR Section Draft</strong></p>
+
+<pre><code class="language-">Draft the following Clinical Study Report section per ICH E3 guidelines: {section_name}. Use the data provided. Follow the ICH E3 structure exactly. Use passive voice for methods, active voice for findings. Flag any required data elements that are missing from the provided inputs.
+
+STUDY DATA:
+{study_data}
+
+SECTION TO DRAFT: {section_name}</code></pre>
+
+<p>Input: structured study data and target section name. Output: ICH E3-compliant section draft. Tip: provide the section outline from ICH E3 in the prompt for complex sections (e.g., Section 11.4 efficacy results) to ensure all required subsections are included.</p>
+
+<p><strong>22. Protocol Synopsis</strong></p>
+
+<pre><code class="language-">Write a protocol synopsis for the following clinical trial design. Structure: title, sponsor, phase, indication, primary endpoint, secondary endpoints, study population (inclusion/exclusion criteria summary), study design (randomization, blinding, arms, treatment duration), sample size with justification, statistical analysis approach. Keep under 1000 words.
+
+PROTOCOL DETAILS:
+{protocol_details}</code></pre>
+
+<p>Input: full protocol or structured protocol data. Output: ICH-style synopsis. Tip: "keep under 1000 words" is important - synopses that run long fail regulatory format requirements in many jurisdictions.</p>
+
+<h2>Data Extraction</h2>
+
+<p><strong>23. EHR Structured Extraction</strong></p>
+
+<pre><code class="language-">Extract the following data elements from the clinical note below. Return results as JSON. For each field: the extracted value, the verbatim text it was extracted from, and your confidence (high/medium/low). If a field is not present, return null. Fields: {field_list}
+
+CLINICAL NOTE:
+{clinical_note}</code></pre>
+
+<p>Input: clinical note, list of target fields. Output: JSON extraction with provenance. Tip: include one or two example extractions in the prompt (few-shot) to establish the format for complex nested fields.</p>
+
+<p><strong>24. Eligibility Criteria Parsing</strong></p>
+
+<pre><code class="language-">Parse the following clinical trial eligibility criteria into structured format. For each criterion: criterion text, criterion type (inclusion/exclusion), category (diagnosis, age, lab value, prior treatment, comorbidity, other), any numeric thresholds with units, and whether the criterion requires medical judgment to apply (yes/no).
+
+ELIGIBILITY CRITERIA:
+{eligibility_criteria_text}</code></pre>
+
+<p>Input: raw eligibility criteria text from a protocol. Output: structured criteria table. Tip: numeric thresholds and units are the most failure-prone part - validate these against the source text before any automated screening use.</p>
+
+<h2>Quality and Compliance</h2>
+
+<p><strong>25. HEDIS Measure Abstraction</strong></p>
+
+<pre><code class="language-">Review the following medical record for HEDIS measure {measure_name} ({measure_id}). Based on the NCQA HEDIS technical specifications, determine: (1) whether the patient is in the eligible population, (2) whether the required service was provided, (3) the denominator exclusions that apply if any, (4) the final numerator status (compliant/non-compliant/exclusion). Cite the specific documentation that supports each determination.
+
+HEDIS MEASURE: {measure_name}
+MEASUREMENT YEAR: {year}
+PATIENT RECORD:
+{medical_record}</code></pre>
+
+<p>Input: HEDIS measure specification and patient record. Output: measure abstraction with documentation citations. Tip: include the NCQA technical specification for the measure as additional context - the model's knowledge of HEDIS specifications degrades for less common measures.</p>
+
+<p>These 25 templates cover the most common use cases. The patterns apply beyond these specific prompts - the key principles are: explicit output format instructions, source attribution requirements, explicit fallback for missing information, and domain-specific constraint statements (ICH guidelines, NCQA specs, AMA coding guidelines).</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/fda-ai-ml-regulatory-checklist/">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/clinical-trial-ai-playbook/">Clinical Trial AI Playbook</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-agentic-ai-stack-architecture-patterns-for-production-systems-2/">The Agentic AI Stack: Architecture Patterns for Production Systems</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/from-pilot-to-production-a-7-step-checklist-for-deploying-genai-in-healthcare/">From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

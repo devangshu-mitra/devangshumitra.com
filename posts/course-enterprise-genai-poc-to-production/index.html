@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Why most POCs fail and what to do about it - a practitioner&#39;s guide to moving" />
+  <meta property="og:title" content="Enterprise GenAI: From POC to Production — Devangshu Mitra" />
+  <meta property="og:description" content="Why most POCs fail and what to do about it - a practitioner&#39;s guide to moving" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Enterprise GenAI: From POC to Production — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-01-29" itemprop="datePublished">Jan 29, 2026</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Enterprise GenAI: From POC to Production</h1>
+          <p class="post-header__excerpt" itemprop="description">Why most POCs fail and what to do about it - a practitioner's guide to moving</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Enterprise GenAI: From POC to Production</h1>
+
+<p>I have been on both sides of this. I've been the PM celebrating a successful demo, and I've been the PM explaining to a CTO why the production deployment failed six months after the proof of concept looked perfect. The gap between a POC and production is the most expensive mistake in enterprise AI, and it's almost entirely predictable.</p>
+
+<p>This guide is what I've learned about crossing that gap successfully.</p>
+
+<hr>
+
+<h2>Section 1: Why Most POCs Fail</h2>
+
+<p>The POC was not the problem. The POC was doing exactly what it was designed to do - demonstrate that a capability is technically possible with the right conditions, the right data, and the right framing of the problem.</p>
+
+<p>Production is none of those things.</p>
+
+<p>Here's what changes at scale that the POC didn't capture:</p>
+
+<p><strong>Data quality degrades at volume.</strong> Your POC ran on carefully curated data. Production runs on everything - malformed inputs, edge cases, unusual formats, missing fields, legacy records, and data that violates assumptions you didn't know you were making. I've seen accuracy drop 20-30 points when a model moves from POC to production data. Every time.</p>
+
+<p><strong>Latency becomes a real constraint.</strong> A model that responds in 8 seconds is impressive in a demo. In a production workflow where a user is waiting, 8 seconds is unacceptable. Latency requirements are often undiscoverable until users start actually using the system.</p>
+
+<p><strong>Edge cases multiply.</strong> Your POC handled the 80% use case. Production is the remaining 20% - the inputs the model wasn't trained for, the workflows that diverge from the happy path, the users who use the system in ways you didn't anticipate.</p>
+
+<p><strong>Integration complexity is underestimated.</strong> Your POC probably ran with clean API calls or a simple UI. Production means EHR integrations, SSO, audit trails, role-based access control, data residency constraints, and IT security reviews. Each of these can take months.</p>
+
+<p>The mistake I see most often: declaring the POC a success and moving straight to production without a deliberate "hardening" phase in between. Build the hardening phase into your roadmap from day one.</p>
+
+<hr>
+
+<h2>Section 2: Architecture Decisions That Matter Early</h2>
+
+<p>There are architecture decisions you make early that are very expensive to reverse. These are the ones I've seen bite teams most often.</p>
+
+<p><strong>RAG vs Fine-tuning</strong></p>
+
+<p>Retrieval-Augmented Generation (RAG) retrieves relevant documents at inference time and provides them as context to the model. Fine-tuning modifies the model weights on domain-specific data.</p>
+
+<p>My heuristic: default to RAG first. It's faster to build, easier to update (change the document store, not retrain the model), and more debuggable. You can see exactly what documents were retrieved and why the model responded the way it did. Fine-tuning makes sense when you need consistent output format/style, when you have thousands of high-quality examples, or when latency requirements make RAG's retrieval step prohibitive.</p>
+
+<p>Where I've seen teams go wrong: fine-tuning for behavior that RAG can handle, because fine-tuning "sounds more serious." The result is a more expensive, harder-to-maintain system that isn't meaningfully better.</p>
+
+<p><strong>Model Selection</strong></p>
+
+<p>Don't over-index on benchmark performance. Benchmarks measure capabilities under ideal conditions; your production task is specific and your data is messy. The questions I actually ask when selecting a model: How does it perform on your specific task with your actual data? What's the total cost including inference at scale? What's the latency profile? What's the context window and how does it handle long documents? Is there an enterprise SLA and data processing agreement?</p>
+
+<p>For most enterprise use cases, the frontier models (GPT-4, Claude, Gemini Ultra) are not meaningfully better than capable mid-tier models for structured tasks. The cost difference is significant. Run your actual tasks on multiple models before committing.</p>
+
+<p><strong>Build vs Buy</strong></p>
+
+<p>The honest answer is: buy the foundational model layer, buy tooling where vendors are strong (vector databases, observability), build the application layer where your competitive differentiation lives. The mistake is spending 6 months building infrastructure that you could purchase for $2K/month so that you can spend time on the actual product.</p>
+
+<hr>
+
+<h2>Section 3: Vendor Selection Without Getting Burned</h2>
+
+<p>I've been through GenAI vendor evaluations at multiple organizations. Here's what I look for and what has burned me.</p>
+
+<p><strong>Evaluation Criteria That Actually Matter</strong></p>
+
+<p>Data processing agreement and data residency - where does your data go? Can you opt out of being used for model training? For healthcare and financial data, this is non-negotiable and surprisingly often a blocker. Ask for the DPA in the first meeting.</p>
+
+<p>Uptime SLA and incident history - what's their actual track record? Get references from customers who experienced outages. What was the response time? How did they communicate?</p>
+
+<p>Fine-tuning and private deployment options - if you need to keep data on-premises or need a fine-tuned version, what does that look like? Not all vendors support this. Understand your options before you're six months in and committed.</p>
+
+<p>Enterprise support tier - what do you get beyond documentation and community forums? Named support contacts matter when things break at 2am before a board demo.</p>
+
+<p><strong>Red Flags</strong></p>
+
+<p>Vendors who can't give you a straight answer on data residency. Vendors whose "enterprise" plan is just the standard plan with a higher price. Vendors with no clear incident history or transparency reports. Any vendor that says their model "doesn't hallucinate." Startups with less than 12 months of runway who want a 3-year contract.</p>
+
+<p><strong>Negotiation Use</strong></p>
+
+<p>AI vendor pricing is highly negotiable, especially if you're an early enterprise customer in a new vertical. Your use: committed volume (tokens per month), multi-year commitment, reference customer status (many AI companies desperately need case studies), and being willing to walk away to a competitor. I've seen 30-40% discounts off list price for enterprise deals. Don't pay list price.</p>
+
+<hr>
+
+<h2>Section 4: Evaluation That Actually Works</h2>
+
+<p>GenAI evaluation is hard because there often isn't a single right answer. Here's how I think about it.</p>
+
+<p><strong>Metrics Beyond Accuracy</strong></p>
+
+<p>For generative tasks (summarization, drafting, extraction), accuracy as a single number is misleading. I use a multi-dimensional rubric: correctness (is the information factually right?), completeness (does it include everything it should?), conciseness (is it appropriately brief?), format compliance (does it follow the required output format?), and safety (does it avoid harmful, biased, or inappropriate outputs?).</p>
+
+<p>For classification and extraction tasks, precision, recall, and F1 are the right starting point. Add calibration (are confidence scores meaningful?) and coverage (what percentage of inputs does the model handle vs. route to fallback?).</p>
+
+<p><strong>Human Evaluation</strong></p>
+
+<p>You cannot automate your way out of human evaluation for generative tasks. Build a panel of domain experts who evaluate a sample of outputs weekly. This is expensive and doesn't scale, but it's the only way to catch quality degradation early and to build the ground truth datasets that improve your automated metrics over time.</p>
+
+<p>Here's what I've seen work: 50-100 test cases, evaluated by 2-3 domain experts, run on every model version before deployment. That's not a lot of work, and it catches regressions that automated metrics miss.</p>
+
+<p><strong>Regression Testing</strong></p>
+
+<p>Build a test suite before you deploy, not after you have a bug. Every time you find a failure in production, add it to the test suite. Over time, your test suite becomes a high-quality representation of real-world edge cases. This is the same discipline as software testing, applied to AI - and most teams skip it.</p>
+
+<hr>
+
+<h2>Section 5: Security and Compliance</h2>
+
+<p>This is the section that kills timelines if you leave it for last. Build it in from the beginning.</p>
+
+<p><strong>Data Residency and Access Controls</strong></p>
+
+<p>Know where your data goes at every step of the pipeline: user input, context retrieval, model inference, output, and logs. For healthcare (HIPAA), financial services (SOC 2, FedRAMP), and regulated industries, data residency requirements may limit your model options. Not all frontier models are available in all geographic regions or with the right compliance certifications.</p>
+
+<p>Role-based access control is table stakes. Who can query the system? Who can see query logs? Who can modify the knowledge base? Define this before you deploy, not after the security review asks.</p>
+
+<p><strong>Audit Trails</strong></p>
+
+<p>Log every query and response with timestamp, user ID, and session ID. In regulated environments, this is often a legal requirement. It's also essential for debugging, abuse detection, and compliance reporting. Storage is cheap. Not having logs when an auditor asks is expensive.</p>
+
+<p><strong>HIPAA in GenAI</strong></p>
+
+<p>If PHI will be sent to the model (in queries or context), your model provider needs to be a HIPAA Business Associate. Get the BAA signed before you process any PHI. Build PHI detection into your input pipeline to catch accidental PHI in user queries. De-identify wherever possible before sending to the model.</p>
+
+<p>The specific issue I've seen: users including PHI in free-text queries that were never intended to carry PHI. "Summarize the note for patient John Smith, DOB 1/15/1960" was not in the test plan. It will happen in production. Build guardrails.</p>
+
+<hr>
+
+<h2>Section 6: The Deployment Playbook</h2>
+
+<p>Never deploy directly to all users. Use staged rollout.</p>
+
+<p><strong>Staging Environment</strong></p>
+
+<p>Your staging environment should match production as closely as possible - same infrastructure, same data pipeline, same integration points. The classic mistake is having a staging environment that's simpler than production, so you don't discover production-specific issues until you're already live.</p>
+
+<p><strong>Canary Deployment</strong></p>
+
+<p>Route 5-10% of traffic to the new model version while the rest continues on the current version. Monitor for quality regressions, latency changes, and error rates. Give it 48-72 hours before expanding. This catches the issues that don't show up in testing but emerge with real-world traffic patterns.</p>
+
+<p><strong>Rollback</strong></p>
+
+<p>You need to be able to roll back to the previous version in under 15 minutes. Test this before your first production deployment. The worst time to discover your rollback process doesn't work is during an incident.</p>
+
+<p><strong>Monitoring and Incident Response</strong></p>
+
+<p>Define your alerting thresholds before go-live: error rate spike, latency spike, quality score drop below threshold, unusual traffic patterns. Set up on-call rotation. Write your runbook for common failure scenarios before they happen, not during them.</p>
+
+<hr>
+
+<h2>Section 7: When Things Break at 2am</h2>
+
+<p>They will break. Here's how to handle it without panicking.</p>
+
+<p><strong>Production Debugging</strong></p>
+
+<p>Start with the most recent change. What deployed in the last 24-48 hours? Model version, data pipeline update, prompt change, infrastructure change? Most production incidents trace back to a recent change, not a latent bug.</p>
+
+<p>Check your logs first, not your code. The logs will tell you where the failure is occurring - model inference, retrieval, input processing, output formatting. That narrows your debugging space dramatically.</p>
+
+<p>For LLM-specific issues: hallucination spike often traces back to a context window issue (relevant documents not being retrieved) or a prompt regression (a change that degraded instruction-following). Latency spike is usually infrastructure or an upstream API issue. Quality regression in a specific domain usually means distribution shift in your data.</p>
+
+<p><strong>Escalation</strong></p>
+
+<p>Have a clear escalation path before you need it. Who do you call when the model provider is down? What's their incident communication channel? What's your SLA with customers and what's the communication protocol when you breach it?</p>
+
+<p><strong>Post-Mortems</strong></p>
+
+<p>Run a blameless post-mortem within 48 hours of every significant incident. The goal is not to find who caused it - it's to find what systemic conditions made the incident possible. Five whys, not one. Add the failure mode to your test suite. Update your runbook. The incident was expensive; extract the maximum learning from it.</p>
+
+<p><strong>Building Resilience</strong></p>
+
+<p>Design for graceful degradation. When the primary model is unavailable, what happens? Can you fall back to a smaller, faster model? Can you surface cached responses? Can you route to a human review queue? The worst outcome is a complete failure where users get an error with no path forward. Build the fallback before you need it.</p>
+
+<p>The practice that has saved me the most: fire drills. Once a quarter, deliberately trigger a simulated failure (in staging) and practice your incident response. The first time you run through the response process should not be during a real incident.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+<li><a href="https://www.devangshumitra.com/course-break-into-ai-pm/">Break Into AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/course-first-principles-pm/">First Principles for Product Managers</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-roi-of-ai-how-to-build-a-business-case-your-cfo-will-approve-2/">The ROI of AI: How to Build a Business Case Your CFO Will Approve</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-mapping-canvas/">Stakeholder Mapping Canvas for Enterprise AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/why-enterprise-ai-teams-ship-slower-than-they-should-9/">Why Enterprise AI Teams Ship Slower Than They Should</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

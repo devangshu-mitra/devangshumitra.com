@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover key insights from FDA SaMD guidance to navigate software as medical" />
+  <meta property="og:title" content="FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs — Devangshu Mitra" />
+  <meta property="og:description" content="Discover key insights from FDA SaMD guidance to navigate software as medical" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">FDA & Regulatory</span>
+            <time class="post-header__date" datetime="2026-01-17" itemprop="datePublished">Jan 17, 2026</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover key insights from FDA SaMD guidance to navigate software as medical</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>FDA SaMD Guidance Explained: What Every Life Sciences Product Manager Needs to Know</h1>
+
+<p>If you're building AI products in life sciences, you will eventually hit a three-letter acronym that determines whether your product ships in months or years: <strong>SaMD</strong> - Software as a Medical Device.</p>
+
+<p>I've worked through FDA regulatory strategy across multiple clinical AI products at HCLTech. Here's the practical guide I wish I'd had on day one.</p>
+
+<h2>What Is SaMD?</h2>
+
+<p><strong>Software as a Medical Device</strong> is software intended to be used for medical purposes without being part of a hardware medical device. Think: a diagnostic algorithm running on a standard laptop, not embedded in an MRI machine.</p>
+
+<p>Examples of SaMD: AI that reads radiology images, clinical decision support tools that recommend treatments, algorithms that predict patient deterioration from EHR data.</p>
+
+<p>Examples that are <em>not</em> SaMD: EHR systems (administrative), hospital scheduling software, fitness trackers (wellness), lab information management systems.</p>
+
+<h2>The Classification Framework: Class I, II, and III</h2>
+
+<ul>
+<li><strong>Class I (Low Risk)</strong> - General controls only. Example: software that logs patient symptoms for doctor review.</li>
+<li><strong>Class II (Moderate Risk)</strong> - Requires 510(k) or De Novo. Most AI/ML medical devices land here. Example: AI flagging diabetic retinopathy.</li>
+<li><strong>Class III (High Risk)</strong> - Requires PMA. Example: AI autonomously diagnosing life-threatening conditions.</li>
+</ul>
+
+<p><strong>Key insight:</strong> Your classification determines timeline and cost. Class II 510(k): 6-12 months, $200K-$500K. Class III PMA: 2-4 years, $2M-$10M.</p>
+
+<h2>Regulatory Pathways</h2>
+
+<h3>Building on a Solid Foundation: Your Quality Management System</h3>
+
+<p>Regulatory Pathways Building on a Solid Foundation: Your Quality Management System You can have the best AI model, but without a strong Quality Management System (QMS), your SaMD won't get far with the FDA. This isn't just about good practice; it's a regulatory requirement. I've seen teams underestimate this, leading to significant delays. Your QMS needs to cover everything from design and development to production, distribution, and post-market activities.</p>
+
+<p>The gold standard here is ISO 13485. This international standard specifically outlines requirements for a QMS where an organization needs to demonstrate its ability to provide medical devices and related services that consistently meet customer and regulatory requirements. It's not optional for serious players. Within this, design controls are paramount. You must document your design inputs, outputs, reviews, verification, and validation activities. Every decision, every change, needs a paper trail.</p>
+
+<p>Risk management also lives within your QMS, guided by ISO 14971. This means identifying potential hazards, estimating and evaluating risks, controlling them, and monitoring the effectiveness of those controls throughout the product's entire lifecycle. For AI SaMD, this includes risks like model bias, drift, or misinterpretation of outputs by a clinician. Thinking about risk early can shape your product's safety features and regulatory strategy.</p>
+
+<h3>The FDA's Eye on Your Code: SDLC for SaMD</h3>
+
+<p>Developing SaMD isn't like building a typical enterprise app. The FDA expects a highly structured and documented Software Development Lifecycle (SDLC). This isn't just about agile sprints; it's about demonstrating control and safety at every step. The international standard IEC 62304, "Medical device software - Software life cycle processes," is your blueprint here. It classifies software based on risk (Class A, B, C) and defines processes for development, maintenance, and risk management.</p>
+
+<p>Verification and validation (V&V) take on a deeper meaning. Verification ensures you're building the product right - for example, unit tests, code reviews, integration tests. Validation ensures you're building the right product - that it meets user needs and intended use in a clinical setting. For an AI that detects a specific disease, validation means demonstrating its diagnostic accuracy against ground truth data, often from clinical studies. This goes beyond typical software QA.</p>
+
+<p>Traceability is another critical piece. You need to show a clear link from every user requirement to its design specification, code implementation, and testing. Tools like Jira with specific plugins or dedicated requirements management systems can help manage this. This level of rigor proves to the FDA that your software is developed systematically, minimizing the chances of errors that could impact patient safety. It's about demonstrating engineering discipline.</p>
+
+<h3>Keeping Watch: Post-Market Surveillance and Real-World Data</h3>
+
+<p>FDA clearance isn't the finish line; it's a major milestone. After your SaMD is on the market, you enter the phase of post-market surveillance. The FDA requires you to actively monitor your device's performance and collect real-world data. This is crucial for patient safety and for demonstrating continued effectiveness. You'll need systems in place to track adverse events, which are any undesirable experiences associated with the use of a medical device.</p>
+
+<p>If your SaMD is linked to an adverse event, you're typically required to report it to the FDA via the MedWatch program within a specific timeframe, often 30 days for serious events. This isn't just about compliance; it's about learning and improving. Many companies implement continuous performance monitoring dashboards for their AI models, tracking metrics like accuracy, precision, and recall on live data. This helps detect model drift or data shift early.</p>
+
+<p>Real-world data (RWD) collected post-market can also be incredibly valuable. It can support future product iterations, provide evidence for expanding your device's indications, or even be used to update your Predetermined Change Control Plan. For example, if your AI was cleared for adults, RWD on its performance in an adolescent population could support a future submission to expand its use. Collecting this data systematically is a long-term strategy for product evolution.</p>
+
+<h3>Designing for Humans: The Role of Human Factors Engineering</h3>
+
+<p>Even the most accurate AI can be unsafe if users misinterpret its output or interact with it incorrectly. This is where Human Factors Engineering (HFE) comes in. HFE focuses on designing the user interface and overall system to minimize the potential for use error. For SaMD, especially those providing diagnostic or treatment recommendations, ensuring clinicians understand and correctly act on the AI's output is paramount.</p>
+
+<p>The FDA provides guidance on applying HFE principles to medical devices. You'll typically conduct a use-related risk analysis early in development. This involves identifying potential scenarios where a user might make a mistake - for instance, misreading a probability score, overlooking a critical alert, or inputting incorrect patient data. Then, you design controls to mitigate these risks, such as clear visual cues, simplified workflows, or mandatory confirmation steps.</p>
+
+<p>Formative usability studies, where you observe target users interacting with prototypes, help identify and fix design flaws early. A summative validation study, often performed with a near-final product, demonstrates that the device can be used safely and effectively by its intended users in a realistic environment. This study typically results in an HFE report that's included in your regulatory submission. It shows you've thought deeply about how your SaMD fits into a clinician's workflow and how to prevent errors that could harm patients.</p>
+
+<h3>510(k) - The Predicate Device Pathway</h3>
+
+<p>Demonstrate substantial equivalence to an already-cleared device. Fastest for Class II. Start predicate searches early using the FDA's public database.</p>
+
+<h3>De Novo - The Novel Device Pathway</h3>
+
+<p>For low-to-moderate risk devices with no predicate. Increasingly common for AI/ML. Takes 12-18 months. Creates new classification for future devices.</p>
+
+<h3>PMA - The Gold Standard</h3>
+
+<p>For Class III, high-risk devices. Requires clinical trial data. Most AI teams should design products to include physician oversight, keeping them in Class II territory.</p>
+
+<h2>The Clinical Decision Support Exemption</h2>
+
+<p>The 21st Century Cures Act exempts CDS software meeting ALL four criteria: not processing medical images/signals, displaying/analyzing medical information, intended for healthcare professionals, and enabling the HCP to independently review recommendations. The fourth criterion is key - <strong>explainability isn't just nice-to-have, it's a regulatory strategy.</strong></p>
+
+<h2>Predetermined Change Control Plans (PCCPs)</h2>
+
+<p>PCCPs let you define upfront how your algorithm will change post-clearance - what data it learns from, how performance is monitored, what triggers resubmission. This means continuous improvement without a new 510(k) every time your model updates. Plan for this from day one.</p>
+
+<h2>Key Takeaways</h2>
+
+<ul>
+<li><strong>Regulatory strategy is product strategy.</strong> Start planning in discovery, not after development.</li>
+<li><strong>Design for Class II.</strong> Include physician oversight to avoid Class III/PMA.</li>
+<li><strong>Explore the CDS exemption.</strong> Transparency in AI reasoning can mean no FDA regulation at all.</li>
+<li><strong>Plan PCCPs from day one.</strong> If your AI improves, build change control into your initial submission.</li>
+<li><strong>Engage FDA early.</strong> Pre-Submission meetings are free and can save months.</li>
+</ul>
+
+<p><em>For more terms, see the</em> <a href="https://www.devangshumitra.com/glossary/"><em>glossary</em></a><em>.</em></p>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-hidden-risks-of-llm-hallucination-in-life-sciences-what-every-product-manager-must-know/">The Hidden Risks of LLM Hallucination in Life Sciences: What Every Product Manager Must Know</a></li>
+<li><a href="https://www.devangshumitra.com/ai-clinical-trial-patient-recruitment/">How AI Is Transforming Clinical Trial Patient Recruitment: A Product Manager's Perspective</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-prompt-engineering-a-life-sciences-product-managers-decision-framework/">RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager's Decision Framework</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

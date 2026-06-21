@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Healthcare AI teams face a critical architecture decision: RAG, fine-tuning," />
+  <meta property="og:title" content="RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for — Devangshu Mitra" />
+  <meta property="og:description" content="Healthcare AI teams face a critical architecture decision: RAG, fine-tuning," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-07-15" itemprop="datePublished">Jul 15, 2025</time>
+            <span class="post-header__read-time">13 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for</h1>
+          <p class="post-header__excerpt" itemprop="description">Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</h1>
+
+<h2>A Cardiologist's Frustration: Why Your LLM Can't Read the Chart Room</h2>
+
+<p>I was sitting with a cardiologist at a mid-size health system last year. She had a 2008 echo report for a patient, a clinical note from 2019 with medication changes, and a recent troponin result. She asked our model a straightforward question: "Given the ejection fraction trend and current labs, what's the risk profile for decompensated heart failure in the next 90 days?"</p>
+
+<p>The model hallucinated. Not in a subtle way. It invented lab values, confused medications, and referenced a clinical decision rule that didn't exist. We had a production-grade LLM backed by the world's best vector database. We had months of fine-tuning on proprietary clinical datasets. And it failed at something a resident could do in five minutes.</p>
+
+<p>This moment crystallized something I'd been wrestling with across a dozen healthcare AI projects: the choice between RAG (Retrieval-Augmented Generation), fine-tuning, and expanding context windows isn't actually about which technology is "best." It's about which one solves the specific retrieval and reasoning problem you're facing. And I was solving the wrong problem.</p>
+
+<p>The cardiologist didn't need me to fine-tune the model more aggressively or expand its context window to 200K tokens. She needed the model to reliably retrieve three specific documents from 47 available records, reason about what it had retrieved, and flag when it was uncertain. She needed RAG that worked. And we had built RAG that looked right on paper but failed in practice.</p>
+
+<p>This is what I want to walk you through: how to actually think about these three architectures for clinical AI, when each one legitimately makes sense, and where I've seen teams (including mine) make costly mistakes.</p>
+
+<h2>The Three Architectures and What They're Actually Solving For</h2>
+
+<p>Let me be direct about what each approach is trying to do, because the confusion starts here.</p>
+
+<p><strong>RAG (Retrieval-Augmented Generation)</strong> solves a specific problem: you have a large corpus of documents that you can't fit in the context window, and you need the model to retrieve relevant ones before generating an answer. The retrieval step is the entire point. You're betting that fetching the right documents and grounding the model in them will reduce hallucination and improve accuracy.</p>
+
+<p><strong>Fine-tuning</strong> solves a different problem: you want to change the model's behavior, knowledge, or reasoning patterns based on examples. You're teaching it to write in a certain style, make certain clinical judgments, or prioritize certain information. Fine-tuning updates the weights of the model itself.</p>
+
+<p><strong>Expanding context windows</strong> solves yet another problem: you want to fit more information into a single pass without retrieval, so the model can see relationships across a larger document set at once. Modern models (Claude 3.5, GPT-4, Gemini 2.0) can handle 100K-200K tokens. Some can handle more.</p>
+
+<p>Here's what I've learned: teams often choose between these based on what's trendy or what they have budget for, not based on what the clinical problem actually requires. That's backwards.</p>
+
+<h2>The Decision Framework: When Each Architecture Actually Works</h2>
+
+<p>I use a simple framework when I'm deciding which approach to build. It starts with three questions:</p>
+
+<ol>
+<li><strong>How large is your retrieval corpus, and how selective do you need to be?</strong> If you have 500 patient records and need to pull 3-4 of them, RAG is necessary. If you have 8 documents total, or the model needs to see everything at once to reason correctly, RAG adds complexity without value. Use context windows instead.</li>
+<li><strong>Does the model need to change its fundamental behavior, or does it just need better information?</strong> If you're asking "the model should write clinical summaries in SOAP format specific to our health system" or "the model should weight certain risk factors differently," you're talking about fine-tuning. If you're asking "the model should use the patient's actual lab results instead of inventing them," you're talking about retrieval.</li>
+<li><strong>Is the problem actually that the model is failing on reasoning, or is it that the model doesn't have the right data?</strong> This one matters enormously. I've seen teams fine-tune when they should have fixed their retrieval logic. I've done this myself.</li>
+</ol>
+
+<p>Let me give you three real scenarios from my work:</p>
+
+<p><strong>Scenario 1: Discharge Planning Tool at a 600-bed system</strong></p>
+
+<p>Patient records: 800K+ historical records, average 15MB each (notes, imaging reports, labs, past hospitalizations). For each admission, we need to surface 20-30 relevant historical records to inform a discharge plan. This is a clear RAG problem. The corpus is massive, retrieval is selective, and the model's job is to synthesize what it retrieves. We built RAG. Context windows (even 200K) don't scale here because you'd still need to decide which 800K records to feed in, which is the retrieval problem you're trying to avoid.</p>
+
+<p><strong>Scenario 2: Medication Safety Checker for a specialty practice</strong></p>
+
+<p>A rheumatology practice wants a tool that flags drug-drug interactions and contraindications for their patient population. Knowledge base: the FDA drug database (publicly available, ~3MB), interaction rules (publicly available, ~2MB), plus their own institutional protocols (15 pages of guidelines). Total: fits comfortably in a context window. The model doesn't need to "retrieve" the right interactions from millions of options. It needs to know the complete ruleset and reason about this specific patient's medications. We used a large context window (not RAG). The model sees the entire drug interaction database at once, which is actually beneficial because you can ask it to flag subtle interactions it might miss if it were only retrieving "relevant" ones.</p>
+
+<p><strong>Scenario 3: Radiology Report Generator for a telehealth provider</strong></p>
+
+<p>Radiologists needed reports that followed a specific institutional style: certain formatting, certain risk stratification frameworks, certain liability language. The base model (Claude or GPT-4) writes perfectly readable radiology reports out of the box. But the institutional style was different. We fine-tuned on 400 examples of radiology reports written the way this institution wanted them. After fine-tuning, the model generated reports that matched institutional patterns without human editing 85% of the time. This is legitimately fine-tuning's use case.</p>
+
+<p>Notice: different tools, different problems. Not "RAG is better" or "fine-tuning is overrated." Just: the right tool matches the problem.</p>
+
+<h2>Building RAG That Doesn't Hallucinate: Step-by-Step from Real Projects</h2>
+
+<p>I'm going to walk through how I actually build RAG systems for healthcare now, because RAG is where most teams go wrong. And I know this because I went wrong here first.</p>
+
+<p><strong>Step 1: Define what "retrieval success" actually means</strong></p>
+
+<p>Most teams skip this step. They build a vector database, measure retrieval precision/recall on a test set, get 85% retrieval accuracy, and then deploy. Then the model still hallucinates because retrieval accuracy on sample data isn't the same as retrieval success in production.</p>
+
+<p>For the cardiologist scenario I mentioned: we defined success as "retrieve all documents that contain information relevant to the clinical question, AND only return documents that are relevant." We weighted false negatives (missing a relevant document) more heavily than false positives (returning an irrelevant document). Why? A missed lab value is more dangerous than noise in the context.</p>
+
+<p>We started with a small test set: 50 real clinical questions from cardiologists, with ground truth annotations about which documents should be retrieved. We tested our retrieval method against this ground truth, not just on synthetic data.</p>
+
+<p><strong>Step 2: Build retrieval in stages, not all at once</strong></p>
+
+<p>Don't go straight to a vector database. Start simpler.</p>
+
+<p>Stage 1: Keyword/BM25 search. It's boring and old, but for clinical text it's genuinely useful. Clinical notes are dense with specific terms (medication names, lab names, procedure codes). Keyword search catches these reliably. We indexed our clinical notes with Elasticsearch and tested basic queries: "echo," "ejection fraction," "troponin." This caught ~70% of relevant documents with very few false positives.</p>
+
+<p>Stage 2: Vector search on top of stage 1. After keyword search retrieved top 20 candidates, we re-ranked them using embeddings. This was computationally cheap (re-ranking 20 documents, not searching 800K) and improved precision significantly. We went from 70% to 88% on our ground truth test set.</p>
+
+<p>Stage 3: LLM-based retrieval refinement. After vector ranking, we had the model read the top 10 candidates and explicitly decide whether each one was relevant. This added latency (extra LLM calls) but it was worth it for safety-critical decisions. Final precision: 92%.</p>
+
+<p>We didn't need all three stages for every query type. Simple medication checks worked fine with stage 1. Complex risk assessments needed stage 3. The point: build incrementally, measure at each stage, only add complexity where it helps.</p>
+
+<p><strong>Step 3: Test retrieval separately from generation</strong></p>
+
+<p>This is crucial and I see teams skip it constantly. They build a RAG pipeline (retrieval - generation - done) and test the whole thing end-to-end. If it fails, they don't know if the problem is retrieval or generation.</p>
+
+<p>We built a separate eval process: for 50 test questions, we manually retrieved the ground truth documents, fed them to the generation step with zero retrieval involved, and tested whether the model could answer correctly with perfect information. If generation fails with perfect information, retrieval quality doesn't matter. If generation succeeds with perfect information but fails with your retrieval, now you know the problem is retrieval.</p>
+
+<p>For the cardiologist tool, generation actually worked great with perfect information (92% accuracy on clinical questions). Retrieval was the bottleneck. So we spent engineering effort on retrieval, not generation. We could have spent months fine-tuning the generation step and it wouldn't have mattered.</p>
+
+<p><strong>Step 4: Handle document recency and versioning</strong></p>
+
+<p>This is healthcare-specific and teams often miss it. Clinical guidelines change. Lab reference ranges change. Medication dosing updates. If your RAG system retrieves a radiology report from 2019 and a medication guideline from 2021, but the guideline has been updated in 2024, the model needs to know that.</p>
+
+<p>We added metadata to every retrieved document: source, date, version, confidence in timeliness. The generation prompt included this metadata. The model learned to flag when it was using outdated information. This wasn't perfect, but it was better than confidently citing 2019 data in 2024.</p>
+
+<p><strong>Step 5: Implement uncertainty quantification</strong></p>
+
+<p>The most important thing a clinical AI system can do is flag when it's uncertain. We added a mechanism where, after generation, the model explicitly lists which retrieved documents it relied on and flags any contradictions it found. Then a human-in-the-loop could review those contradictions before the output went to a clinician.</p>
+
+<p>For the cardiologist tool: if two retrieved documents disagreed on medication dates, or if a document was relevant but contradicted the model's answer, we flagged it. Clinicians loved this. They didn't want the model to be confident. They wanted the model to help them synthesize information and flag where sources disagreed.</p>
+
+<h2>Common Mistakes (and How I've Made All of Them)</h2>
+
+<p><strong>Mistake 1: Building a vector database and calling it RAG</strong></p>
+
+<p>Embeddings are useful, but embedding everything and doing semantic search isn't RAG. RAG is a system. The vector database is one component. I've seen teams spend weeks tuning embedding models and vector similarity thresholds, only to realize the problem was that they weren't retrieving enough documents, or they were retrieving too many. Start with the basics (keyword search, ranking, filtering) and add semantic search only if it helps on your specific test set.</p>
+
+<p><strong>Mistake 2: Fine-tuning because you don't want to do RAG</strong></p>
+
+<p>Fine-tuning is slower to iterate on, harder to update, and creates a new model that only you can run. But it feels easier in the short term because you don't have to build retrieval infrastructure. I watched a team fine-tune on 2,000 examples of "correct" answers to clinical questions, hoping the model would memorize the knowledge. It sort of worked, but the model couldn't answer questions about new patients or edge cases the fine-tuning data hadn't covered. They would have been better served by RAG from the start.</p>
+
+<p><strong>Mistake 3: Expanding context windows when retrieval would be better</strong></p>
+
+<p>New context window sizes are tempting. "Just throw all the documents in, the model can handle it." But you still have to decide which documents to throw in. And if you have a million records, you can't throw in all of them. You've moved the retrieval problem from "which documents are relevant" to "which documents fit in my context window," which is a worse problem. Use context windows when your corpus is small enough that the model can process it all, or when the model needs to see everything to reason correctly. Otherwise, retrieval is doing real work.</p>
+
+<p><strong>Mistake 4: Not measuring what matters</strong></p>
+
+<p>I've built RAG systems that had 95% retrieval precision on a test set but failed in production because the test set didn't include edge cases. I fine-tuned models that improved metrics that nobody cared about (perplexity) while getting worse at things that mattered (clinician accuracy). The measurement framework matters more than any single architecture choice. Decide what success looks like before you build anything.</p>
+
+<p><strong>Mistake 5: Ignoring latency as a clinical requirement</strong></p>
+
+<p>RAG with three stages of retrieval (keyword - vector - LLM refinement) took 8 seconds per query. For a tool used by a radiologist reading 40 studies a day, 8 seconds per query is a non-starter. Context windows can be faster because there's no retrieval latency. Fine-tuning is fast at inference time. We ended up switching to a two-stage retrieval system (keyword - vector) for the radiology tool, accepting lower precision to hit a 2-second target. Sometimes the architecture choice is driven by latency, not accuracy.</p>
+
+<h2>Real Examples: How These Architectures Actually Perform</h2>
+
+<p><strong>Case Study 1: Oncology Treatment Recommendation System</strong></p>
+
+<p>Setting: mid-size cancer center, 5,000 active patients, 200+ treatment protocols. Problem: oncologists wanted the system to recommend treatment options based on tumor characteristics, patient history, clinical trials, and institutional protocols.</p>
+
+<p>What we built: RAG + context windows hybrid. Retrieval layer pulled relevant treatment protocols and clinical trial information from a 500MB knowledge base. Generation layer had the complete clinical guidelines (fits in context) plus retrieved documents. Why hybrid? The model needed to see all guidelines at once to make consistent recommendations, but it also needed to retrieve specific protocol details and trial matching criteria for each patient.</p>
+
+<p>Performance: 78% of recommendations matched what the oncologist would have chosen. More importantly, 91% of recommendations were considered "clinically reasonable" by an independent reviewer. The system missed some edge cases, but it didn't hallucinate treatments that didn't exist. It flagged when it was uncertain (rare but important).</p>
+
+<p>Why this works: we matched the architecture to the problem. Full guidelines in context for consistency. Selective retrieval for specificity. This wouldn't have worked with fine-tuning (oncology is too complex and protocols change too often). It wouldn't have worked with pure context windows (you can't put all protocols and trials in context if you want the system to handle edge cases). RAG + context windows solved it.</p>
+
+<p><strong>Case Study 2: Clinical Documentation Assistant</strong></p>
+
+<p>Setting: urgent care center, 12 clinicians, 50+ patient encounters per day. Problem: clinicians were spending 30% of their time on documentation. They wanted an AI assistant that would draft notes in a way that matched each clinician's individual style and the urgent care center's templates.</p>
+
+<p>What we built: fine-tuning only, no retrieval. We collected 100 notes from each clinician (1,200 total examples), fine-tuned a model on this data, and had it draft notes based on brief clinician input (chief complaint, vitals, assessment, plan). The fine-tuned model learned</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/state-of-ai-in-healthcare-2026-from-clinical-trials-to-production/">State of AI in Healthcare 2026: From Clinical Trials to Production</a></li>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-how-i-automated-my-entire-content-pipeline-with-ai-agents-9/">Building in Public: How I Automated My Entire Content Pipeline with AI Agents</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

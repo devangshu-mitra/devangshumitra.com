@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Dissecting Tempus&#39;s data-first approach to precision oncology — and why their" />
+  <meta property="og:title" content="Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment — Devangshu Mitra" />
+  <meta property="og:description" content="Dissecting Tempus&#39;s data-first approach to precision oncology — and why their" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Teardowns</span>
+            <time class="post-header__date" datetime="2025-06-05" itemprop="datePublished">Jun 5, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment</h1>
+          <p class="post-header__excerpt" itemprop="description">Dissecting Tempus's data-first approach to precision oncology — and why their</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Product Breakdown: How Tempus Uses AI to Personalize Cancer Treatment</h1>
+
+<p>Tempus is often described as an AI company. That framing is understandable - the company has raised over $1B and its marketing leads with machine learning and clinical decision support. But I think it misidentifies where the value actually lives. Tempus is a data acquisition and infrastructure company that uses AI as a customer acquisition and retention mechanism. Understanding the distinction is the key to understanding both their strategy and their competitive moat.</p>
+
+<h2>What Tempus Actually Does</h2>
+
+<p>Tempus provides genomic sequencing services to oncology practices. A physician orders a Tempus test; Tempus sequences the tumor; the physician receives a clinical report with treatment implications and matched clinical trial options. The sequencing itself is a commoditized service - Foundation Medicine and Guardant Health offer comparable assays. What differentiates Tempus is what happens after the test: every sequenced case, along with the patient's de-identified clinical data from the partnered institution's EHR, flows into Tempus's unified data library. As of 2025, that library contains over 7 million de-identified patient records linked to multimodal data: genomic, imaging, pathology, and outcomes data.</p>
+
+<p>This is the flywheel. Tempus provides sequencing to get access to clinical data. That data trains better AI models. Better models make the clinical reports more useful, which attracts more physician customers, which generates more sequencing revenue and more data. The AI is the product experience. The data is the moat.</p>
+
+<h2>Why the Moat Is Data Access, Not Algorithms</h2>
+
+<p>The algorithms Tempus uses - transformer-based models for report generation, survival prediction, treatment response modeling - are not proprietary in any durable sense. Any well-resourced competitor can train comparable models. What cannot be replicated in any reasonable timeframe is 7 million linked multimodal oncology records, accumulated over a decade of clinical partnerships and sequencing relationships. Foundation Medicine, the obvious benchmark comparison, has strong genomic data but lacks the EHR integration depth that makes Tempus's clinical data longitudinal. That longitudinality - knowing what happened to the patient after the test, not just what the tumor looked like - is what enables outcomes-based AI rather than just molecular characterization AI.</p>
+
+<p>The product lesson here is one of the clearest I have seen in healthcare AI: in regulated markets with high switching costs and long data accumulation cycles, data access is the product. The AI features are the interface. Startups that try to compete by building better algorithms against players with 10x the data are bringing a sword to a gunfight.</p>
+
+<h2>What Startups Building in This Space Should Learn</h2>
+
+<p>The Tempus playbook only works if you can negotiate clinical data partnerships at scale, which requires regulatory infrastructure, BAA templates, institutional credibility, and a reimbursable service to offer in exchange for data access. Startups entering precision oncology typically cannot replicate this. The more defensible path is to identify a data asset that Tempus does not have - a specific indication, modality, or geography - and build a focused vertical. Tempus's current weakness is depth in any single indication: their breadth is impressive, but a startup with 50,000 cases in a single rare cancer type and deep clinical relationships in that community can build a more useful tool for that specific problem. Specialization beats breadth when the use case is narrow enough and the data is scarce enough.</p>
+
+<hr>
+
+<h3>The Scaffolding of Clinical Data Integration</h3>
+
+<p>Tempus doesn't just "get" EHR data; the process of extracting, standardizing, and integrating clinical records is a monumental undertaking. They invest heavily in building direct, secure connections with partner hospital systems. This often means developing custom APIs or working with existing health information exchanges to pull data from various EHR vendors like Epic, Cerner, or Meditech. Their data engineers then normalize disparate data formats - mapping everything from diagnosis codes (ICD-10) and medication lists to detailed lab results and unstructured physician notes - into a consistent, unified schema. This isn't a one-time data dump. It's a continuous, real-time stream of updated patient records. Capturing the full patient journey, including</p>
+
+<h2>Operationalizing Data Acquisition and Integration</h2>
+
+<p>Getting clinical data at scale is incredibly messy. It’s not just about signing a Business Associate Agreement. Tempus built an entire internal division to handle data acquisition and integration. They manage a sprawling network of technical interfaces. You'll find direct API integrations with large hospital systems like Mayo Clinic or Memorial Sloan Kettering. But they also deal with smaller oncology practices that might still rely on HL7 v2 messages or even manual chart abstraction for specific data points. Each institution has its own flavor of Epic, Cerner, or Meditech, requiring custom mapping and validation rules. I've seen teams spend months just harmonizing drug names or lab test codes across a few sites. Tempus does this for thousands of sites. This low-level, unglamorous data engineering work is a massive competitive barrier. It's where the rubber meets the road for that 7 million record dataset.</p>
+
+<h2>Beyond Genomic Matches: Predictive Clinical Insights</h2>
+
+<p>The AI in Tempus's reports goes beyond just matching a genomic mutation to a drug. It uses the longitudinal outcomes data to provide predictive clinical insights. For example, if a patient has non-small cell lung cancer with a specific EGFR mutation, the report might suggest osimertinib. But it could also use its historical data to predict the likelihood of resistance developing within 12 months, based on the patient's prior treatment history and co-mutations. This isn't just "here's a drug for this gene." It's "here's a drug, and here's what happened to other patients like yours on this drug, and here are potential next steps." This level of foresight helps oncologists plan more effectively. You move from reactive treatment decisions to proactive strategy, informed by millions of real-world patient journeys.</p>
+
+<h2>The Dynamic Feedback Loop: Accelerating Discovery</h2>
+
+<p>The data flywheel isn't just about making existing models better. It's about accelerating discovery itself. As new cancer therapies emerge, Tempus's system can rapidly identify patients in its database who would qualify for these treatments based on genomic profiles. More importantly, it can then track the real-world outcomes of those patients. If a new targeted therapy for a rare sarcoma is approved, Tempus can quickly identify all 500 patients in its database with that specific genomic signature. They can then observe how those patients respond to the new drug in the clinic. This provides an almost real-time feedback loop on drug efficacy and side effects, far faster than traditional clinical trials. This dynamic data collection helps refine treatment guidelines and identify novel biomarkers that predict response or resistance much quicker than conventional research methods.</p>
+
+<h3>The Gritty Reality of Data Ingestion</h3>
+
+<p>Getting access to clinical data is one thing. Making it usable is another entirely. I've seen firsthand how challenging it is to ingest patient records from different hospital systems. Tempus deals with a messy reality. You have Epic, Cerner, Allscripts, often customized to each institution. Their data schemas are not uniform. Lab results might be coded differently. Pathology reports are often free text documents, full of clinical shorthand.</p>
+
+<p>Tempus built substantial infrastructure to normalize this. They likely employ natural language processing (NLP) models to extract structured information from unstructured notes. Think about identifying specific tumor characteristics or treatment regimens from physician dictations. They also map disparate codes - like SNOMED CT, LOINC, CPT - into a unified internal representation. This isn't a one-time setup; it requires continuous maintenance as hospital systems update and as new data types emerge. It’s a specialized engineering problem. This heavy lifting makes their aggregated dataset truly valuable. It is what allows their AI to even "see" a unified patient story across varied sources.</p>
+
+<h3>AI Beyond the Report - Specific Clinical Decision Support</h3>
+
+<p>The AI models within Tempus aren't just generating a static report. They drive specific decision support capabilities. Imagine a physician reviewing a patient with metastatic colorectal cancer. The Tempus report might highlight a specific KRAS G12C mutation. The AI could then flag FDA-approved therapies targeting this mutation, like sotorasib or adagrasib, and predict their likely efficacy based on similar patient profiles in the Tempus data library.</p>
+
+<p>Beyond treatment selection, the AI also helps with clinical trial matching. It scans the patient's full clinical profile - genomics, prior treatments, performance status - against inclusion and exclusion criteria for hundreds of active trials. This moves beyond simple keyword matching. It uses deeper semantic understanding to find trials that are a true fit. A physician might receive a ranked list of 3-5 trials, complete with rationale, saving hours of manual search. This specific, actionable guidance is a key part of the product experience. It shows you the power of that longitudinal data.</p>
+
+<h3>The Essential Human Layer in Data Quality</h3>
+
+<p>Even with advanced AI, human oversight remains critical in healthcare. I've seen how messy real-world clinical data can be. Tempus likely employs a significant team of clinical data abstractors and curators. Their job is to review extracted EHR data for accuracy and completeness. They might manually verify tumor staging, confirm treatment start and end dates, or resolve ambiguities in physician notes. This ensures the training data for the AI models is as clean as possible.</p>
+
+<p>Furthermore, the output of AI models often undergoes clinical validation. Before an AI-generated treatment recommendation or trial match appears in a physician's report, a human oncologist or clinical scientist might review it. They check for clinical plausibility and identify any "hallucinations" or errors. This human-in-the-loop approach builds trust. It mitigates risk in a high-stakes environment. It is a necessary safeguard when you are dealing with patient lives. This blend of machine intelligence and human expertise is often overlooked when discussing AI in medicine.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/product-breakdown-viz-ais-stroke-detection-speed-as-a-feature-9/">Product Breakdown: Viz.ai's Stroke Detection - Speed as a Feature</a></li>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/product-breakdown-epics-genai-strategy-why-the-ehr-giant-will-win-the-healthcare-ai-race-9/">Product Breakdown: Epic's GenAI Strategy - Why the EHR Giant Will Win the Healthcare AI Race</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

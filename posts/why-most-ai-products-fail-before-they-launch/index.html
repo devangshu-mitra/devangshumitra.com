@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI product failures aren&#39;t model failures. They&#39;re alignment failures," />
+  <meta property="og:title" content="Why Most AI Products Fail Before They Launch — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI product failures aren&#39;t model failures. They&#39;re alignment failures," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Why Most AI Products Fail Before They Launch — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-08-03" itemprop="datePublished">Aug 3, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Why Most AI Products Fail Before They Launch</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI product failures aren't model failures. They're alignment failures,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Why Most AI Products Fail Before They Launch</h1>
+
+<p>I've watched four AI products die in pre-launch. Not because the models were bad. Not because the engineering was sloppy. Because the organization building them was solving the wrong problem, for the wrong stakeholder, at the wrong time.</p>
+
+<p>That's the dirty secret of enterprise AI. The graveyard is full of technically impressive projects that never got used because someone skipped the hard organizational work before writing a single line of code.</p>
+
+<h2>The Failure Modes Nobody Talks About</h2>
+
+<p>When an AI product fails, the post-mortem almost always blames something technical: the model wasn't accurate enough, the data was too messy, the latency was too high. These are real problems. But they're symptoms, not causes. The causes are upstream, and they're almost always organizational.</p>
+
+<h3>Failure Mode 1: Wrong Problem Selection</h3>
+
+<p>At HCLTech, we were building a clinical trial matching tool. The original brief was clear: help oncologists find eligible patients faster. Sounds great. Except when we talked to the actual oncologists - not their department heads, the actual clinicians - they told us the bottleneck wasn't finding eligible patients. It was getting consent and coordinating with the clinical trial coordinators who were already overwhelmed.</p>
+
+<p>We had spent six weeks scoping the wrong thing.</p>
+
+<p>Problem selection failure is epidemic in enterprise AI because the people who commission AI projects (executives, VPs, procurement) aren't the people who do the work. The executive sees a dashboard problem. The frontline worker has a process problem. These look similar from a 30,000-foot view and are completely different at ground level.</p>
+
+<p>The fix: run discovery sessions with the people who will actually use the tool, not just the people who approved the budget. Ask them what they do when the thing they need doesn't work. That workaround tells you more about the real problem than any requirements document.</p>
+
+<h3>Failure Mode 2: Stakeholder Misalignment at Launch</h3>
+
+<p>This is the one that killed a healthcare NLP product I was brought in to rescue. The data science team had built something genuinely impressive - extracting structured data from clinical notes with 87% accuracy. The CMO loved it. The CIO approved the infrastructure spend. And then the compliance team saw it three weeks before launch and flagged 14 issues they'd never been consulted about.</p>
+
+<p>Launch delayed by four months. Team morale cratered. Two engineers left.</p>
+
+<p>The thing is, compliance wasn't being obstructionist. Their concerns were legitimate. HIPAA, audit trails, explainability requirements for clinical decisions - these are real constraints. They just weren't in the room during planning.</p>
+
+<p>In healthcare AI, compliance and legal aren't gatekeepers to route around. They're co-designers. Same in fintech. Same in any regulated industry. If you're not getting them involved in the first two weeks of scoping, you're scheduling your own delay.</p>
+
+<blockquote><p>The stakeholders who can kill your project at the end should be in the room at the beginning. Not as reviewers. As co-authors.</p></blockquote>
+
+<h3>Failure Mode 3: Over-Engineering the First Version</h3>
+
+<p>This one is particularly common in organizations where the AI team is trying to prove something - either to leadership, to themselves, or to the market. The result is a first product that tries to solve every edge case, handles every exception, and demonstrates every possible capability.</p>
+
+<p>I saw this at an edtech company building an adaptive learning engine. The original scope called for real-time personalization across 47 learning objectives with multi-modal content delivery and a recommendation engine that updated every 30 seconds. The team spent eight months building the infrastructure for this. By the time they were ready to test with actual students, the semester was over.</p>
+
+<p>Meanwhile, a competitor had shipped a much simpler version - essentially a quiz-based branching system with basic spaced repetition - and had 50,000 active learners generating real data.</p>
+
+<p>Over-engineering isn't a technical failure. It's a prioritization failure. It happens when teams optimize for internal impressiveness rather than external value. The antidote is ruthless scope cutting: what is the smallest version of this that would still be genuinely useful to a real user?</p>
+
+<h2>The Structural Causes</h2>
+
+<p>These three failure modes share a common root: the AI product team is operating as a service organization rather than a product organization. They're responding to requests rather than driving toward outcomes. They're measuring effort rather than impact.</p>
+
+<p>This is partly a resourcing problem. Most enterprise AI teams are staffed with data scientists and ML engineers. They're excellent at building models. They're often not set up to do the messy, ambiguous work of stakeholder alignment, problem framing, and scope arbitration. That work gets skipped because nobody owns it.</p>
+
+<p>It's also partly an incentive problem. In enterprise settings, AI projects get funded based on the sophistication of the proposed solution, not the clarity of the problem being solved. So teams are implicitly rewarded for proposing complex solutions to vague problems, which is exactly backwards from how good product development works.</p>
+
+<h2>What Actually Works</h2>
+
+<h3>Problem Interviews Before Solution Design</h3>
+
+<p>Before any technical scoping, spend two weeks doing problem interviews. Talk to the people who will use the tool. Ask them to walk you through their current workflow. Ask where they get stuck. Ask what they've already tried. Do not pitch anything. Do not show any demos. Just listen.</p>
+
+<p>This feels slow. It is slow. It also saves you from building the wrong thing for four months.</p>
+
+<h3>Map the Blast Radius Early</h3>
+
+<p>Every AI product touches existing workflows, existing data systems, and existing power structures. Map this out before you start building. Who are the people who can veto this project at each stage? What are their concerns? Get them in the room early - not to get their buy-in, but because their constraints are real constraints that will affect your design.</p>
+
+<p>In healthcare, this means compliance, legal, clinical informatics, and nursing informatics. In financial services, this means risk, compliance, and operations. In retail, this means merchandising, supply chain, and store operations. The exact cast changes by industry. The principle doesn't.</p>
+
+<h3>Define Done Before You Start</h3>
+
+<p>One of the most reliable predictors of AI project failure is the absence of a clear definition of success. When success is undefined, it's easy to keep building - there's always another edge case to handle, another feature to add, another 0.5% of accuracy to chase. Projects that don't ship are often stuck in this loop.</p>
+
+<p>Before you start any AI project, write down: what does success look like at 90 days? What metric will you measure? What threshold counts as working? What threshold counts as not working? Make this document visible to everyone on the project, including stakeholders outside the team.</p>
+
+<p>This conversation is uncomfortable because it forces people to commit. That discomfort is exactly the point. If you can't define success before you start, you can't succeed.</p>
+
+<h2>The Pattern I've Seen Work</h2>
+
+<p>The AI projects I've seen actually launch and get used share a few things in common. They started with a narrow, well-defined problem - not a broad aspiration. They had a clear internal champion who was accountable for adoption, not just delivery. They shipped something imperfect early and used real usage data to guide iteration. And they treated the first version as a hypothesis, not a product.</p>
+
+<p>None of these are complicated ideas. They're just systematically ignored in the rush to build something impressive.</p>
+
+<p>The uncomfortable truth is that most AI product failures are foreseeable. The warning signs are there before the first line of code is written. The problem statement is vague. The stakeholders are misaligned. The scope is too ambitious for the timeline. The team has no clear definition of success.</p>
+
+<p>If you're starting an AI project and you're seeing these signs, stop. Fix the organizational problems first. The technical problems are the easy part.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/why-domain-expertise-beats-model-performance/">Why Domain Expertise Beats Model Performance</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

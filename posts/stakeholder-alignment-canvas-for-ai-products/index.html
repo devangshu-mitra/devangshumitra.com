@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="AI products fail at the stakeholder layer more often than the technical layer." />
+  <meta property="og:title" content="Stakeholder Alignment Canvas for AI Products — Devangshu Mitra" />
+  <meta property="og:description" content="AI products fail at the stakeholder layer more often than the technical layer." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Stakeholder Alignment Canvas for AI Products — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-10-29" itemprop="datePublished">Oct 29, 2025</time>
+            <span class="post-header__read-time">12 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Stakeholder Alignment Canvas for AI Products</h1>
+          <p class="post-header__excerpt" itemprop="description">AI products fail at the stakeholder layer more often than the technical layer.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Stakeholder Alignment Canvas for AI Products</h1>
+
+<h2>When Your AI Product Stakeholders Want Opposite Things</h2>
+
+<p>Six months into building a clinical decision support system, I watched a 90-minute meeting dissolve into competing demands. The Chief Medical Officer wanted the model to be conservative - flag every possible risk, even if it meant false positives. The hospital's operations team wanted speed and efficiency - minimize alerts so clinicians didn't burn out on notifications. The compliance officer wanted audit trails for every decision. The engineering lead wanted to ship an MVP in two sprints. Nobody was wrong. They were all optimizing for their real constraints.</p>
+
+<p>The product got stuck. We iterated on features that satisfied nobody, burned political capital with every release, and the adoption curve flatlined. I realized we had a stakeholder alignment problem, not a product problem.</p>
+
+<p>Most AI product teams treat stakeholder alignment like a checkbox - get buy-in, move forward. But AI products have an unusual stakeholder space. You're not just dealing with users and executives. You're managing ML engineers with different incentives than product managers. You're negotiating between regulatory requirements and business timelines. You're balancing scientific rigor with ship-ability. These tensions don't resolve on their own. They get baked into your roadmap, your model architecture, your launch strategy - and eventually, your failure metrics.</p>
+
+<p>I've built a simple canvas to map these stakeholders, their actual success metrics, their constraints, and crucially - where they conflict. It's kept me from shipping products nobody wanted and helped me make faster decisions when pressures contradicted each other.</p>
+
+<h2>The Problem: Stakeholder Misalignment Hides Until It Costs</h2>
+
+<p>Here's what stakeholder misalignment looks like in AI products:</p>
+
+<ul>
+<li><strong>Silent disagreement on success:</strong> You define success as model accuracy. The sales team defines it as ease of integration. The customer defines it as ROI within 6 months. You all nod at the kickoff and then build for different goalposts.</li>
+<li><strong>Conflicting technical constraints:</strong> Your ML team wants to invest in a sophisticated ensemble model. Your infrastructure team wants a lightweight solution they can deploy at the edge. Your compliance team needs explainability that rules out black-box approaches. All valid. All in tension.</li>
+<li><strong>Hidden resource constraints:</strong> You commit to a timeline assuming you'll have a data scientist and a domain expert. Halfway through, the data scientist gets pulled to a higher-priority project. The domain expert is only available 5 hours a week. These weren't secrets - they just weren't surfaced during planning.</li>
+<li><strong>Competing regulatory requirements:</strong> I worked on a diagnostic AI where the European regulatory team needed different validation than the US team. Neither was flexible. We built two paths. This wasn't discovered in week 1 - it emerged in month 5.</li>
+<li><strong>Incentive misalignment:</strong> Your company's metrics reward feature velocity. Your customers' metrics reward accuracy. Your healthcare customer's metrics reward clinician adoption. You can't optimize for all three simultaneously, but if you don't acknowledge this, you'll make choices that feel right to some stakeholders and wrong to others.</li>
+</ul>
+
+<p>The cost compounds. Late-stage discovery of misalignment means rework. It means losing stakeholder trust. It means shipping something that technically works but nobody uses. In healthcare and life sciences AI especially, this is expensive - regulatory submissions might need to be updated, validation studies need to be rerun, deployment timelines slip.</p>
+
+<p>I've seen teams spend 3 months optimizing a model, only to discover their key stakeholder prioritizes deployment speed over incremental accuracy gains. I've seen infrastructure decisions made by engineers that locked out a key use case nobody mentioned during planning. I've seen launch dates set by executives that didn't account for the actual validation burden the regulatory team needed.</p>
+
+<h2>The Stakeholder Alignment Canvas: Mapping Reality</h2>
+
+<p>The canvas maps five dimensions for each stakeholder group. The goal isn't to make everyone happy - it's to make their constraints visible and find the real trade-offs early.</p>
+
+<p><strong>1. Stakeholder Group and Their Role</strong></p>
+
+<p>Start specific. Not "engineering" - which team? The ML team has different constraints than the infrastructure team. Not "customers" - are they the clinical buyer, the end-user clinician, or the IT department? Each sees the product differently.</p>
+
+<p><strong>2. Their Definition of Success (What They're Optimizing For)</strong></p>
+
+<p>This is rarely what they tell you in meetings. You have to infer it from their decisions. The ML team's behavior suggests they optimize for model performance. The sales team's behavior suggests they optimize for early customer references. The compliance team's behavior suggests they optimize for audit defensibility. Write down what you actually see, not what you think they should optimize for.</p>
+
+<p><strong>3. Their Hard Constraints (Non-Negotiables)</strong></p>
+
+<p>These are the boundaries. Regulatory constraints are hard. Budget constraints are usually hard. Timeline constraints are sometimes hard, sometimes negotiable. Timeline constraints are sometimes hard, sometimes negotiable - you won't know until you ask. List what you know to be truly non-negotiable.</p>
+
+<p><strong>4. Their Resource Availability</strong></p>
+
+<p>Not what they promise. What you can actually count on. If a key domain expert is 30% allocated to your project, that's different from 100%. If you need ML review from a specific person and they're overcommitted, that's a constraint. Be honest here.</p>
+
+<p><strong>5. Where They Conflict With Other Stakeholders</strong></p>
+
+<p>This is the payoff column. Mark dependencies and direct contradictions. If the operations team wants automated decision-making and the compliance team wants human-in-the-loop, that's a direct conflict you need to surface and resolve. If the ML team wants 6 months to build a complex model and the sales team has committed a customer launch in 3 months, that's a conflict. Don't hide it.</p>
+
+<h2>How to Build and Use the Canvas: Step by Step</h2>
+
+<p><strong>Step 1: List Every Stakeholder Group</strong></p>
+
+<p>Spend 15 minutes writing down everyone who has decision rights, veto power, or deep involvement in this AI product. In healthcare AI, this usually includes: clinical stakeholders (physicians, nurses, clinical leads), compliance and regulatory teams, IT/infrastructure, ML engineering, product, customers/buyers, potentially hospital administration, possibly data governance teams. In enterprise AI, add security, finance, your end users, and their managers.</p>
+
+<p>If a stakeholder group shows up in more than 5% of your conversations, list them separately. The compliance team and the legal team might both care about a healthcare product, but they have different constraints. List them separately.</p>
+
+<p><strong>Step 2: Interview and Infer</strong></p>
+
+<p>Spend 30 minutes with each stakeholder group. Ask directly: "What does success look like for you from this project?" Listen for what they emphasize. What gets them excited? What makes them nervous? What constraints have they mentioned in passing? Take notes on their actual priorities, not the organizational priorities you think they should have.</p>
+
+<p>With the ML team: "What's your definition of a successful model? What accuracy threshold? What kind of errors are acceptable?" Their answers reveal what they're optimizing for.</p>
+
+<p>With compliance: "What would make you confident signing off on this? What do you need to see in validation? What documentation?" Their answers reveal their constraints.</p>
+
+<p>With the customer: "How will you measure if this tool worked for you? What's your success metric - adoption rate, time savings, accuracy improvement?" Their answers reveal misalignment with internal stakeholders faster than anything else.</p>
+
+<p><strong>Step 3: Map the Success Metrics</strong></p>
+
+<p>Write down each group's success metric. Literally write it. Here's an example from a real project:</p>
+
+<ul>
+<li>ML Team: AUC-ROC above 0.85 on held-out test set</li>
+<li>Clinical Team: Sensitivity above 90% (catch the cases we care about)</li>
+<li>Hospital Operations: 80% clinician adoption within 6 months of launch</li>
+<li>Compliance: Full audit trail, all decisions explainable, regulatory submission ready within 18 months</li>
+<li>Customers: 20% improvement in diagnostic throughput</li>
+</ul>
+
+<p>Now ask yourself: are these mutually achievable? If the ML team optimizes purely for AUC-ROC, they might create a model with 92% sensitivity and 76% specificity. The clinical team wanted sensitivity above 90% - check. But the hospital operations team wants 80% adoption. If that model has high false positive rates, clinicians won't trust it and adoption tanks. If the clinical team demanded 95% sensitivity, the specificity might drop further. These metrics need to be reconciled.</p>
+
+<p><strong>Step 4: List Non-Negotiable Constraints</strong></p>
+
+<p>Ask each stakeholder: "What's truly non-negotiable for you? What would cause you to object to launch?" Write these down. In healthcare, regulatory constraints are usually non-negotiable. In enterprise AI, security constraints are usually non-negotiable. Budget constraints are often non-negotiable. Timeline constraints are sometimes negotiable - you won't know until you ask directly.</p>
+
+<p>Example from a real project:</p>
+
+<ul>
+<li>Regulatory: Model validation must include prospective data. Cannot use retrospective data alone.</li>
+<li>Infrastructure: Solution must run on-premises. Cannot use cloud APIs.</li>
+<li>Compliance: Must maintain audit trail of every prediction and its inputs for 7 years.</li>
+<li>Sales: Must have something to demo to prospects within 90 days.</li>
+</ul>
+
+<p><strong>Step 5: Resource Reality Check</strong></p>
+
+<p>For each stakeholder group, answer: "How much of their time do we actually have?" Not what they promised. What you can realistically count on. A data scientist who's "allocated to your project" but also supports 3 other initiatives is maybe 40% available. A domain expert who's "supporting" the project but has their primary job is maybe 10 hours a week available. Be specific about actual availability, not theoretical allocation.</p>
+
+<p>In that clinical DSS project I mentioned earlier, the key clinician advisor was allocated 0.5 FTE on paper. In reality, she was covering clinic 3 days a week, available maybe 5 hours weekly. We didn't surface this until month 3. If we'd known at the start, we would have built a different validation process.</p>
+
+<p><strong>Step 6: Find and Surface Conflicts</strong></p>
+
+<p>Draw lines between conflicting constraints. Be explicit about them. Here's an example matrix:</p>
+
+<ul>
+<li>ML Team wants sophisticated ensemble model (6-month development) vs. Sales Team wants demo in 90 days - CONFLICT</li>
+<li>Regulatory wants prospective validation vs. Sales wants to launch in 18 months - POTENTIAL CONFLICT (depends on how long prospective validation takes)</li>
+<li>Infrastructure wants on-premises deployment vs. Compliance wants cloud-based backups and disaster recovery - CONFLICT</li>
+<li>Clinical team wants human-in-the-loop review vs. Operations wants fully automated decisions - CONFLICT</li>
+</ul>
+
+<p>Don't try to resolve these in the canvas. Just surface them. These are decisions for leadership to make consciously, not problems to hide.</p>
+
+<h2>Common Mistakes and How to Avoid Them</h2>
+
+<p><strong>Mistake 1: Assuming Stakeholders Are Aligned Until Proven Otherwise</strong></p>
+
+<p>I've watched teams skip this exercise because "we're all on the same team." Then, six months in, the compliance team reveals they need prospective validation that the timeline doesn't accommodate. The ML team reveals they've been building for model performance, not real-world performance in a messy hospital environment. The customer reveals they measure success by adoption, not accuracy.</p>
+
+<p>Do the alignment exercise early. It's cheap relative to rework late.</p>
+
+<p><strong>Mistake 2: Treating All Conflicts As Solvable</strong></p>
+
+<p>Some conflicts can't be resolved - they're trade-offs. You can't have a sophisticated ensemble model and a 90-day launch date. You can't have full regulatory compliance and the fastest possible time to market. You can't have fully automated decisions and human oversight for every decision. You can engineer around the margins, but at some point, you're making a choice.</p>
+
+<p>The canvas helps you make these choices consciously, not accidentally. When you choose speed over sophistication because the sales timeline is hard, that's a good choice. You've made it consciously. When you choose it accidentally because you never surfaced the trade-off, that's a bad choice. You'll discover it when the ML team ships something the customer won't use.</p>
+
+<p><strong>Mistake 3: Ignoring Resource Constraints</strong></p>
+
+<p>I've built timelines assuming people are 100% available when they're 50% available. I've assumed domain expertise exists on the team when it's contracted part-time. I've assumed regulatory knowledge is embedded when it's external counsel at $500/hour.</p>
+
+<p>Be honest about resource availability. It changes your roadmap and your risk profile. If your key domain expert is 10% available, you need backup plans for knowledge transfer. If your regulatory expertise is external, that's a cost and a coordination overhead you need to plan for.</p>
+
+<p><strong>Mistake 4: Not Revisiting the Canvas as Reality Changes</strong></p>
+
+<p>Build it once, then revisit quarterly or whenever someone new joins the team or priorities shift. I've seen stakeholder success metrics change as markets evolved. I've seen compliance constraints shift based on new regulatory guidance. I've seen timelines compress because business priorities changed.</p>
+
+<p>Revisit it. Update it. Use it as a reference when conflicts emerge. It'll save you hours of "but I thought we agreed..." conversations.</p>
+
+<p><strong>Mistake 5: Using It as a Rigidity Tool Instead of a Clarity Tool</strong></p>
+
+<p>The canvas is supposed to make constraints visible so you can negotiate them consciously. It's not supposed to lock everything in place. If a stakeholder's constraint changes, update the canvas. If you discover new conflicts, surface them. The value is in the conversation, not in the artifact.</p>
+
+<h2>Real-World Example: A Diagnostic AI That Actually Got Deployed</h2>
+
+<p>I built a diagnostic screening tool for a hospital system. Here's how the stakeholder alignment canvas evolved:</p>
+
+<p><strong>Initial Misalignment (Month 1):</strong></p>
+
+<ul>
+<li>ML Team: Success = model achieves 0.88 AUC-ROC on test set</li>
+<li>Clinical Team: Success = tool catches 95% of cases we care about</li>
+<li>Hospital Ops: Success = 75% of clinicians use it within 6 months</li>
+<li>Regulatory: Success = submission-ready validation within 18 months</li>
+<li>Customer: Success = 30% improvement in diagnostic turnaround time</li>
+</ul>
+
+<p>Obvious conflicts: AUC-ROC doesn't guarantee 95% sensitivity. High sensitivity might tank adoption if false positive rates climb. 75% adoption in 6 months assumes training and change management we hadn't planned. 30% turnaround improvement assumes integration with existing workflows that wasn't scoped.</p>
+
+<p><strong>Constraints Surfaced:</strong></p>
+
+<ul>
+<li>Regulatory: Must include prospective validation with at least 200 cases from at least 3 different hospitals</li>
+<li>Infrastructure: Must integrate with specific EHR system - limited APIs available</li>
+<li>Clinical: Must be explainable to clinicians - no pure black-box models</li>
+<li>Customer: Cannot disrupt existing workflows - must integrate with current diagnostic process</li>
+</ul>
+
+<p><strong>Resource Reality:</strong></p>
+
+<ul>
+<li>ML expertise: 1.5 FTE (one senior, one junior)</li>
+<li>Clinical expertise: 0.3 FTE (one clinician, mostly on clinical care)</li>
+<li>Regulatory expertise: External consultant, 10 hours/month, $500/hour</li>
+<li>Infrastructure: 0.5 FTE from hospital IT (shared across multiple projects)</li>
+</ul>
+
+<p><strong>The Decision Points These Surfaced:</strong></p>
+
+<ol>
+<li>AUC-ROC isn't the right metric. We switched to sensitivity/specificity at clinically relevant thresholds, because that's what affects adoption. This changed how the ML team optimized the model.</li>
+</ol>
+
+<ol>
+<li>Prospective validation takes time. We planned for 9 months minimum. That meant launching an MVP earlier than the ML team wanted, with the knowledge that refinement would continue during the validation phase. This</li>
+</ol>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/personal-brand-building-for-ai-product-leaders/">Personal Brand Building for AI Product Leaders</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-mapping-canvas/">Stakeholder Mapping Canvas for Enterprise AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

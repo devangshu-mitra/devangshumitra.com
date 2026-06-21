@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="AI products fail more often because of team dynamics than technical capability." />
+  <meta property="og:title" content="Building Cross-Functional AI Product Teams — Devangshu Mitra" />
+  <meta property="og:description" content="AI products fail more often because of team dynamics than technical capability." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building Cross-Functional AI Product Teams — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-12-18" itemprop="datePublished">Dec 18, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building Cross-Functional AI Product Teams</h1>
+          <p class="post-header__excerpt" itemprop="description">AI products fail more often because of team dynamics than technical capability.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building Cross-Functional AI Product Teams</h1>
+
+<p>The standard software product team - PM, engineers, designer - needs meaningful additions when you're building AI products. The additions aren't just headcount; they change how decisions get made, who has authority over what, and how the team communicates internally and externally.</p>
+
+<p>I've led and worked within AI product teams across multiple organizations and industries. The team configurations that consistently ship are different from those that consistently struggle in specific, identifiable ways.</p>
+
+<h2>The Core AI Product Team</h2>
+
+<p>For a standalone AI product or AI feature within a larger product, you need these roles:</p>
+
+<h3>Product Manager (AI-literate)</h3>
+
+<p>The PM in an AI product team needs to understand enough ML to translate between technical and business language. This doesn't mean writing model code - it means understanding what it costs to improve accuracy by 5%, why the model behaves differently on edge cases, and what "this will take more data" actually implies for the roadmap.</p>
+
+<p>The specific AI literacy gaps I've seen hurt PMs most:</p>
+
+<ul>
+<li>Not understanding the training vs inference cost distinction (leads to wrong business cases)</li>
+<li>Treating model evaluation metrics as equivalent to product success metrics</li>
+<li>Not accounting for labeling time in roadmap estimates</li>
+<li>Making accuracy commitments without understanding what's technically feasible</li>
+</ul>
+
+<h3>ML Engineer or Data Scientist</h3>
+
+<p>The distinction between these two roles matters. Data scientists are typically stronger at exploration, model selection, and statistical reasoning. ML engineers are typically stronger at production deployment, optimization, and MLOps infrastructure. Small teams often combine them; larger teams should separate them.</p>
+
+<p>The most important quality: ability to communicate uncertainty and limitations clearly. An ML engineer who presents results as "the model performs at 87%" without explaining what that means for edge cases, what the error distribution looks like, or what inputs break it is creating a knowledge gap that will cause problems downstream.</p>
+
+<h3>Software Engineer</h3>
+
+<p>AI features require backend engineers who can build the infrastructure around the model: data pipelines, API endpoints, caching layers, monitoring, and the user-facing integration. This is different from model development. Many AI teams underinvest in this role, leading to models that work in notebooks but never make it to production.</p>
+
+<h3>Domain Expert (often overlooked)</h3>
+
+<p>For domain-specific AI - clinical AI, legal AI, financial AI, industrial AI - you need someone who deeply understands the domain and can evaluate whether model outputs make sense. This person is often not a full-time team member; they might be an embedded physician, a compliance consultant, or a subject matter expert who reviews outputs periodically. But they need to be in the loop.</p>
+
+<p>In clinical AI work at HCLTech, the clinical advisory input was the difference between a model that was technically accurate on the benchmark and one that actually fit into clinical workflows. The model would sometimes suggest treatments that were medically valid but contraindicated given patient history patterns that the clinical experts immediately recognized. Without that input, we would have shipped something that worked in evaluation and failed in use.</p>
+
+<h3>UX Designer (AI-aware)</h3>
+
+<p>Designing for AI requires specific skills that general UX designers may not have: how to communicate uncertainty to users, how to design fallback states when the model is low-confidence, how to build interfaces that collect implicit feedback, how to manage user trust calibration. If your UX designer hasn't worked on AI products before, invest in onboarding them on AI-specific design patterns early.</p>
+
+<h2>Decision Rights in AI Product Teams</h2>
+
+<p>Decision rights in AI teams are more complex than in traditional software teams because more decisions have both technical and business dimensions that aren't clearly separable.</p>
+
+<p>Be explicit about who decides what:</p>
+
+<p>| Decision | Authority | Input From | | --- | --- | --- | | Accuracy threshold for shipping | PM (with business case) | ML Engineer, Domain Expert, Stakeholders | | Model architecture and training approach | ML Engineer | PM (constraints), Software Engineer (infra implications) | | Which errors to optimize for (precision vs recall) | PM (business impact analysis) | ML Engineer, Domain Expert | | Data labeling guidelines | Domain Expert (with ML input) | ML Engineer, PM | | When to rollback a model in production | ML Engineer (pre-agreed thresholds) | PM notified, not required to approve | | User-facing uncertainty communication | PM + UX Designer | ML Engineer (calibration data) | | Model infrastructure choices | Software Engineer + ML Engineer | PM (cost constraints) |</p>
+
+<p>The ambiguous cases are usually around accuracy thresholds and precision/recall trade-offs. These need explicit PM leadership - they're fundamentally business decisions about what kind of errors you're willing to make, even though they feel like technical decisions.</p>
+
+<h2>Communication Rhythms for AI Teams</h2>
+
+<p>Standard sprint ceremonies need modification for AI products.</p>
+
+<h3>Model Review (Weekly)</h3>
+
+<p>15-30 minutes. ML engineer presents current performance metrics vs targets. Error analysis on a sample of recent failures. Plan for next iteration. This is technical but PM must attend - the performance trajectory is the most important signal on whether you'll hit your ship threshold.</p>
+
+<h3>Alignment Check (Bi-weekly)</h3>
+
+<p>30 minutes. PM, domain expert, and ML engineer together review a sample of model outputs. The goal is catching alignment issues before they become user problems - cases where the model is technically accurate by the metric but behaviorally wrong for the use case. This is where the domain expert adds the most value.</p>
+
+<h3>Stakeholder Update (Monthly)</h3>
+
+<p>30 minutes. Translate model performance into business language. Use the status update format: current performance vs threshold, what we learned, what we're changing, risks. Avoid model-specific jargon.</p>
+
+<h2>Hiring for AI Product Teams</h2>
+
+<p>The most important hiring criteria by role:</p>
+
+<ul>
+<li><strong>ML Engineer</strong>: Communication clarity above model sophistication. A 9/10 communicator with 7/10 ML skills beats the reverse every time on cross-functional teams.</li>
+<li><strong>PM</strong>: Intellectual honesty about uncertainty. PMs who are comfortable saying "we don't know yet" are rare and invaluable in AI product work.</li>
+<li><strong>Software Engineer</strong>: MLOps experience or willingness to develop it. Building model serving infrastructure is different from building microservices.</li>
+<li><strong>UX Designer</strong>: Portfolio that includes uncertainty communication or AI-adjacent products. Or demonstrated willingness to learn AI design patterns.</li>
+</ul>
+
+<h2>My take</h2>
+
+<p>Add ML engineer, domain expert, and an AI-aware designer to your standard product team. Make decision rights explicit - especially around accuracy thresholds and precision/recall trade-offs. Run a weekly model review that the PM attends, plus a bi-weekly alignment check with the domain expert. Hire ML engineers for communication clarity above model sophistication.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+<li><a href="https://www.devangshumitra.com/notion-ai-vs-coda-ai-vs-clickup-ai-for-product-teams/">Notion AI vs Coda AI vs Clickup AI for Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/personal-brand-building-for-ai-product-leaders/">Personal Brand Building for AI Product Leaders</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

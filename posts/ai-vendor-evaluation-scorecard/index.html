@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Download our free AI vendor evaluation scorecard to systematically assess" />
+  <meta property="og:title" content="AI Vendor Evaluation Scorecard for Life Sciences & Healthcare — Devangshu Mitra" />
+  <meta property="og:description" content="Download our free AI vendor evaluation scorecard to systematically assess" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI Vendor Evaluation Scorecard for Life Sciences & Healthcare — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-12-01" itemprop="datePublished">Dec 1, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</h1>
+          <p class="post-header__excerpt" itemprop="description">Download our free AI vendor evaluation scorecard to systematically assess</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</h1>
+
+<p>Healthcare AI vendor selection decisions routinely get made on demo impressions and sales deck confidence. Then the implementation drags 18 months, the EHR integration fails, and you are locked into a 5-year contract with a vendor who has since pivoted their product. This scorecard is built to prevent that.</p>
+
+<p>It uses a weighted 100-point framework across five categories. Each category has five specific criteria scored 1-5. Fill it out for every vendor in your evaluation, then use the decision framework at the bottom to translate scores into a clear recommendation.</p>
+
+<h2>How to Use This Scorecard</h2>
+
+<p>Score each criterion 1-5 using the definitions provided. Multiply the raw score by the criterion weight to get the weighted score. Sum weighted scores within each category. Sum category scores for a total out of 100. Anything above 75 is viable; use the decision framework to decide whether to proceed.</p>
+
+<h2>Category 1: Technical Capability (Weight: 25%)</h2>
+
+<p>| Criterion | Weight | 1 - Poor | 3 - Adequate | 5 - Excellent | | --- | --- | --- | --- | --- | | <strong>Model Performance on Relevant Benchmarks</strong> | 7% | Performance on generic benchmarks only; no domain-specific validation | Validation on public healthcare datasets; some overlap with your use case | Peer-reviewed validation on your specific indication, patient population, and data type | | <strong>Scalability and Infrastructure</strong> | 5% | Single-tenant only, limited to small data volumes, no SLA | Cloud-hosted with documented scaling; SLA provided but not tested at your volume | Multi-tenant enterprise architecture, proven at 10x your expected volume, 99.9%+ SLA with financial penalties | | <strong>Inference Latency</strong> | 5% | Batch-only processing; no real-time option; results in hours | Near-real-time for most use cases; outliers handled in batch; latency documented | Sub-second inference for all production use cases; latency benchmarks independently verified | | <strong>Model Explainability</strong> | 4% | Black box; no explanation of outputs; clinicians cannot audit decisions | Feature importance scores provided; limited narrative explanation | Clinician-grade explanations tied to specific clinical inputs; SHAP or equivalent; auditable | | <strong>Data Requirements and Input Flexibility</strong> | 4% | Requires highly curated inputs; breaks on missing or inconsistent data | Handles some missing data; requires preprocessing pipeline you maintain | Strong to real-world EHR data messiness; built-in data quality checks; documented fallback behavior |</p>
+
+<h2>Category 2: Regulatory Readiness (Weight: 25%)</h2>
+
+<p>| Criterion | Weight | 1 - Poor | 3 - Adequate | 5 - Excellent | | --- | --- | --- | --- | --- | | <strong>FDA Pathway Experience</strong> | 7% | No FDA-cleared or FDA-authorized products; no regulatory experience on the team | At least one cleared product, but not in your device class or indication | Multiple cleared products in your device class; in-house regulatory team; FDA Pre-Sub experience | | <strong>HIPAA Compliance and BAA Availability</strong> | 6% | No BAA offered; PHI handling not documented; compliance attestations vague | BAA available; HIPAA compliance documented; annual third-party audit | BAA with specific PHI handling terms; SOC 2 Type II; HITRUST certification; clear data processing addendum | | <strong>Audit Trail and Logging</strong> | 5% | Minimal logging; no tamper-evident audit trail; cannot reconstruct past decisions | Standard access logging; model version tracked; audit trail available on request | Immutable audit log; every inference logged with input hash, model version, output, and timestamp; exportable for regulatory submission | | <strong>Algorithm Change Management</strong> | 4% | Updates deployed silently; no versioning; customers not notified | Versioned releases with release notes; customers notified; rollback possible | Formal change control process; PCCP-equivalent for autonomous systems; customers approve material changes before deployment | | <strong>Post-Market Surveillance Capability</strong> | 3% | No real-world performance monitoring; no MDR support | Performance dashboards available; customer responsible for MDR | Automated performance drift detection; proactive customer alerting; documented MDR support process |</p>
+
+<h2>Category 3: Integration Complexity (Weight: 20%)</h2>
+
+<p>| Criterion | Weight | 1 - Poor | 3 - Adequate | 5 - Excellent | | --- | --- | --- | --- | --- | | <strong>EHR Compatibility</strong> | 6% | No certified EHR integrations; all custom development | Certified for 1-2 major EHRs (Epic or Cerner); others require custom work | Certified integrations with Epic, Cerner, and Meditech; App Orchard or similar marketplace listing; live customer references per EHR | | <strong>FHIR and HL7 Support</strong> | 5% | No FHIR support; uses proprietary data formats requiring transformation | FHIR R4 ingestion supported; some resources not implemented | Full FHIR R4 implementation; SMART on FHIR for EHR-launched apps; CDS Hooks support where applicable | | <strong>Deployment Model Options</strong> | 4% | SaaS only; no on-premise or private cloud option | Cloud-hosted with VPC options; on-prem available but unsupported | Full deployment flexibility - SaaS, private cloud, on-prem; air-gapped deployment for high-security environments | | <strong>Implementation Timeline and Complexity</strong> | 3% | 18+ months to go-live based on customer references; significant IT resource required | 6-12 months typical; professional services included; IT lift manageable | Under 6 months for standard deployments; templated onboarding; dedicated implementation team included in contract | | <strong>API and Data Export Quality</strong> | 2% | Proprietary APIs; no standard data export; data lock-in risk | REST APIs documented; standard data export formats; some lock-in risk | Well-documented REST/GraphQL APIs; data portability guarantees in contract; no lock-in on your own data |</p>
+
+<h2>Category 4: Total Cost of Ownership (Weight: 15%)</h2>
+
+<p>| Criterion | Weight | 1 - Poor | 3 - Adequate | 5 - Excellent | | --- | --- | --- | --- | --- | | <strong>Licensing Model Transparency</strong> | 5% | Opaque pricing; cost only disclosed late in sales process; many add-ons | Pricing model documented; some variability by volume or usage | Published pricing or clear pricing framework shared upfront; no hidden line items; reference customers willing to share cost context | | <strong>Implementation and Professional Services Cost</strong> | 4% | Implementation cost exceeds year-1 licensing; no standard estimate provided | Implementation is 50-100% of year-1 licensing; statement of work provided | Implementation included or under 30% of year-1 licensing; templated SOW; go-live milestones with financial penalties for delays | | <strong>Ongoing Maintenance and Support Cost</strong> | 3% | Maintenance costs poorly defined; support tiers unclear; upgrade fees common | Annual maintenance documented (typically 18-22% of license); standard support tiers | Maintenance included in subscription; dedicated CSM; SLA-backed support; no additional upgrade fees for minor versions | | <strong>Hidden Cost Risk</strong> | 3% | Multiple known hidden costs: training, data migration, compliance reporting, seat limits | A few potential hidden costs; can be negotiated out | All-inclusive pricing verified by customer references; contract reviewed by legal for gotchas |</p>
+
+<h2>Category 5: Vendor Viability (Weight: 15%)</h2>
+
+<p>| Criterion | Weight | 1 - Poor | 3 - Adequate | 5 - Excellent | | --- | --- | --- | --- | --- | | <strong>Funding and Financial Stability</strong> | 5% | Under 12 months runway; dependent on next raise; no revenue; acquisition target | Series B or later with 18-24 months runway; growing revenue; some path to profitability | Series C+ or profitable; 3+ years runway; revenue growing 30%+; strategic investors with healthcare expertise | | <strong>Leadership and Domain Expertise</strong> | 4% | No clinical or regulatory expertise on leadership team; pure tech background | One or two clinical/regulatory advisors; limited operator experience in healthcare | Clinical co-founder or CMO; regulatory affairs lead on staff; leadership team has built and exited healthcare companies | | <strong>Customer Base and References</strong> | 3% | Under 5 paying customers; no enterprise references; no live deployments in your use case | 10-30 customers; one or two enterprise names; references available but not in your exact use case | 50+ customers including 5+ top-20 health systems or pharma; unprompted reference quality; published case studies with outcomes data | | <strong>Product Roadmap Alignment</strong> | 3% | Roadmap driven by largest customer only; your use case not on roadmap; no product council | Roadmap shared; your use case mentioned; quarterly updates provided | Customer advisory board you can join; your use case in active development; roadmap items contractually committed where critical |</p>
+
+<h2>Scoring Summary</h2>
+
+<p>| Category | Max Score | Vendor A | Vendor B | Vendor C | | --- | --- | --- | --- | --- | | Technical Capability | 25 |  |  |  | | Regulatory Readiness | 25 |  |  |  | | Integration Complexity | 20 |  |  |  | | Total Cost of Ownership | 15 |  |  |  | | Vendor Viability | 15 |  |  |  | | <strong>Total</strong> | <strong>100</strong> |  |  |  |</p>
+
+<h2>Decision Framework</h2>
+
+<p>| Score | Recommendation | What to Do | | --- | --- | --- | | 85-100 | <strong>Strong Proceed</strong> | Move to contract negotiation. Minimal risk flags. | | 70-84 | <strong>Conditional Proceed</strong> | Proceed with specific contractual conditions that address gap areas. Identify which criteria scored below 3 and negotiate mitigations into the contract or implementation plan. | | 55-69 | <strong>Requires Escalation</strong> | Too many risk factors for standard procurement. Present findings to executive sponsor and legal. May proceed with enhanced oversight, but not recommended for critical use cases. | | Below 55 | <strong>Do Not Proceed</strong> | Risk profile is too high. Consider whether the category is immature and no vendor can score higher - if so, the right answer may be to delay adoption, not to accept a poor vendor. |</p>
+
+<h3>Automatic Disqualifiers</h3>
+
+<p>Regardless of total score, immediately disqualify a vendor if any of the following are true:</p>
+
+<ul>
+<li>No BAA available or vendor refuses to sign one</li>
+<li>Cannot provide SOC 2 Type II report on request</li>
+<li>Customer references decline to speak or are all from pilot projects, not production deployments</li>
+<li>Vendor cannot explain how they handle a model performance degradation event</li>
+<li>Contract contains unilateral right to modify data use terms</li>
+</ul>
+
+<p>Run this scorecard as a team, not as a single evaluator. Regulatory, IT, legal, and clinical representation in the scoring session surfaces blind spots that any single function will miss. The conversation the scorecard generates is often more valuable than the final number.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fda-ai-ml-regulatory-checklist/">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework/">LLM Evaluation Framework for Regulated and Clinical Contexts</a></li>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-library/">Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fda-ai-ml-regulatory-checklist/">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/how-to-evaluate-an-ai-vendor-a-scorecard-that-works-across-industries/">How to Evaluate an AI Vendor: A Scorecard That Works Across Industries</a></li>
+<li><a href="https://www.devangshumitra.com/clinical-trial-ai-playbook/">Clinical Trial AI Playbook</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

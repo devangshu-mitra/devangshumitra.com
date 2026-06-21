@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Prompt engineering is not a hack you use before the real engineering starts." />
+  <meta property="og:title" content="Prompt Engineering Playbook for Product Teams — Devangshu Mitra" />
+  <meta property="og:description" content="Prompt engineering is not a hack you use before the real engineering starts." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Prompt Engineering Playbook for Product Teams — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Templates</span>
+            <time class="post-header__date" datetime="2025-07-17" itemprop="datePublished">Jul 17, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Prompt Engineering Playbook for Product Teams</h1>
+          <p class="post-header__excerpt" itemprop="description">Prompt engineering is not a hack you use before the real engineering starts.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Prompt Engineering Playbook for Product Teams</h1>
+
+<p>Prompt engineering gets dismissed as a temporary workaround - something you do before you have time to build the real thing. This is wrong. At HCLTech, some of our highest-performing AI features are built on meticulously engineered prompts, not fine-tuning or custom models. Done properly, prompt engineering is a disciplined practice that is faster, cheaper, and often more maintainable than alternatives.</p>
+
+<p>Here is the playbook I have developed across multiple production deployments.</p>
+
+<h2>The System Prompt is Your Contract</h2>
+
+<p>The system prompt defines the model's role, constraints, output format, and behavior in edge cases. Treat it like you treat an API contract - it should be explicit, complete, and versioned.</p>
+
+<p>A good system prompt answers five questions:</p>
+
+<ol>
+<li>Who is the model? (Role and expertise)</li>
+<li>What is it doing? (Task definition)</li>
+<li>For whom? (User context)</li>
+<li>What format should output take? (Structure constraints)</li>
+<li>What should it never do? (Explicit prohibitions)</li>
+</ol>
+
+<p>Bad system prompt: "You are a helpful medical assistant."</p>
+
+<p>Better system prompt: "You are a clinical coding specialist with expertise in ICD-10-CM classification. Your task is to suggest appropriate diagnosis codes for clinical notes provided by a healthcare coder. Always output exactly three candidate codes in order of confidence, with a one-sentence rationale for each. If the clinical note lacks sufficient information to determine a code, say so explicitly rather than guessing. Never suggest codes outside your training cutoff; flag conditions that may have updated coding guidelines."</p>
+
+<h2>Few-Shot Examples: Quality Over Quantity</h2>
+
+<p>Few-shot examples - providing worked examples in your prompt - dramatically improve output quality for most tasks. Three to five high-quality examples typically outperform ten mediocre ones.</p>
+
+<p>Select examples that cover: the typical case, a near-edge case, and one example that demonstrates how to handle ambiguity. The model learns the pattern from the typical case and learns your preferred failure behavior from the edge cases.</p>
+
+<p>Format your examples consistently. If your expected output is JSON, every example should show valid JSON. If it is a structured report, every example should show the same structure. Inconsistency in examples creates inconsistency in outputs.</p>
+
+<h2>Chain-of-Thought for Reasoning Tasks</h2>
+
+<p>For tasks involving reasoning, judgment, or multi-step analysis, chain-of-thought (CoT) prompting significantly improves accuracy. Add a simple instruction: "Think through this step by step before giving your final answer." Or provide an explicit reasoning template in your examples.</p>
+
+<pre><code class="language-">SYSTEM_PROMPT = """You are a contract risk analyst. For each contract clause provided,
+analyze potential risks following this format:
+
+REASONING:
+- Step 1: Identify what the clause requires
+- Step 2: Identify potential scenarios where this clause creates liability
+- Step 3: Compare to standard industry terms
+
+RISK ASSESSMENT:
+- Risk level: [LOW/MEDIUM/HIGH]
+- Key concern: [one sentence]
+- Recommended action: [one sentence]"""</code></pre>
+
+<p>Research consistently shows that asking the model to reason before answering improves accuracy on complex tasks by 10-40% depending on task type. The mechanism: the reasoning text provides an intermediate representation that the model can condition its final answer on.</p>
+
+<h2>Output Formatting: Be Explicit</h2>
+
+<p>If you need JSON output, say "Return a JSON object with the following fields:..." and show the exact schema. If you need markdown, specify exactly which elements to use. If you need a specific length, give a word or token count range.</p>
+
+<p>Vague format instructions produce inconsistent results. "Return a summary" produces outputs that vary in length, structure, and level of detail. "Return a 3-bullet summary where each bullet is under 20 words" produces consistent results.</p>
+
+<p>For JSON outputs specifically, use structured outputs (OpenAI) or tool calling to enforce schema compliance. Do not rely on prompting alone for JSON schemas in production - validation errors will happen.</p>
+
+<h2>The Negative Space: Telling the Model What NOT to Do</h2>
+
+<p>Most prompts focus on what the model should do. Adding explicit prohibitions for the specific failure modes you have observed dramatically reduces those failures in production.</p>
+
+<p>Effective negation patterns:</p>
+
+<ul>
+<li>"Never make up information you are not confident about. If uncertain, say so explicitly."</li>
+<li>"Do not add preamble or closing pleasantries - return only the requested output."</li>
+<li>"Do not suggest actions outside the following list: [list]."</li>
+<li>"If the user asks about topics outside [domain], politely redirect to [domain] without answering the off-topic question."</li>
+</ul>
+
+<h2>Temperature and Sampling Parameters</h2>
+
+<p>Temperature controls randomness in output. Temperature 0 gives deterministic, conservative outputs. Temperature 1 gives varied, creative outputs.</p>
+
+<p>Production defaults by task type:</p>
+
+<ul>
+<li>Data extraction, classification, coding: temperature 0 - 0.2. You want consistency.</li>
+<li>Summarization, Q&A: temperature 0.3 - 0.5. Some variation is fine, accuracy matters.</li>
+<li>Creative writing, brainstorming, ideation: temperature 0.7 - 1.0. Variation is the point.</li>
+</ul>
+
+<h2>Prompt Versioning and Testing</h2>
+
+<p>Version your prompts in code like you version your API schemas. Every change to a production prompt should be a commit with a description of what changed and why. Run your test set against every prompt change. Track accuracy over versions.</p>
+
+<p>Tools worth knowing: Promptfoo for regression testing, LangSmith for tracking prompt performance over time, PromptLayer for logging and versioning.</p>
+
+<h2>Common Mistakes to Avoid</h2>
+
+<ul>
+<li><strong>Testing on the examples you wrote the prompt for.</strong> Your examples are not representative of production traffic. Test on a separate held-out evaluation set.</li>
+<li><strong>Optimizing for one model and deploying to another.</strong> Prompt behavior is model-specific. GPT-4o and Claude 3.5 Sonnet respond differently to the same prompt. Test on the model you plan to deploy.</li>
+<li><strong>Making prompts longer when quality is bad.</strong> Length is not quality. A focused, well-structured 200-word prompt often outperforms a sprawling 800-word one.</li>
+</ul>
+
+<h2>Where this lands</h2>
+
+<p>Prompt engineering is a craft that repays investment. The teams I have seen get the most value from AI products spend time on their prompts - versioning them, testing them, iterating systematically. It is not glamorous work. It is also often faster and cheaper than building alternative solutions and directly determines whether your AI feature is reliable enough to ship.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-prompt-engineering-a-decision-framework/">Fine-Tuning vs Prompt Engineering: A Decision Framework</a></li>
+<li><a href="https://www.devangshumitra.com/mlops-for-product-managers-what-you-need-to-know/">MLOps for Product Managers: What You Need to Know</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ethics-and-responsible-ai-a-pms-practical-guide/">Ethics and Responsible AI: A PM's Practical Guide</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/launch-playbook-taking-an-ai-product-from-beta-to-ga/">Launch Playbook: Taking an AI Product from Beta to GA</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

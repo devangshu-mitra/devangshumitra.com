@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most ML tutorials end at model training. Production ML starts where those" />
+  <meta property="og:title" content="The Architecture of Production ML Pipelines — Devangshu Mitra" />
+  <meta property="og:description" content="Most ML tutorials end at model training. Production ML starts where those" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Architecture of Production ML Pipelines — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-05-07" itemprop="datePublished">May 7, 2025</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Architecture of Production ML Pipelines</h1>
+          <p class="post-header__excerpt" itemprop="description">Most ML tutorials end at model training. Production ML starts where those</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Architecture of Production ML Pipelines</h1>
+
+<p>I've seen brilliant models die in production. The data pipeline that fed them drifted. The serving infrastructure buckled under load. The feedback loop that should have caught degradation was never built. The model was great - the system around it wasn't. This is the gap between ML research and ML engineering.</p>
+
+<h2>The Full Production ML Stack</h2>
+
+<p>A production ML system has seven components beyond the model itself: data ingestion and validation, feature engineering and feature store, model training pipeline, model registry, serving infrastructure, A/B testing, and monitoring.</p>
+
+<p>ntrics. The model registry is the single source of truth for model versions, metadata, and lifecycle stages. It's not just a storage location. Think of it as the gatekeeper for what gets deployed. A good registry tracks the training run ID, the exact code commit that built the model, and the data snapshot used. This linkage is vital for debugging. If a model starts behaving unexpectedly in production, you can trace it back to its specific origin. You can promote models from 'Staging' to 'Production' within the registry, often after manual review or automated tests pass. This promotion can then trigger a continuous deployment pipeline.</p>
+
+<p>For instance, MLflow's Model Registry lets you manage these stages. When a model version transitions to 'Production', your CD system might automatically pick up that specific URI and deploy it to your serving infrastructure. This workflow ensures that only validated, approved models make it to users. It prevents deploying a model that was trained on stale data or with an incorrect hyperparameter. The registry provides the audit trail you need to understand every model running in your environment.</p>
+
+<h3>Model Serving Infrastructure: Picking the Right Speed</h3>
+
+<p>Once a model is registered and approved, it needs to serve predictions. The serving infrastructure varies greatly depending on whether you need real-time or batch inference. Real-time serving demands low latency, often under 100 milliseconds. This is critical for things like fraud detection or personalized recommendations. You'll typically use frameworks like KServe or Seldon Core, or build custom endpoints with FastAPI and Gunicorn. These systems need to scale horizontally to handle many concurrent requests, often requiring auto-scaling groups and efficient container orchestration on Kubernetes.</p>
+
+<p>Batch serving, on the other hand, prioritizes throughput over immediate response times. This is for use cases like daily reporting, large-scale content moderation, or generating weekly customer scores. Here, you might use Spark or Dask clusters to process millions of records efficiently. The choice impacts everything from hardware (GPUs for real-time deep learning, CPUs for many batch tasks) to monitoring. You need to consider how to manage multiple model versions simultaneously for A/B testing, and how to quickly roll back to a previous stable version if something goes wrong with a new deployment. Latency and cost are always competing factors here.</p>
+
+<h3>A/B Testing and Safe Rollouts: Proving Value, Minimizing Risk</h3>
+
+<p>Deploying a new model version is always a risk. Offline metrics, no matter how good, don't fully predict real-world performance. This is why A/B testing is essential. You route a small percentage of live user traffic, say 10%, to your new model (Variant B) while the rest goes to the existing model (Control A). You then measure key business metrics - conversion rates, user engagement, revenue - not just AUC or F1 score. A positive impact on these metrics justifies a wider rollout. If Variant B performs worse, you simply route all traffic back to Control A.</p>
+
+<p>Canary deployments are a specific form of gradual rollout. Instead of a full A/B test with distinct user groups, you send a tiny fraction of <em>all</em> traffic to the new model, often 1-5%. You monitor for immediate issues: increased error rates, higher latency, or sudden drops in key output metrics. If the canary model remains stable for an hour or a day, you slowly increase its traffic share, perhaps 25%, then 50%, until it handles all requests. This minimizes the blast radius of a bad deployment. Tools like Istio or Kubernetes Ingress controllers let you manage this traffic splitting at the network edge.</p>
+
+<h3>Production Monitoring: Beyond Just Model Accuracy</h3>
+
+<p>Monitoring a production ML system goes far beyond just model accuracy. You need to track the health of the entire pipeline. Data drift is a constant threat. Input feature distributions can shift subtly or dramatically. If the average <code>customer_age</code> suddenly drops by five years, or a new category appears in <code>product_type</code>, your model's predictions will suffer. You should monitor basic statistics for every input feature: mean, standard deviation, unique counts, and null percentages. Tools like Evidently AI or whylogs help automate drift detection and visualization.</p>
+
+<p>Concept drift is another silent killer. This happens when the underlying relationship your model learned changes over time. For example, what constitutes "fraud" might evolve with new attack patterns. Detecting this often requires re-collecting ground truth labels and regularly re-evaluating model performance on recent data. On the infrastructure side, keep an eye on inference latency, error rates from your serving endpoints, and resource utilization (CPU, memory, GPU). Prometheus and Grafana are standard for system metrics. Catching these issues early prevents models from silently degrading and impacting your business.</p>
+
+<h2>Data Ingestion and Validation</h2>
+
+<p>All downstream ML quality starts here. Use Great Expectations or Soda Core to define data quality rules and run them as part of your pipeline, failing loudly when data violates expectations.</p>
+
+<pre><code class="language-">import great_expectations as gx
+
+context = gx.get_context()
+batch = context.sources.pandas_default.read_dataframe(df)
+
+batch.expect_column_to_exist("patient_age")
+batch.expect_column_values_to_be_between("patient_age", min_value=0, max_value=120)
+batch.expect_column_values_to_not_be_null("patient_id")
+
+results = batch.validate()
+if not results.success:
+    raise ValueError(f"Data validation failed: {results.statistics}")</code></pre>
+
+<p><strong>Schema evolution is the silent killer.</strong> An upstream database adds a column, changes a data type, or starts populating a field that was previously null. If your pipeline doesn't catch this, it silently feeds corrupted features into your model. Use schema registries for streaming data.</p>
+
+<h2>Feature Stores</h2>
+
+<p>A feature store solves two critical problems:</p>
+
+<ul>
+<li><strong>Training-serving skew:</strong> You compute features one way during training and a different way during serving. The model sees a different distribution at inference time. Feature skew is responsible for a large fraction of production ML failures.</li>
+<li><strong>Feature reuse:</strong> Instead of every team recomputing the same features from scratch, compute once and share.</li>
+</ul>
+
+<p>Major options: Feast (open source), Tecton (managed, excellent for real-time features), Hopsworks (open source + managed), Vertex AI Feature Store (GCP managed).</p>
+
+<pre><code class="language-">from feast import FeatureStore
+
+store = FeatureStore(repo_path=".")
+
+# Fetch features at training time
+training_df = store.get_historical_features(
+    entity_df=entity_df,
+    features=[
+        "patient_features:age",
+        "patient_features:visit_count_30d",
+        "clinical_features:lab_value_hba1c"
+    ]
+).to_df()
+
+# Fetch features at serving time (same feature definitions)
+online_features = store.get_online_features(
+    features=["patient_features:age", "patient_features:visit_count_30d"],
+    entity_rows=[{"patient_id": "P12345"}]
+).to_dict()</code></pre>
+
+<h2>Experiment Tracking</h2>
+
+<p>Every training run should log hyperparameters, metrics, artifacts, and the exact data version used. Without this, "the model that worked in March" is a story you tell, not something you can recreate. MLflow, Weights & Biases, and Neptune are the standard options.</p>
+
+<pre><code class="language-">import mlflow
+import mlflow.sklearn
+
+mlflow.set_experiment("clinical-risk-prediction")
+
+with mlflow.start_run():
+    mlflow.log_params({
+        "model_type": "xgboost",
+        "n_estimators": 200,
+        "data_version": "2024-03-15"
+    })
+    model.fit(X_train, y_train)
+    mlflow.log_metrics({
+        "auc_roc": roc_auc_score(y_val, model.predict_proba(X_val)[:, 1]),
+        "f1": f1_score(y_val, model.predict(X_val))
+    })
+    mlflow.sklearn.log_model(model, "model")</code></pre>
+
+<h2>Model Registry</h2>
+
+<p>The model registry is the single source of truth for model versions, metadata, and deployment status. It tracks: model artifact, training metadata (dataset version, hyperparameters, metrics), stage (staging/production/archived), and lineage. MLflow Model Registry is the most common open-source option. Vertex AI, SageMaker, and Azure ML offer managed alternatives.</p>
+
+<h2>Serving Infrastructure</h2>
+
+<p><strong>Real-time inference (<100ms):</strong> BentoML, Ray Serve, Triton Inference Server, TorchServe. For LLMs, vLLM is the dominant open-source option - its PagedAttention algorithm achieves 2-4x higher throughput than naive serving by efficiently managing GPU KV cache.</p>
+
+<p><strong>Batch inference:</strong> Use your training infrastructure. Schedule overnight runs, write predictions to a lookup table, serve from cache. Works for non-real-time predictions and is far simpler to operate.</p>
+
+<p><strong>Canary deployments:</strong> Never switch 100% of traffic to a new model at once. Route 5% to the new model, validate metrics, then gradually ramp up.</p>
+
+<h2>Monitoring and Observability</h2>
+
+<p><strong>Infrastructure monitoring</strong> (latency, throughput, errors, GPU utilization): same as regular software.</p>
+
+<p><strong>ML-specific monitoring:</strong></p>
+
+<ul>
+<li><strong>Data drift:</strong> Has the input distribution changed? Track feature statistics over time. Use KS test or Population Stability Index (PSI). Evidently AI is the best open-source tool.</li>
+<li><strong>Prediction drift:</strong> Has the output distribution shifted without a business explanation?</li>
+<li><strong>Concept drift:</strong> The relationship between inputs and correct outputs has changed. Hardest to detect - requires ongoing label collection and performance evaluation in production.</li>
+</ul>
+
+<pre><code class="language-">from evidently import ColumnMapping
+from evidently.report import Report
+from evidently.metrics import DataDriftTable, DatasetDriftMetric
+
+report = Report(metrics=[DataDriftTable(), DatasetDriftMetric()])
+report.run(
+    reference_data=training_df,
+    current_data=production_df_last_7_days,
+    column_mapping=ColumnMapping(target='label', prediction='predicted_label')
+)
+report.save_html("drift_report.html")</code></pre>
+
+<h2>The Feedback Loop: Closing the Circle</h2>
+
+<p>The difference between a one-time model and a living system is the feedback loop. Every production ML system needs: label collection on production predictions, degradation detection, retraining triggers, and new model evaluation before deploying.</p>
+
+<p>This loop is often the last thing teams build and the first thing that causes a production model to become a liability. Sketch out your feedback loop before you ship. If you can't describe how you'll know the model is degrading and what you'll do about it, you're not ready to deploy.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/vercel-ai-sdk-vs-langchain-vs-llamaindex-for-production-apps/">Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps</a></li>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Data Ingestion and Validation: The Unsung Hero</h3>
+
+<p>I’ve seen brilliant models fail because the upstream data changed subtly. A column type might shift from integer to string. A new <code>NULL</code> value could start appearing in a critical field. These subtle shifts often go unnoticed until model performance tanks.</p>
+
+<p>You need explicit data validation steps built into your ingestion pipelines. Tools like Great Expectations or Deequ let you define expectations on your data. You can check for schema adherence, value ranges, uniqueness constraints, and missing values. Imagine an <code>age</code> column suddenly having negative values, or a <code>product_ID</code> becoming non-unique. These tools can flag those issues <em>before</em> they ever hit your training pipeline. I often configure these checks as part of the ingestion process. If a check fails, the pipeline halts, sending alerts to the data engineering team. This prevents corrupted data from ever reaching the model. It builds quality in at the earliest possible stage.</p>
+
+<h3>Feature Stores: Bridging the Train-Serve Gap</h3>
+
+<p>You train a model using a feature calculated one way, but then serve predictions with that same feature calculated differently. Maybe your training data used a 24-hour moving average for 'recent user activity', but the online serving system uses a 3-hour window due to real-time latency constraints. This inconsistency leads to silent performance degradation and debugging nightmares.</p>
+
+<p>A feature store addresses this by centralizing feature definitions and computations. It provides a consistent way to compute and retrieve features for both offline training and online inference. For example, systems like Feast or Tecton store precomputed features and also offer an online store for low-latency retrieval during serving. If you're building a real-time recommendation system, you need features like 'user's last 5 clicked items' or 'average rating of items viewed in the last hour' available in milliseconds. The feature store ensures the logic for these features is identical across environments. This eliminates a major source of production bugs related to train-serve skew and simplifies feature management significantly.</p>
+
+<h3>Advanced Monitoring: Beyond Basic Metrics</h3>
+
+<p>Simply watching prediction latency or error rates isn't enough. A model can serve predictions quickly and without technical errors, but still make terrible, costly decisions. I’ve seen models degrade silently for weeks before anyone noticed the business impact.</p>
+
+<p>You need to monitor the model's <em>behavior</em> and its <em>inputs</em>. I look for data drift: changes in the distribution of incoming features. If the average <code>user_session_duration</code> suddenly drops by 20%, that's a critical signal. Tools like Evidently AI or Arize can detect these shifts. I also monitor model drift or concept drift: when the relationship between features and the target variable changes over time. This often means the model needs retraining. For a fraud detection model, I would track false positive and false negative rates over time against a ground truth. If the false positive rate spikes, something changed, either in the data or the model's environment. Setting up dashboards with Grafana and alerts with PagerDuty for these specific metrics helps catch issues before they impact users significantly.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-ai-product-lifecycle-from-poc-to-production/">The AI Product Lifecycle: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-month-1-what-worked-what-didnt-2/">Building in Public Month 1: What Worked, What Didn't</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

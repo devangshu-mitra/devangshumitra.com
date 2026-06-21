@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The AI product that wins in a competitive market isn&#39;t usually the one with" />
+  <meta property="og:title" content="Why Domain Expertise Beats Model Performance — Devangshu Mitra" />
+  <meta property="og:description" content="The AI product that wins in a competitive market isn&#39;t usually the one with" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Why Domain Expertise Beats Model Performance — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Research</span>
+            <time class="post-header__date" datetime="2025-08-25" itemprop="datePublished">Aug 25, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Why Domain Expertise Beats Model Performance</h1>
+          <p class="post-header__excerpt" itemprop="description">The AI product that wins in a competitive market isn't usually the one with</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Why Domain Expertise Beats Model Performance</h1>
+
+<p>Let me tell you about two AI radiology tools I've seen deployed in hospital systems.</p>
+
+<p>Tool A: 94% sensitivity on chest X-ray anomaly detection. Built by a well-funded AI startup with top-tier ML talent. Validated on a diverse dataset of 500,000 images. Deployed in multiple hospital systems.</p>
+
+<p>Tool B: 91% sensitivity. Built by a team that included three radiologists who stayed deeply involved throughout development. Validated on 100,000 images from the same type of hospital system where it would be deployed.</p>
+
+<p>Three months after deployment, Tool A's use was declining. Radiologists had learned to distrust it after several high-confidence false positives on cases involving older imaging equipment. Tool B's use was increasing. Radiologists had learned that its failure modes were predictable - it consistently flagged edge cases as low-confidence rather than confidently wrong, and it never generated high-confidence false positives on the equipment types that Tool B's team had specifically tested.</p>
+
+<p>The 94% model lost to the 91% model because domain expertise determined how the product was designed around failure.</p>
+
+<h2>The Failure Mode Problem</h2>
+
+<p>Every model fails. The question isn't whether your model will fail - it's how it fails, how often, and whether the failure pattern is predictable and handleable.</p>
+
+<p>A model with 95% accuracy that fails unpredictably - generating high-confidence errors on cases that look routine - is more dangerous and less useful than a model with 90% accuracy that fails in ways that are recognizable and manageable. Because in the first case, users can't develop reliable heuristics for when to trust the model. In the second case, they can.</p>
+
+<p>Domain expertise is what enables you to build for predictable failure. If you understand radiology, you know that chest X-rays with certain technical quality markers - exposure settings, patient positioning - are more likely to generate false positives. You build your model to flag these cases explicitly. You design the UI to surface technical quality information alongside the AI recommendation. You train users to recognize these flags.</p>
+
+<p>This is not ML work. It's domain knowledge encoded into product design. And it requires people on the team who have that domain knowledge - not as consultants who review requirements, but as active co-designers who shape every decision about how the product handles edge cases.</p>
+
+<h2>Why High Accuracy Without Domain Expertise Is Dangerous</h2>
+
+<p>The most dangerous AI product is one that is highly accurate on average but has failure modes that are opaque to the users who need to catch those failures.</p>
+
+<p>Consider a clinical documentation AI that achieves 96% accuracy on extracting diagnoses from physician notes. Impressive. Now consider what happens in the 4% failure cases: the model misses rare disease presentations that don't appear in standard training data, misclassifies ambiguous cases where the physician used non-standard terminology, and occasionally generates plausible-sounding but incorrect diagnoses on cases with unusual symptom combinations.</p>
+
+<p>If a physician doesn't know when to distrust the AI, they're in a worse position than before the AI existed. Before, they knew the documentation was done by a human who could be questioned and who understood the clinical context. Now they have a high-confidence output from a system they don't fully understand, failing on exactly the cases that most require careful attention.</p>
+
+<p>Domain expertise prevents this by making failure modes visible and consistent. The team that understands rare disease presentations can build explicit test sets for these cases, flag them as high-uncertainty, and design the product to defer to human review on exactly the case categories where the model is least reliable.</p>
+
+<h2>The Three Places Domain Expertise Shows Up</h2>
+
+<h3>1. Problem Framing</h3>
+
+<p>Before a model is trained, domain expertise determines what the model is trying to do. In healthcare, domain expertise is the difference between training a model to predict 30-day readmission and training it to predict avoidable 30-day readmission in patients with comorbid heart failure and COPD for whom specific interventions are available. The second is a more useful target, but it requires deep clinical knowledge to define.</p>
+
+<p>In consumer finance, domain expertise is the difference between training a credit risk model on historical defaults (which encodes historical discrimination) and training it on default risk factors that are stable, causally related to creditworthiness, and don't proxy for protected characteristics. Building the second model requires regulatory expertise, fairness research, and credit domain knowledge - not just ML skill.</p>
+
+<h3>2. Evaluation Design</h3>
+
+<p>The standard ML benchmark tells you how the model performs on a held-out test set. Domain expertise tells you what the test set should contain and what metrics matter for the actual use case.</p>
+
+<p>A general benchmark for medical coding AI might evaluate accuracy across all ICD-10 codes. A domain-expert-designed evaluation would weight rare and high-stakes codes more heavily, test specifically on cases where human coders disagree - where AI accuracy matters most - and evaluate not just accuracy but confidence calibration: does the model know when it doesn't know?</p>
+
+<p>Without domain expertise in evaluation design, you can have a model that aces your benchmark and fails in production in ways that are completely predictable to anyone who understands the domain.</p>
+
+<h3>3. Failure Mode Handling</h3>
+
+<p>This is where domain expertise translates most directly into product quality. Every AI product has cases it handles well and cases it handles poorly. Domain experts can tell you which categories are which, enabling you to build explicit handling for the hard cases: fallback to human review, reduced confidence flags, explicit uncertainty responses, escalation workflows.</p>
+
+<p>Stripe's fraud detection is a good example from fintech. They don't just run a model and accept its output. They've built extensive domain knowledge into the product layer: rule-based overrides for specific transaction patterns, velocity checks that the model doesn't capture well, network-level signals that require domain understanding to interpret. The model is the core, but domain expertise is the connective tissue.</p>
+
+<h2>The Staffing Implication</h2>
+
+<p>This is the practical takeaway that most AI teams don't act on: <strong>domain experts should be product co-designers, not requirements reviewers</strong>.</p>
+
+<p>The typical enterprise AI team structure has domain experts - clinicians, underwriters, supply chain managers, lawyers - in an advisory capacity. They review what the AI team has built and provide feedback. This is backwards. Domain expertise should be upstream of product decisions, not downstream of them.</p>
+
+<p>What this looks like in practice: a clinical informaticist who attends every sprint planning session and has veto power over the model evaluation design. A credit risk officer who is a full team member during feature selection and failure mode design. A supply chain expert who co-authors the system design document, not just the business requirements document.</p>
+
+<p>This is expensive and logistically difficult. Domain experts are busy. Getting their time is hard. But the alternative - building without them and fixing problems in production - is more expensive and more damaging to user trust.</p>
+
+<h2>The Upshot</h2>
+
+<p>When evaluating whether to build an AI product, I now ask a question before I ask about model performance: do we have the domain expertise to design failure modes intelligently? If the answer is no, no amount of model accuracy will make this product trustworthy at scale.</p>
+
+<p>And when I see an AI product that users deeply trust, the explanation is almost never the model is the best. It's the failure modes are predictable and handleable. That requires domain knowledge, not just data science. The teams that figure this out early are the ones that build products that last.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-framework-for-ai/">The Build vs Buy Decision Framework for AI</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/why-most-ai-products-fail-before-they-launch/">Why Most AI Products Fail Before They Launch</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="FDA&#39;s new AI guidance sets clear frameworks for healthcare AI builders with" />
+  <meta property="og:title" content="FDA&#39;&#39;s New AI Guidance Decoded: What Builders Need to Know — Devangshu Mitra" />
+  <meta property="og:description" content="FDA&#39;s new AI guidance sets clear frameworks for healthcare AI builders with" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>FDA''s New AI Guidance Decoded: What Builders Need to Know — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-01-31" itemprop="datePublished">Jan 31, 2026</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">FDA''s New AI Guidance Decoded: What Builders Need to Know</h1>
+          <p class="post-header__excerpt" itemprop="description">FDA's new AI guidance sets clear frameworks for healthcare AI builders with</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>FDA's New AI Guidance Decoded: What Builders Need to Know</h1>
+
+<p>When the FDA published its expanded Clinical Decision Support guidance in January 2026 alongside the updated wearables framework, my inbox filled up with the same question from product teams across our portfolio: "What do we actually need to do differently?" The answer, like most regulatory questions, is: it depends - but I can tell you exactly what it depends on.</p>
+
+<p>I have spent the last three years building AI products that touch the FDA's regulatory surface - clinical documentation tools, patient risk stratification models, and diagnostic support features. This is my practical read of the January 2026 guidance package and what it means if you are building, not just reading about it.</p>
+
+<hr>
+
+<h2>Background: The Regulatory Space Before January 2026</h2>
+
+<p>The FDA's framework for software as a medical device (SaMD) has been evolving since the 21st Century Cures Act in 2016, which created the first statutory carve-out for certain clinical decision support tools. The 2022 CDS guidance document defined the four-prong test for determining whether a CDS tool was subject to FDA oversight. The De Novo and 510(k) pathways for AI/ML-based SaMD saw over 1,250 authorized devices by end of 2025 - up from roughly 500 in 2022.</p>
+
+<p>But 2022 guidance was written before large language models were clinically deployed at scale. The January 2026 update is the FDA's first substantive attempt to address GenAI features specifically.</p>
+
+<hr>
+
+<h2>The January 2026 CDS Guidance Expansion: Key Changes</h2>
+
+<h3>What Still Counts as Non-Device CDS (Deregulated)</h3>
+
+<p>The 2026 guidance preserved and clarified the four criteria from the 2022 framework for CDS tools that fall outside FDA oversight:</p>
+
+<ol>
+<li>Not intended to acquire, process, or analyze medical images, signals, or other physiological signals</li>
+<li>Intended to display, analyze, or print medical information about a patient or general population</li>
+<li>Intended for use by healthcare professionals</li>
+<li>The basis of the recommendation is transparent enough that a clinician can independently review it and does not rely on the software to make the clinical decision</li>
+</ol>
+
+<p>Criterion 4 - the "transparency" prong - is where the 2026 guidance made the most meaningful change. The FDA clarified that for AI-generated recommendations, transparency requires more than showing an output. The clinician must be able to understand the reasoning basis well enough to meaningfully override it. A black-box clinical recommendation with a confidence score does not meet this bar. A recommendation that cites specific evidence, risk factors, or clinical parameters the clinician can verify does meet it.</p>
+
+<p>This is a significant practical change. It means explainability is no longer just a nice-to-have for clinical AI tools - it is the factor that determines whether you need 510(k) clearance.</p>
+
+<h3>What the Guidance Added for GenAI Features</h3>
+
+<p>The January 2026 document added a new annex specifically addressing LLM-based clinical features. The key provisions:</p>
+
+<ul>
+<li><strong>Locked vs. adaptive models:</strong> The FDA confirmed that LLM-based tools with fixed weights used at inference time are treated similarly to locked algorithm SaMD. Tools that update weights based on real-world use are adaptive and require a predetermined change control plan (PCCP).</li>
+<li><strong>RAG-based systems:</strong> A new category was clarified - tools that combine a locked LLM with a retrieval corpus that updates (e.g., pulling from an EHR or updated clinical guidelines) are treated differently from the underlying model alone. The retrieval corpus update cadence triggers change control review requirements depending on clinical significance.</li>
+<li><strong>Foundation model reliance:</strong> If your product relies on a third-party foundation model (GPT-4o, Claude, Gemini), you are responsible for validating performance on your intended use - you cannot rely solely on the model provider's documentation. This codifies what most sophisticated teams were already doing but formalizes the burden.</li>
+</ul>
+
+<h3>Ambient AI and Documentation Tools</h3>
+
+<p>Ambient clinical documentation - AI scribe tools that transcribe and structure patient encounters - got significant clarification. The FDA confirmed that tools functioning solely as documentation assistants, where the clinician reviews and approves all clinical content before it enters the EHR, remain outside the device definition. The line is: if the AI writes the note and a human approves it before any clinical action, it is documentation software. If the AI's output directly populates a treatment plan or medication order without a human review step, it is CDS subject to oversight.</p>
+
+<p>This matters for every healthcare AI company building on top of ambient scribe infrastructure. The review step is not optional from a regulatory standpoint - and that review step must be meaningful, not a checkbox.</p>
+
+<hr>
+
+<h2>The Wearables Guidance Update</h2>
+
+<p>The wearables-specific guidance, published alongside the CDS document, addressed AI features built on consumer wearable data. The key clarification: consumer wearables with AI features that provide general wellness recommendations remain outside FDA purview. But the same device providing specific diagnostic outputs ("your heart rhythm pattern is consistent with atrial fibrillation") requires 510(k) clearance regardless of whether it is positioned as a consumer product.</p>
+
+<p>The Apple Watch AF detection precedent from 2018 still holds, but the 2026 guidance sharpened the language around population targeting. A feature that says "you may want to discuss your activity patterns with your doctor" is wellness. A feature that says "your glucose trend suggests insulin resistance" is medical - even if it is on a consumer device, even if it is free, even if it is opt-in.</p>
+
+<p>For product teams building AI features on wearable data streams: run your output language through the wellness/medical test before launch, not during legal review. If a clinician reading the output would take a specific clinical action based on it, it needs a regulatory pathway.</p>
+
+<hr>
+
+<h2>The EMA and FDA Joint Principles</h2>
+
+<p>Quietly released alongside the January 2026 FDA guidance was a joint statement with the EMA (European Medicines Agency) on shared principles for AI in medical devices. This is the first formal alignment document between the two agencies, and its practical implication is significant: if you design for FDA clearance with these principles in mind, you are largely designing for EMA compliance simultaneously.</p>
+
+<p>The five joint principles:</p>
+
+<ol>
+<li><strong>Human oversight:</strong> AI systems must be designed to support rather than replace clinical judgment. Override mechanisms must be accessible and visible.</li>
+<li><strong>Transparency and explainability:</strong> The basis for AI recommendations must be reviewable by clinicians with the relevant expertise.</li>
+<li><strong>Robustness and accuracy:</strong> Performance must be validated across the intended use population, including demographic subgroups, with published performance statistics.</li>
+<li><strong>Bias monitoring:</strong> Post-market surveillance must include monitoring for differential performance across demographic groups.</li>
+<li><strong>Security and privacy:</strong> Data handling must meet jurisdiction-specific standards; adversarial robustness must be considered for high-stakes clinical tools.</li>
+</ol>
+
+<p>These principles read like good engineering practice because they are. The alignment with the EU AI Act's risk tier framework (high-risk AI systems in healthcare require conformity assessment) means regulatory compliance and ethical AI design are converging. Build for the principles and the regulatory paperwork becomes easier.</p>
+
+<hr>
+
+<h2>The 1,250+ Authorized AI Devices: What the Number Tells You</h2>
+
+<p>The FDA's count of over 1,250 AI/ML-enabled authorized medical devices by end of 2025 is frequently cited. What matters more than the number is the distribution. The majority of authorized devices are in radiology (roughly 75% of authorizations), with cardiology and ophthalmology making up most of the remainder. Clinical text AI - the domain where LLMs are being deployed most aggressively - remains a small fraction of authorized devices.</p>
+
+<p>This means two things for product teams. First, the FDA has deep experience reviewing AI in medical imaging and less experience reviewing LLM-based clinical text tools - expect more uncertainty and longer review cycles for novel GenAI applications. Second, the radiology precedents (particularly around algorithm transparency and demographic performance validation) are the best signal for what reviewers will look for in other domains.</p>
+
+<hr>
+
+<h2>Practical Implications for Product Teams</h2>
+
+<h3>If you are building a clinical documentation tool</h3>
+
+<p>The ambient scribe market is effectively deregulated as long as the human review step is genuine and documented. Focus your compliance work on HIPAA data handling, the BAA with your LLM provider, and ensuring the review UI makes meaningful review possible (not just technically available). The FDA's concern is not the existence of the review step - it is whether it is designed to be skipped.</p>
+
+<h3>If you are building a clinical decision support tool</h3>
+
+<p>Run the four-prong test on every feature. For each AI recommendation the product surfaces, ask: can a clinician understand why this recommendation was made, and could they independently verify the basis? If yes, you are likely outside FDA oversight. If no, you need a regulatory strategy before launch, not after.</p>
+
+<h3>If you are using a third-party foundation model</h3>
+
+<p>Document your validation work. The FDA is not asking you to retrain GPT-4o. They are asking you to show that you tested your specific application on your specific intended use population and the performance is what you claim. Keep your evaluation datasets, your testing protocols, and your performance statistics. This documentation is your regulatory asset.</p>
+
+<h3>If you are planning international expansion</h3>
+
+<p>The FDA/EMA joint principles give you a design checklist that covers both jurisdictions. Build to those principles from the start. Adding explainability, audit logging, and demographic performance monitoring retroactively is expensive. Designing for them upfront is not.</p>
+
+<hr>
+
+<h2>What Has Not Changed</h2>
+
+<p>A few things the January 2026 guidance did not change, despite speculation:</p>
+
+<ul>
+<li>The basic framework for determining device vs. non-device CDS is the same four-prong test from 2022.</li>
+<li>The De Novo and 510(k) pathways for AI SaMD are unchanged - no new streamlined pathway for LLM-based tools was created.</li>
+<li>HIPAA requirements for PHI handling in AI systems are unchanged - the guidance is silent on HIPAA because it does not govern it.</li>
+<li>The SaMD Action Plan framework from 2021 remains the operative document for how FDA thinks about iterative AI model updates.</li>
+</ul>
+
+<p>Regulatory change is slower than the technology it is trying to govern. The January 2026 guidance is a meaningful update, but it is an incremental clarification, not a transformation. The teams that have been building with regulatory awareness for the last three years are not starting over. The teams that have been ignoring regulatory risk and hoping for clarity now have more clarity - and less runway to catch up.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/prior-authorization-ai-healthcare-automation/">Prior Authorization AI: Reducing Healthcare's $31B Administrative Burden</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-viz-ai/">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

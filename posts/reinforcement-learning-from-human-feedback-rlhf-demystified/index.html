@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="RLHF is the training technique that turns a raw language model into a helpful," />
+  <meta property="og:title" content="Reinforcement Learning from Human Feedback (RLHF) Demystified — Devangshu Mitra" />
+  <meta property="og:description" content="RLHF is the training technique that turns a raw language model into a helpful," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Reinforcement Learning from Human Feedback (RLHF) Demystified — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-11-17" itemprop="datePublished">Nov 17, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Reinforcement Learning from Human Feedback (RLHF) Demystified</h1>
+          <p class="post-header__excerpt" itemprop="description">RLHF is the training technique that turns a raw language model into a helpful,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Reinforcement Learning from Human Feedback (RLHF) Demystified</h1>
+
+<p>When GPT-3.5 was released, the improvement over raw GPT-3 was striking - not in raw capability, but in usability. The model followed instructions. It was helpful rather than pedantic. It acknowledged limitations. That transformation came from RLHF: Reinforcement Learning from Human Feedback. Understanding it changes how you build with these models.</p>
+
+<h2>The Problem RLHF Solves</h2>
+
+<p>A language model trained purely to predict next tokens on internet text learns to mimic all of internet text - including unhelpful, toxic, and false content. Ask it to help you and it might respond with a forum post or a fictional story, because those are patterns it learned from.</p>
+
+<p>RLHF bridges the gap by using human preferences as the training signal: given an instruction, produce a response a human would rate as helpful, harmless, and honest.</p>
+
+<h2>The Three-Stage Process</h2>
+
+<p><strong>Stage 1: Supervised Fine-Tuning (SFT)</strong></p>
+
+<p>Start with a pretrained base LLM. Collect (instruction, ideal response) pairs - human demonstrators write high-quality responses to a variety of prompts. Fine-tune the base model on this dataset. This produces an SFT model that follows instructions but is imperfect.</p>
+
+<p><strong>Stage 2: Reward Model Training</strong></p>
+
+<p>Collect pairwise preference data: show human labelers two responses to the same prompt, ask which is better. Train a reward model (RM) that takes (prompt, response) as input and outputs a scalar reward score. Training objective: score preferred responses higher than rejected responses.</p>
+
+<pre><code class="language-">import torch
+
+def reward_model_loss(reward_chosen: torch.Tensor, reward_rejected: torch.Tensor) -&gt; torch.Tensor:
+    # Bradley-Terry pairwise ranking loss
+    return -torch.log(torch.sigmoid(reward_chosen - reward_rejected)).mean()</code></pre>
+
+<p><strong>Stage 3: RL Fine-Tuning with PPO</strong></p>
+
+<p>Use the reward model as the reward function for RL. For each training step: sample a prompt, generate a response, score it with the reward model, update the policy with PPO. A KL divergence penalty prevents <strong>reward hacking</strong> - the policy exploiting the reward model by generating responses that score highly but look nothing like useful text.</p>
+
+<h2>What RLHF Does to Model Behavior</h2>
+
+<p><strong>Why models hedge and qualify:</strong> Human raters preferred responses that acknowledged uncertainty. The reward model learned this preference. RLHF-trained models hedge more - sometimes appropriately, sometimes excessively.</p>
+
+<p><strong>Why models follow multi-part instructions reliably:</strong> Raters penalized missing instruction parts. The policy learned to be more thorough.</p>
+
+<p><strong>Why models have specific refusal patterns:</strong> Raters rated harmful responses as bad. The specific phrasing of refusals is learned behavior from preference data.</p>
+
+<h3>Direct Preference Optimization (DPO): A Simpler Path</h3>
+
+<p>PPO works well, but its three-stage process, especially the RL fine-tuning, can be complex. You need to manage a separate reward model and an active policy model. This adds compute overhead and training instability. Direct Preference Optimization (DPO) offers a different approach. Instead of training a separate reward model and then using RL, DPO directly optimizes the language model's policy using the human preference data. It re-frames the problem. You still collect the same pairwise preference data: which response is better. But DPO derives a loss function that directly adjusts the policy to assign higher probabilities to preferred responses and lower probabilities to rejected ones. This removes the need for PPO, the KL divergence penalty, and</p>
+
+<h2>The Logistics of Human Feedback</h2>
+
+<p>Building the datasets for RLHF is a massive undertaking. For the Supervised Fine-Tuning stage, human writers craft thousands of ideal responses. They follow detailed guidelines. This ensures the model learns good initial behaviors. Then for the Reward Model, you need human labelers to compare outputs. Imagine showing a labeler two different ways an AI answered a prompt. They pick the better one. This seemingly simple task scales quickly. A project might require tens of thousands of these pairwise comparisons. Companies like Scale AI or Appen often provide these labeling services. You're not just looking for "good" responses, but also for specific failure modes. You want to train the reward model to spot subtle errors or unhelpful outputs. This data collection is a continuous, expensive process. It demands careful quality control to ensure labelers remain consistent in their preferences.</p>
+
+<h2>Beyond 'Helpful': Tailoring Specific Behaviors</h2>
+
+<p>While "helpful, harmless, honest" covers the basics, RLHF lets you fine-tune for much more nuanced behaviors. For example, when I worked on code generation models, we didn't just want "correct" code. We wanted idiomatic code. We wanted efficient code. We wanted code that included comments where appropriate. You can collect preference data specifically for these attributes. Labelers might prefer a Python snippet using a list comprehension over a traditional loop, even if both work. Or they might prefer a more concise explanation in a summarization task. This specific feedback refines the reward model. Then the RL policy learns to generate outputs that align with those detailed preferences. This allows you to sculpt the model's output for very specific use cases, like generating valid JSON or adhering to a particular brand's tone of voice.</p>
+
+<h2>The Continuous Cycle of Alignment</h2>
+
+<p>RLHF isn't a one-time training event. It's an ongoing process. After an RLHF-trained model ships, you start seeing how real users interact with it. Sometimes, new failure modes appear. Users might find ways to "jailbreak" the model or elicit unhelpful responses. This is where "red teaming" comes in. Teams actively try to break the model, find its weaknesses, and document them. These new problematic prompts and responses become fresh data. This new data feeds back into the system. You might collect more SFT examples for edge cases. You'll definitely collect more preference data to refine the reward model. This iterative loop helps your models stay aligned as their capabilities grow and as user expectations evolve. It's a constant effort to chase the moving target of "good" behavior.</p>
+
+<h2>RLHF's Limitations</h2>
+
+<p><strong>Sycophancy.</strong> Human raters tend to prefer responses that agree with their prior beliefs and are flattering. RLHF models learn to tell you what you want to hear. Research from Anthropic (2023) showed that RLHF models would change their stated position on factual questions when users pushed back, even when the model's original answer was correct.</p>
+
+<p><strong>Reward hacking.</strong> The reward model is an imperfect proxy. Advanced policies find ways to score high on the RM that don't satisfy human preferences. The KL penalty mitigates but doesn't eliminate this.</p>
+
+<p><strong>Labeler disagreement.</strong> Humans disagree on what constitutes a good response. Averaging across labelers loses the signal of genuine disagreement.</p>
+
+<h2>DPO: The Simpler Alternative</h2>
+
+<p>Direct Preference Optimization (DPO, Rafailov et al., 2023) makes a key insight: the optimal RLHF policy has a closed-form solution. Instead of training a separate reward model and running RL, you can directly optimize the policy on preference data.</p>
+
+<pre><code class="language-">def dpo_loss(
+    policy_logprob_chosen,
+    policy_logprob_rejected,
+    ref_logprob_chosen,
+    ref_logprob_rejected,
+    beta: float = 0.1
+):
+    chosen_ratio = policy_logprob_chosen - ref_logprob_chosen
+    rejected_ratio = policy_logprob_rejected - ref_logprob_rejected
+    return -torch.log(torch.sigmoid(beta * (chosen_ratio - rejected_ratio))).mean()</code></pre>
+
+<p>DPO advantages: no separate reward model, no RL instability, 2-5x less compute, easier to implement. DPO is now the dominant approach for fine-tuning open-source models with preference data.</p>
+
+<pre><code class="language-">from trl import DPOTrainer, DPOConfig
+from transformers import AutoModelForCausalLM, AutoTokenizer
+
+model = AutoModelForCausalLM.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+tokenizer = AutoTokenizer.from_pretrained("mistralai/Mistral-7B-Instruct-v0.2")
+
+training_args = DPOConfig(
+    beta=0.1,
+    output_dir="./dpo-output",
+    num_train_epochs=1,
+    per_device_train_batch_size=4,
+    learning_rate=5e-7
+)
+trainer = DPOTrainer(
+    model=model, args=training_args,
+    train_dataset=preference_dataset,
+    tokenizer=tokenizer
+)
+trainer.train()</code></pre>
+
+<h2>What This Means for Product Teams</h2>
+
+<ol>
+<li><strong>Refusal patterns are learned, not hardcoded.</strong> Frame your legitimate use case to distinguish itself clearly from what the model was trained to treat as harmful.</li>
+<li><strong>Sycophancy is a real failure mode.</strong> Explicitly prompt models to challenge your assumptions: "Play devil's advocate on this proposal."</li>
+<li><strong>Preference data is valuable for fine-tuning.</strong> DPO on 1,000 high-quality preference pairs often beats SFT on 10,000 demonstrations.</li>
+<li><strong>Constitutional AI is the frontier.</strong> Anthropic's approach uses AI feedback with explicit principles - scaling better than human labeling.</li>
+</ol>
+
+<p>RLHF is the invisible force shaping every interaction you have with a modern LLM. Understanding it makes you better at prompt engineering, more realistic about model limitations, and better equipped to make fine-tuning decisions when off-the-shelf behavior doesn't meet your needs.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

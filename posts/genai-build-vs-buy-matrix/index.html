@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover the GenAI build vs buy decision matrix to evaluate enterprise LLM" />
+  <meta property="og:title" content="GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions — Devangshu Mitra" />
+  <meta property="og:description" content="Discover the GenAI build vs buy decision matrix to evaluate enterprise LLM" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2026-02-18" itemprop="datePublished">Feb 18, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover the GenAI build vs buy decision matrix to evaluate enterprise LLM</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</h1>
+
+<p>The build vs buy question for LLMs is not the same as the classic build vs buy question for enterprise software. The dynamics are different: the technology is moving too fast for long build cycles to make sense, but vendor lock-in with LLMs carries real risk because model deprecations happen faster than software EOLs. This framework helps you make a defensible decision with a clear audit trail.</p>
+
+<h2>Decision Criteria</h2>
+
+<p>Ten criteria determine whether to build or buy. Not all criteria are equally important - weight them by your organization's context.</p>
+
+<p><strong>1. Data Sensitivity</strong> - Can your data leave your environment? Clinical trial data, PHI, and MNPI (material non-public information) often legally cannot. If the answer is "no", a SaaS LLM vendor is immediately out of scope for that use case. Build or use on-prem/private cloud deployment.</p>
+
+<p><strong>2. Customization Depth</strong> - How far does the base model need to be customized for your use case? General-purpose tasks (summarization, Q&A over internal docs) rarely need fine-tuning. Specialized tasks (medical coding from clinical notes, regulatory writing with specific house style) often do. Fine-tuning requires building.</p>
+
+<p><strong>3. Latency Requirements</strong> - What is the maximum acceptable response time? Under 500ms real-time latency is hard to hit with API-based vendors (network round-trip + queuing). If you need sub-500ms, on-prem or self-hosted models on dedicated compute are likely required.</p>
+
+<p><strong>4. Team Capability</strong> - Do you have the ML engineering talent to build and maintain a custom LLM stack? A production RAG system with fine-tuned models, a vector database, evaluation pipeline, and monitoring requires 2-4 senior ML engineers to build and 1-2 to maintain. If that capability doesn't exist in-house, buying is more realistic than hiring.</p>
+
+<p><strong>5. Regulatory Constraints</strong> - Does your use case touch FDA-regulated activities (drug development, clinical decision support as a medical device), EU AI Act high-risk categories, or SOX-covered financial processes? Each adds validation requirements. SaaS vendors increasingly offer compliance packages (HIPAA BAAs, SOC2 Type II, FedRAMP) but may not meet 21 CFR Part 11 requirements for clinical trial data without additional controls.</p>
+
+<p><strong>6. Total Cost Over 3 Years</strong> - Build cost and buy cost are rarely compared honestly. See the cost model below.</p>
+
+<h2>Scoring Matrix</h2>
+
+<p>Score each criterion 1-5 where 5 = strong signal to build, 1 = strong signal to buy. Multiply by the weight. Total score above 35 = lean build, below 20 = lean buy, 20-35 = hybrid or case-by-case.</p>
+
+<p>| Criterion | Weight | Buy (1-2) | Neutral (3) | Build (4-5) | | --- | --- | --- | --- | --- | | Data Sensitivity | 3x | Public/internal data OK for SaaS | Some sensitive data | PHI/PII/MNPI that cannot leave org | | Customization Depth | 2x | Standard task, prompt engineering sufficient | RAG + some fine-tuning | Deep domain adaptation required | | Latency Requirements | 2x | 3+ seconds acceptable | 1-3 seconds | Under 500ms required | | Team Capability | 2x | No ML team | Small ML team | Strong ML engineering team | | Regulatory Constraints | 3x | No regulated activities | Some compliance needs | FDA/21 CFR/EU AI Act high-risk | | Volume | 1x | Under 100K API calls/month | 100K-5M/month | Over 5M/month | | Time to Market | 2x | Need live in under 3 months | 3-6 months | Over 6 months acceptable | | Vendor Availability | 1x | Multiple mature vendors | 1-2 vendors | No vendor exists for use case | | Strategic Differentiator | 2x | Commodity capability | Important but not unique | Core IP and competitive moat | | Maintenance Tolerance | 1x | Want vendor to handle updates | Some maintenance OK | Full control required |</p>
+
+<h2>Cost Model</h2>
+
+<p>Most build vs buy analyses undercount build costs by 2-3x and undercount buy costs by 1.5x. Here is a more honest accounting.</p>
+
+<p><strong>Build costs over 3 years:</strong></p>
+
+<ul>
+<li>ML engineering (2 engineers x $250K fully loaded x 3 years) = $1.5M</li>
+<li>Initial build time (6 months at 2 FTE) = $250K</li>
+<li>Compute (fine-tuning: $5-50K one-time; inference: depends on volume - a 13B parameter model on 2 A100s costs about $2K/month)</li>
+<li>Data annotation for fine-tuning ($50-200K depending on complexity and volume)</li>
+<li>Evaluation and testing infrastructure ($20-50K)</li>
+<li>Total range: $1.8M to $3M over 3 years for a mid-complexity use case</li>
+</ul>
+
+<p><strong>Buy costs over 3 years:</strong></p>
+
+<ul>
+<li>Licensing/API: $0.01-$0.06 per 1K tokens for GPT-4o class models. At 10M tokens/month: $1,200-$7,200/month or $43K-$259K over 3 years.</li>
+<li>Integration engineering (3-6 months at 1-2 engineers) = $100-200K</li>
+<li>Vendor management and contract overhead = $30-50K/year</li>
+<li>Migration risk: if the vendor changes pricing, deprecates a model, or gets acquired, migration costs $100-300K</li>
+<li>Total range: $350K to $1.2M over 3 years for mid-volume use case</li>
+</ul>
+
+<p>The break-even point is typically around 50M tokens/month for high-complexity tasks where a strong commercial model is needed. Below that, buy almost always wins on pure cost. Above that, build becomes competitive.</p>
+
+<h2>Risk Assessment</h2>
+
+<p><strong>Vendor dependency:</strong> OpenAI has deprecated GPT-3.5-turbo-0301, GPT-4-0314, and multiple embeddings models, typically with 6-12 months notice. If your application is tightly coupled to a specific model version, deprecation forces a rushed migration. Mitigation: build an abstraction layer over any LLM vendor so swapping providers is a configuration change, not a rewrite. LiteLLM and LangChain's model abstraction provide this.</p>
+
+<p><strong>Data residency:</strong> EU data protection law (GDPR Article 46), HIPAA, and clinical trial regulations (21 CFR Part 312) impose requirements on where data can be processed. Even if a vendor is HIPAA-compliant, their data centers may be in the wrong jurisdiction for EU clinical trial data. Verify data residency per use case, not per vendor relationship.</p>
+
+<p><strong>Model deprecation:</strong> Unlike software with 5-10 year support cycles, LLM models have typical support windows of 12-24 months. Plan for model migration every 18 months as a maintenance item, not a project.</p>
+
+<p><strong>Compliance liability:</strong> When a SaaS LLM makes an error in a regulated context (wrong ICD code, incorrect safety signal assessment), who is liable? Review vendor terms of service carefully. Most LLM vendors explicitly disclaim liability for use in medical, legal, or financial contexts. This shifts all liability to the deploying organization regardless of where the error originated.</p>
+
+<h2>Decision Tree</h2>
+
+<p>Work through these questions in order:</p>
+
+<ol>
+<li>Can the data leave your environment? If no - build or private deployment. Stop here.</li>
+</ol>
+
+<ol>
+<li>Is the use case core IP or competitive differentiator? If yes - build or private deployment. Stop here.</li>
+</ol>
+
+<ol>
+<li>Do you need this live in under 3 months? If yes - buy. Stop here (you can migrate later).</li>
+</ol>
+
+<ol>
+<li>Does your team have 2+ ML engineers available? If no - buy. Stop here.</li>
+</ol>
+
+<ol>
+<li>Does your volume exceed 50M tokens/month for a task requiring GPT-4 class quality? If yes - evaluate build economics. Otherwise - buy.</li>
+</ol>
+
+<ol>
+<li>Is this a regulated activity requiring validated software? If yes - build with full validation, or buy from a vendor offering validated deployment. If buying, confirm vendor can support 21 CFR Part 11 or equivalent.</li>
+</ol>
+
+<p>Default: buy and iterate. The cost of getting started with a vendor is low. The cost of getting started with a custom build is high. You can always migrate later with more information.</p>
+
+<h2>Three Worked Examples</h2>
+
+<p><strong>Example 1: Build wins - Adverse Event Narrative Generation (Pharma)</strong></p>
+
+<p>A top-10 pharma company needs to automate ICSR narrative drafting. Volume: 50K narratives/year. Data: patient PHI and clinical trial data under FDA IND. Customization: narratives must follow company house style and ICH E2B(R3) exactly. Regulatory: FDA submission artifact, requires 21 CFR Part 11 audit trail. Team: 4 ML engineers in place.</p>
+
+<p>Decision: Build. Data cannot leave the environment (patient PHI, IND data). The task is core to regulatory compliance. The team exists. Over 3 years, a custom fine-tuned model on company data will outperform a generic LLM on this task by a meaningful margin. Build score: 42/50.</p>
+
+<p><strong>Example 2: Buy wins - Internal Knowledge Assistant (Health System)</strong></p>
+
+<p>A regional health system wants an internal Q&A bot over their policy and procedure documents. Volume: 5K queries/day. Data: internal policy docs, no PHI. Customization: minimal, standard RAG. Regulatory: none for the documents themselves. Team: 1 ML engineer, heavy workload.</p>
+
+<p>Decision: Buy. Microsoft Copilot for Healthcare or a similar product handles this use case. Data is not sensitive (no PHI). The task is commodity. Time-to-market matters (leadership wants a demo in 60 days). Build score: 17/50.</p>
+
+<p><strong>Example 3: Hybrid wins - Clinical Trial Protocol Authoring (CRO)</strong></p>
+
+<p>A CRO wants to accelerate protocol synopsis writing. Volume: 200 protocols/year. Data: sponsor protocols contain MNPI during pre-submission but become public post-approval. Customization: needs to follow ICH E6(R3) and specific therapeutic area conventions. Regulatory: not an FDA submission artifact directly, but inputs often are. Team: 2 ML engineers.</p>
+
+<p>Decision: Hybrid. Use a commercial model API (Azure OpenAI with HIPAA BAA and private endpoint) for generation - this keeps compute managed while satisfying data residency for most sponsors. Build a custom RAG layer over internal protocol templates and ICH guidelines. Fine-tune a smaller model for protocol structure classification. Total cost: ~$400K over 3 years vs $1.8M for full build. The hybrid approach captures 80% of the quality benefit at 25% of the cost.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework/">LLM Evaluation Framework for Regulated and Clinical Contexts</a></li>
+<li><a href="https://www.devangshumitra.com/product-metrics-dashboard/">Product Metrics Dashboard Template for Enterprise AI</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-enterprise-llm-integration/">The Build vs Buy Decision for Enterprise LLM Integration</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

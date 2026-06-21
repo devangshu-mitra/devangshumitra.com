@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="One month in. 40+ blog posts. A new site. A content pipeline I didn&#39;t know" />
+  <meta property="og:title" content="Building in Public Month 1: What Worked, What Didn&#39;&#39;t — Devangshu Mitra" />
+  <meta property="og:description" content="One month in. 40+ blog posts. A new site. A content pipeline I didn&#39;t know" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building in Public Month 1: What Worked, What Didn''t — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Building in Public</span>
+            <time class="post-header__date" datetime="2025-09-02" itemprop="datePublished">Sep 2, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building in Public Month 1: What Worked, What Didn''t</h1>
+          <p class="post-header__excerpt" itemprop="description">One month in. 40+ blog posts. A new site. A content pipeline I didn't know</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building in Public Month 1: What Worked, What Didn't</h1>
+
+<p>One month ago I published the first post on this site. I had a rough idea, a domain name, and a vague sense that I had accumulated enough product and AI experience that it was worth putting in writing. I did not have a content strategy, a posting schedule, an email list, or any clear sense of what success looked like.</p>
+
+<p>Thirty days and 40+ posts later, I have a clearer picture. This post is the honest version - not the LinkedIn highlight reel, but the actual retrospective I would want to read if I were starting this a year from now and wanted to know what was true versus what just sounded good in theory.</p>
+
+<h2>What I Built</h2>
+
+<h3>The Site</h3>
+
+<p>The site runs on Ghost - a publishing platform I chose over WordPress, Substack, and Medium for a specific set of reasons: full control over the domain and design, no revenue share on subscriptions, clean reading experience, native SEO tools, and an API that allows me to build automation on top of it. Ghost has been the right call. The publishing experience is clean, the SEO defaults are sensible, and the membership features work as advertised.</p>
+
+<p>The design is minimal by intention. I wanted readers to focus on the content, not the branding. I may revisit this as the site grows, but minimal was the right starting point.</p>
+
+<h3>The Content Pipeline</h3>
+
+<p>The most unexpected thing I built this month was a content production pipeline. What started as write some posts became a structured workflow involving topic research, outline generation, AI-assisted drafting, and a batch publishing system that lets me generate and schedule multiple posts in a single working session.</p>
+
+<p>The pipeline runs on a combination of:</p>
+
+<ul>
+<li><strong>Anthropic API (Claude):</strong> Drafting engine for long-form posts. The instruction fidelity on complex, technical topics is better than other models I tested for this use case. I maintain detailed voice and style instructions that get passed with every generation prompt.</li>
+<li><strong>Ghost Admin API:</strong> Python scripts that publish directly to Ghost from JSON-formatted content. No manual copy-paste for any post - the entire batch goes through programmatic publishing.</li>
+<li><strong>Agentic Hub:</strong> My personal agent system (built on Claude Code) that orchestrates the pipeline, manages topic batches, and handles the formatting and metadata for each post.</li>
+</ul>
+
+<p>This pipeline let me publish 40+ high-quality posts in 30 days without burning out. Without the pipeline, I probably would have published 3-5 posts before the activation energy required for each one exceeded my available time.</p>
+
+<h3>The Content Categories</h3>
+
+<p>I settled on four main content categories that map to my actual professional experience:</p>
+
+<ol>
+<li>Healthcare and Life Sciences AI (deepest expertise, highest differentiation)</li>
+<li>AI Product Management frameworks (broad applicability, high SEO value)</li>
+<li>Industry-specific AI (supply chain, HR, fintech, retail - draws from multiple roles)</li>
+<li>GenAI technical explainers (accessible depth - technical enough to be credible, clear enough to be useful)</li>
+</ol>
+
+<h2>What Worked</h2>
+
+<h3>Leading With Real Experience</h3>
+
+<p>The posts that performed best in early sharing were the ones that opened with a specific, concrete experience from an actual project - a pilot that failed, a vendor evaluation gone wrong, a technical decision that cost us months. Abstract frameworks get scrolled past. Specific, honest professional experience gets read and shared.</p>
+
+<p>This was the biggest lesson of month one: the value I have to offer is not generic AI information (of which there is an unlimited supply online). It is the pattern recognition and judgment from having actually shipped AI products in healthcare, having actually done growth at a D2C CPG company, having actually worked through enterprise AI procurement cycles at HCLTech's scale. Lead with that. Every time.</p>
+
+<h3>Long-Form Over Short-Form</h3>
+
+<p>I tried both. 500-word explainers and 2500-word deep dives. The long-form posts consistently outperformed on time-on-page and sharing, even though the short-form posts took less time to produce. The audience for this site - AI practitioners, PMs, enterprise buyers - came here to read, not to skim. Respect their time by giving them something substantive enough to justify clicking through.</p>
+
+<h3>SEO Infrastructure Upfront</h3>
+
+<p>I spent time in the first week getting meta titles, meta descriptions, and canonical URLs right for every post rather than treating it as a cleanup task. Ghost's native SEO tools made this straightforward. The result is that some of the early posts are already indexing reasonably well for specific long-tail queries - the compounding returns on SEO investment are real and they start earlier than most people expect.</p>
+
+<h2>What Flopped</h2>
+
+<h3>Social Media Distribution</h3>
+
+<p>I published consistently on LinkedIn and had almost no meaningful traffic from it in month one. This is partly a distribution and algorithm problem - LinkedIn heavily favors accounts with large existing audiences, and I was starting with a relatively small network active in the AI PM space. The content that performed best on LinkedIn was shorter, more opinionated takes rather than links to the full posts. A lesson I am still processing.</p>
+
+<p>Twitter/X was even quieter. The AI PM community on X is engaged but tight - breaking in as a new account requires either a high-virality post or consistent relationship-building over months. I have done neither at scale yet.</p>
+
+<h3>The Email List</h3>
+
+<p>I set up a Ghost newsletter opt-in from day one, but I have not been consistent about sending newsletters or giving subscribers a clear reason to opt in beyond getting new posts. The subscriber count is non-zero but not meaningful yet. This is the highest-priority fix for month two - a newsletter needs its own value proposition beyond post distribution.</p>
+
+<h3>Posting Without a Promotion Plan</h3>
+
+<p>Publish and they will come does not work even for good content. Several posts that I think are genuinely valuable - the vendor evaluation scorecard, the shadow AI governance framework - got almost no traffic because I published them without a specific plan for where the first readers would come from. In month two, every post needs a distribution plan before it publishes.</p>
+
+<h2>Time Investment</h2>
+
+<p>Honest accounting: the pipeline setup took 15-20 hours in the first two weeks. Writing the voice and style documentation, testing prompt configurations, debugging the publishing scripts, building the topic batching system. That was a significant upfront investment.</p>
+
+<p>After the pipeline was working, producing and publishing a batch of 10 posts takes approximately 4-6 hours of my time (topic selection, review, editing, and publication). Without the pipeline, the same 10 posts would have taken 20-30 hours. The use is real.</p>
+
+<h2>Metrics at Day 30</h2>
+
+<p>I am going to be transparent about where things actually stand, with the caveat that month one metrics for a new site are mostly noise:</p>
+
+<ul>
+<li>Posts published: 43</li>
+<li>Unique visitors: modest but growing - enough to see which topics attract search traffic</li>
+<li>Newsletter subscribers: single digits (this is the metric I am most focused on improving)</li>
+<li>Organic search impressions: starting to register for specific long-tail AI PM and healthcare AI queries</li>
+<li>Posts I am genuinely proud of and would hand to a peer: roughly 60% of what I published</li>
+</ul>
+
+<h2>What Is Different Than I Expected</h2>
+
+<p>The part I did not anticipate: the process of writing clearly about what I know has surfaced gaps I did not know I had. Writing a 2500-word post on a topic forces a precision of thinking that informal professional knowledge does not require. I have learned things by writing about them that I did not fully know before I started writing.</p>
+
+<p>That is, unexpectedly, the best return on this investment so far - not the traffic, not the potential audience, but the compounding improvement in clarity of my own professional thinking.</p>
+
+<h2>Month 2 Priorities</h2>
+
+<ol>
+<li><strong>Newsletter:</strong> Define a clear value proposition and launch a weekly or biweekly format that gives subscribers a reason to opt in beyond post aggregation.</li>
+<li><strong>Distribution first:</strong> For every post, define the distribution plan before hitting publish. At minimum: one LinkedIn post, one relevant online community, one relevant newsletter mention.</li>
+<li><strong>Guest features:</strong> Reach out to two or three AI PM / healthcare AI newsletters about contributing guest posts or doing content swaps. Borrowed audiences are faster than built audiences in the early stages.</li>
+<li><strong>Topic focus:</strong> Narrow the content calendar to the two categories with the most early evidence of search traction (healthcare AI and AI PM frameworks) rather than spreading evenly across all four.</li>
+</ol>
+
+<blockquote><p>Month one taught me that building in public is not primarily a marketing strategy. It is a learning strategy. The audience you are building is secondary to the clarity you develop by trying to explain what you actually know to people who do not already know it.</p></blockquote>
+
+<p>Month two will be about building the distribution machine that the content quality deserves. The content is there. Now I need to ensure that the right people actually find it.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-a-personal-brand-from-scratch-month-1-retrospective/">Building a Personal Brand from Scratch: Month 1 Retrospective</a></li>
+<li><a href="https://www.devangshumitra.com/building-geenie-my-personal-ai-operating-system/">Building Geenie: My Personal AI Operating System</a></li>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/the-ai-product-lifecycle-from-poc-to-production/">The AI Product Lifecycle: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/the-architecture-of-production-ml-pipelines/">The Architecture of Production ML Pipelines</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

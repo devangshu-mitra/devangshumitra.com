@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="AI products have a stakeholder challenge that no PM school prepares you for." />
+  <meta property="og:title" content="Stakeholder Management for AI Products: A PM&#39;&#39;s Survival Guide — Devangshu Mitra" />
+  <meta property="og:description" content="AI products have a stakeholder challenge that no PM school prepares you for." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Stakeholder Management for AI Products: A PM''s Survival Guide — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-09-29" itemprop="datePublished">Sep 29, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Stakeholder Management for AI Products: A PM''s Survival Guide</h1>
+          <p class="post-header__excerpt" itemprop="description">AI products have a stakeholder challenge that no PM school prepares you for.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Stakeholder Management for AI Products: A PM's Survival Guide</h1>
+
+<p>Managing stakeholders for a standard software product is hard. Managing stakeholders for an AI product is a different category of hard.</p>
+
+<p>The technical complexity is higher. The expectations are more distorted - in both directions. The failure modes are less predictable. The regulatory surface is broader. And you are constantly managing the gap between what AI can do in a demo and what it can reliably do in production, with real users, on real data.</p>
+
+<p>After shipping multiple AI products across healthcare and enterprise, here is the stakeholder management playbook that has kept my teams functional and my projects moving.</p>
+
+<h2>The Unique Stakeholder Space of AI Products</h2>
+
+<p>Before mapping specific strategies, it helps to inventory who the stakeholders actually are in an AI product - because the cast is different from a standard software product.</p>
+
+<ul>
+<li><strong>Data scientists / ML engineers:</strong> The people who build the models. They have deep technical expertise, strong opinions about model architecture, and typically limited patience for product requirements they find constraining. Their measure of success is model performance metrics. Yours is user outcomes.</li>
+<li><strong>Software engineers:</strong> The people who build everything around the model - APIs, integrations, front-end interfaces, data pipelines. They often do not trust ML systems because ML systems fail in ways that software systems do not. They are right to be skeptical. Use their skepticism.</li>
+<li><strong>Domain experts / SMEs:</strong> Clinicians, lawyers, financial analysts - whoever has the domain knowledge the AI is trying to serve. They are simultaneously the most valuable evaluators of model output quality and the most vocal skeptics. Their trust is the hardest to earn and the most valuable to have.</li>
+<li><strong>Executives / Sponsors:</strong> They have seen the AI hype cycle and either believe it fully or are skeptical entirely. Managing upward on AI is about calibration - neither fueling the hype nor letting excessive caution kill promising work.</li>
+<li><strong>Compliance / Legal / Regulatory:</strong> More involved in AI products than standard software. They need to understand what the system does, what data it uses, how decisions are made, and what the failure modes are. They are not trying to kill your product - they are managing organizational risk. Engage them early.</li>
+<li><strong>End users:</strong> Often skeptical, sometimes threatened, occasionally delighted. Their adoption determines whether your product has impact or becomes shelfware.</li>
+</ul>
+
+<h2>Managing Data Scientists</h2>
+
+<p>The most common friction between PMs and data scientists is the gap between what the model can do versus what the product needs to do.</p>
+
+<p>Data scientists optimize for model performance metrics. A data scientist who has spent three months improving model F1 score from 0.87 to 0.91 has done real work and should be recognized for it. But if the product's core user problem is explainability - clinicians need to understand why the model suggested a diagnosis, not just that the suggestion is accurate - then that F1 improvement does not move the needle on the metric that matters for user adoption.</p>
+
+<p>The strategies that work:</p>
+
+<ul>
+<li><strong>Define product metrics before model metrics:</strong> Before any model work starts, define the user outcome you are optimizing for. Then work with the data science team to find model metrics that are genuinely predictive of that user outcome. F1 score predicting user adoption is better than F1 score in isolation.</li>
+<li><strong>Include data scientists in user research:</strong> The fastest way to align a data scientist on product priorities is to have them watch a user interaction where the model fails in a way that matters. Abstract failure statistics do not land the way a real user session does.</li>
+<li><strong>Protect their technical autonomy on method:</strong> Data scientists resist being told how to build the model. Specify what the model needs to achieve and what constraints apply (latency, interpretability, data availability) and then leave the method to them.</li>
+</ul>
+
+<h2>Educating Executives on AI Limitations</h2>
+
+<p>The AI-will-do-everything problem is real and it usually comes from the top. An executive who saw a GPT-4 demo and wants to know why your team has not automated the entire function in 90 days is a stakeholder management challenge I have faced in almost every AI project.</p>
+
+<p>The framing that works best with executives is the iceberg model. What they see in a demo is the above-water part: the impressive output, the fast response, the seemingly intelligent reasoning. What they do not see: the data pipeline that took three months to build, the evaluation framework that required clinical SME time, the integration complexity, the edge cases that require human review, the monitoring infrastructure, the model update governance. Show them the iceberg, not just the tip.</p>
+
+<p>Specific techniques:</p>
+
+<ul>
+<li><strong>Use concrete time and cost estimates, not percentages:</strong> AI will improve efficiency by 40% means nothing to an executive making a resource allocation decision. AI will reduce the time per chart review from 12 minutes to 7 minutes, freeing each reviewer for approximately 50 additional reviews per week is actionable.</li>
+<li><strong>Present a range, not a point estimate:</strong> AI projects have more uncertainty than standard software projects. Presenting a single timeline invites disappointment when the inevitable unknowns hit. Present a range with explicit assumptions.</li>
+<li><strong>Celebrate incremental wins explicitly:</strong> AI products have a longer runway between first commit and user value than most software products. Create a narrative of progress so executives see forward motion while waiting for the big payoff.</li>
+</ul>
+
+<h2>Handling Clinician and User Skepticism</h2>
+
+<p>In healthcare, clinician adoption is the hardest problem in AI product management. Clinicians are trained to be skeptical of anything that overrides their clinical judgment. They have seen vendor promises before. They have watched pilots fail. And they are right to be skeptical of systems that are opaque, that fail in ways they cannot predict, and that may be wrong in ways that harm their patients.</p>
+
+<p>The approaches that build genuine trust - not compliance, but genuine trust:</p>
+
+<ul>
+<li><strong>Start with administrative, not clinical tasks:</strong> Win trust by demonstrating reliability on lower-stakes tasks before touching clinical decision support. If the AI handles documentation perfectly for three months, clinicians come to the clinical AI conversations with a different mindset.</li>
+<li><strong>Show your work:</strong> Every AI output that a clinician acts on should show the evidence behind it. The retrieved passages, the confidence score, the failure cases the model has historically missed. Opacity breeds distrust. Transparency builds it.</li>
+<li><strong>Make the override easy and visible:</strong> Design every clinical AI interface so that overriding the AI is a natural, frictionless action. Track override rates openly with the clinical team. High override rates are not failure - they are feedback.</li>
+</ul>
+
+<h2>Regulatory Stakeholders</h2>
+
+<p>Regulatory and compliance stakeholders are often brought into AI product conversations too late - after the architecture is set, after the data pipelines are built, after significant investment has been made. Then they identify requirements (audit logging, human override capability, bias testing) that require expensive rework.</p>
+
+<p>Engage compliance and legal in the use case definition phase, not the pre-launch phase. Frame their involvement as architectural input, not gatekeeping. The questions they will ask - who is accountable when this is wrong, what is the audit trail for a decision this system influences, which regulatory frameworks apply - are questions you need to answer before you build, not after.</p>
+
+<h2>The Stakeholder Mapping Template for AI Products</h2>
+
+<p>For each stakeholder, map four dimensions:</p>
+
+<p>| Stakeholder | Primary Concern | AI-Specific Risk | Engagement Strategy | | --- | --- | --- | --- | | Data Scientists | Model performance and technical autonomy | Product requirements that constrain model design | Co-define evaluation metrics; include in user research | | Software Engineers | Reliability and maintainability | ML systems that fail silently and unpredictably | Use their skepticism; build monitoring together | | Domain SMEs / Clinicians | Accuracy, safety, explainability | AI that overrides their judgment opaquely | Show work; start low-stakes; make override easy | | Executives | ROI and timeline | Unrealistic expectations from demos and hype | Iceberg framing; range estimates; milestone celebrations | | Compliance / Legal | Risk and liability | AI decisions without audit trails or accountability | Engage early; frame as architecture input | | End Users | Usability and job security | Fear of replacement; forced adoption of unreliable tools | Position as augmentation; build trust incrementally |</p>
+
+<blockquote><p>AI product management is 30% model strategy and 70% change management. The teams that ship successful AI products are the ones where the PM is as skilled at building organizational trust as they are at writing PRDs.</p></blockquote>
+
+<p>There is no substitute for experience in working through these stakeholder dynamics. But pattern recognition helps - and the patterns above have held across healthcare, enterprise software, and high-tech contexts. The stakeholders are different. The underlying human dynamics are the same.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-dashboard-what-to-track-and-why/">AI Product Metrics Dashboard: What to Track and Why</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter-beyond-accuracy/">AI Product Metrics That Actually Matter: Beyond Accuracy</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-alignment-canvas-for-ai-products/">Stakeholder Alignment Canvas for AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/launch-playbook-taking-an-ai-product-from-beta-to-ga/">Launch Playbook: Taking an AI Product from Beta to GA</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/big-tech-pm-interview-prep/">Big Tech PM Interview Prep Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

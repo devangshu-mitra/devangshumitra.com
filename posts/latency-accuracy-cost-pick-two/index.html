@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Every AI system is a set of tradeoffs between latency, accuracy, and cost." />
+  <meta property="og:title" content="Latency, Accuracy, Cost: Pick Two — Devangshu Mitra" />
+  <meta property="og:description" content="Every AI system is a set of tradeoffs between latency, accuracy, and cost." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Latency, Accuracy, Cost: Pick Two — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-04-05" itemprop="datePublished">Apr 5, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Latency, Accuracy, Cost: Pick Two</h1>
+          <p class="post-header__excerpt" itemprop="description">Every AI system is a set of tradeoffs between latency, accuracy, and cost.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Latency, Accuracy, Cost: Pick Two</h1>
+
+<p>There's a version of the CAP theorem for AI systems: latency, accuracy, cost - pick two. You can have low-latency and high-accuracy inference, but it will be expensive. You can have high-accuracy and low-cost inference, but it will be slow. You can have low-latency and low-cost inference, but you'll sacrifice accuracy.</p>
+
+<p>Like most pithy frameworks, this is a simplification. The actual tradeoff space is a three-dimensional surface, not three discrete points. But the underlying insight is real: optimizing one dimension puts pressure on the other two. And the organizations that build good AI systems are the ones that choose their constraints deliberately before they start building.</p>
+
+<h2>Why This Triangle Exists</h2>
+
+<p>The triangle exists because of how ML inference works at a systems level. Accuracy correlates with model size and complexity - larger models, more parameters, more compute per inference. Latency is inversely related to inference compute - more compute means slower responses unless you add more hardware, which increases cost. Cost is a function of compute and hardware - cutting cost means reducing one or both.</p>
+
+<p>You can partially escape the triangle through engineering optimizations: model quantization, knowledge distillation, speculative decoding, caching, batching. These shift the tradeoff frontier without eliminating it. A quantized model is faster and cheaper with modest accuracy loss. Batching amortizes inference cost across requests at the cost of latency per request. These are real tools. They reduce the tension; they don't eliminate it.</p>
+
+<p>The triangle also manifests differently at different scales. At low request volumes, cost is negligible and the tension is mainly between latency and accuracy. At high request volumes, cost becomes the binding constraint and everything else flows from cost management decisions. Understanding which regime you're in changes what the optimal tradeoff looks like.</p>
+
+<h2>Healthcare: Accuracy First, Latency Second, Cost Managed</h2>
+
+<p>Clinical decision support is the case where accuracy requirements dominate everything else. When an AI system is advising on sepsis risk, medication dosing, or clinical trial eligibility, the cost of a wrong answer can include patient harm. Accuracy is not a preference - it's a regulatory and ethical floor.</p>
+
+<p>This doesn't mean latency is irrelevant. In emergency settings - code alerts, rapid response systems, deterioration prediction - latency matters because the intervention window is narrow. A system that gives a 96% accurate prediction in 45 seconds might still be better than a system that gives a 94% accurate prediction in 5 seconds, but the calculus depends on how long the intervention window is.</p>
+
+<p>What this looks like in practice: clinical AI systems often use larger, more expensive models than you'd expect for the task, because the accuracy requirement justifies the cost. Epic's Sepsis prediction model runs inference on every patient in the hospital at regular intervals - this is expensive at scale. They pay the cost because the alternative is using a cheaper model that's less accurate on the edge cases that matter most.</p>
+
+<p>Cost in healthcare AI is managed through batching - run inference on all patients every 15 minutes rather than every patient in real-time - tiered inference, using a fast cheap model for triage and a slow expensive model for confirmed candidates, and scope limitation, running the expensive model only on the patient population where it's clinically actionable.</p>
+
+<h2>Fintech: Latency First, Accuracy Second, Cost Managed</h2>
+
+<p>Payment fraud detection is the case where latency is the binding constraint. A fraud detection system that takes 2 seconds to return a decision is unusable in a checkout flow - you've already lost the customer. The requirement is sub-100ms p99 latency.</p>
+
+<p>At that latency requirement, your model architecture choices are severely constrained. You're not running a large language model for fraud detection. You're running gradient boosted trees, shallow neural networks, or highly optimized deep learning models with aggressive caching. The accuracy you can achieve at sub-100ms is limited by how much compute you can pack into that window.</p>
+
+<p>Stripe's fraud detection architecture is a good example of how the best systems work through this. Their approach is layered: a very fast rule-based system runs first (sub-10ms) and handles the obvious cases. A medium-speed ML model runs second (50-80ms) and handles the moderate-risk cases. A slower, more accurate model runs asynchronously for post-transaction review and model improvement. The latency constraint is met by the first two layers; the accuracy requirement is maintained by the third layer's continuous feedback into model training.</p>
+
+<p>This tiered approach is the standard playbook for latency-constrained AI: fast models for real-time decisions, accurate models for asynchronous review and learning.</p>
+
+<h2>Retail: Cost First, Accuracy Second, Latency Managed</h2>
+
+<p>Product recommendations at retail scale - billions of recommendation calls per day across a catalog of millions of products - is the case where cost is the primary constraint. The accuracy requirements are real but tolerant of some degradation. The latency requirements are real but achievable with standard caching architectures. But the cost of inference at this scale is enormous if you don't manage it aggressively.</p>
+
+<p>Amazon's recommendation system is famous for its engineering sophistication, but a lot of that sophistication is cost management: aggressive caching of pre-computed recommendations, offline batch inference for the long tail of products, real-time inference only for the high-traffic surface areas where personalization value is highest.</p>
+
+<p>In CPG, I worked on a promotion optimization system where the inference cost for real-time personalized promotion selection was prohibitive at the scale of a major retail chain. The solution was a hybrid: batch inference to generate a personalized promotion portfolio for each customer segment (run nightly), with a lightweight real-time model that selected from the portfolio based on current cart state. The batch model could be arbitrarily complex because it ran offline. The real-time model was tiny and cheap because it was selecting from a pre-filtered set.</p>
+
+<p>This separation of batch and real-time computation is one of the most powerful tools for managing the cost-accuracy-latency triangle in high-scale retail scenarios.</p>
+
+<h2>How to Choose Your Constraints</h2>
+
+<p>The decision about which constraint to optimize first should be made explicitly, before architecture, before model selection, and ideally before the first sprint planning session.</p>
+
+<p>The questions that drive this decision:</p>
+
+<ul>
+<li><strong>What is the cost of a wrong answer?</strong> High cost (patient harm, financial fraud) means the accuracy constraint is primary. Low cost (suboptimal recommendation) means accuracy is secondary.</li>
+<li><strong>What is the intervention window?</strong> Narrow (seconds to act) means latency is primary. Wide (hours, days) means latency is secondary.</li>
+<li><strong>What is the volume?</strong> High volume (millions of calls per day) makes cost primary. Low volume (hundreds per day) makes cost secondary.</li>
+<li><strong>What are the regulatory requirements?</strong> Some domains have explicit accuracy floors (clinical AI, credit scoring) that cannot be traded away regardless of cost or latency.</li>
+</ul>
+
+<p>Once you've identified your primary constraint, you can make clear architectural decisions. The latency-primary system looks different from the accuracy-primary system looks different from the cost-primary system. These differences cascade through every layer of the stack.</p>
+
+<h2>The Mistakes That Come From Not Choosing</h2>
+
+<p>The most common failure mode is building an accuracy-optimized system and then discovering that it's too expensive to run at production scale, or too slow for the user-facing feature. This is the most expensive form of architectural rework - you've built the wrong system and now need to redesign it under time pressure.</p>
+
+<p>Second most common: building a latency-optimized system and discovering that accuracy is insufficient for the use case. This happens when the team assumes that good enough accuracy is good enough without actually validating what good enough means for the specific use case and user population.</p>
+
+<p>Both of these failures are preventable with explicit constraint prioritization before you start building. The conversation is: if we had to sacrifice accuracy for cost, at what accuracy floor do we stop? If we had to sacrifice latency for accuracy, what's the maximum latency the user can tolerate? These questions have answers that you can discover with user research. Avoiding them doesn't make them go away - it just defers them to the worst possible moment.</p>
+
+<hr>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/first-principles-of-building-ai-products-what-most-pms-get-wrong-2/">First Principles of Building AI Products: What Most PMs Get Wrong</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

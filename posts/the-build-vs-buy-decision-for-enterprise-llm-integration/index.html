@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Build vs buy for LLMs is not a binary choice. It&#39;s a spectrum from pure API" />
+  <meta property="og:title" content="The Build vs Buy Decision for Enterprise LLM Integration — Devangshu Mitra" />
+  <meta property="og:description" content="Build vs buy for LLMs is not a binary choice. It&#39;s a spectrum from pure API" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Build vs Buy Decision for Enterprise LLM Integration — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-04-11" itemprop="datePublished">Apr 11, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Build vs Buy Decision for Enterprise LLM Integration</h1>
+          <p class="post-header__excerpt" itemprop="description">Build vs buy for LLMs is not a binary choice. It's a spectrum from pure API</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Build vs Buy Decision for Enterprise LLM Integration</h1>
+
+<p>The enterprise LLM decision space has gotten more complex, not simpler, as the market has matured. Two years ago you had two choices: use OpenAI's API or don't. Now you're choosing between foundation model APIs, fine-tuned models, RAG architectures, open-source models self-hosted on your infrastructure, and combinations of all of the above.</p>
+
+<p>I've worked through this decision for AI products in Life Sciences, Healthcare, and enterprise technology. The framework I've developed is based on five dimensions that determine where on the build-buy spectrum the right answer sits.</p>
+
+<h2>The Five Decision Dimensions</h2>
+
+<h3>1. Data Sensitivity</h3>
+
+<p>This is the first filter, not the last. If your use case involves data that cannot leave your environment - PHI under HIPAA, PII subject to GDPR, proprietary drug discovery data, classified information - you can't use third-party APIs without a compliant data processing agreement and potentially not even then.</p>
+
+<p>In practice, this often eliminates the pure API option for regulated industries. Healthcare organizations building clinical AI cannot send patient data to OpenAI's API without a Business Associate Agreement, and even with one, many compliance teams won't approve it. The answer shifts immediately toward self-hosted open-source models or cloud providers with in-region, isolated deployments (Azure OpenAI with VNet isolation, Google Vertex AI in a private GCP project, AWS Bedrock with VPC endpoints).</p>
+
+<h3>2. Required Accuracy vs Off-the-Shelf Capability</h3>
+
+<p>The gap between what a general-purpose foundation model can do and what your use case needs determines how much customization is necessary.</p>
+
+<ul>
+<li><strong>Small gap</strong>: Good prompt engineering on a frontier model gets you there. Use the API.</li>
+<li><strong>Medium gap</strong>: The model needs your domain knowledge but not custom behavior. Use RAG to inject context.</li>
+<li><strong>Large gap</strong>: The model needs to internalize specialized knowledge or adopt specific output formats that can't be prompted. Fine-tune.</li>
+<li><strong>Fundamental gap</strong>: The task is different enough from pre-training distribution that you need to train from scratch or use a domain-specific base model. Rare, but real in specialized scientific domains.</li>
+</ul>
+
+<h3>3. Volume and Cost at Scale</h3>
+
+<p>API pricing is convenient at low volume and expensive at high volume. Run the numbers before committing to an architecture.</p>
+
+<p>A rough breakeven analysis for a typical enterprise use case: if you're making 100,000+ LLM calls per day, the economics of self-hosting an open-source model (Llama, Mistral, etc.) on your own compute start to look attractive compared to per-token API pricing. The infrastructure cost and engineering overhead are real - but so is the per-token cost when it compounds across millions of daily inferences.</p>
+
+<p>For batch workloads specifically (not real-time inference), the cost differential is even sharper. Batch API pricing from Anthropic and OpenAI is roughly 50% of real-time pricing, and processing overnight batches on reserved or spot instances reduces self-hosting costs further.</p>
+
+<h3>4. Latency Requirements</h3>
+
+<p>Real-time user-facing features have different requirements than asynchronous batch processing. Third-party APIs add network latency that can be acceptable for document processing but unacceptable for interactive chat. If you need sub-200ms response times consistently, you should be looking at smaller, faster models (possibly self-hosted) or aggressive caching strategies.</p>
+
+<h3>5. Team Capability and Maintenance Burden</h3>
+
+<p>Building and maintaining your own LLM infrastructure requires ML engineering capabilities that most product teams don't have. Be honest about this before committing to a self-hosted architecture. The "free" open-source model isn't free - it requires GPU infrastructure, model serving infrastructure, monitoring, updates when new model versions are released, and engineers who understand it.</p>
+
+<h2>The Decision Matrix</h2>
+
+<p>| Option | Best When | Avoid When | Typical Cost | | --- | --- | --- | --- | | Foundation Model API (OpenAI, Anthropic, Google) | Prototyping, low-medium volume, non-sensitive data, general tasks | Sensitive data, high volume, real-time latency requirements | Low setup, medium-high at scale | | Cloud-Hosted Managed LLM (Azure OpenAI, Bedrock, Vertex) | Data sovereignty required, enterprise compliance, Microsoft/AWS/GCP shop | Need latest model versions immediately, multi-cloud strategy | Medium setup, medium at scale | | RAG on Foundation Model | Domain knowledge injection, knowledge base QA, document retrieval | Complex reasoning tasks, tasks requiring model behavior change | Medium setup, medium at scale | | Fine-tuned Foundation Model | Consistent output format, domain-specific behavior, instruction following for specialized tasks | Rapidly evolving knowledge base, limited labeled training data | High setup, low-medium at scale | | Self-hosted Open Source (Llama, Mistral) | High volume, strict data sovereignty, cost optimization at scale | Small teams without ML ops, prototype/MVP stage | High setup, low at scale |</p>
+
+<h2>The Hybrid Architecture: Usually the Real Answer</h2>
+
+<p>The build vs buy framing is misleading because the answer for most enterprise use cases is "both, for different purposes." A practical hybrid architecture:</p>
+
+<ul>
+<li><strong>Foundation model API</strong> for complex reasoning, nuanced tasks, and anything requiring frontier capability</li>
+<li><strong>Fine-tuned smaller model or open-source</strong> for high-volume, repetitive classification and extraction tasks where frontier capability isn't needed</li>
+<li><strong>RAG layer</strong> for all domain knowledge injection - keeps the model general while making outputs domain-specific</li>
+<li><strong>Caching layer</strong> for responses to common queries - often 20-30% of LLM calls are near-duplicate and can be served from cache</li>
+</ul>
+
+<p>The routing logic that decides which query goes to which model is itself a product decision. Simple keyword-based routing is a starting point. ML-based routing that classifies query complexity before sending it to the appropriate model tier is more sophisticated and often reduces cost by 40-60% with minimal quality degradation.</p>
+
+<blockquote><p>On a clinical document processing system at HCLTech, we used GPT-4 for complex medical reasoning questions, fine-tuned Llama for standard clinical code extraction (high volume, well-defined format), and a RAG layer over clinical guidelines for all domain knowledge. Total LLM inference cost was 60% lower than pure GPT-4 at the same quality level.</p></blockquote>
+
+<h2>Decision Checklist</h2>
+
+<ul>
+<li>[ ] Identified all data categories and their regulatory requirements</li>
+<li>[ ] Run cost projection at realistic production volume (not just prototype volume)</li>
+<li>[ ] Assessed gap between off-the-shelf capability and required accuracy</li>
+<li>[ ] Evaluated team's ML ops capability honestly</li>
+<li>[ ] Considered hybrid routing architecture before committing to single approach</li>
+<li>[ ] Included ongoing maintenance cost (model updates, infrastructure, monitoring) in TCO</li>
+<li>[ ] Validated compliance team's requirements before architecture commitment</li>
+</ul>
+
+<h2>What this means</h2>
+
+<p>Start with APIs unless data sensitivity eliminates them. Add RAG before fine-tuning - it's cheaper and easier to update when knowledge changes. Fine-tune only when you need behavior change, not just knowledge injection. Consider self-hosting only when volume economics make it clearly favorable and you have the team to sustain it. Most production systems end up as hybrid architectures routing different query types to different model tiers.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/vendor-evaluation-framework-for-ai-ml-platforms/">Vendor Evaluation Framework for AI/ML Platforms</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-roadmap-prioritization-beyond-rice/">AI Product Roadmap Prioritization: Beyond RICE</a></li>
+<li><a href="https://www.devangshumitra.com/defining-mvp-for-ai-products-less-is-different/">Defining MVP for AI Products: Less Is Different</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/genai-build-vs-buy-matrix/">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI POCs succeed. Most AI production deployments struggle. The gap isn&#39;t" />
+  <meta property="og:title" content="The AI Product Lifecycle: From POC to Production — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI POCs succeed. Most AI production deployments struggle. The gap isn&#39;t" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The AI Product Lifecycle: From POC to Production — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-01-08" itemprop="datePublished">Jan 8, 2026</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The AI Product Lifecycle: From POC to Production</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI POCs succeed. Most AI production deployments struggle. The gap isn't</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The AI Product Lifecycle: From POC to Production</h1>
+
+<p>The number I hear most often from organizations that have tried to scale AI is this: somewhere between 60% and 80% of AI POCs never reach production. Some reports put it higher. The failure modes aren't random - they cluster around predictable transition points where requirements change faster than the team adapts.</p>
+
+<p>Understanding the AI product lifecycle as a PM means knowing what changes at each stage, what decisions become critical, and what to watch for as warning signs that a transition is failing.</p>
+
+<h2>Stage 1: Discovery and Problem Definition</h2>
+
+<p>Most teams skip this stage or rush through it. The POC that fails in production usually has its root cause here.</p>
+
+<p>The critical work at this stage:</p>
+
+<ul>
+<li><strong>Define the business problem precisely</strong> before considering AI solutions. "Use AI to improve our clinical documentation workflow" is not a problem definition. "Reduce physician documentation time per patient encounter from 22 minutes to under 15 minutes, measured by time-stamped EHR audit logs" is a problem definition.</li>
+<li><strong>Assess whether AI is the right tool</strong>. Many problems that look like AI problems are actually data quality problems, process problems, or user experience problems. Solve the underlying problem first.</li>
+<li><strong>Map the data space</strong>. What data exists? What's its quality? Who owns it? What are the access and labeling constraints? The answer to these questions determines what's buildable before a single line of model code is written.</li>
+<li><strong>Establish the baseline</strong>. What does the current state look like? If you can't measure the current state, you can't prove the AI improved it.</li>
+</ul>
+
+<h2>Stage 2: Proof of Concept</h2>
+
+<p>A POC should answer one question: Is this technically feasible at the accuracy level required to create value?</p>
+
+<p>POC is not: a production-quality system, a scalable architecture, a maintained codebase, or evidence that users will adopt the feature.</p>
+
+<p>PM responsibilities at this stage:</p>
+
+<ul>
+<li>Define the accuracy threshold that proves feasibility - before the POC starts, not after seeing results</li>
+<li>Define the test set composition - it should be representative of production conditions, not the easiest examples</li>
+<li>Keep scope ruthlessly narrow - a POC that tries to prove too much proves nothing</li>
+<li>Document assumptions that will need to be validated in production (data distribution, user behavior, label quality)</li>
+</ul>
+
+<blockquote><p>The trap: A POC that "works" on curated data gets presented to leadership as proof the product will work. Stakeholders approve budget. The team discovers in the next six months that real-world data is messier, more diverse, and less complete than the POC data. The accuracy drops 20 points and the project is in crisis. This is the most common AI project failure mode I've seen.</p></blockquote>
+
+<h2>Stage 3: Pilot</h2>
+
+<p>The pilot is where POC meets reality. A small number of real users, real data, real workflows, but contained enough that failures are recoverable.</p>
+
+<p>The pilot answers questions the POC can't:</p>
+
+<ul>
+<li>Does the model perform on real, uncurated data?</li>
+<li>Do users engage with the AI feature or route around it?</li>
+<li>What behaviors does the model produce that weren't anticipated in the POC?</li>
+<li>What's the true latency and reliability in a production environment?</li>
+<li>What edge cases break the model that didn't appear in the test set?</li>
+</ul>
+
+<p>Pilot design is a PM responsibility. Define the pilot criteria explicitly:</p>
+
+<ul>
+<li>How many users/sessions/cases are enough to draw conclusions?</li>
+<li>What success metrics will you measure?</li>
+<li>What's the exit criteria to move to broader rollout?</li>
+<li>What's the rollback criteria if the pilot fails?</li>
+</ul>
+
+<h2>Stage 4: Limited Production Rollout</h2>
+
+<p>The model is serving real users at scale, but with controlled traffic (typically 10-20% of eligible users or use cases). The purpose is to identify scaling issues, monitor real-world performance, and catch failure modes before they affect all users.</p>
+
+<p>What needs to exist by this stage that didn't need to exist in the pilot:</p>
+
+<ul>
+<li><strong>Monitoring and alerting</strong>: Automated alerts when model performance drops below defined thresholds</li>
+<li><strong>Feedback collection</strong>: Mechanisms for users to flag incorrect AI outputs</li>
+<li><strong>Human review queue</strong>: For cases where model confidence is low or output needs validation</li>
+<li><strong>Rollback capability</strong>: Tested, documented process for reverting to previous model version or disabling the feature</li>
+<li><strong>Incident response plan</strong>: Who gets notified, what happens, and who decides when something goes wrong</li>
+</ul>
+
+<p>PM responsibility: ensure all of the above exist before traffic is enabled. The MLOps infrastructure is not optional at this stage.</p>
+
+<h2>Stage 5: Full Production</h2>
+
+<p>Full rollout to all eligible users. The model is now a production system with the same reliability, monitoring, and on-call requirements as any other production system.</p>
+
+<p>What changes from limited rollout:</p>
+
+<ul>
+<li>Performance monitoring needs to cover subgroup performance, not just overall accuracy</li>
+<li>Model drift monitoring becomes ongoing rather than periodic</li>
+<li>The retraining cycle needs to be defined and operational</li>
+<li>Business metrics (not model metrics) need to show the expected impact</li>
+</ul>
+
+<h2>Stage 6: Ongoing Operations</h2>
+
+<p>This stage doesn't end. AI models degrade over time as the world changes. The operational questions that need ongoing answers:</p>
+
+<ul>
+<li>How often is the model retrained? On what data? Who approves a new model version going to production?</li>
+<li>What's the monitoring cadence for key performance metrics?</li>
+<li>How do user feedback signals get incorporated into the training process?</li>
+<li>When a model version is deprecated, what's the communication plan?</li>
+</ul>
+
+<h2>The Critical Transition Points</h2>
+
+<p>Transitions between stages are where AI products most commonly fail. The specific failure modes:</p>
+
+<ul>
+<li><strong>POC to Pilot</strong>: Data quality gap. Real data is worse than POC data. Solution: use a sample of real data in the POC.</li>
+<li><strong>Pilot to Limited Production</strong>: Infrastructure gap. Monitoring, alerting, and rollback mechanisms weren't built. Solution: MLOps checklist before enabling traffic.</li>
+<li><strong>Limited to Full Production</strong>: Subgroup performance gap. Overall accuracy is fine, but specific user segments experience much worse performance. Solution: segment analysis as a gate for full rollout.</li>
+<li><strong>Full Production to Operations</strong>: Model drift ignored. No one is watching the performance metrics after launch. Solution: ongoing monitoring with defined owners and escalation paths.</li>
+</ul>
+
+<h2>Bottom Line</h2>
+
+<p>Define accuracy thresholds before the POC, not after seeing results. Design the pilot to answer questions the POC can't - real data, real users, real edge cases. Build monitoring, feedback collection, and rollback capability before limited production rollout. Treat model drift as an ongoing operational concern, not a launch issue. Most AI POC-to-production failures are rooted in one of these gaps.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-roadmap-prioritization-beyond-rice/">AI Product Roadmap Prioritization: Beyond RICE</a></li>
+<li><a href="https://www.devangshumitra.com/defining-mvp-for-ai-products-less-is-different/">Defining MVP for AI Products: Less Is Different</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-enterprise-llm-integration/">The Build vs Buy Decision for Enterprise LLM Integration</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

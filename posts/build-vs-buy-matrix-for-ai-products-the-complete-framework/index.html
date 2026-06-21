@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Stop treating build vs buy as a binary. There are 4 options, 6 decision axes," />
+  <meta property="og:title" content="Build vs Buy Matrix for AI Products: The Complete Framework — Devangshu Mitra" />
+  <meta property="og:description" content="Stop treating build vs buy as a binary. There are 4 options, 6 decision axes," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Build vs Buy Matrix for AI Products: The Complete Framework — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-11-24" itemprop="datePublished">Nov 24, 2025</time>
+            <span class="post-header__read-time">12 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Build vs Buy Matrix for AI Products: The Complete Framework</h1>
+          <p class="post-header__excerpt" itemprop="description">Stop treating build vs buy as a binary. There are 4 options, 6 decision axes,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Build vs Buy Matrix for AI Products: The Complete Framework</h1>
+
+<h2>The Build vs Buy Decision That Cost a Biotech Company Six Months</h2>
+
+<p>I was sitting in a quarterly review with a biotech client last year when their VP of Data Science dropped this on me: "We've spent $2.3M building an internal document processing pipeline for clinical trial data. It works, but we could have bought a vendor solution for $400K total investment, including implementation. We're now six months behind on our analytics roadmap."</p>
+
+<p>This wasn't negligence. They had a legitimate reason to build - the clinical domain specificity seemed critical. But they never had a framework to systematically evaluate the trade-off. They made the build decision based on surface-level reasoning, not on a clear-eyed assessment of their actual constraints.</p>
+
+<p>This happens constantly in enterprise AI. I've seen companies build LLM orchestration layers that commodity platforms already solve. I've watched healthcare providers pour resources into annotation infrastructure when specialized vendors handle it better. And I've also seen the opposite - teams buying expensive platforms for problems that deserve a focused 8-week build.</p>
+
+<p>The challenge is that build vs buy in AI isn't a simple calculation anymore. Traditional software build-buy frameworks don't account for the unique dynamics of AI: model drift, data requirements, domain specificity, the speed of the AI space itself. You need something more nuanced.</p>
+
+<h2>Why Traditional Build-Buy Matrices Miss the Mark with AI Products</h2>
+
+<p>The standard build-buy decision framework looks like this: compare cost, timeline, risk, and control. Assign weights. Pick the winner. For ERP systems or document management, this mostly works.</p>
+
+<p>AI products break this framework in specific ways:</p>
+
+<ul>
+<li><strong>The "custom" assumption is wrong.</strong> With traditional software, buying means accepting the vendor's opinions about your workflow. With AI, vendors increasingly offer customization through fine-tuning, RAG (retrieval-augmented generation), or domain-specific model variants. Building doesn't guarantee more customization - it guarantees more maintenance.</li>
+<li><strong>Build costs have a hidden tail.</strong> The initial model development is maybe 30% of the total cost. The remaining 70% is monitoring, retraining, handling drift, managing infrastructure, dealing with hallucinations, and updating when the foundation model changes. Most teams underestimate this by 3-5x.</li>
+<li><strong>Market velocity is real.</strong> If you start building a RAG system today, by month 4 there are five new frameworks and three better embedding models. Buying gives you someone else absorbing that churn. Building means you're running a research project inside a product organization.</li>
+<li><strong>Domain specificity isn't what it used to be.</strong> A few years ago, "it needs to understand pharma terminology" meant you had to build. Now, vendors have pharma-tuned models, domain datasets, and integration patterns. The gap has narrowed dramatically.</li>
+<li><strong>Data is the real constraint, not the model.</strong> You don't need a custom model - you need high-quality, labeled domain data. Buying a model and investing in data infrastructure often beats building a model and struggling with data.</li>
+</ul>
+
+<p>The teams I've seen make the best decisions don't use a simple matrix. They use a framework that explicitly surfaces these dynamics and forces honest conversation about what they're actually committing to.</p>
+
+<h2>The AI Build-Buy Framework: Five Dimensions That Actually Matter</h2>
+
+<p>Here's what I use when advising on this decision. It replaces the generic matrix with something specific to AI products.</p>
+
+<h3>1. Domain Specificity Gap</h3>
+
+<p>This is the difference between what an off-the-shelf solution does and what you actually need.</p>
+
+<p>I score this 1-5 where:</p>
+
+<ul>
+<li><strong>1 = Generic problem.</strong> Document classification, basic Q&A over documents, sentiment analysis. Dozens of vendors solve this. Buying is obvious.</li>
+<li><strong>2 = Domain applies, but common.</strong> Medical imaging classification, financial document extraction, software code generation. Many vendors have worked in your space. Your specific use case probably overlaps 70-80% with what they've built.</li>
+<li><strong>3 = Real domain constraint.</strong> Clinical trial protocol matching (requires understanding regulatory nuance), therapeutic target identification (needs biomedical knowledge), patient risk stratification (needs to handle your specific population and outcomes). Vendors have a foundation, but you'll need configuration or fine-tuning.</li>
+<li><strong>4 = Deep domain moat.</strong> Proprietary data access (you have unique datasets competitors don't), highly specific workflows (your process is materially different from industry standard), or regulatory uniqueness (you're operating under constraints few others face).</li>
+<li><strong>5 = Genuinely custom.</strong> This is rare. Truly novel AI approaches that don't exist elsewhere, or combination of factors that create a sustained competitive advantage specifically from the AI.</li>
+</ul>
+
+<p>Most enterprise AI problems sit at 2-3. If you're at 4-5, building starts to make sense. Below 2, buying is almost always right.</p>
+
+<h3>2. Data Availability and Quality</h3>
+
+<p>Can you actually train or fine-tune a model, or is data the limiting factor?</p>
+
+<ul>
+<li><strong>You have 0-1K labeled examples.</strong> You can't fine-tune meaningfully. You're stuck with prompt engineering or zero-shot approaches. Both vendors and custom builds will perform similarly. Buying is easier.</li>
+<li><strong>You have 1-10K labeled examples.</strong> Light fine-tuning is possible. A bought model + your data will probably outperform a custom build (better base model) + the same data. Still prefer buying.</li>
+<li><strong>You have 10-100K labeled examples.</strong> Real fine-tuning becomes viable. If the domain is specific and your data is significantly different from the vendor's training data, building can win. But this is when you're committing to the data maintenance overhead.</li>
+<li><strong>You have 100K+ labeled examples.</strong> You have the raw material for a real custom approach. But be honest: do you have clean, consistently-labeled data? Most organizations at this scale don't. They have data volume, not data quality.</li>
+</ul>
+
+<p>Pro tip: Most teams overestimate their data quality by 2-3 grades. What they think is "100K labeled examples" is actually "100K examples with labels that are 60-70% confident." Adjust accordingly.</p>
+
+<h3>3. Infrastructure and Operational Capacity</h3>
+
+<p>Do you have the actual systems and people to run a production AI system?</p>
+
+<p>This includes:</p>
+
+<ul>
+<li>ML Ops infrastructure (monitoring, retraining pipelines, model registry, feature stores)</li>
+<li>People who can maintain it (ML engineers, not just data scientists)</li>
+<li>Data infrastructure for annotation, versioning, and governance</li>
+<li>Incident response for model failures (hallucinations, drift, adversarial inputs)</li>
+</ul>
+
+<p>I've seen teams with strong data science skip ML Ops and get surprised when their model drifts after 3 months in production. I've also seen teams with solid infrastructure over-engineer solutions for problems that don't require it.</p>
+
+<p>Rate yourself 1-5 on operational readiness. If you're below a 3, buying is seriously attractive because you're delegating the operational complexity. At 4-5, you have the foundation to build responsibly.</p>
+
+<h3>4. Time-to-Value Pressure</h3>
+
+<p>How urgent is this? Are you trying to ship in weeks, months, or can you take 6-12 months?</p>
+
+<p>The math here is straightforward:</p>
+
+<ul>
+<li><strong>8-12 weeks to value needed:</strong> Buy. Full stop. Even if building would be better long-term, you won't ship in time. This is a business constraint.</li>
+<li><strong>4-6 months to value:</strong> Buying unless you have deep domain + data + infrastructure. This is the break-even window where a focused build might just work, but any delays hurt.</li>
+<li><strong>6-12 months available:</strong> Now building becomes reasonable if the other factors support it. You have enough runway to do it right.</li>
+<li><strong>12+ months available:</strong> You can be more flexible. But be careful of the "we have time, so let's build" trap. More time doesn't mean better outcomes - it often means more scope creep and longer tech debt accumulation.</li>
+</ul>
+
+<p>One healthcare client I worked with had a 3-month deadline for a patient risk prediction system. They wanted to build because the vendor solution didn't capture their specific patient population weighting. We bought the vendor solution, fine-tuned it on 2 weeks of their data, and shipped in 6 weeks. They recaptured those 8 weeks for other roadmap items. Building would have missed the window entirely.</p>
+
+<h3>5. Competitive Differentiation Reality Check</h3>
+
+<p>This is the question nobody wants to ask honestly: is AI the actual differentiator, or are you confusing "we want to do AI" with "AI is our competitive advantage"?</p>
+
+<ul>
+<li><strong>AI is a capability enabler, not the differentiator.</strong> You need good AI to compete, but your real differentiation is in domain expertise, distribution, customer relationships, or regulatory access. Buy or use open source. Spend your engineering time on the things that actually differentiate you.</li>
+<li><strong>AI is a meaningful differentiator.</strong> Your competitive edge comes partly from superior models or approaches. Example: a payer whose real advantage is better patient risk prediction than competitors. Here, building might make sense if you can sustain the investment.</li>
+<li><strong>AI is THE differentiator.</strong> This is rare. You're building a company or product that exists specifically because you have a proprietary AI approach. At this level, you need to build. But be real about whether this is actually true or you're romanticizing what you do.</li>
+</ul>
+
+<p>Most enterprise AI falls into the first category. And I've never seen a company fail because they didn't build their own model - but I've seen plenty fail because they diverted engineering resources from their actual competitive advantage.</p>
+
+<h2>Applying the Framework: A Step-by-Step Process</h2>
+
+<p>Here's how to actually use this in a decision meeting or business case. I do this with product and engineering leadership, not in isolation.</p>
+
+<h3>Step 1: Score the Five Dimensions (30 minutes)</h3>
+
+<p>Get the relevant stakeholders in a room (product, engineering, data science, business). Go through each dimension. Push back on optimistic scores - I'm looking for disagreement, which usually surfaces important assumptions.</p>
+
+<p>Create a simple scorecard:</p>
+
+<ul>
+<li>Domain Specificity Gap: __/5</li>
+<li>Data Availability and Quality: __/5</li>
+<li>Infrastructure and Operational Capacity: __/5</li>
+<li>Time-to-Value Pressure: __/5</li>
+<li>Competitive Differentiation: __/5</li>
+</ul>
+
+<p>Don't average these. They're not equally weighted, and some directly contradict others. You're looking for the pattern.</p>
+
+<h3>Step 2: Identify Which Dimensions Dominate (15 minutes)</h3>
+
+<p>Usually 1-2 dimensions drive the decision:</p>
+
+<ul>
+<li><strong>Time pressure is extreme (1-2/5)?</strong> Everything else becomes secondary. Buy.</li>
+<li><strong>Operational capacity is low (1-2/5)?</strong> Building adds massive risk. Buying is safer.</li>
+<li><strong>Domain specificity is high (4-5/5) AND data is strong (4-5/5) AND you have time (3-4/5)?</strong> Building becomes viable.</li>
+<li><strong>It's all moderate?</strong> You're in the "both could work" zone. In this case, prefer buying because it's lower risk and you can always layer customization on top.</li>
+</ul>
+
+<h3>Step 3: Reality Check the Build Estimate (45 minutes)</h3>
+
+<p>If building looks reasonable, spend time breaking down what you're actually committing to. This is where most teams go wrong.</p>
+
+<p>I use this structure:</p>
+
+<ul>
+<li><strong>Development (Months 1-3):</strong> Initial model development, data pipeline setup, evaluation framework. Cost: engineering time + compute.</li>
+<li><strong>Validation (Month 4):</strong> Real-world testing, handling edge cases, gathering feedback. This inevitably takes 4-8 weeks longer than planned.</li>
+<li><strong>Production Hardening (Month 5-6):</strong> Monitoring, alerting, retraining pipelines, handling drift. Most teams skip this in their estimate. Don't.</li>
+<li><strong>Ongoing (Forever):</strong> Retraining cycles (monthly, quarterly, or annual depending on domain), model updates when foundation models improve, incident response. Plan for 1-2 FTE ongoing.</li>
+</ul>
+
+<p>The build estimate I see initially is usually "3-4 months, 1 engineer." Reality is 6-7 months, 1.5-2 engineers, plus 1 FTE ongoing. If that changes your equation, it probably should.</p>
+
+<h3>Step 4: Outline What Buying Actually Requires (30 minutes)</h3>
+
+<p>Buying isn't plug-and-play. Get specific about implementation effort:</p>
+
+<ul>
+<li><strong>Data integration and preprocessing:</strong> How much work to get your data into the right format for the vendor's system?</li>
+<li><strong>Fine-tuning or customization:</strong> If needed, how much labeled data do you need to provide? How long to fine-tune?</li>
+<li><strong>Integration with existing systems:</strong> APIs, webhooks, batch processing? How much engineering on your end?</li>
+<li><strong>Validation and acceptance:</strong> What's your bar for "this is good enough"? How many test cases? Who owns that?</li>
+<li><strong>Ongoing support and updates:</strong> How are vendor model updates handled? Do you retrain? Re-validate?</li>
+</ul>
+
+<p>Usually buying has 4-8 weeks of implementation work, then lower ongoing overhead. Building has longer initial development and higher ongoing overhead. This flips the equation if your time pressure is real.</p>
+
+<h3>Step 5: Make the Call - With a Built-In Review Point</h3>
+
+<p>Don't make this a final decision. Make it a staged commitment with a clear review trigger.</p>
+
+<p>I typically recommend:</p>
+
+<p><strong>If Buying:</strong> "We buy and implement. At month 2 of implementation, we assess: is this tracking to our success metrics? If not, we have a defined pivot point - do we invest in fine-tuning (2-4 more weeks) or reconsider building? We don't just keep hammering a vendor solution that isn't working."</p>
+
+<p><strong>If Building:</strong> "We build with a hard milestone at month 3: does this prototype show it can beat the vendor baseline on our key metrics? If not, we pivot to buying and recover the timeline. We don't spend months building something slower than what we could have bought."</p>
+
+<p>This removes the sunk-cost fallacy. You're building in a decision point instead of riding a decision to the end of the cliff.</p>
+
+<h2>Common Mistakes and How to Avoid Them</h2>
+
+<p>After seeing dozens of these decisions play out, certain patterns keep repeating:</p>
+
+<h3>Mistake 1: Confusing "Custom Data" with "Need to Build"</h3>
+
+<p>This is the most common one. Teams say: "Our data is proprietary, so we need a custom model."</p>
+
+<p>That's not how this works. You need a custom <em>dataset</em>, not a custom model. Buying a generic model and fine-tuning it on your data almost always beats building from scratch.</p>
+
+<p>The biotech team I mentioned earlier confused this. They had proprietary clinical trial data and decided "we must build." But what they really needed was to fine-tune on that data, which a vendor solution supported. They wasted 6 months building when they could have bought + fine-tuned in 8 weeks.</p>
+
+<h3>Mistake 2: Underestimating the Cost of Operational Complexity</h3>
+
+<p>I worked with a healthcare provider that built a patient risk model. The model development was $400K. The ML Ops infrastructure to run it reliably was $800K. The ongoing</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/the-roi-of-ai-how-to-build-a-business-case-your-cfo-will-approve-2/">The ROI of AI: How to Build a Business Case Your CFO Will Approve</a></li>
+<li><a href="https://www.devangshumitra.com/rice-for-ai-modified-prioritization-framework/">RICE for AI: Modified Prioritization Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/genai-build-vs-buy-matrix/">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-enterprise-llm-integration/">The Build vs Buy Decision for Enterprise LLM Integration</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

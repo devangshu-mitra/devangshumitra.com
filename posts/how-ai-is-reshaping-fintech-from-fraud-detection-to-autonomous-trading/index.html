@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Financial services is one of the most data-rich, highest-stakes industries" />
+  <meta property="og:title" content="How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading — Devangshu Mitra" />
+  <meta property="og:description" content="Financial services is one of the most data-rich, highest-stakes industries" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Cross-Industry</span>
+            <time class="post-header__date" datetime="2026-02-13" itemprop="datePublished">Feb 13, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading</h1>
+          <p class="post-header__excerpt" itemprop="description">Financial services is one of the most data-rich, highest-stakes industries</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading</h1>
+
+<p>Financial services runs on data. Transaction histories, credit behavior, market movements, regulatory filings, customer communications - the raw material for AI is everywhere in finance. And yet for years, the industry's AI ambitions were constrained by a combination of legacy infrastructure, regulatory caution, and genuine complexity.</p>
+
+<p>That's changing fast. The same forces that drove AI adoption in healthcare - better foundation models, cloud infrastructure that handles compliance, and competitive pressure from digital-native competitors - are now reshaping every layer of financial services.</p>
+
+<p>Having built AI products in regulated environments (healthcare is arguably the most regulated industry in the US), I find FinTech AI particularly interesting. The parallels are striking: high stakes, strict auditability requirements, adversarial actors trying to game the system, and users who need to trust the AI output before acting on it. The differences are also instructive - finance moves faster, the feedback loops are tighter, and the consequences of errors are usually financial rather than clinical.</p>
+
+<hr>
+
+<h2>Fraud Detection: The Most Mature AI Application in Finance</h2>
+
+<p>Fraud detection is where financial AI has the longest track record and the clearest ROI. It's also where the adversarial dynamics are most pronounced - as models improve, fraudsters adapt, creating a continuous arms race.</p>
+
+<p>Stripe Radar is the clearest example of what mature fraud AI looks like at scale. Radar processes millions of transactions per second, applies hundreds of machine learning models in real time, and makes an approve/decline/review decision in under 100 milliseconds. The system benefits from a massive data flywheel - every transaction on Stripe's network, across millions of merchants, feeds the models.</p>
+
+<p>The key architectural insight in modern fraud detection is that <strong>no single model catches everything</strong>. Production systems layer multiple models:</p>
+
+<ul>
+<li>Behavioral models that track how a user normally interacts with the app</li>
+<li>Network models that identify fraud rings through transaction graph analysis</li>
+<li>Velocity models that catch unusual frequency patterns</li>
+<li>Device fingerprinting models that identify suspicious device configurations</li>
+<li>Social engineering models that detect patterns associated with authorized push payment fraud</li>
+</ul>
+
+<p>The ensemble output feeds a decision engine that weighs model outputs against merchant-specific risk tolerance. A high-risk merchant (crypto exchange, luxury goods) sets a lower fraud tolerance than a low-risk merchant (SaaS subscription billing).</p>
+
+<blockquote><p><strong>The false positive problem:</strong> In healthcare, a false negative (missed diagnosis) is typically worse than a false positive. In fraud, it's more nuanced. A false positive (legitimate transaction blocked) creates immediate customer friction and churn. A false negative (fraud passes through) creates financial loss and potential regulatory exposure. Most production systems let merchants tune the threshold, accepting higher fraud rates in exchange for lower false positive rates, or vice versa. This tradeoff is a product decision, not a model decision.</p></blockquote>
+
+<h2>Credit Scoring: AI vs. the FICO Legacy</h2>
+
+<p>FICO scores have dominated credit underwriting for decades. They're interpretable, regulatorily accepted, and deeply embedded in lender workflows. They're also blunt instruments that exclude enormous populations and miss signals that better models can capture.</p>
+
+<p>Upstart is the most interesting case study in AI credit scoring disruption. Their model uses over 1,600 variables - far beyond FICO's inputs - including education, employment history, and loan application behavior. Their published research claims their AI model approves 27% more borrowers than traditional models at the same loss rate, or alternatively, reduces default rates by 53% at the same approval rate.</p>
+
+<p>The regulatory challenge is significant. The Equal Credit Opportunity Act requires lenders to provide adverse action notices explaining why credit was denied. When your model uses 1,600 variables, providing a meaningful explanation is technically and legally complex. Upstart spent years working with the CFPB to establish that their model met fair lending standards.</p>
+
+<p>The lesson for AI product managers: in regulated industries, <strong>model interpretability isn't a nice-to-have feature - it's a go-to-market requirement</strong>. Plan for it from the start.</p>
+
+<p>Other companies pushing the AI credit frontier:</p>
+
+<ul>
+<li><strong>Zest AI</strong>: White-label AI underwriting for credit unions and community banks</li>
+<li><strong>Nova Credit</strong>: Cross-border credit scoring for immigrants using international credit history</li>
+<li><strong>Petal</strong>: Cash flow underwriting for thin-file consumers using bank account data</li>
+</ul>
+
+<h2>Wealth Management and Robo-Advisory</h2>
+
+<p>Wealthfront and Betterment pioneered algorithmic portfolio management, making it accessible to retail investors who couldn't afford human advisors. The core AI in early robo-advisors was relatively simple - Modern Portfolio Theory optimization, tax-loss harvesting automation, rebalancing triggers.</p>
+
+<p>The next generation is more sophisticated. Platforms are now incorporating:</p>
+
+<ul>
+<li><strong>Goal-based planning</strong>: AI that models a user's complete financial life and optimizes portfolio construction toward specific life goals rather than generic risk tolerance</li>
+<li><strong>Behavioral coaching</strong>: Models that detect when users are about to make emotionally driven bad decisions (panic selling in a downturn) and intervene proactively</li>
+<li><strong>Tax optimization at scale</strong>: Direct indexing platforms like Parametric use AI to hold individual securities in index-like portfolios, harvesting tax losses at the individual stock level rather than the fund level</li>
+</ul>
+
+<p>The user experience challenge in robo-advisory is trust. Humans will follow a human advisor's recommendation through a difficult market because they trust the relationship. They will second-guess an algorithm the moment it underperforms for three months. Building trust in an automated system requires different design principles - transparency about methodology, explanation of decisions in plain language, and very careful management of performance expectations.</p>
+
+<h2>Algorithmic Trading: Where AI Hits Its Limits</h2>
+
+<p>Algorithmic trading is both the most technically advanced and the most humbling AI application in finance. The combination of high data availability, clear success metrics, and enormous financial incentives has driven extraordinary engineering investment. It has also produced a market structure where the most sophisticated models consistently outcompete the less sophisticated ones - creating a winner-take-most dynamic.</p>
+
+<p>AI techniques now used in production trading include:</p>
+
+<ul>
+<li>Transformer models trained on order book data to predict short-term price movements</li>
+<li>Reinforcement learning for execution optimization - minimizing market impact of large trades</li>
+<li>NLP models processing earnings calls, regulatory filings, and news for sentiment signals</li>
+<li>Graph neural networks modeling supply chain relationships for earnings prediction</li>
+</ul>
+
+<p>The dirty secret of AI in trading: the models that work best are often the most opaque. The interpretability-performance tradeoff that regulators push back against in credit scoring is accepted as a necessary cost in proprietary trading, because the only stakeholder is the firm's P&L.</p>
+
+<h2>AI in Banking: The Chatbot Reality Check</h2>
+
+<p>Banking AI has generated enormous hype and uneven results. The honest assessment:</p>
+
+<p><strong>What works:</strong></p>
+
+<ul>
+<li>Fraud alerts and transaction dispute resolution (well-defined workflows, high data volume)</li>
+<li>Personalized financial insights ("you spent 30% more on dining this month than your average")</li>
+<li>Automated document processing for loan applications and account opening</li>
+<li>Internal workflow automation - compliance reporting, audit preparation, risk modeling</li>
+</ul>
+
+<p><strong>What doesn't work as well as advertised:</strong></p>
+
+<ul>
+<li>Conversational banking for complex needs - customers with nuanced questions about estate planning, business loans, or investment advice still want humans</li>
+<li>Generic chatbots without deep integration into account data - they frustrate customers rather than helping them</li>
+<li>Credit counseling AI - the emotional complexity and stakes of financial distress conversations require human empathy</li>
+</ul>
+
+<h2>Underwriting: The Quiet AI Revolution</h2>
+
+<p>Insurance underwriting is experiencing one of the most significant AI-driven transformations in financial services, with less consumer visibility than fraud or chatbots but larger structural impact.</p>
+
+<p>Traditional insurance underwriting was slow, manual, and relied on actuarial tables that averaged risk across large populations. AI-powered underwriting can assess individual risk with far more granularity:</p>
+
+<ul>
+<li>Lemonade uses AI to process claims and underwrite policies in seconds using behavioral data and NLP analysis of claim descriptions to detect fraud</li>
+<li>Next Insurance uses AI for small business insurance underwriting, reducing the time from application to quote from days to minutes</li>
+<li>Root Insurance uses smartphone telematics (driving behavior data) to price auto insurance based on actual driving rather than demographic proxies</li>
+</ul>
+
+<p>The ethical tension here is real. AI underwriting that uses more granular data can reduce prices for lower-risk individuals - but it can also exacerbate pricing disparities for higher-risk populations that correlate with protected characteristics. Every FinTech AI product manager building in this space needs a strong fairness testing protocol baked into their development process.</p>
+
+<hr>
+
+<h2>The Regulated Industry Playbook</h2>
+
+<p>Having built AI in healthcare - which shares many regulatory dynamics with financial services - I'd offer these cross-industry observations:</p>
+
+<ol>
+<li><strong>Explainability is a product requirement, not a model requirement.</strong> Build the explanation layer into your UX, not just into the model. Users and regulators need to understand decisions in their language, not your model's language.</li>
+<li><strong>Auditability infrastructure from day one.</strong> Log every model decision, the features that drove it, and the outcome. Regulators will ask for this data. Build the logging before you need it.</li>
+<li><strong>False positive costs are often higher than false negative costs in consumer-facing AI.</strong> Wrongly blocking a legitimate customer is a relationship damage event. Design your systems with this asymmetry in mind.</li>
+<li><strong>The adversarial dynamic requires continuous retraining.</strong> Unlike a healthcare model that deteriorates gradually due to population drift, fraud models face deliberate adversarial adaptation. Your retraining cadence is a competitive variable.</li>
+</ol>
+
+<p>FinTech AI is past the hype stage. It's in the institutionalization stage - where the early experiments have proven value, and the work now is building the infrastructure, governance, and operational practices to make AI a reliable part of financial services at scale.</p>
+
+<p>That's exactly where healthcare AI was three years ago. The trajectory is clear. The teams that invest now in explainability, fairness, and operational rigor will be the ones building the infrastructure everyone else will rely on.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/product-breakdown-viz-ais-stroke-detection-speed-as-a-feature-9/">Product Breakdown: Viz.ai's Stroke Detection - Speed as a Feature</a></li>
+<li><a href="https://www.devangshumitra.com/the-rise-of-ai-in-retail-from-recommendations-to-autonomous-pricing-2/">The Rise of AI in Retail: From Recommendations to Autonomous Pricing</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-legal-tech-how-llms-are-automating-contract-review/">AI in Legal Tech: How LLMs Are Automating Contract Review</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

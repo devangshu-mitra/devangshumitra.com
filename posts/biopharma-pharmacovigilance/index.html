@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How we built an AI pharmacovigilance platform that reduced ICSR processing" />
+  <meta property="og:title" content="Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance — Devangshu Mitra" />
+  <meta property="og:description" content="How we built an AI pharmacovigilance platform that reduced ICSR processing" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2026-03-21" itemprop="datePublished">Mar 21, 2026</time>
+            <span class="post-header__read-time">13 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance</h1>
+          <p class="post-header__excerpt" itemprop="description">How we built an AI pharmacovigilance platform that reduced ICSR processing</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Real-Time Adverse Event Detection: Building an AI-Powered Pharmacovigilance Platform</h1>
+
+<h2>Why Pharmacovigilance Needed AI</h2>
+
+<p>The regulatory mandate for pharmacovigilance is unambiguous: detect safety signals early, process adverse event reports within defined timelines, and submit to FDA FAERS and EMA EudraVigilance on schedule. What the mandate does not specify is how to do any of this when report volumes are climbing at 15 to 20 percent annually, the majority of incoming case narratives arrive as unstructured text across multiple languages, and your safety team is perpetually understaffed against that backlog.</p>
+
+<p>A mid-size BioPharma company with six marketed products typically processes 30,000 to 60,000 individual case safety reports per year, more during label expansions and patient assistance program integrations. Before we built the platform described here, each ICSR took an average of 45 minutes from document intake through MedDRA coding, narrative completion, and database submission. A single safety data manager completed 10 to 12 cases per day at best. The math never worked in our favor.</p>
+
+<p>The deeper problem was not throughput - it was signal detection latency. Traditional pharmacovigilance relies on spontaneous reporting patterns in structured safety databases. By the time enough reports accumulate to trigger a statistical signal, months or years may have passed since the first patients experienced the adverse event. The literature is clear on this: Uppsala Monitoring Centre research and the Eli Lilly signal management review published in Pharmaceutical Medicine in 2025 both confirm that machine learning methods - particularly ensemble approaches like random forest and gradient boosting - consistently outperform classical frequentist disproportionality measures like PRR and information component for early signal identification. The window between first signal emergence and detection in spontaneous reporting databases is where preventable harm lives.</p>
+
+<p>Both problems - throughput and signal latency - are tractable with modern AI pharmacovigilance infrastructure: NLP adverse event detection for case processing, machine learning signal classifiers for aggregate database surveillance, and automated safety reporting pipelines for regulatory submission. The question was how to build something that the regulatory affairs team would trust, that would survive ICH E2B(R3) and FDA FAERS submission audits, and that safety scientists could actually use without needing to understand transformer architectures.</p>
+
+<h2>The Technical Challenge Nobody Warned Us About</h2>
+
+<p>The surface-level technical problem is named entity recognition: extract patient demographics, suspected drugs, adverse event terms, and causality assessments from unstructured case narratives. That part, while not trivial, has a well-established solution path. The harder problem is everything around it.</p>
+
+<p>An incoming ICSR might be a four-paragraph consumer call center transcript, a 28-page hospital discharge summary, a post on a patient forum with no drug name, or a regional partner submission formatted to a pre-E2B(R3) template. All are valid adverse event sources under current regulations, and all require the same downstream workflow: extract the minimum dataset, code to MedDRA preferred terms, assess seriousness, determine reportability within 7 or 15-day regulatory timelines, and route to the appropriate submission pathway.</p>
+
+<p>MedDRA coding is where most prior-generation systems broke down. The hierarchy has over 70,000 terms across five levels - from System Organ Class down to Lowest Level Terms - and mapping free-text adverse event descriptions to preferred terms requires both linguistic interpretation and clinical judgment. The FDA NLP evaluation study published in the Journal of Biomedical Informatics demonstrated precision and recall ranging between 64 and 83 percent for early NLP systems against gold-standard MedDRA annotations. That range was not acceptable for regulatory submission - you cannot submit a FAERS case with a 20 percent chance of incorrect MedDRA coding and expect it to survive an inspection. The solution required a different architecture than pure NLP: a human-in-the-loop review layer applied specifically to low-confidence term mappings, with the system flagging uncertainty rather than hiding it.</p>
+
+<p>The regulatory architecture constraint was equally demanding. ICH E2B(R3) defines the data elements and XML schema for electronic ICSR submission. Every field in the output database has a defined data type, controlled vocabulary, and business rule. Any AI-generated output that does not conform to that schema fails at gateway validation before it ever reaches FAERS or EudraVigilance. The system had to be designed schema-first, not NLP-first - the extraction logic had to understand what E2B(R3) needed and work backward from those requirements.</p>
+
+<h2>What We Built</h2>
+
+<p>The platform operates in four functional layers.</p>
+
+<p><strong>Intake and triage.</strong> Reports arrive through multiple ingestion channels: direct API from call centers and license partners, email parsing for spontaneous reports, and an HL7 FHIR connector to the pharmacovigilance data warehouse. An ensemble classifier trained on 180,000 historical cases scores each document for probable reportability and urgency before a human has touched it. Cases with any serious outcome flag - hospitalization, death, life-threatening event - are elevated to a real-time review queue with an automated notification to the duty safety physician.</p>
+
+<p><strong>NLP adverse event extraction.</strong> A fine-tuned BioBERT variant extracts 47 structured fields from narrative text: patient identifiers, suspect and concomitant drugs, adverse event verbatim terms, onset dates, outcomes, and rechallenge information. The model outputs a confidence score for every field. Fields below a configurable threshold are flagged for case processor review with the source text span highlighted - the system surfaces uncertainty rather than hiding it.</p>
+
+<p><strong>MedDRA coding.</strong> A hierarchical classifier works top-down through the MedDRA hierarchy - System Organ Class to Preferred Term - and suggests up to three Lowest Level Terms ranked by confidence. Trained on 240,000 historical term mappings from the company's own case database, augmented by the WHO VigiBase corpus. Mappings above 0.85 confidence are accepted automatically; everything below goes to a coding specialist. All specialist overrides feed back to the model in monthly retraining cycles.</p>
+
+<p><strong>Signal detection and regulatory submission.</strong> Signal detection runs separately from individual case processing, operating continuously on the aggregate case database. Three detection methods run in parallel: information component disproportionality analysis, a random forest classifier for drug-event pairs matching known class-effect profiles, and a literature surveillance pipeline scanning PubMed and EMBASE on a 48-hour cycle. When two or more methods flag the same pair within 30 days, the signal moves to medical review. Approved cases flow to an automated submission module that produces ICH E2B(R3)-compliant XML, validates against the FDA E2B(R3) schema, and routes to FAERS via the Electronic Submissions Gateway or to EudraVigilance with EMA-specific field transformations. Gateway rejections trigger an immediate alert with the specific validation error identified.</p>
+
+<h2>Architecture Deep Dive</h2>
+
+<p>A few technical decisions shaped the platform in ways that are not obvious from the functional description above.</p>
+
+<p><strong>Confidence-gated automation, not full automation.</strong> Regulatory inspectors do not care about your automation rate - they care about the quality and traceability of every submitted case. We set thresholds conservatively: a case processes without human review only when extraction confidence exceeds 0.80 across all required fields, MedDRA coding confidence exceeds 0.85, and no seriousness flags are triggered. Under these thresholds, roughly 34 percent of our case mix processes fully automatically. That sounds modest. It translates to thousands of hours of case processor time redirected annually to complex cases that genuinely need expert attention.</p>
+
+<p><strong>The audit trail is an architectural primitive, not a logging afterthought.</strong> Every AI-generated field value is stored with its source text span, model version, confidence score, and timestamp. Every human review action is logged with user identity, review duration, and whether the AI suggestion was accepted or overridden. A sustained rise in overrides on a specific field type signals model drift and triggers retraining. When the FDA requested audit trail data during a routine inspection, the export covered every case submitted in the preceding 24 months with complete provenance from raw document to submission XML.</p>
+
+<p><strong>Literature surveillance and social media monitoring are scoped differently.</strong> The literature pipeline scans PubMed and EMBASE on a 48-hour refresh cycle and routes identified case reports through a deduplication check before creating new ICSRs - without deduplication, it floods the queue with reports authors have already submitted to regulators. Social media is handled more conservatively: academic work from the WEB-RADR project showed broad-ranging statistical signal detection from Twitter data produces AUC values of 0.47 to 0.53, essentially random. We run a targeted keyword watch for adverse event mentions requiring ICSR creation assessment, not population-level disproportionality analysis. That distinction matters for both regulatory defensibility and queue quality.</p>
+
+<p>For a broader discussion of evaluating LLM components in regulated healthcare workflows, the <a href="https://www.devangshumitra.com/product/frameworks/llm-evaluation-framework/">LLM evaluation framework</a> covers confidence calibration, evaluation dataset construction, and production monitoring approaches that apply directly to AI pharmacovigilance system design.</p>
+
+<h2>Results</h2>
+
+<p>After 14 months of production operation across a portfolio of six marketed products and approximately 50,000 cases processed per month, the outcomes were measurable across every dimension that mattered.</p>
+
+<ul>
+<li><strong>ICSR processing time: reduced from 45 minutes to 8 minutes per case on average.</strong> For standard, non-complex spontaneous reports, the AI-assisted workflow reduced case processor time by 82 percent. For complex hospital case reports requiring significant medical narrative review, the reduction was more modest - around 40 percent - but still material given the labor intensity of those cases.</li>
+<li><strong>MedDRA coding accuracy: 91 percent exact Preferred Term agreement on quarterly audits.</strong> Inter-rater variability between human coders on our pre-AI baseline ran 13 to 17 percent. The model was more consistent than the manual process it replaced.</li>
+<li><strong>Regulatory submission timeliness: 99.1 percent of 7-day expedited reports on time, 99.7 percent of 15-day reports.</strong> Pre-platform rates were 94.3 and 97.1 percent respectively. Late-submission regulatory notifications to multiple authorities - a recurring item in our compliance calendar - effectively disappeared.</li>
+<li><strong>Signal detection: 2 confirmed safety signals identified 3 months before they would have surfaced through traditional disproportionality analysis.</strong> One was a hepatotoxicity signal in a specific patient subpopulation, identified through the combination of literature surveillance and the random forest classifier. It was validated and incorporated into a label update. The 3-month lead time is the window in which prescribers were making treatment decisions without updated safety information.</li>
+<li><strong>Workforce shift: 40 percent of case processor time moved from standard case processing to complex case review and signal assessment.</strong> This was a professional quality-of-work change, not headcount reduction. Turnover in pharmacovigilance operations dropped. The work became substantive.</li>
+</ul>
+
+<h2>Regulatory Acceptance</h2>
+
+<p>Submitting AI-generated pharmacovigilance data to FDA FAERS and EMA EudraVigilance requires something the current regulatory frameworks do not yet fully specify: demonstrating that your AI-assisted workflow produces outputs of equivalent or superior quality to manual processing, and that the system is validated, monitored, and auditable under computer system validation requirements.</p>
+
+<p>We approached this through three mechanisms. First, a formal computer system validation per GAMP 5, with a performance qualification that included a 500-case prospective parallel comparison between the AI system and experienced case processors. Discrepancies were adjudicated by a senior medical officer. Those results became the baseline data in our change control package.</p>
+
+<p>Second, a written AI governance policy in the quality management system documenting: the scope of AI automation, human review requirements per tier, model drift monitoring metrics, and the deviation procedure for post-submission errors. This policy had to exist before the first AI-processed case was submitted.</p>
+
+<p>Third, the audit trail infrastructure. During an FDA inspection, the team reviewed 30 randomly selected submitted cases, tracing each from original source document to E2B(R3) XML. The complete provenance record was available for all 30 cases within 15 minutes of the request. The inspection finding on pharmacovigilance: no observations.</p>
+
+<p>One practical note on E2B(R3): the ICH guidance and FDA implementation guide are prescriptive about the XML schema but silent on how you populate the fields - that silence leaves room for AI-assisted extraction. Build the schema validator into your QA pipeline as a hard gate, not a warning. A mandatory field left blank produces a gateway rejection, which creates a CAPA requirement regulators will expect closed in your next inspection.</p>
+
+<p>The broader context on where regulators are heading with AI in safety reporting is covered in the <a href="https://www.devangshumitra.com/blog/life-sciences/state-of-ai-healthcare/">state of AI in Life Sciences and Healthcare</a> overview - the FDA's DSCSA Digital Enhancement initiative and EMA's strategy on artificial intelligence both signal that AI-assisted pharmacovigilance is moving from tolerated to expected in modern safety operations.</p>
+
+<h2>Lessons</h2>
+
+<p>There are several things I would tell a PM starting this kind of project that are not obvious from the outside.</p>
+
+<p><strong>Define your automation scope in advance and defend it.</strong> There will be pressure throughout the build to automate more - to push the human review tier further up the confidence threshold and eliminate the cases that still get human review. Resist this pressure until you have production data showing stable performance. The counterargument is regulatory: your global head of pharmacovigilance is the Qualified Person for Pharmacovigilance (QPPV) in the EU and bears personal regulatory responsibility for every ICSR submitted. That person will not sign off on a system they cannot explain to an inspector, and they should not. The AI is a tool in service of the QPPV's function, not a replacement for it.</p>
+
+<p><strong>MedDRA version management is a serious operational problem.</strong> MedDRA terminology updates twice per year, in March and September. Each release adds, modifies, or retires terms - which means your trained coding classifier produces deprecated suggestions if the model was not retrained before the new version went live. Build version tracking into the deployment pipeline and treat MedDRA release dates as hard dependencies in your release calendar.</p>
+
+<p><strong>Signal detection value requires organizational alignment to realize.</strong> Detecting a safety signal 3 months early only produces value if medical affairs and regulatory affairs have a defined process for acting on that detection. In our case, we had to design the signal assessment workflow alongside the detection capability - defining who reviews a potential signal, what escalation criteria trigger a Medical Safety Board review, and what the decision timeline looks like from first alert to label change proposal. The organizational workflow design took longer and required more executive alignment than building the model.</p>
+
+<p><strong>Build for the inspection from day one.</strong> Pharmacovigilance systems are inspected regularly - EU QPPV inspections, FDA CDER inspections, sponsor audits. The documentation in your quality management system for the AI platform is not overhead, it is the product. A technically excellent system with poor validation documentation will generate inspection findings. A technically solid system with complete, coherent validation documentation demonstrates organizational maturity.</p>
+
+<p>AI pharmacovigilance is one of the few domains in Life Sciences and Healthcare AI where the regulatory demand for rigor and the operational demand for throughput are in perfect alignment. The system has to be fast enough to meet 7-day reporting timelines at scale, and accurate enough to survive regulatory scrutiny. There is no tension between those requirements - they reinforce each other.</p>
+
+<p>The platform described here processed over 600,000 ICSRs across 14 months. Every submitted case is traceable to its source document. Every coding decision is auditable. The safety signals it identified are documented in the benefit-risk database with clear detection provenance. That traceability is the actual deliverable - not the automation rate, not the NLP model's held-out test performance, not the throughput dashboard. The deliverable is a pharmacovigilance operation that the QPPV can stand behind in front of a regulator and explain completely.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/biopharma-drug-discovery/">AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</a></li>
+<li><a href="https://www.devangshumitra.com/biopharma-regulatory-intelligence/">Automating Regulatory Intelligence: How AI Transformed Our Global Submission Process</a></li>
+<li><a href="https://www.devangshumitra.com/biopharma-supply-chain/">Predictive Supply Chain Intelligence: AI for Pharmaceutical Manufacturing and Distribution</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

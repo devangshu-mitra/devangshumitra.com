@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="The AI Product Brief — Weekly insights on building AI products in the enterprise. Written by Devangshu Mitra, a PM who ships, not a consultant who advises." />
+  <meta property="og:title" content="The AI Product Brief — Devangshu Mitra" />
+  <meta property="og:description" content="Weekly insights on building AI products in the enterprise, enterprise-startup translation, and thinking from first principles." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The AI Product Brief — Devangshu Mitra</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/design-system.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+
+  <style>
+    /* ---- Newsletter page-specific styles ---- */
+
+    /* Hero */
+    .nl-hero {
+      padding-top: calc(var(--nav-height) + var(--space-24));
+      padding-bottom: var(--space-24);
+      background: var(--color-bg);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      text-align: center;
+    }
+
+    .nl-hero__inner {
+      max-width: var(--max-width-narrow);
+      margin-inline: auto;
+    }
+
+    .nl-hero__eyebrow {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-5);
+    }
+
+    .nl-hero__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .nl-hero__sub {
+      font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--color-muted);
+      margin-bottom: var(--space-10);
+    }
+
+    .nl-hero__form {
+      display: flex;
+      gap: var(--space-3);
+      max-width: 480px;
+      margin: 0 auto var(--space-4);
+    }
+
+    @media (max-width: 500px) {
+      .nl-hero__form {
+        flex-direction: column;
+      }
+      .nl-hero__form .newsletter-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+
+    .nl-hero__footnote {
+      font-size: var(--text-xs);
+      color: var(--color-muted);
+      opacity: 0.65;
+      letter-spacing: 0.02em;
+    }
+
+    /* What's inside — 2x2 card grid */
+    .whats-inside {
+      background: var(--color-surface);
+      padding-block: var(--space-24);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    .content-cards {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+
+    @media (max-width: 640px) {
+      .content-cards {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .content-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-8);
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--duration-base) var(--ease-out),
+                  transform var(--duration-base) var(--ease-out);
+    }
+
+    .content-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--duration-base) var(--ease-out);
+    }
+
+    .content-card:hover {
+      border-color: rgba(201, 168, 76, 0.3);
+      transform: translateY(-4px);
+    }
+
+    .content-card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .content-card__format {
+      font-size: var(--text-xs);
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--color-accent);
+      margin-bottom: var(--space-4);
+    }
+
+    .content-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-xl);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.01em;
+    }
+
+    .content-card__body {
+      font-size: var(--text-sm);
+      line-height: 1.75;
+      color: var(--color-muted);
+    }
+
+    /* Recent issues */
+    .recent-issues {
+      background: var(--color-bg);
+      padding-block: var(--space-24);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    .issues-list {
+      margin-top: var(--space-12);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .issue-item {
+      display: flex;
+      align-items: baseline;
+      gap: var(--space-5);
+      padding: var(--space-6) 0;
+      border-bottom: 1px solid var(--color-border);
+      transition: color var(--duration-fast);
+    }
+
+    .issue-item:first-child {
+      border-top: 1px solid var(--color-border);
+    }
+
+    .issue-item__number {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      opacity: 0.5;
+      min-width: 2rem;
+      flex-shrink: 0;
+    }
+
+    .issue-item__title {
+      font-size: var(--text-base);
+      font-weight: 400;
+      color: var(--color-text);
+      line-height: 1.5;
+      transition: color var(--duration-fast);
+    }
+
+    .issue-item:hover .issue-item__title {
+      color: var(--color-accent);
+    }
+
+    /* Audience personas */
+    .audience-section {
+      background: var(--color-surface);
+      padding-block: var(--space-24);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    .persona-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-6);
+      margin-top: var(--space-12);
+    }
+
+    @media (max-width: 800px) {
+      .persona-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .persona-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-8);
+      transition: border-color var(--duration-base) var(--ease-out),
+                  transform var(--duration-base) var(--ease-out);
+    }
+
+    .persona-card:hover {
+      border-color: rgba(201, 168, 76, 0.3);
+      transform: translateY(-3px);
+    }
+
+    .persona-card__number {
+      font-size: var(--text-xs);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      color: var(--color-accent);
+      opacity: 0.5;
+      margin-bottom: var(--space-4);
+    }
+
+    .persona-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 700;
+      color: var(--color-text);
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .persona-card__body {
+      font-size: var(--text-sm);
+      line-height: 1.75;
+      color: var(--color-muted);
+    }
+
+    /* Author section */
+    .author-section {
+      background: var(--color-bg);
+      padding-block: var(--space-24);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+    }
+
+    .author-inner {
+      max-width: var(--max-width-narrow);
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .author-quote {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-xl), 2.5vw, var(--text-3xl));
+      font-weight: 700;
+      color: var(--color-accent);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-8);
+      line-height: 1.2;
+    }
+
+    .author-bio {
+      font-size: var(--text-base);
+      line-height: 1.8;
+      color: var(--color-muted);
+      margin-bottom: var(--space-6);
+    }
+
+    /* Final CTA */
+    .final-cta {
+      background: var(--color-surface);
+      padding-block: var(--space-24);
+    }
+
+    .final-cta__inner {
+      max-width: var(--max-width-narrow);
+      margin-inline: auto;
+      text-align: center;
+    }
+
+    .final-cta__title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 3vw, var(--text-4xl));
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--color-text);
+      letter-spacing: -0.02em;
+      margin-bottom: var(--space-4);
+    }
+
+    .final-cta__sub {
+      font-size: var(--text-base);
+      color: var(--color-muted);
+      line-height: 1.75;
+      margin-bottom: var(--space-10);
+    }
+  </style>
+</head>
+<body class="page-enter">
+
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav scrolled" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="../articles/" class="nav__link">Articles</a></li>
+        <li><a href="../about/" class="nav__link">About</a></li>
+        <li><a href="../newsletter/" class="nav__link active">Newsletter</a></li>
+      </ul>
+
+      <button
+        class="nav__hamburger"
+        id="hamburger"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:2rem;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="../articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="../about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="../newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="nl-hero" aria-label="Newsletter hero">
+    <div class="container">
+      <div class="nl-hero__inner">
+        <p class="nl-hero__eyebrow reveal">Newsletter</p>
+        <h1 class="nl-hero__title reveal reveal-delay-1">The AI Product Brief</h1>
+        <p class="nl-hero__sub reveal reveal-delay-2">Weekly insights on building AI products in the enterprise, enterprise-startup translation, and thinking from first principles. Written by a PM who ships, not a consultant who advises.</p>
+
+        <form
+          class="nl-hero__form reveal reveal-delay-3"
+          action="#"
+          method="post"
+          aria-label="Newsletter signup form"
+          onsubmit="handleNewsletterSubmit(event)"
+          novalidate
+        >
+          <label for="hero-email" class="sr-only">Email address</label>
+          <input
+            id="hero-email"
+            class="newsletter-input"
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+            aria-required="true"
+          />
+          <button type="submit" class="newsletter-btn">
+            Get Frameworks in Your Inbox →
+          </button>
+        </form>
+        <p class="nl-hero__footnote reveal reveal-delay-3" role="note">Free. No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== WHAT'S INSIDE ========== -->
+  <section class="whats-inside" aria-label="What's inside the newsletter">
+    <div class="container">
+      <div class="reveal">
+        <p class="newsletter-eyebrow">What's Inside</p>
+        <h2 class="section-heading__title" style="font-size:clamp(var(--text-2xl),3vw,var(--text-4xl));margin-bottom:var(--space-4);">Four formats, zero filler</h2>
+        <p class="section-heading__body">Every issue is built around one of four formats so you always know what you're getting.</p>
+      </div>
+
+      <div class="content-cards">
+
+        <div class="content-card reveal">
+          <p class="content-card__format">Deep Dive</p>
+          <h3 class="content-card__title">Product Breakdowns</h3>
+          <p class="content-card__body">How real AI products get built, shipped, and scaled inside enterprises. The decisions, trade-offs, and lessons that don't make it into the case studies.</p>
+        </div>
+
+        <div class="content-card reveal reveal-delay-1">
+          <p class="content-card__format">Intelligence</p>
+          <h3 class="content-card__title">AI Industry Intelligence</h3>
+          <p class="content-card__body">Regulatory moves, model releases, product launches, and what they mean for builders. Curated from 50+ sources weekly.</p>
+        </div>
+
+        <div class="content-card reveal">
+          <p class="content-card__format">Frameworks</p>
+          <h3 class="content-card__title">Frameworks &amp; Mental Models</h3>
+          <p class="content-card__body">Things I've actually used — not borrowed from textbooks.</p>
+        </div>
+
+        <div class="content-card reveal reveal-delay-1">
+          <p class="content-card__format">Early Access</p>
+          <h3 class="content-card__title">Tools &amp; Resources</h3>
+          <p class="content-card__body">New templates, updated guides, and early access to resources before they hit the public page.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RECENT ISSUES ========== -->
+  <section class="recent-issues" aria-label="Recent newsletter issues">
+    <div class="container">
+      <div class="reveal">
+        <p class="newsletter-eyebrow">Recent Issues</p>
+        <h2 class="section-heading__title" style="font-size:clamp(var(--text-2xl),3vw,var(--text-4xl));margin-bottom:var(--space-4);">What we've covered</h2>
+        <p class="section-heading__body">Topics that matter for builders working at the edge of enterprise AI.</p>
+      </div>
+
+      <ol class="issues-list reveal reveal-delay-1" aria-label="List of recent newsletter issues">
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">01</span>
+          <span class="issue-item__title">Why 90% of Enterprise AI POCs Never Make It to Production</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">02</span>
+          <span class="issue-item__title">The FDA's New AI Framework: What PMs Need to Know</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">03</span>
+          <span class="issue-item__title">RICE Scoring Doesn't Work for Regulated Products — Here's What Does</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">04</span>
+          <span class="issue-item__title">How I Shipped 3 GenAI Products in 6 Months at HCLTech</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">05</span>
+          <span class="issue-item__title">The Enterprise-Startup Translation Problem Nobody Talks About</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">06</span>
+          <span class="issue-item__title">RAG vs Fine-Tuning: A PM's Decision Framework</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">07</span>
+          <span class="issue-item__title">Why Your AI Product Roadmap Is Backwards</span>
+        </li>
+
+        <li class="issue-item">
+          <span class="issue-item__number" aria-hidden="true">08</span>
+          <span class="issue-item__title">Clinical Trial AI: From Protocol to Production</span>
+        </li>
+
+      </ol>
+    </div>
+  </section>
+
+  <!-- ========== AUDIENCE ========== -->
+  <section class="audience-section" aria-label="Who this newsletter is for">
+    <div class="container">
+      <div class="reveal">
+        <p class="newsletter-eyebrow">Who It's For</p>
+        <h2 class="section-heading__title" style="font-size:clamp(var(--text-2xl),3vw,var(--text-4xl));margin-bottom:var(--space-4);">Built for builders</h2>
+        <p class="section-heading__body">Three kinds of readers who find it useful every week.</p>
+      </div>
+
+      <div class="persona-grid">
+
+        <div class="persona-card reveal">
+          <p class="persona-card__number" aria-hidden="true">01</p>
+          <h3 class="persona-card__title">Product Managers Building with AI</h3>
+          <p class="persona-card__body">Building AI products in regulated industries? Weekly insights from someone doing it in production.</p>
+        </div>
+
+        <div class="persona-card reveal reveal-delay-1">
+          <p class="persona-card__number" aria-hidden="true">02</p>
+          <h3 class="persona-card__title">Enterprise Leaders Evaluating AI</h3>
+          <p class="persona-card__body">Making buy/build decisions? Frameworks and vendor intelligence to cut through noise.</p>
+        </div>
+
+        <div class="persona-card reveal reveal-delay-2">
+          <p class="persona-card__number" aria-hidden="true">03</p>
+          <h3 class="persona-card__title">Aspiring AI PMs</h3>
+          <p class="persona-card__body">Breaking into AI PM or pivoting from traditional PM? Learn what building across healthcare, EdTech, and enterprise actually looks like.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== AUTHOR ========== -->
+  <section class="author-section" aria-label="About the author">
+    <div class="container">
+      <div class="author-inner reveal">
+        <p class="author-quote">Written by a practitioner, not a pundit.</p>
+        <p class="author-bio">Devangshu Mitra — AI Product Leader at HCLTech building 10+ AI and GenAI products across regulated industries. Based in Silicon Valley. MS Analytics, UT Dallas.</p>
+        <p class="author-bio">This newsletter exists because most enterprise AI content is written by consultants who advise, not builders who ship. Every issue comes from direct experience — real products, real trade-offs, real lessons.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FINAL CTA ========== -->
+  <section class="final-cta" aria-label="Newsletter signup">
+    <div class="container">
+      <div class="final-cta__inner reveal">
+        <p class="newsletter-eyebrow">Join the List</p>
+        <h2 class="final-cta__title">Read by product leaders who build with AI.</h2>
+        <p class="final-cta__sub">Free. Weekly. Practical enough to use on Monday morning.<br>No filler, no recycled takes.</p>
+        <form
+          class="newsletter-form"
+          action="#"
+          method="post"
+          aria-label="Newsletter signup form"
+          onsubmit="handleNewsletterSubmit(event, 'footer')"
+          novalidate
+        >
+          <label for="footer-email" class="sr-only">Email address</label>
+          <input
+            id="footer-email"
+            class="newsletter-input"
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+            aria-required="true"
+          />
+          <button type="submit" class="newsletter-btn">
+            Get Frameworks in Your Inbox →
+          </button>
+        </form>
+        <p class="newsletter-note" role="note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__brand">Devangshu Mitra</div>
+        <p class="footer__tagline">AI Product Leader · Enterprise GenAI Builder · Healthcare AI PM</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="footer__links" role="list">
+          <li><a href="../articles/" class="footer__link">Articles</a></li>
+          <li><a href="../about/" class="footer__link">About</a></li>
+          <li><a href="../newsletter/" class="footer__link">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> Devangshu Mitra. All rights reserved.</span>
+      <span>Built with intention.</span>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // ---- Newsletter form ----
+    function handleNewsletterSubmit(e, source) {
+      e.preventDefault();
+      const form = e.target;
+      const input = form.querySelector('.newsletter-input');
+      const btn = form.querySelector('.newsletter-btn');
+      const email = input.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.style.borderColor = '#e05252';
+        input.focus();
+        return;
+      }
+
+      input.style.borderColor = '';
+      btn.textContent = '✓ You\'re on the list';
+      btn.disabled = true;
+      btn.style.background = '#2a7a4b';
+      btn.style.color = '#f5f5f5';
+      input.disabled = true;
+      input.value = '';
+    }
+
+    // ---- Year ----
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---- Nav: scroll state ----
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      updateScrollProgress();
+    }, { passive: true });
+
+    // ---- Scroll progress bar ----
+    const progressBar = document.getElementById('scrollProgress');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    // ---- Hamburger / mobile menu ----
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // ---- Scroll reveal ----
+    const revealEls = document.querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale, .reveal--fade');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

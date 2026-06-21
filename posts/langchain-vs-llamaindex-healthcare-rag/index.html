@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Compare LangChain vs LlamaIndex for healthcare RAG applications with detailed" />
+  <meta property="og:title" content="LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison — Devangshu Mitra" />
+  <meta property="og:description" content="Compare LangChain vs LlamaIndex for healthcare RAG applications with detailed" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Health Systems</span>
+            <time class="post-header__date" datetime="2025-12-19" itemprop="datePublished">Dec 19, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</h1>
+          <p class="post-header__excerpt" itemprop="description">Compare LangChain vs LlamaIndex for healthcare RAG applications with detailed</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</h1>
+
+<p>If you're building RAG (Retrieval-Augmented Generation) applications for healthcare - clinical decision support, medical literature search, protocol Q&A, pharmacovigilance - you've probably debated LangChain vs. LlamaIndex. Having built production RAG systems across clinical trials, MedTech, and BioPharma at HCLTech, here's my technical comparison through the lens of healthcare requirements.</p>
+
+<h2>Architectural Philosophy</h2>
+
+<p><strong>LangChain:</strong> A general-purpose orchestration framework. LangChain provides abstractions for chains, agents, tools, and memory - it's designed to compose LLM calls with external systems. Think of it as a "workflow engine for LLM applications." It's broad, covering everything from chatbots to autonomous agents to structured output generation.</p>
+
+<p><strong>LlamaIndex:</strong> A data framework purpose-built for RAG. LlamaIndex focuses specifically on connecting LLMs with data - ingestion, indexing, retrieval, and synthesis. Think of it as a "search and retrieval engine optimized for LLMs." It's deep on the data/retrieval side, narrower on the agent/workflow side.</p>
+
+<h2>Retrieval Quality for Medical Documents</h2>
+
+<p>This is where the choice matters most for healthcare. Medical documents have unique characteristics: dense terminology, hierarchical structure (protocols have sections → subsections → criteria), tables with clinical values, and references that must be precisely attributed.</p>
+
+<p><strong>LlamaIndex advantages:</strong></p>
+
+<ul>
+<li><strong>Hierarchical indexing:</strong> TreeIndex and ComposableGraph allow you to create multi-level retrieval - search across document summaries first, then drill into relevant sections. Critical for large documents like FDA guidance or clinical protocols.</li>
+<li><strong>Structured output:</strong> Built-in support for extracting structured data from unstructured medical text (lab values, eligibility criteria, adverse events).</li>
+<li><strong>Citation tracking:</strong> Node-level source attribution is native, making it easier to build the "show your sources" requirement that every healthcare AI application needs.</li>
+</ul>
+
+<p><strong>LangChain advantages:</strong></p>
+
+<ul>
+<li><strong>Multi-step retrieval chains:</strong> When a clinical question requires searching multiple sources (PubMed + internal protocols + drug labels), LangChain's chain composition makes it easier to orchestrate parallel retrievals and merge results.</li>
+<li><strong>Agent-based retrieval:</strong> For complex queries like "find all Phase III trials for this indication with enrollment > 500 and compare their primary endpoints," LangChain agents can decompose the query, execute multiple searches, and synthesize - something that's harder with LlamaIndex's primarily index-based approach.</li>
+<li><strong>Tool integration:</strong> LangChain has more mature integrations with external APIs (PubMed, ClinicalTrials.gov, FDA databases) as tools that agents can call dynamically.</li>
+</ul>
+
+<h2>Compliance and Auditability</h2>
+
+<p>Healthcare RAG systems must provide audit trails, explain their retrieval decisions, and handle PHI appropriately. Neither framework handles HIPAA compliance out of the box - that's your infrastructure layer. But they differ in traceability:</p>
+
+<p><strong>LlamaIndex:</strong> Every retrieval returns node objects with metadata (source document, page number, confidence score). This makes it straightforward to build audit logs showing exactly which documents influenced a response. The structured node approach also makes it easier to implement access controls at the document level.</p>
+
+<p><strong>LangChain:</strong> LangSmith provides tracing and monitoring for production chains, showing every step in the pipeline with inputs/outputs. This is valuable for debugging and compliance review but requires the additional LangSmith service. Callbacks can log every LLM call, retrieval, and tool use.</p>
+
+<h2>Production Readiness</h2>
+
+<p><strong>LangChain:</strong> LangChain is production-ready, featuring more mature tooling like LangServe for deployment and LangSmith for monitoring, plus a wide variety of proven integrations. The downside: LangChain's rapid evolution means breaking changes are common, and the abstraction layers can make debugging difficult when things go wrong in production.</p>
+
+<p><strong>LlamaIndex:</strong> Simpler architecture means fewer moving parts in production. LlamaCloud offers managed indexing and retrieval. The codebase is more stable (fewer breaking changes) because the scope is narrower. The downside: fewer pre-built integrations mean more custom code for non-standard workflows.</p>
+
+<h2>Developer Experience and Iteration Speed</h2>
+
+<p>When you're building in healthcare, speed to prototype and iterate matters a lot. You need to validate clinical utility quickly. LangChain's broadness means a steeper initial learning curve. I've seen teams spend weeks understanding its various agents, tools, and chains before getting a basic RAG system working. Its documentation is extensive but can feel fragmented. However, its large community often provides examples for specific problems. LlamaIndex, by contrast, feels more focused. If your core problem is connecting an LLM to medical data, you'll likely get a simple RAG pipeline up and running faster. Its core abstractions - <code>Document</code>, <code>Node</code>, <code>Index</code>, <code>Retriever</code>, <code>QueryEngine</code> - are intuitive for data-centric tasks. I recall a project indexing 50,000 anonymized patient records for a de-identified search prototype. With LlamaIndex, we had a working demo in under three days, largely due to its streamlined data ingestion. This focus means less mental overhead for RAG-specific tasks. You spend less time navigating framework complexities and more time fine-tuning chunking strategies or embedding models. For a team dedicated to RAG, LlamaIndex often provides a quicker path from idea to initial proof-of-concept.</p>
+
+<h2>Resource Efficiency and Infrastructure Footprint</h2>
+
+<p>The operational cost of a RAG system in production is a real consideration. This includes API calls and compute for embedding models and inference. LlamaIndex's emphasis on pre-indexing can lead to more predictable resource use. Once you build your <code>VectorStoreIndex</code> from medical literature, subsequent queries often involve less dynamic processing. You pay the compute upfront for indexing, perhaps using a GPU-accelerated embedding service like Cohere's <code>embed-english-v3.0</code> for 1536-dimensional vectors. LangChain, especially with complex agentic workflows, can sometimes lead to more variable resource consumption. An agent might make several intermediate LLM calls to decompose a query, search multiple tools, and then synthesize. Each step adds latency and potentially more API charges from models like GPT-4 or Claude 3 Opus. While LangSmith helps monitor this, predicting exact LLM calls for a complex clinical question can be harder. For high-volume applications, these extra calls add up. I've observed this in clinical trial matching. A LlamaIndex-based system queries a pre-built index of trial criteria. A LangChain agent might first query for relevant diseases, then search for trials, then filter by demographics - a more dynamic but potentially more resource-intensive path.</p>
+
+<h2>Customization and Advanced Retrieval Strategies</h2>
+
+<p>Healthcare RAG often requires highly specialized retrieval. Standard vector search isn't always enough. You might need hybrid search (keyword - semantic), re-ranking models, or custom document transformers. LlamaIndex offers a direct path for plugging in these custom components. You can swap the default <code>SentenceSplitter</code> for a custom medical text chunker respecting section headers. You can easily integrate a BGE-reranker after initial retrieval. The <code>NodePostprocessor</code> concept makes it clear where to insert these steps. LangChain's modularity also allows customization, but sometimes it feels like working around the framework's default chaining. Integrating a specific re-ranking step might involve creating a custom <code>Runnable</code> or a complex <code>LCEL</code> chain. While powerful, it can introduce more boilerplate. However, LangChain shines when you integrate a truly novel "tool" - say, a Python function querying a proprietary drug-drug interaction database for structured JSON. Its <code>Tool</code> abstraction is very mature for external system integration. For a pharmacovigilance project, we identified specific drug names and dosages from adverse event reports before vectorizing. LlamaIndex</p>
+
+<h2>My Recommendation for Healthcare</h2>
+
+<p>Use <strong>LlamaIndex</strong> as your retrieval/indexing core when: your primary use case is document Q&A (protocol lookup, drug label search, clinical guideline queries); you need strong citation/attribution; you're working with large, hierarchical documents; retrieval quality matters more than workflow complexity.</p>
+
+<p>Use <strong>LangChain</strong> as your orchestration layer when: you need multi-source retrieval across different databases and APIs; your use case involves autonomous agents (clinical trial matching, pharmacovigilance monitoring); you need complex workflow logic beyond simple retrieve-and-generate; you want production monitoring out of the box.</p>
+
+<p>Use <strong>both together</strong> (my preferred pattern): LlamaIndex for indexing and retrieval, LangChain for orchestration and agent logic. LlamaIndex has a LangChain integration that lets you use LlamaIndex query engines as LangChain tools. This gives you the best retrieval quality with the most flexible orchestration.</p>
+
+<p>The worst pattern I see in healthcare AI teams: choosing a framework first and then designing the system around its constraints. Start with your clinical workflow requirements, map the retrieval and reasoning patterns you need, and then pick the framework (or combination) that fits.</p>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

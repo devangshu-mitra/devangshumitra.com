@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Navigate FDA AI/ML regulations with our comprehensive regulatory checklist" />
+  <meta property="og:title" content="FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare — Devangshu Mitra" />
+  <meta property="og:description" content="Navigate FDA AI/ML regulations with our comprehensive regulatory checklist" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">FDA & Regulatory</span>
+            <time class="post-header__date" datetime="2025-12-22" itemprop="datePublished">Dec 22, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</h1>
+          <p class="post-header__excerpt" itemprop="description">Navigate FDA AI/ML regulations with our comprehensive regulatory checklist</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</h1>
+
+<p>Working through FDA regulation for AI/ML-based software is one of the most common blockers I see teams hit. This checklist distills the key steps into a working reference you can actually use. It reflects current FDA guidance as of early 2025, including the January 2025 Draft Guidance on AI-Enabled Device Software Functions.</p>
+
+<p>Work through each section in order. Not every item applies to every product - use the classification questions in Section 1 to scope what you actually need.</p>
+
+<h2>Section 1: SaMD Classification and Pathway Selection</h2>
+
+<h3>Step 1 - Determine if your software is a medical device</h3>
+
+<ul>
+<li>[ ] Does the software meet the definition of a device under 21 CFR 201(h)? Software that performs a medical purpose (diagnose, treat, mitigate, prevent disease) is likely a device.</li>
+<li>[ ] Does it fall under a statutory exclusion? Administrative functions, general wellness, and certain clinical decision support (CDS) tools may be excluded. Review the 21st Century Cures Act criteria carefully.</li>
+<li>[ ] Is it a CDS tool? If so, check all four criteria for non-device CDS: (1) not intended for serious or immediately life-threatening conditions, (2) clinician can independently review the basis, (3) not intended to replace clinical judgment, (4) displays the basis for recommendations. Miss any one and it is likely a device.</li>
+</ul>
+
+<h3>Step 2 - Classify your SaMD</h3>
+
+<ul>
+<li>[ ] Use the IMDRF SaMD framework to assess significance of information provided and the healthcare situation. This is your anchor before touching FDA classifications.</li>
+<li>[ ] Determine FDA device class: Class I (general controls only), Class II (special controls, typically 510(k)), or Class III (PMA required).</li>
+<li>[ ] Search the FDA Product Classification database (accessdata.fda.gov) for a matching predicate or product code. AI/ML devices often land under QMF (software function) or similar codes.</li>
+<li>[ ] Check if your device type has a De Novo granted - this creates a new regulatory pathway and special controls that may benefit you.</li>
+</ul>
+
+<h3>Step 3 - Select your submission pathway</h3>
+
+<ul>
+<li>[ ] <strong>510(k):</strong> Requires substantial equivalence to a predicate. Most common for Class II AI tools. Predicate must share intended use and technological characteristics, or differences must not raise new safety questions.</li>
+<li>[ ] <strong>De Novo:</strong> Use when no valid predicate exists but device is low-to-moderate risk. Creates a new device type. Expect 12+ months for first-of-kind AI tools.</li>
+<li>[ ] <strong>PMA:</strong> Required for Class III devices (e.g., AI driving treatment decisions for life-threatening conditions). Clinical data required. Budget 2-4 years minimum.</li>
+<li>[ ] <strong>Breakthrough Device Designation:</strong> Consider applying if your device provides more effective treatment or diagnosis of serious conditions. Accelerates review and increases FDA interaction.</li>
+</ul>
+
+<h2>Section 2: Pre-Submission Meeting Checklist</h2>
+
+<p>A Q-Sub (Pre-Sub) meeting with FDA before you finalize your submission design saves months. Request one 6-9 months before you plan to submit.</p>
+
+<ul>
+<li>[ ] Draft a concise device description including intended use, indications for use, and user population.</li>
+<li>[ ] Prepare 5-10 specific written questions for FDA. Avoid open-ended questions - ask for FDA's position on specific proposed approaches.</li>
+<li>[ ] Include your proposed testing strategy and ask FDA to validate it before you run the studies.</li>
+<li>[ ] For AI/ML devices, ask specifically about: (1) acceptable performance metrics for your use case, (2) whether a Predetermined Change Control Plan (PCCP) is appropriate, (3) algorithm transparency requirements.</li>
+<li>[ ] Submit the Q-Sub package at least 90 days before your desired meeting date.</li>
+<li>[ ] After the meeting, get written responses. These are not binding but are highly influential during formal review.</li>
+</ul>
+
+<h2>Section 3: Software Documentation (IEC 62304 Alignment)</h2>
+
+<ul>
+<li>[ ] Define your software safety class: Class A (no injury possible), Class B (non-serious injury possible), Class C (serious injury or death possible). Most diagnostic AI is Class B or C.</li>
+<li>[ ] Produce a Software Development Plan covering your SDLC, development environment, and configuration management.</li>
+<li>[ ] Document software requirements - functional, performance, interface, and safety requirements separately.</li>
+<li>[ ] Produce software architecture documentation showing how modules interact. For AI/ML: include data pipeline, model inference components, and integration with host system.</li>
+<li>[ ] Maintain a unit and integration test plan with traceability to requirements.</li>
+<li>[ ] Document known anomalies with severity assessments.</li>
+<li>[ ] For AI/ML specifically: document training data provenance, preprocessing steps, model architecture, hyperparameters, and versioning policy.</li>
+</ul>
+
+<h2>Section 4: Clinical Evaluation Requirements</h2>
+
+<ul>
+<li>[ ] Define your primary performance endpoints (sensitivity, specificity, AUC, etc.) based on clinical use case - not just what your model optimizes for.</li>
+<li>[ ] Determine reference standard: Who reads the ground truth? Radiologist consensus? Pathology biopsy? This must be clinically defensible.</li>
+<li>[ ] Design a test set that reflects real-world distribution: age, sex, race/ethnicity, disease severity, imaging equipment if applicable. FDA scrutinizes demographic diversity hard in 2025.</li>
+<li>[ ] Plan for reader studies if your device aids a human decision-maker. Show performance of human alone vs. human + AI.</li>
+<li>[ ] Address subgroup performance in your statistical plan upfront. Do not discover disparate performance at the end of a study.</li>
+<li>[ ] For retrospective studies: document data collection period, exclusion criteria, and any de-identification process.</li>
+</ul>
+
+<h2>Section 5: Predetermined Change Control Plan (PCCP)</h2>
+
+<p>The PCCP is one of the most important tools for adaptive AI products. It lets you pre-specify the types of changes you plan to make post-clearance without requiring a new submission for each one. FDA finalized PCCP guidance in December 2024.</p>
+
+<ul>
+<li>[ ] Decide early whether a PCCP is right for your product. It is appropriate if your model will be retrained on new data or updated based on real-world performance.</li>
+<li>[ ] Define the Modification Protocol: what specific changes are covered, what triggers a change, what methodology will be used.</li>
+<li>[ ] Define the Impact Assessment: how you will evaluate that a covered change does not degrade safety or effectiveness.</li>
+<li>[ ] Define your Transparency Methodology: how users will be notified of changes and what documentation you maintain.</li>
+<li>[ ] Be specific. Vague PCCPs get rejected. "We may retrain the model" is not a PCCP. "We will retrain using additional annotated data from the same imaging modality, applying the same preprocessing pipeline, with performance validated against the locked test set" is a PCCP.</li>
+</ul>
+
+<h2>Section 6: Cybersecurity Documentation</h2>
+
+<ul>
+<li>[ ] Produce a Software Bill of Materials (SBOM) listing all third-party components, libraries, and their versions. This is now required per the FDA's 2023 cybersecurity guidance.</li>
+<li>[ ] Document your threat model: what are the attack surfaces, who are the threat actors, what are the impact scenarios.</li>
+<li>[ ] Describe security controls: authentication, encryption at rest and in transit, audit logging, vulnerability disclosure process.</li>
+<li>[ ] Plan for post-market security patching. How will you push updates? What is your response time SLA for critical vulnerabilities?</li>
+<li>[ ] For cloud-hosted AI: document where PHI is processed, data residency, and your BAA structure.</li>
+</ul>
+
+<h2>Section 7: Post-Market Surveillance and Real-World Performance Monitoring</h2>
+
+<ul>
+<li>[ ] Define your post-market surveillance plan per 21 CFR Part 822 (if applicable) and your device class requirements.</li>
+<li>[ ] Establish a complaint handling procedure. For AI: what constitutes an AI-related complaint vs. a general product complaint?</li>
+<li>[ ] Define real-world performance metrics you will track. These should mirror your pre-market endpoints so you can detect drift.</li>
+<li>[ ] Set alert thresholds: at what performance level do you escalate? Who makes the call to suspend use or notify FDA?</li>
+<li>[ ] Plan for MDR (Medical Device Reporting) triggers - when AI output contributes to or fails to prevent a serious adverse event.</li>
+<li>[ ] If you have a PCCP: document how real-world performance data feeds your change trigger criteria.</li>
+</ul>
+
+<p>This checklist is a working reference, not a legal opinion. Regulatory strategy for AI/ML devices requires engaging a regulatory consultant or in-house RA team who knows your specific product and clinical context. Use this to structure your thinking and catch gaps early.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-library/">Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-viz-ai/">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/clinical-trial-ai-playbook/">Clinical Trial AI Playbook</a></li>
+<li><a href="https://www.devangshumitra.com/from-pilot-to-production-a-7-step-checklist-for-deploying-genai-in-healthcare/">From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

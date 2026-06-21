@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Responsible AI for PMs is not an ethics lecture. It&#39;&#39;s a set of practical" />
+  <meta property="og:title" content="Ethics and Responsible AI: A PM&#39;&#39;s Practical Guide — Devangshu Mitra" />
+  <meta property="og:description" content="Responsible AI for PMs is not an ethics lecture. It&#39;&#39;s a set of practical" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Ethics and Responsible AI: A PM''s Practical Guide — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-12-28" itemprop="datePublished">Dec 28, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Ethics and Responsible AI: A PM''s Practical Guide</h1>
+          <p class="post-header__excerpt" itemprop="description">Responsible AI for PMs is not an ethics lecture. It''s a set of practical</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Ethics and Responsible AI: A PM's Practical Guide</h1>
+
+<p>Most responsible AI content is written for ethicists, regulators, or executives. It's heavy on principles and light on the specific decisions a PM faces when building an AI product. This is the guide I wish I'd had when I was building clinical AI for the first time and discovering that "do no harm" is not a requirements document.</p>
+
+<p>Responsible AI for PMs is about making specific, concrete decisions throughout the product development process that reduce the likelihood of harm, build user trust, and create products that can withstand scrutiny in regulated environments. Here's how to do that without a PhD in AI ethics.</p>
+
+<h2>Start With the Harm Model</h2>
+
+<p>Before writing a requirements document or a user story, map the potential harms your AI product could cause. A harm model has four components:</p>
+
+<ol>
+<li><strong>Who could be harmed?</strong> - Direct users, indirect stakeholders (patients, customers, employees affected by decisions), third parties, society</li>
+<li><strong>What types of harm are possible?</strong> - Physical harm, financial harm, reputational harm, privacy harm, discrimination, loss of autonomy</li>
+<li><strong>What is the likelihood?</strong> - Based on base rates, system design, and safeguards in place</li>
+<li><strong>What is the severity?</strong> - Reversible vs irreversible, recoverable vs not, individual vs systemic</li>
+</ol>
+
+<p>High-severity, high-likelihood harms are product blockers - you don't ship until they're mitigated. High-severity, low-likelihood harms need monitoring and incident response plans. Low-severity harms are accepted risks with disclosure.</p>
+
+<p>This exercise is not theoretical. I've seen it surface product-blocking issues that weren't visible from a pure technical standpoint - like a clinical recommendation AI that performed correctly overall but had significantly worse accuracy for pediatric patients, who happened to be the most vulnerable population in the use case. The harm model made that risk visible in the design phase rather than post-launch.</p>
+
+<h2>Bias Assessment: Where to Look</h2>
+
+<p>Bias in AI products usually comes from one of four sources:</p>
+
+<h3>Training Data Bias</h3>
+
+<p>Your model learned from historical data that reflects past decisions, and past decisions often reflect past discrimination. A hiring AI trained on historical hiring decisions will learn who was historically hired, which is often not who should be hired. A clinical AI trained on EHR data from a single hospital system will underperform for patient populations different from that hospital's typical case mix.</p>
+
+<p>Assessment: For every AI feature, ask where the training data came from and what populations or scenarios are underrepresented. Run performance analysis segmented by demographic characteristics or relevant subgroups before shipping.</p>
+
+<h3>Feedback Loop Bias</h3>
+
+<p>When AI systems influence outcomes that then become new training data, biases compound. A content recommendation AI that promotes certain content will generate engagement data on that content, which makes the model recommend it more, which generates more engagement data. This is how filter bubbles form and how predictive policing systems can amplify historical enforcement patterns.</p>
+
+<p>Assessment: Map the feedback loops in your system. Where does model output influence the data you'll use for future training? What safeguards prevent historical biases from compounding?</p>
+
+<h3>Measurement Bias</h3>
+
+<p>The metric you're optimizing for might not measure what you care about, and the gap can be systematically biased. A credit scoring model optimized for default prediction might use proxies that correlate with race or geography in ways that the model doesn't explicitly see but that produce discriminatory outcomes.</p>
+
+<p>Assessment: Test your success metrics for disparate impact across protected characteristics. Does high model performance on your evaluation metric translate to equitable outcomes across user populations?</p>
+
+<h3>Deployment Context Bias</h3>
+
+<p>A model can be unbiased in isolation and biased in deployment. If a medical AI performs equally well across demographic groups but is deployed primarily in wealthy health systems, the patients who most need AI assistance (those in underfunded systems with lower provider-to-patient ratios) don't benefit. Equity in development doesn't guarantee equity in impact.</p>
+
+<h2>Transparency: The Practical Minimum</h2>
+
+<p>Users should know, at minimum:</p>
+
+<ul>
+<li>When they are interacting with an AI (not a human)</li>
+<li>What information was used to generate the AI output (especially if it's their own data)</li>
+<li>That the AI can make mistakes and how to seek alternatives or corrections</li>
+<li>Who to contact when the AI produces an output they believe is incorrect</li>
+</ul>
+
+<p>For high-stakes decisions (medical, legal, financial), add:</p>
+
+<ul>
+<li>The key factors that influenced the AI's recommendation</li>
+<li>The confidence level of the recommendation</li>
+<li>What the AI doesn't know that might be relevant</li>
+</ul>
+
+<blockquote><p>The GDPR right to explanation is law in Europe for automated decision-making. Even if you're not in scope, treating explainability as a product requirement rather than a compliance checkbox produces better products. Users who understand why the AI made a recommendation are better positioned to evaluate it, correct it when it's wrong, and trust it when it's right.</p></blockquote>
+
+<h2>Human Oversight: Designing It In</h2>
+
+<p>Human oversight is not a fallback for when AI fails - it's a design requirement. For any AI product that influences consequential decisions, design the human oversight loop before designing the AI feature:</p>
+
+<ul>
+<li>What triggers human review? (Low model confidence, specific output types, random sampling)</li>
+<li>Who reviews? (Role, qualifications, time available)</li>
+<li>What does a reviewer see? (Raw AI output, model confidence, key factors, relevant context)</li>
+<li>What are the reviewer's options? (Accept, modify, reject, escalate)</li>
+<li>How does reviewer feedback improve the model? (Active learning loop, labeled data for retraining)</li>
+</ul>
+
+<p>The human oversight design should match the harm profile. A content moderation AI reviewing social media posts needs different oversight than a clinical AI recommending treatment protocols. Design accordingly.</p>
+
+<h2>Privacy by Default</h2>
+
+<p>AI products often require more data than traditional software, which creates more privacy exposure. Practical privacy-by-default checklist:</p>
+
+<ul>
+<li>[ ] Collected only the data actually needed for the AI feature (not everything that might be useful later)</li>
+<li>[ ] Defined retention periods - how long is training data kept? How long are inference logs kept?</li>
+<li>[ ] Implemented data minimization in model inputs - can you achieve similar accuracy with less sensitive data?</li>
+<li>[ ] Documented what user data is used for model training vs inference only</li>
+<li>[ ] Given users control over whether their data is used for training</li>
+<li>[ ] Tested for PII leakage in model outputs (LLMs can sometimes reproduce training data)</li>
+</ul>
+
+<h2>Responsible AI as Competitive Advantage</h2>
+
+<p>In regulated industries - Life Sciences, Healthcare, Financial Services - responsible AI is not just ethics, it's a business requirement. Enterprise procurement processes increasingly include AI ethics questionnaires. Healthcare organizations won't deploy clinical AI without documented bias assessments and human oversight protocols. Financial institutions need explainability for credit decisions under regulatory requirements.</p>
+
+<p>Building responsible AI practices into your development process is also a competitive moat. It takes longer to replicate than a model accuracy improvement and is much harder for competitors to copy quickly.</p>
+
+<h2>My take</h2>
+
+<p>Build a harm model before requirements. Run segmented bias assessment before shipping. Design human oversight loops as requirements, not afterthoughts. Meet the practical minimum for transparency in user-facing communication. Build privacy minimization into data collection, not as a compliance checkbox. In regulated industries, responsible AI practice is a procurement requirement and a competitive differentiator - treat it as both.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-playbook-for-product-teams/">Prompt Engineering Playbook for Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/big-tech-pm-interview-prep/">Big Tech PM Interview Prep Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

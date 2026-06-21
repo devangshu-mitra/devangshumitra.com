@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover how Tempus built a $6B clinical AI platform by leveraging genomic" />
+  <meta property="og:title" content="How Tempus Built a $6B Clinical AI Platform — Devangshu Mitra" />
+  <meta property="og:description" content="Discover how Tempus built a $6B clinical AI platform by leveraging genomic" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How Tempus Built a $6B Clinical AI Platform — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Teardowns</span>
+            <time class="post-header__date" datetime="2026-01-10" itemprop="datePublished">Jan 10, 2026</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How Tempus Built a $6B Clinical AI Platform</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover how Tempus built a $6B clinical AI platform by leveraging genomic</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How Tempus Built a $6B Clinical AI Platform</h1>
+
+<p>Tempus AI went public in June 2024 at a $6.1 billion valuation. For a company founded in 2015 by a tech entrepreneur with no healthcare background - Eric Lefkofsky, who also founded Groupon - that is a remarkable outcome. What they built is worth studying carefully if you are a PM in Life Sciences & Healthcare.</p>
+
+<h2>Company Overview</h2>
+
+<p>Tempus describes itself as an AI and data company operating in the fields of genomics and clinical care. Their core business: collect clinical data and genomic sequencing data from hospitals and health systems, structure and link that data, and then use it to power AI tools for physicians, pharmaceutical companies, and researchers.</p>
+
+<p>By 2024: 100+ health system partners, over 7 million de-identified patient records, and a genomics lab that performs next-generation sequencing at scale. Revenue split roughly 60/40 between genomics services (the lab) and data & AI (the software and pharma partnerships).</p>
+
+<h2>Product Architecture</h2>
+
+<p>Tempus is a three-layer stack. Understanding each layer explains why the business is defensible.</p>
+
+<h3>Layer 1: The Data Engine</h3>
+
+<p>This is the foundational layer and the hardest to replicate. Tempus built proprietary data pipelines that ingest clinical data from EHR systems (structured data - labs, vitals, diagnoses, medications) and unstructured data (physician notes, pathology reports, radiology reports) from health system partners. They link this clinical data to genomic sequencing results from their own labs.</p>
+
+<p>The key product decision here: build the lab in-house. This was not obvious. Running a CLIA-certified lab is capital-intensive, regulated, and operationally complex. But it gave Tempus direct control over data quality and timing. When you outsource sequencing, you get a PDF report. When you own the lab, you get raw sequencing data that you can process with your own algorithms.</p>
+
+<p>Most clinical AI companies work with retrospective data scraped from public sources or purchased from data brokers. Tempus built a prospective, longitudinal, linked dataset. That is a structural advantage.</p>
+
+<h3>Layer 2: The AI Layer</h3>
+
+<p>With the structured dataset, Tempus built AI tools in two directions:</p>
+
+<ul>
+<li><strong>Treatment matching:</strong> Given a patient's genomic profile and clinical history, surface clinical trials they might be eligible for, and approved therapies with evidence in similar molecular subtypes. This is the physician-facing product.</li>
+<li><strong>Biomarker discovery:</strong> Given a pharma company's molecule, identify the patient segments most likely to respond, and design a smarter trial. This is the pharma-facing product.</li>
+</ul>
+
+<p>The AI layer is where the data moat becomes revenue. The models only get better as the dataset grows, which is why the health system partnerships and the lab are so critical.</p>
+
+<h3>Layer 3: The Commercial Layer</h3>
+
+<p>Two revenue streams built on the first two layers:</p>
+
+<ul>
+<li><strong>Pharma partnerships:</strong> Drug companies pay Tempus for real-world evidence studies, trial design support, and biomarker discovery. These are high-value, recurring contracts. Tempus reported over $290M in annualized data and services revenue by IPO.</li>
+<li><strong>Clinical decision support:</strong> Physicians at Tempus partner hospitals use the Lens platform to review AI-generated insights alongside patient records. The business model here is still evolving - some services are bundled with sequencing orders, some are SaaS.</li>
+</ul>
+
+<h2>Data Moat Strategy</h2>
+
+<p>The Tempus data moat has three components, all reinforcing each other:</p>
+
+<ol>
+<li><strong>Linked clinical-genomic data:</strong> Most datasets are either clinical or genomic. Tempus links them at the patient level. This enables analyses that are impossible with either dataset alone.</li>
+<li><strong>Scale:</strong> 7M+ records sounds large in isolation. In genomics, it is extraordinary. Most academic cancer centers have tens of thousands of sequenced cases. The scale enables rarer tumor types and rarer mutations to become statistically analyzable.</li>
+<li><strong>Prospective flow:</strong> New patients flow in every day through the lab. The dataset is growing. Most competitors are working from static historical datasets.</li>
+</ol>
+
+<p>The health system partnership model is what makes the data flow possible. Tempus provides the sequencing infrastructure, reads clinical data through HL7/FHIR integrations, and in return gives health systems access to the AI tools. It is a data-for-software exchange that has worked at scale.</p>
+
+<h2>Regulatory Navigation</h2>
+
+<p>Tempus made smart choices about where to operate in the regulatory space.</p>
+
+<p>The core lab is CLIA-certified - required for any clinical diagnostic lab in the US. Their sequencing tests operate under the Laboratory Developed Test (LDT) pathway, which historically required less FDA oversight than traditional medical devices. This allowed faster iteration on the assay design.</p>
+
+<p>The AI tools for clinical decision support operate largely as software tools that surface information to physicians rather than making autonomous decisions - keeping them out of the higher-risk device categories. The physician remains the decision-maker. This is a deliberate product design choice, not an oversight.</p>
+
+<p>Watch this space: FDA has been moving toward greater oversight of LDTs and AI-based clinical decision support. Tempus's regulatory strategy will need to evolve.</p>
+
+<h2>Business Model Analysis</h2>
+
+<p>The genomics revenue (sequencing orders) is high-volume, recurring, and operationally intensive. It requires running a lab at scale with rigorous quality controls. Margins are moderate.</p>
+
+<p>The data and AI revenue (pharma partnerships, software) is high-margin, growing faster, and scales without proportionally increasing costs. This is where the multiple comes from.</p>
+
+<p>The strategic tension: the lab is the data flywheel but it is also capital-intensive and operationally risky. If Tempus had not had Lefkofsky's deep pockets and venture backing in the early years, the capital requirements would have killed most competitors. This is why no one else has built this - not because they did not see the opportunity, but because they could not afford to pursue it the same way.</p>
+
+<h2>Key Product Decisions - and Why They Worked</h2>
+
+<p><strong>Start with oncology.</strong> Cancer has the highest unmet need for genomic data, the most established molecular sub-typing, and physicians who are most motivated to use new tools. It is also the most heavily funded area in pharma. Starting here gave Tempus the density of cases needed to make the models useful quickly.</p>
+
+<p><strong>Build the lab in-house.</strong> Already covered above. Operationally painful. Strategically essential. A PM without deep conviction in the data strategy would have outsourced sequencing to reduce complexity and never built the moat.</p>
+
+<p><strong>Partner with health systems rather than selling to them.</strong> The traditional enterprise health IT sales motion is slow and combative. Tempus structured deals as partnerships - we give you the sequencing infrastructure, you give us data access. This changed the dynamic from vendor-customer to shared-interest. It is easier to maintain access when both sides are getting value.</p>
+
+<p><strong>Go public to fund growth and validate the data moat.</strong> The IPO was not an exit - Lefkofsky retained significant ownership. It was a capital raise that also served as a market validation event. Public company status also helps with health system partnerships - there is more transparency into the business, which reduces procurement concerns.</p>
+
+<h2>What You Can Learn as a PM</h2>
+
+<p><strong>Data assets compound the same way software does.</strong> Every clinical data company says this, but Tempus actually built for it. The architectural choices - in-house lab, FHIR integration, prospective data collection - all flow from a single conviction: the dataset is the product.</p>
+
+<p><strong>The hardest product decisions are the ones that require operational complexity to enable strategic value.</strong> Building a CLIA lab is not a product decision in any normal sense. But the PM team at Tempus had to deeply understand why the lab was necessary to defend it against every pressure to outsource it.</p>
+
+<p><strong>Regulatory risk is a product design variable.</strong> Tempus made deliberate choices about which regulatory pathways to use, what the AI tools would and would not do autonomously, and how to structure the physician-in-the-loop experience. These are product decisions with compliance implications, not compliance problems with product workarounds.</p>
+
+<p><strong>Beware of copying the surface.</strong> If you are building a clinical AI platform in Life Sciences & Healthcare, the Tempus lesson is not "build a lab." The lesson is: identify the structural data advantage in your domain, figure out what you need to own to maintain it, and be willing to do the hard operational work that your competitors will avoid.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-recursion/">Recursion Pharmaceuticals: AI-First Drug Discovery</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-viz-ai/">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</a></li>
+<li><a href="https://www.devangshumitra.com/clinical-trial-ai-playbook/">Clinical Trial AI Playbook</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-recursion/">Recursion Pharmaceuticals: AI-First Drug Discovery</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-viz-ai/">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</a></li>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

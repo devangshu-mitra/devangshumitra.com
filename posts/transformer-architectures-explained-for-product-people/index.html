@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Transformers are the engine inside every large language model you&#39;re building" />
+  <meta property="og:title" content="Transformer Architectures Explained for Product People — Devangshu Mitra" />
+  <meta property="og:description" content="Transformers are the engine inside every large language model you&#39;re building" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Transformer Architectures Explained for Product People — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-11-11" itemprop="datePublished">Nov 11, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Transformer Architectures Explained for Product People</h1>
+          <p class="post-header__excerpt" itemprop="description">Transformers are the engine inside every large language model you're building</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Transformer Architectures Explained for Product People</h1>
+
+<p>I've sat in too many product reviews where someone waves a hand at the model as if it's a black box. After building AI products across healthcare at HCLTech, edtech at Edxcare, and consumer at Mamaearth, the teams who understand the underlying architecture make dramatically better product decisions.</p>
+
+<h2>Why Transformers Won</h2>
+
+<p>Before transformers (2017 and earlier), dominant architectures were RNNs and LSTMs - recurrent networks that processed tokens one at a time, left to right. This created two problems:</p>
+
+<ul>
+<li><strong>Long-range dependencies were lossy.</strong> By the time the model reached word 200, information from word 3 had been compressed and partially forgotten.</li>
+<li><strong>Sequential processing meant slow training.</strong> You couldn't parallelize across a sequence.</li>
+</ul>
+
+<p>The "Attention Is All You Need" paper from Google (Vaswani et al., 2017) replaced recurrence entirely with <em>self-attention</em>. Every token attends to every other token simultaneously. GPT, BERT, T5, LLaMA, Gemini - all transformers.</p>
+
+<h2>The Attention Mechanism, Without the Calculus</h2>
+
+<p>When you process "The nurse checked the patient's chart because <strong>she</strong> was worried," you instantly resolve that "she" refers to the nurse. Self-attention formalizes this. For each token, the model computes three vectors:</p>
+
+<ul>
+<li><strong>Query (Q):</strong> What am I looking for?</li>
+<li><strong>Key (K):</strong> What do I represent?</li>
+<li><strong>Value (V):</strong> What information do I carry?</li>
+</ul>
+
+<p>The attention score between two tokens is the dot product of one token's Query and another token's Key, normalized via softmax. The model takes a weighted sum of all Value vectors. This runs in parallel for every token simultaneously - hence the training speed advantage.</p>
+
+<h2>Multi-Head Attention</h2>
+
+<p>Multi-head attention runs several attention operations in parallel, each with different learned Q/K/V weight matrices. Each "head" asks a different question of the same text: coreference resolution, syntactic structure, semantic roles. GPT-3 uses 96 attention heads. This is why frontier models handle complex prompts with multiple constraints better than smaller models.</p>
+
+<h2>Context Windows: The Product-Critical Concept</h2>
+
+<p>Context window = the total number of tokens the model can process in a single forward pass. This includes your system prompt, conversation history, retrieved documents, and the response.</p>
+
+<ul>
+<li><strong>GPT-3.5:</strong> 16K tokens (~12,000 words)</li>
+<li><strong>GPT-4o:</strong> 128K tokens (~96,000 words)</li>
+<li><strong>Claude 3.5 Sonnet:</strong> 200K tokens (~150,000 words)</li>
+<li><strong>Gemini 1.5 Pro:</strong> 1M tokens (~750,000 words)</li>
+</ul>
+
+<p>At HCLTech, we built a clinical trial protocol analyzer. Early versions chunked 200-page protocols into fragments and ran separate inference calls. When we moved to a 200K context window model, we could feed the entire protocol in a single call. Accuracy jumped significantly because the model could reason across cross-referenced sections.</p>
+
+<p>But there's a known phenomenon called <strong>lost in the middle</strong> (Liu et al., 2023): models perform better on information at the beginning and end of their context than in the middle. Position important context strategically - near the system prompt or near the end of the user turn.</p>
+
+<h2>Positional Encoding</h2>
+
+<p>Self-attention is inherently order-agnostic. Transformers add positional encodings - vectors added to each token embedding that encode position. Modern LLMs use Rotary Position Embedding (RoPE), used in LLaMA and Mistral. Context window extension techniques (YaRN, LongRoPE) work by modifying positional encodings. Test your specific use case at long contexts - don't just trust the headline number.</p>
+
+<h2>The Feed-Forward Network: Where Knowledge Lives</h2>
+
+<p>Research (Geva et al., 2021) showed FFN layers function like key-value memories: they store factual associations learned during training. "Paris is the capital of France" is stored in the FFN weights. This is why RAG works - you're not replacing the model's knowledge, you're adding context the attention mechanism can incorporate alongside the FFN's parametric knowledge.</p>
+
+<h2>Encoder vs Decoder vs Encoder-Decoder</h2>
+
+<ul>
+<li><strong>Encoder-only (BERT, RoBERTa):</strong> Bidirectional attention. Best for classification, NER, semantic similarity. Not designed to generate text.</li>
+<li><strong>Decoder-only (GPT family, LLaMA, Mistral):</strong> Causal left-to-right attention. Generates text autoregressively. Dominant architecture for general-purpose LLMs.</li>
+<li><strong>Encoder-decoder (T5, BART):</strong> Natural for translation, summarization.</li>
+</ul>
+
+<h2>Scaling Laws and Why Model Size Matters (Up to a Point)</h2>
+
+<p>The "Chinchilla" paper (Hoffmann et al., 2022) showed most large models were undertrained - too many parameters relative to training data. The optimal ratio is roughly 20 tokens per parameter. This led to smaller, better-trained models: Mistral 7B outperforms GPT-3 (175B) on many benchmarks. Don't reflexively reach for the largest model. Benchmark on your actual use case.</p>
+
+<h2>What This Means for Your Product Decisions</h2>
+
+<ol>
+<li><strong>Context window size determines what problems you can solve in a single call.</strong> Budget accordingly in your API cost model.</li>
+<li><strong>Attention is not magic - it's a learned routing mechanism.</strong> Clear, structured prompts reduce the search space.</li>
+<li><strong>The model's knowledge is frozen at training cutoff.</strong> Anything that's changed since then requires RAG or tool use.</li>
+<li><strong>Bigger isn't always better.</strong> A smaller model fine-tuned on your domain will often outperform a frontier model on your specific task, at a fraction of the cost.</li>
+</ol>
+
+<p>The teams that ship the best AI products understand their architecture well enough to make the right tradeoffs - and to know which problems require a transformer at all.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

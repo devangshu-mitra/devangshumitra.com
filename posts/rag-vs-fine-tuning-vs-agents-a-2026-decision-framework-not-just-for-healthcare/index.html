@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn when to choose RAG vs fine-tuning vs agents for your AI projects with" />
+  <meta property="og:title" content="RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare) — Devangshu Mitra" />
+  <meta property="og:description" content="Learn when to choose RAG vs fine-tuning vs agents for your AI projects with" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare) — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2026-02-20" itemprop="datePublished">Feb 20, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn when to choose RAG vs fine-tuning vs agents for your AI projects with</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</h1>
+
+<p>One of the most common questions I get from product managers entering AI for the first time is some version of: "We want to use AI for X. Should we use RAG or fine-tune a model?" Usually the answer is neither, or both, or something else entirely - which isn't satisfying but is honest.</p>
+
+<p>The challenge is that RAG, fine-tuning, and agentic architectures aren't mutually exclusive alternatives. They solve different problems, and the best production AI systems often combine all three. But when you're making initial architecture decisions under resource and time constraints, you need a framework for choosing where to invest first.</p>
+
+<p>This framework is the result of decisions I've made and watched others make across healthcare AI, enterprise software, and adjacent industries. The numbers I'll quote are rough approximations based on available benchmarks and industry data - your specific use case will vary, but the directional tradeoffs hold.</p>
+
+<hr>
+
+<h2>The Core Question: What Problem Are You Actually Solving?</h2>
+
+<p>Before choosing an architecture, identify which of these problems you're trying to solve:</p>
+
+<ol>
+<li><strong>Knowledge access problem</strong>: The model doesn't have access to your proprietary data or recent information</li>
+<li><strong>Behavior problem</strong>: The model doesn't behave the way you need it to (tone, format, reasoning style, domain-specific conventions)</li>
+<li><strong>Task execution problem</strong>: The model needs to take actions, not just generate text</li>
+</ol>
+
+<p>RAG primarily solves the knowledge access problem. Fine-tuning primarily solves the behavior problem. Agents primarily solve the task execution problem.</p>
+
+<p>If you're solving more than one problem, you likely need more than one architecture - but start with the dominant constraint.</p>
+
+<h2>RAG: When Your Problem Is Knowledge Access</h2>
+
+<h3>What it is</h3>
+
+<p>Retrieval Augmented Generation gives the model access to a corpus of documents at inference time. When a user asks a question, the system retrieves the most relevant document chunks, adds them to the context window, and lets the model synthesize an answer grounded in those documents.</p>
+
+<h3>When to use it</h3>
+
+<ul>
+<li>Your knowledge base changes frequently (documentation, policy updates, product catalogs)</li>
+<li>You need citations - users want to know where the information came from</li>
+<li>Your data is too sensitive to send to a third-party for fine-tuning</li>
+<li>You need to add new information without retraining</li>
+<li>Your use case requires up-to-date information that a static model won't have</li>
+</ul>
+
+<h3>When not to use it</h3>
+
+<ul>
+<li>The information users need is in the base model's training data anyway</li>
+<li>You need the model to reason in a specific style, not just access specific facts</li>
+<li>Latency is critical and your retrieval pipeline adds unacceptable delay</li>
+<li>Your knowledge base is poorly structured or lacks good retrieval signal</li>
+</ul>
+
+<h3>Cost and latency</h3>
+
+<p>A well-optimized RAG pipeline adds approximately 100-300ms to inference time (retrieval + context construction). Cost overhead is primarily compute for embedding and vector search - roughly $0.0001-0.001 per query at current pricing depending on corpus size and embedding model choice. The dominant cost remains the LLM inference itself.</p>
+
+<h3>Real-world use cases</h3>
+
+<ul>
+<li><strong>Healthcare</strong>: Clinical protocol lookup, drug interaction checking against a hospital's formulary, billing code assistance</li>
+<li><strong>Legal</strong>: Contract analysis against a firm's precedent library, regulatory compliance checking against current regulations</li>
+<li><strong>Retail</strong>: Product catalog question-answering, return policy lookup, inventory status</li>
+<li><strong>Fintech</strong>: Policy document Q&A for underwriting, regulatory guidance lookup, product terms explanation</li>
+</ul>
+
+<h2>Fine-Tuning: When Your Problem Is Model Behavior</h2>
+
+<h3>What it is</h3>
+
+<p>Fine-tuning continues training a pre-trained model on your domain-specific examples, adjusting the model's weights to produce outputs that match your desired format, style, and reasoning patterns.</p>
+
+<h3>When to use it</h3>
+
+<ul>
+<li>You need highly specific output formats that system prompts alone don't reliably produce</li>
+<li>You need the model to follow domain-specific conventions (medical coding formats, legal citation style, financial reporting standards)</li>
+<li>You're doing high-volume inference and need a smaller, cheaper model to match a larger model's domain performance</li>
+<li>You have 1,000+ high-quality labeled examples and need to encode complex expertise into the model</li>
+</ul>
+
+<h3>When not to use it</h3>
+
+<ul>
+<li>You have fewer than a few hundred training examples - prompt engineering or RAG will likely outperform</li>
+<li>You need to update the model's knowledge frequently - retraining is expensive and slow</li>
+<li>You haven't first exhausted prompt engineering - many "fine-tuning problems" are actually prompt problems</li>
+<li>Your team lacks ML expertise to manage training runs, evaluation, and deployment</li>
+</ul>
+
+<h3>Cost and latency</h3>
+
+<p>Fine-tuning costs have dropped dramatically. OpenAI's fine-tuning API starts around $8/million tokens for GPT-4o-mini fine-tuning. A typical healthcare domain fine-tuning job might run $500-2,000. The payoff is inference cost reduction - a fine-tuned smaller model can match a larger base model at 30-70% lower inference cost at scale.</p>
+
+<h3>Real-world use cases</h3>
+
+<ul>
+<li><strong>Healthcare</strong>: Clinical note completion that matches a health system's documentation style, ICD-10 coding from clinical text, radiology report standardization</li>
+<li><strong>Legal</strong>: Contract clause generation in a firm's specific drafting style, jurisdiction-specific legal analysis format</li>
+<li><strong>Fintech</strong>: Financial analysis in a bank's house style, regulatory filing generation in required formats</li>
+<li><strong>Retail</strong>: Product description generation matching a brand's voice, customer service responses in brand tone</li>
+</ul>
+
+<blockquote><p><strong>The fine-tuning trap:</strong> Teams often reach for fine-tuning when they've tried a few prompts and aren't happy with the results. Before fine-tuning, invest 1-2 days in serious prompt engineering - structured prompts with clear instructions, few-shot examples, chain-of-thought reasoning, output format specifications. You'll often get 80% of the way to fine-tuning quality at zero cost.</p></blockquote>
+
+<h2>Agentic Architecture: When Your Problem Is Task Execution</h2>
+
+<h3>What it is</h3>
+
+<p>Agents give the model tools and let it take multi-step actions to complete a goal. Rather than generating a single response, the agent reasons about what actions to take, calls tools, observes results, and continues until the goal is complete.</p>
+
+<h3>When to use it</h3>
+
+<ul>
+<li>The task requires multiple steps with decision points that depend on intermediate results</li>
+<li>The task requires external data that can't be pre-loaded into context</li>
+<li>The task requires actions (sending emails, updating databases, executing code)</li>
+<li>The task varies enough in structure that a fixed workflow can't be pre-defined</li>
+</ul>
+
+<h3>When not to use it</h3>
+
+<ul>
+<li>The task is simple and single-turn - agents add complexity and latency without benefit</li>
+<li>You need guaranteed deterministic behavior - agents introduce variability</li>
+<li>Your tool reliability is poor - agent failures compound tool failures</li>
+<li>The error cost of a wrong action is very high - agents need strong human-in-the-loop before acting in high-stakes contexts</li>
+</ul>
+
+<h3>Cost and latency</h3>
+
+<p>Agentic workflows multiply inference costs by the number of reasoning steps. A 5-step agent workflow using Claude 3.5 Sonnet might cost $0.05-0.20 per task vs $0.001-0.01 for a single-turn query. Latency is typically 5-30 seconds for multi-step workflows. These costs are falling rapidly as smaller models improve at tool use and reasoning.</p>
+
+<h3>Real-world use cases</h3>
+
+<ul>
+<li><strong>Healthcare</strong>: Prior authorization automation (check eligibility, retrieve clinical data, complete forms, submit, track), care coordination workflows</li>
+<li><strong>Legal</strong>: Due diligence automation (identify key clauses, cross-reference regulations, flag risks, generate summary report)</li>
+<li><strong>Fintech</strong>: Loan origination workflow (collect documents, verify identity, pull credit, run models, generate offer)</li>
+<li><strong>Retail</strong>: Returns processing (verify purchase, assess reason, process refund or replacement, update inventory)</li>
+</ul>
+
+<h2>The Decision Framework</h2>
+
+<p>Here's the sequence I use when advising teams on architecture choice:</p>
+
+<ol>
+<li><strong>Start with base model + prompt engineering.</strong> Before anything else, spend a week on prompt engineering with a frontier model. You'll discover what the model can do well and where it falls short. This is your baseline.</li>
+<li><strong>If the failure is knowledge access</strong> (the model doesn't know your content): Add RAG.</li>
+<li><strong>If the failure is behavior/format</strong> (the model knows the content but produces wrong-shaped output): Consider fine-tuning, but only after exhausting prompt engineering with structured prompts and examples.</li>
+<li><strong>If the failure is task completion</strong> (single-turn generation isn't enough): Build agents, starting with simple tool use and expanding.</li>
+<li><strong>For complex systems</strong>: Combine. RAG + fine-tuning + agents is the architecture of mature production systems in regulated industries.</li>
+</ol>
+
+<h2>Industry-Specific Notes</h2>
+
+<h3>Healthcare</h3>
+
+<p>RAG is almost universally the right starting point - clinical knowledge is constantly updating, citation requirements are strict, and patient data cannot be sent to external fine-tuning endpoints without significant privacy engineering. Agentic architecture is the next investment for workflow automation. Fine-tuning comes third for specific structured output tasks like coding and documentation.</p>
+
+<h3>Fintech</h3>
+
+<p>Fine-tuning has strong ROI for format-critical applications (regulatory filings, financial reports). RAG is valuable for policy and regulation Q&A. Agents are advancing quickly in back-office automation where workflow complexity and action execution are the dominant requirements.</p>
+
+<h3>Retail</h3>
+
+<p>RAG for product catalog and policy Q&A. Fine-tuning for brand voice consistency at scale. Agents for customer service automation where multi-turn problem resolution requires external actions (order lookup, refund processing, exchange initiation).</p>
+
+<h3>Legal</h3>
+
+<p>RAG for precedent and statute retrieval - the knowledge access problem is dominant and the knowledge is constantly updated. Fine-tuning for specific drafting styles. Agents for document review workflows. Human-in-the-loop is non-negotiable at every consequential decision point.</p>
+
+<hr>
+
+<p>The architecture decision isn't permanent. Most teams should start with RAG because it's the fastest path to value with the lowest infrastructure investment. As you learn where the model falls short, add fine-tuning or agents selectively. The teams that try to architect the perfect system before building anything are always beaten to market by teams that shipped RAG on day 30 and iterated from there.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-prompt-engineering-a-life-sciences-product-managers-decision-framework/">RAG vs. Fine-Tuning vs. Prompt Engineering: A Life Sciences Product Manager's Decision Framework</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

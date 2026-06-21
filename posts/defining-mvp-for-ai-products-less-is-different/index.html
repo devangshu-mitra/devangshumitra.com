@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The classic MVP framework - build the smallest thing that tests the riskiest" />
+  <meta property="og:title" content="Defining MVP for AI Products: Less Is Different — Devangshu Mitra" />
+  <meta property="og:description" content="The classic MVP framework - build the smallest thing that tests the riskiest" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Defining MVP for AI Products: Less Is Different — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-12-24" itemprop="datePublished">Dec 24, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Defining MVP for AI Products: Less Is Different</h1>
+          <p class="post-header__excerpt" itemprop="description">The classic MVP framework - build the smallest thing that tests the riskiest</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Defining MVP for AI Products: Less Is Different</h1>
+
+<p>The MVP concept for software is clean: find the riskiest assumption, build the smallest thing that tests it, learn, iterate. The logic holds because a basic version of the feature is still the feature. A text editor without spell-check is still a text editor.</p>
+
+<p>AI products have a different problem. The model quality is constitutive of the product, not an enhancement. A clinical decision support tool that's right 60% of the time isn't a minimal version of one that's right 90% of the time - it's a tool that might create patient harm. A recommendation engine that's mostly wrong won't teach you about user adoption; it'll teach you that users don't trust wrong recommendations, which you already know.</p>
+
+<p>Defining MVP for AI products requires reconfiguring the framework, not abandoning it.</p>
+
+<h2>The Two-Dimension MVP for AI</h2>
+
+<p>AI product MVP has two independent dimensions that need separate definition:</p>
+
+<h3>Dimension 1: Minimum Viable Accuracy</h3>
+
+<p>What is the lowest accuracy level at which the AI creates net positive value for users? Below this threshold, the AI is actively harmful (worse than the baseline experience), and shipping it doesn't test user adoption - it tests user tolerance for bad AI.</p>
+
+<p>Define minimum viable accuracy by mapping the user decision it supports and the consequences of different error types:</p>
+
+<ul>
+<li>What does the user do when the AI is correct? What does the user do when it's wrong?</li>
+<li>What's the cost of false positives vs false negatives in user terms (not model terms)?</li>
+<li>Is there a human check in the workflow that catches AI errors before they become user-visible problems?</li>
+<li>What was the baseline error rate before the AI? (A 70% accurate AI is better than a 50% baseline; it's worse than a 90% baseline.)</li>
+</ul>
+
+<p>For most enterprise AI use cases, minimum viable accuracy is somewhere between 75% and 90%, depending on stakes and oversight. For high-stakes, low-oversight contexts (autonomous decisions, no human review), it's higher. For low-stakes, high-oversight contexts (suggestions that always go through human review), it can be lower.</p>
+
+<h3>Dimension 2: Minimum Viable Scope</h3>
+
+<p>This is the traditional MVP dimension applied to AI: what's the smallest slice of the problem that the AI can handle at minimum viable accuracy?</p>
+
+<p>AI products often become viable by scoping down - not reducing quality, but reducing the problem space to one where high quality is achievable with available data and capability.</p>
+
+<blockquote><p>A clinical documentation AI that covers all specialties at 70% accuracy is below minimum viable accuracy. The same AI covering only cardiology documentation at 88% accuracy is at minimum viable accuracy for a more constrained scope. The MVP is the cardiology-only version - it tests the riskiest assumptions (will physicians use AI-assisted documentation?) without creating harm from low accuracy.</p></blockquote>
+
+<h2>The Riskiest Assumption Framework for AI</h2>
+
+<p>The classic MVP asks: what's the riskiest assumption? For AI products, the riskiest assumptions are usually:</p>
+
+<ol>
+<li><strong>Technical feasibility</strong>: Can we achieve minimum viable accuracy on this problem with available data?</li>
+<li><strong>User behavior</strong>: Will users engage with AI assistance in this workflow? Will they trust and act on AI recommendations?</li>
+<li><strong>Workflow integration</strong>: Can the AI feature be embedded in the existing workflow without requiring behavioral changes users won't make?</li>
+<li><strong>Business value</strong>: Does the improvement the AI delivers create enough value to justify the cost and complexity?</li>
+</ol>
+
+<p>These assumptions have different MVPs. Testing technical feasibility requires a working model on representative data. Testing user behavior requires a real deployment with real users, not a prototype. Testing workflow integration requires building the integration, not just the model.</p>
+
+<p>Identify which assumption is riskiest for your specific product, and design the MVP to test that one specifically.</p>
+
+<h2>Wizard of Oz: The AI MVP That Isn't AI</h2>
+
+<p>One underused MVP approach for AI products: fake the AI with humans first.</p>
+
+<p>Build the user-facing experience exactly as designed - the interface, the workflow, the output format. But instead of a model producing the outputs, have humans produce them. Ship that to a small set of users.</p>
+
+<p>This tests the user behavior and workflow integration assumptions without requiring a working model. If users don't engage with AI-assisted outputs even when those outputs are perfect (human-generated), you've learned something important before investing in model development. If users engage enthusiastically, you've de-risked the product side and can invest in the model with more confidence.</p>
+
+<p>Wizard of Oz doesn't test technical feasibility (assumption 1) - you'll still need to build the model. But it lets you sequence the riskiest product assumptions before the riskiest technical assumptions if user behavior is more uncertain than model capability.</p>
+
+<h2>The Scope Decision Matrix</h2>
+
+<p>When defining MVP scope for AI, use this matrix to find the intersection of "achievable accuracy" and "sufficient value":</p>
+
+<p>| Scope Option | Achievable Accuracy | Value at This Scope | MVP Candidate? | | --- | --- | --- | --- | | Full problem space | 65% | High (if it works) | No - below accuracy threshold | | High-volume, standard cases only | 88% | Medium (covers 60% of cases) | Yes | | Specific document type only | 93% | Low (covers 20% of cases) | Possibly - depends on value of that 20% | | Single-question answering only | 91% | Medium (useful for common questions) | Yes - clean learning vehicle |</p>
+
+<p>The MVP is the scope where you can achieve minimum viable accuracy and where the value at that scope is sufficient to generate real learning about whether users will adopt and whether the product creates business value.</p>
+
+<h2>What MVP Is Not for AI Products</h2>
+
+<ul>
+<li>Not: a working notebook demo with clean data</li>
+<li>Not: a model that achieves target accuracy on the test set but hasn't been deployed</li>
+<li>Not: a UI prototype without a working model</li>
+<li>Not: a POC that worked for one customer's data but hasn't been tested on another</li>
+</ul>
+
+<p>An AI MVP is in production with real users generating real interactions that you can learn from. It has monitoring so you can see what's happening. It has a feedback mechanism so users can signal when the AI is wrong. And it achieves minimum viable accuracy on its defined scope.</p>
+
+<h2>What matters here</h2>
+
+<p>Define minimum viable accuracy before defining scope - it's the floor below which you're creating harm rather than learning. Define scope to find the sub-problem where you can achieve minimum viable accuracy with available data. Use Wizard of Oz to test user behavior and workflow assumptions before model capability if the former is more uncertain. An AI MVP is in production with real users, real monitoring, and real feedback mechanisms - not a demo or a test set result.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-roadmap-prioritization-beyond-rice/">AI Product Roadmap Prioritization: Beyond RICE</a></li>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/pricing-ai-products-models-that-work/">Pricing AI Products: Models That Work</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-roadmap-prioritization-beyond-rice/">AI Product Roadmap Prioritization: Beyond RICE</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

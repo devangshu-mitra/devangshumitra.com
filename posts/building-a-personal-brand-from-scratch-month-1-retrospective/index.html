@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I launched devangshumitra.com, published 30 posts in the first month, and" />
+  <meta property="og:title" content="Building a Personal Brand from Scratch: Month 1 Retrospective — Devangshu Mitra" />
+  <meta property="og:description" content="I launched devangshumitra.com, published 30 posts in the first month, and" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building a Personal Brand from Scratch: Month 1 Retrospective — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-07-12" itemprop="datePublished">Jul 12, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building a Personal Brand from Scratch: Month 1 Retrospective</h1>
+          <p class="post-header__excerpt" itemprop="description">I launched devangshumitra.com, published 30 posts in the first month, and</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building a Personal Brand from Scratch: Month 1 Retrospective</h1>
+
+<p>One month ago I opened a blank Ghost editor and typed the first sentence of what would become devangshumitra.com. Since then I've published 30 posts, broken the site twice, rebuilt the design twice, and spent more evenings staring at analytics than I care to admit. This is the honest retrospective.</p>
+
+<h2>Why I Started</h2>
+
+<p>I've been in AI product for years - building clinical trial platforms, GenAI tools for healthcare, agentic workflows - and somewhere along the way I realized I was accumulating knowledge that was living exclusively in Confluence pages nobody reads and Slack threads that scroll into oblivion. I wanted a place where the thinking was permanent, accessible, and mine.</p>
+
+<p>The secondary reason is more strategic: I'm targeting a Google PM role, and I know that "interesting blog" still carries weight in ways that polished LinkedIn posts don't. A body of work signals depth. LinkedIn signals activity. I want both, but the blog is the foundation.</p>
+
+<p>The third reason is the most personal: I'm building multiple things in parallel - Geenie (my personal AI OS), Ethlore (a D2C handloom saree brand), my content platform - and I wanted somewhere to document the journey publicly. Not to perform transparency, but because writing forces clarity. If I can't explain it, I don't understand it yet.</p>
+
+<h2>The Platform Decision: Why Ghost</h2>
+
+<p>I evaluated four options seriously: Ghost, Substack, Notion + super.so, and a custom Next.js site. Here's how I landed on Ghost:</p>
+
+<p><strong>Substack</strong> was tempting for its built-in audience network, but it's optimized for newsletters, not a content library. The post discovery is weak, SEO is mediocre, and you don't own your design. For someone building a knowledge hub across 5 content pillars, Substack felt like a compromise from day one.</p>
+
+<p><strong>Notion + super.so</strong> is what I used as a scratch pad for a month before realizing that every time I shared a link, it felt cheap. The performance wasn't there, the mobile experience was awkward, and the SEO story requires too many workarounds.</p>
+
+<p><strong>Custom Next.js</strong> was genuinely appealing - I could build exactly what I wanted. But I've been down the path of yak-shaving infrastructure instead of shipping content. The site would still be in development six months from now. I needed to write, not engineer.</p>
+
+<p><strong>Ghost</strong> won because it has a real CMS API, excellent SEO defaults, Membership/Newsletter built in (even if I'm not using it yet), and a clean editorial experience. The dark theme I wanted was achievable with custom CSS. The trade-off: it's more expensive than Substack and requires some technical comfort to run well. For me, that's a good trade.</p>
+
+<h2>The Content Architecture Decision: Multi-Industry vs. Healthcare-Only</h2>
+
+<p>This was the hardest strategic choice in month one. My professional expertise is healthcare AI - I could have gone deep on that vertical and built a more focused audience faster.</p>
+
+<p>I chose multi-industry for one reason: the PM role I'm targeting at Google is consumer product, not healthcare. A brand that only speaks to healthcare AI would actually hurt the repositioning I'm trying to execute. I need to demonstrate that my systems thinking, product sense, and AI fluency translate across verticals.</p>
+
+<p>The five pillars I landed on: AI Product Management, AI Applications in Industry, AI Research & Trends, Agentic AI Systems, and Enterprise Innovation. Healthcare shows up everywhere, but it's not the container - it's an example.</p>
+
+<p>The early data suggests this was the right call: my most-read pieces in month one weren't healthcare-specific. They were on AI product frameworks and enterprise transformation - topics that resonate with the PM community broadly.</p>
+
+<h2>The Design System: Blueprint and the Dark Theme</h2>
+
+<p>I wanted something that felt like a working tool, not a lifestyle blog. Dark background, clean typography, structured content. I ended up with a custom Ghost theme based on Blueprint - a free open-source Ghost theme - with significant CSS modifications to get the dark-mode aesthetic right.</p>
+
+<p>What I got wrong the first time: I tried to make it too clever. Custom animations, hover effects, a sidebar that kept breaking on mobile. I stripped it all back. The current version is simpler than what I launched with, and every metric improved when I simplified it - time on page, bounce rate, the subjective feel of reading it.</p>
+
+<p>The lesson: your design system should serve the content. If you're thinking about the design while you're reading, the design failed.</p>
+
+<h2>Publishing the First 30 Posts</h2>
+
+<p>I didn't publish 30 posts one at a time over 30 days. I batch-published, using an automated pipeline I built with my Geenie system. The posts were researched, drafted with AI assistance, edited by me, and then published via Ghost's Admin API in structured batches.</p>
+
+<p>This raises the obvious question: is that cheating? I've thought about this a lot. My answer: no, but only because the editing step is real. Every post reflects my actual views, my experience, my framing. The AI drafts give me a starting structure - I then reshape, add personal examples, cut the generic parts, and make sure the voice is mine. When I read back the finished posts, they sound like me because I made them sound like me.</p>
+
+<p>What this process taught me: I'm a much better editor than I am a blank-page writer. Having a draft to react to is dramatically more efficient for me than starting from zero. That's not a limitation - it's a workflow insight I'll keep.</p>
+
+<h2>What Worked</h2>
+
+<p>The comparison posts performed best. "X vs Y: which is right for your use case" format consistently outperformed think-pieces and tutorials. People are looking for help making decisions, and comparison content is structurally designed to serve that need.</p>
+
+<p>Long-form posts (1500+ words) got more organic search traction than shorter pieces, even in the first month before the domain has much authority. The hypothesis is that Google rewards content depth even for new domains when the keyword targeting is right.</p>
+
+<p>The dark theme. Multiple people mentioned it specifically when they shared my posts. Visual differentiation in a sea of white blogs matters more than I expected.</p>
+
+<h2>What Didn't Work</h2>
+
+<p>Zero members after 30 days. I have 155 posts now, 15 pages, 59 tags, and zero email subscribers. This is not a surprise - I haven't built a distribution strategy yet, I'm not actively promoting, and the newsletter CTA is buried. But it's a useful data point: content alone doesn't build an audience. I knew this intellectually. Now I know it viscerally.</p>
+
+<p>The "trends" posts aged poorly. I published several posts analyzing AI developments in a specific week, and within three weeks they felt stale. Evergreen content is a better investment for a young site that relies on search rather than social distribution.</p>
+
+<p>Inconsistent internal linking. I published 30 posts without a linking strategy, which means the site's internal architecture is weak. I'm fixing this systematically in month two.</p>
+
+<h2>What Month Two Looks Like</h2>
+
+<p>I'm shifting from volume to distribution. The content foundation is solid. Now I need to actually get people to read it. That means: a LinkedIn content cadence that drives back to the blog, a newsletter that's worth subscribing to, and fixing the SEO issues (internal linking, schema markup, canonical URLs) that I deferred in month one.</p>
+
+<p>I'm also building the interactive tools layer: an AI Maturity Assessment and a Healthcare AI ROI Calculator. These serve two purposes - they're genuinely useful for my audience, and they create a reason to share the site that a regular blog post doesn't provide.</p>
+
+<p>Month one was about proving to myself I could ship. Month two is about proving the content is worth reading. The bar is higher, which is exactly how it should feel.</p>
+
+<p>If you're building something in public too, I'd genuinely love to hear how your first month went. The honest version, not the highlight reel. Hit reply - I actually respond.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-geenie-my-personal-ai-operating-system/">Building Geenie: My Personal AI Operating System</a></li>
+<li><a href="https://www.devangshumitra.com/building-in-public-month-1-what-worked-what-didnt-2/">Building in Public Month 1: What Worked, What Didn't</a></li>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/personal-brand-building-for-ai-product-leaders/">Personal Brand Building for AI Product Leaders</a></li>
+<li><a href="https://www.devangshumitra.com/the-ethlore-story-where-d2c-sarees-meet-ai/">The Ethlore Story: Where D2C Sarees Meet AI</a></li>
+<li><a href="https://www.devangshumitra.com/what-155-posts-in-3-months-taught-me-about-content-strategy/">What 155 Posts in 3 Months Taught Me About Content Strategy</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

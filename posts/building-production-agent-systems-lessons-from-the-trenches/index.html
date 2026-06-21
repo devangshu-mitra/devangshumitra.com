@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Demos of AI agents look magical. They browse the web, write code, send emails," />
+  <meta property="og:title" content="Building Production Agent Systems: Lessons from the Trenches — Devangshu Mitra" />
+  <meta property="og:description" content="Demos of AI agents look magical. They browse the web, write code, send emails," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building Production Agent Systems: Lessons from the Trenches — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-09-06" itemprop="datePublished">Sep 6, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building Production Agent Systems: Lessons from the Trenches</h1>
+          <p class="post-header__excerpt" itemprop="description">Demos of AI agents look magical. They browse the web, write code, send emails,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building Production Agent Systems: Lessons from the Trenches</h1>
+
+<p>Demos of AI agents look magical. They browse the web, write code, send emails, book meetings. Production agent systems look different. They time out, get stuck in loops, call tools with malformed arguments, and confidently complete the wrong task. I have been building agent-based systems at HCLTech for clinical workflows and have watched enough agent demos turn into production postmortems to have formed strong opinions about what actually works.</p>
+
+<h2>The Core Challenge: LLMs Are Not Deterministic Executors</h2>
+
+<p>Traditional software has deterministic control flow. You call a function; it either works or raises an exception. LLM-powered agents have probabilistic control flow. The same prompt, same tools, same input can produce different action sequences on different runs. Building reliable systems on top of probabilistic components requires a different set of engineering patterns.</p>
+
+<h2>Principle 1: Narrow Tool Surfaces</h2>
+
+<p>Every tool you give an agent is a degree of freedom - another place where the agent can make a wrong decision. The most reliable agent systems I have seen have small, narrowly scoped tool sets.</p>
+
+<p>Bad tool design: one giant <code>database_query(sql: str)</code> tool that lets the agent write arbitrary SQL. Good tool design: <code>get_patient_by_id(patient_id: str)</code>, <code>search_patients_by_name(name: str)</code>, <code>get_recent_labs(patient_id: str, days: int)</code>. The narrow tools constrain what the agent can do wrong. They also make the agent's actions more auditable.</p>
+
+<p>Rule of thumb: if you cannot explain in one sentence what a tool does and when to use it, split it into two tools.</p>
+
+<h2>Principle 2: Build Explicit State Machines for Multi-Step Workflows</h2>
+
+<p>Do not let the agent maintain implicit state through conversation history for workflows that matter. Use explicit state machines.</p>
+
+<pre><code class="language-">from enum import Enum
+from dataclasses import dataclass, field
+from typing import Optional
+
+class WorkflowState(Enum):
+    INITIALIZED = "initialized"
+    GATHERING_INFO = "gathering_info"
+    VALIDATING = "validating"
+    EXECUTING = "executing"
+    CONFIRMING = "confirming"
+    COMPLETE = "complete"
+    FAILED = "failed"
+
+@dataclass
+class AgentWorkflow:
+    state: WorkflowState = WorkflowState.INITIALIZED
+    collected_data: dict = field(default_factory=dict)
+    errors: list = field(default_factory=list)
+    attempts: int = 0
+    max_attempts: int = 3
+
+    def transition(self, new_state: WorkflowState) -&gt; None:
+        allowed = {
+            WorkflowState.INITIALIZED: [WorkflowState.GATHERING_INFO],
+            WorkflowState.GATHERING_INFO: [WorkflowState.VALIDATING, WorkflowState.FAILED],
+            WorkflowState.VALIDATING: [WorkflowState.EXECUTING, WorkflowState.GATHERING_INFO, WorkflowState.FAILED],
+            WorkflowState.EXECUTING: [WorkflowState.CONFIRMING, WorkflowState.FAILED],
+            WorkflowState.CONFIRMING: [WorkflowState.COMPLETE, WorkflowState.FAILED],
+        }
+        if new_state not in allowed.get(self.state, []):
+            raise ValueError(f"Invalid transition: {self.state} -&gt; {new_state}")
+        self.state = new_state</code></pre>
+
+<p>The state machine makes invalid transitions impossible, makes the current state observable, and makes failures recoverable to a known state rather than an undefined one.</p>
+
+<h2>Principle 3: Human-in-the-Loop for Irreversible Actions</h2>
+
+<p>For actions that cannot be undone - sending emails, writing to production databases, making API calls that charge money, deleting records - require explicit human confirmation before execution.</p>
+
+<p>This sounds obvious and is routinely ignored in prototypes that become production. Add a confirmation step. Log what the agent is about to do. Require human approval. The cost of one extra click is vastly lower than the cost of undoing a bad agent action.</p>
+
+<p>In clinical settings, this is non-negotiable. Any agent action that could affect patient care gets a human review step, period.</p>
+
+<h2>Principle 4: Idempotent Tools</h2>
+
+<p>Make your tools idempotent wherever possible. If a tool call is made twice with the same arguments, the second call should have the same result as the first without causing duplicate side effects.</p>
+
+<p>Use unique idempotency keys for API calls. Check for existing records before creating new ones. Design database operations as upserts. This is standard distributed systems practice, but many teams forget it when building agent tools because they are focused on the LLM integration, not the tool implementation.</p>
+
+<h2>Principle 5: Timeout and Recursion Limits</h2>
+
+<p>Set hard limits on everything. Maximum tool calls per task. Maximum iterations in a loop. Maximum total execution time. Maximum tokens in context. Without these, an agent can run for minutes consuming API tokens before you detect a problem.</p>
+
+<p>I have seen an agent without a recursion limit enter a loop calling a search tool 47 times because the search results never satisfied its internal "have I found the answer" criterion. Hard limits convert open-ended failures into bounded, recoverable failures.</p>
+
+<h2>Principle 6: Observability is Not Optional</h2>
+
+<p>You cannot debug a production agent system without traces. Every tool call should be logged: what tool, what arguments, what result, how long it took. Every LLM call should be logged: the prompt, the response, the model, the token count.</p>
+
+<p>Use structured logging from day one. LangSmith, Arize, Helicone, and Weights and Biases all offer agent tracing. Pick one and instrument your system before you ship to production - debugging an unobserved agent failure is close to impossible.</p>
+
+<h2>Common Failure Modes and How to Handle Them</h2>
+
+<ul>
+<li><strong>Tool argument errors:</strong> The agent calls a tool with invalid arguments. Fix: strong JSON schema validation on tool inputs, return structured error messages the agent can interpret.</li>
+<li><strong>Overconfident completion:</strong> The agent marks a task complete when it has not actually succeeded. Fix: add an explicit verification step that checks success criteria before marking complete.</li>
+<li><strong>Context stuffing:</strong> Tool results grow the context until the agent loses coherence. Fix: summarize tool outputs rather than appending raw results; implement a sliding window over tool history.</li>
+<li><strong>Cascading errors:</strong> A wrong decision in step 3 causes all subsequent steps to fail. Fix: add validation checkpoints between major workflow stages.</li>
+</ul>
+
+<h2>The real point</h2>
+
+<p>Agents are powerful when the task genuinely requires dynamic decision-making across multiple tools. They are overkill when a deterministic pipeline would work. For tasks that need agents, build them with narrow tool surfaces, explicit state, hard limits on everything, and observability from day one. The demo takes a day to build. A production agent system that is reliable enough to trust takes significantly longer - and the difference is almost entirely in the engineering discipline around failure handling.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-architecture-of-production-ml-pipelines/">The Architecture of Production ML Pipelines</a></li>
+<li><a href="https://www.devangshumitra.com/vercel-ai-sdk-vs-langchain-vs-llamaindex-for-production-apps/">Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps</a></li>
+<li><a href="https://www.devangshumitra.com/aws-bedrock-vs-azure-openai-vs-google-vertex-ai/">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-rise-of-ai-in-retail-from-recommendations-to-autonomous-pricing-2/">The Rise of AI in Retail: From Recommendations to Autonomous Pricing</a></li>
+<li><a href="https://www.devangshumitra.com/building-cross-functional-ai-product-teams/">Building Cross-Functional AI Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-personal-brand-from-scratch-month-1-retrospective/">Building a Personal Brand from Scratch: Month 1 Retrospective</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

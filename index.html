@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Devangshu Mitra — AI Product Leader, Enterprise GenAI Builder, Life Sciences & Healthcare. Building at the intersection of business and technology." />
+  <meta property="og:title" content="Devangshu Mitra" />
+  <meta property="og:description" content="AI Product Leader. Enterprise GenAI Builder. Healthcare AI PM." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Devangshu Mitra — AI Product Leader</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/design-system.css" />
+  <link rel="stylesheet" href="css/animations.css" />
+  <link rel="stylesheet" href="css/homepage-sections.css" />
+</head>
+<body class="page-enter">
+
+  <!-- Scroll progress indicator -->
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+
+      <!-- Desktop links -->
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="articles/" class="nav__link">Articles</a></li>
+        <li><a href="about/" class="nav__link">About</a></li>
+        <li><a href="newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+
+      <!-- Hamburger (mobile) -->
+      <button
+        class="nav__hamburger"
+        id="hamburger"
+        aria-label="Toggle navigation menu"
+        aria-expanded="false"
+        aria-controls="mobileMenu"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:2rem;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" aria-label="Hero section">
+    <!-- Background video -->
+    <div class="hero__video-wrap" aria-hidden="true">
+      <video
+        class="hero__video"
+        src="assets/hero.mp4"
+        autoplay
+        loop
+        muted
+        playsinline
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+    </div>
+
+    <!-- Overlays -->
+    <div class="hero__overlay" aria-hidden="true"></div>
+    <div class="hero__fade" aria-hidden="true"></div>
+
+    <!-- Text content -->
+    <div class="hero__content">
+      <p class="hero__eyebrow hero-enter" aria-label="Location">Silicon Valley · AI Product</p>
+
+      <h1 class="hero__name hero-enter">Devangshu Mitra</h1>
+
+      <div class="hero__subtitle hero-enter" aria-live="polite" aria-label="Role">
+        <span class="hero__subtitle-rotate" id="subtitleText" aria-live="polite"></span>
+        <span class="cursor-blink" aria-hidden="true"></span>
+      </div>
+
+      <a href="articles/" class="hero__cta hero-enter" aria-label="Read my thinking — go to articles">
+        Read my thinking
+        <span class="hero__cta-arrow" aria-hidden="true">→</span>
+      </a>
+    </div>
+  </section>
+
+  <!-- ========== INTRO / POSITIONING ========== -->
+  <section class="intro-section" aria-label="About Devangshu Mitra">
+    <div class="container">
+      <p class="intro-statement reveal">
+        I build trust-critical AI products at the convergence of healthcare systems, hyperscalers, and frontier models. I decode the signal others miss — across <strong>EHR giants</strong>, <strong>LLM providers</strong>, and <strong>regulatory bodies</strong> — and translate it into products that survive contact with reality.
+      </p>
+      <div class="proof-bar reveal reveal-delay-1" aria-label="Credentials">
+        <span class="proof-item">10+ Products</span>
+        <span class="proof-divider" aria-hidden="true">·</span>
+        <span class="proof-item">Regulated Industries</span>
+        <span class="proof-divider" aria-hidden="true">·</span>
+        <span class="proof-item">Fortune 500</span>
+        <span class="proof-divider" aria-hidden="true">·</span>
+        <span class="proof-item">Silicon Valley</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED POSTS ========== -->
+  <section class="featured-section" aria-label="Featured articles">
+    <div class="container">
+      <div class="featured-header reveal">
+        <span class="featured-label">Featured Writing</span>
+        <a href="articles/" class="featured-all-link" aria-label="Browse all articles">All articles →</a>
+      </div>
+
+      <div class="posts-grid" role="list">
+
+        <a href="/complexity-is-the-enemy-of-ai-adoption/" class="post-card reveal" role="listitem" aria-label="Read: Complexity is the Enemy of AI Adoption">
+          <span class="post-card-number" aria-hidden="true">01</span>
+          <h3 class="post-card-title">Complexity is the Enemy of AI Adoption</h3>
+          <span class="post-card-arrow" aria-hidden="true">Read article →</span>
+        </a>
+
+        <a href="/what-155-posts-in-3-months-taught-me-about-content-strategy/" class="post-card reveal reveal-delay-1" role="listitem" aria-label="Read: What 155 Posts in 3 Months Taught Me About Content Strategy">
+          <span class="post-card-number" aria-hidden="true">02</span>
+          <h3 class="post-card-title">What 155 Posts in 3 Months Taught Me About Content Strategy</h3>
+          <span class="post-card-arrow" aria-hidden="true">Read article →</span>
+        </a>
+
+        <a href="/why-enterprise-ai-pocs-fail/" class="post-card reveal reveal-delay-2" role="listitem" aria-label="Read: Why 90% of Enterprise AI POCs Never Make It to Production">
+          <span class="post-card-number" aria-hidden="true">03</span>
+          <h3 class="post-card-title">Why 90% of Enterprise AI POCs Never Make It to Production</h3>
+          <span class="post-card-arrow" aria-hidden="true">Read article →</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== NEWSLETTER ========== -->
+  <section class="newsletter-section" aria-label="Newsletter signup">
+    <div class="container">
+      <div class="newsletter-inner reveal">
+        <p class="newsletter-eyebrow">The AI Product Brief</p>
+        <h2 class="newsletter-title">Weekly insights on building AI products in the enterprise.</h2>
+        <p class="newsletter-desc">Written by a PM who ships, not a consultant who advises.</p>
+        <form
+          class="newsletter-form"
+          action="#"
+          method="post"
+          aria-label="Newsletter signup form"
+          onsubmit="handleNewsletterSubmit(event)"
+          novalidate
+        >
+          <label for="newsletter-email" class="sr-only">Email address</label>
+          <input
+            id="newsletter-email"
+            class="newsletter-input"
+            type="email"
+            name="email"
+            placeholder="your@email.com"
+            required
+            autocomplete="email"
+            aria-required="true"
+          />
+          <button type="submit" class="newsletter-btn">
+            Get Frameworks in Your Inbox →
+          </button>
+        </form>
+        <p class="newsletter-note" role="note">No spam. Unsubscribe anytime.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__brand">Devangshu Mitra</div>
+        <p class="footer__tagline">AI Product Leader · Enterprise GenAI Builder · Healthcare AI PM</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="footer__links" role="list">
+          <li><a href="articles/" class="footer__link">Articles</a></li>
+          <li><a href="about/" class="footer__link">About</a></li>
+          <li><a href="newsletter/" class="footer__link">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> Devangshu Mitra. All rights reserved.</span>
+      <span>Built with intention.</span>
+    </div>
+  </footer>
+
+  <!-- ========== SCRIPTS ========== -->
+  <script>
+    // ---- Newsletter form (frontend only) ----
+    function handleNewsletterSubmit(e) {
+      e.preventDefault();
+      const form = e.target;
+      const input = form.querySelector('.newsletter-input');
+      const btn = form.querySelector('.newsletter-btn');
+      const email = input.value.trim();
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        input.style.borderColor = '#e05252';
+        input.focus();
+        return;
+      }
+
+      // Reset error state
+      input.style.borderColor = '';
+
+      // Optimistic UI — show confirmation
+      btn.textContent = '✓ You\'re on the list';
+      btn.disabled = true;
+      btn.style.background = '#2a7a4b';
+      btn.style.color = '#f5f5f5';
+      input.disabled = true;
+      input.value = '';
+    }
+
+    // ---- Year ----
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // ---- Nav: scroll state ----
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      updateScrollProgress();
+    }, { passive: true });
+
+    // ---- Scroll progress bar ----
+    const progressBar = document.getElementById('scrollProgress');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    // ---- Hamburger / mobile menu ----
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    // Close menu on escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    // ---- Subtitle rotator ----
+    const subtitles = [
+      'AI Product Leader',
+      'Enterprise GenAI Builder',
+      'Healthcare AI PM'
+    ];
+    let currentIndex = 0;
+    const subtitleEl = document.getElementById('subtitleText');
+
+    function setSubtitle(text) {
+      subtitleEl.textContent = text;
+    }
+
+    function rotateSubtitle() {
+      // Slide out
+      subtitleEl.classList.remove('subtitle-slide-in');
+      subtitleEl.classList.add('subtitle-slide-out');
+
+      setTimeout(() => {
+        currentIndex = (currentIndex + 1) % subtitles.length;
+        setSubtitle(subtitles[currentIndex]);
+        subtitleEl.classList.remove('subtitle-slide-out');
+        subtitleEl.classList.add('subtitle-slide-in');
+      }, 400);
+    }
+
+    // Initial set
+    setSubtitle(subtitles[0]);
+    subtitleEl.classList.add('subtitle-slide-in');
+
+    // Rotate every 3 seconds
+    setInterval(rotateSubtitle, 3000);
+
+    // ---- Scroll reveal (IntersectionObserver) ----
+    const revealEls = document.querySelectorAll('.reveal, .reveal-stagger, .reveal--left, .reveal--right, .reveal--scale, .reveal--fade');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -40px 0px'
+      });
+
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      // Fallback: show all immediately
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

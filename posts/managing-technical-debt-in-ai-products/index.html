@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="AI products accumulate debt in three dimensions simultaneously: model debt" />
+  <meta property="og:title" content="Managing Technical Debt in AI Products — Devangshu Mitra" />
+  <meta property="og:description" content="AI products accumulate debt in three dimensions simultaneously: model debt" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Managing Technical Debt in AI Products — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-07-01" itemprop="datePublished">Jul 1, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Managing Technical Debt in AI Products</h1>
+          <p class="post-header__excerpt" itemprop="description">AI products accumulate debt in three dimensions simultaneously: model debt</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Managing Technical Debt in AI Products</h1>
+
+<p>Technical debt in traditional software is well-understood: shortcuts taken during development that need to be revisited. It accumulates linearly and compounds when you add features on top of fragile foundations.</p>
+
+<p>AI technical debt accumulates in three dimensions simultaneously and compounds differently. A model trained on stale data isn't just a technical problem - it's a product risk that silently degrades user experience until something breaks visibly. Data labeling debt doesn't show up in your codebase but it determines what your next model improvement looks like. Infrastructure debt in ML pipelines is notoriously hard to repay because it's often invisible until a production incident forces the issue.</p>
+
+<h2>The Three Dimensions of AI Technical Debt</h2>
+
+<h3>Model Debt</h3>
+
+<p>Model debt accumulates when your model architecture, training approach, or the foundational model you're building on top of falls behind the state of the art in ways that matter for your use case.</p>
+
+<p>Signs of model debt:</p>
+
+<ul>
+<li>Your model is based on a foundational model version that's more than 18 months old</li>
+<li>New benchmark results in your domain show significantly better accuracy with approaches you haven't adopted</li>
+<li>Your model was optimized for a task formulation that no longer matches how users actually use the feature</li>
+<li>You're maintaining custom code for capabilities that foundation models now provide off-the-shelf</li>
+</ul>
+
+<p>Model debt repayment is expensive because it often requires re-labeling data, re-running training pipelines, re-validating on your test set, and re-calibrating your accuracy thresholds. Budget accordingly.</p>
+
+<h3>Data Debt</h3>
+
+<p>Data debt is the most insidious form of AI technical debt because it's invisible in your codebase. It accumulates when:</p>
+
+<ul>
+<li><strong>Labels become stale</strong>: Your training data was labeled with last year's taxonomy, best practices, or regulatory requirements. The world changed; your labels didn't.</li>
+<li><strong>Coverage gaps grow</strong>: New products, use cases, or user behaviors emerge that aren't represented in your training data. The model has never seen these patterns and performs poorly on them.</li>
+<li><strong>Quality degrades</strong>: Labeling guidelines weren't documented well. Different annotators followed different conventions. The model learned inconsistencies in the labels, not the signal you intended.</li>
+<li><strong>Distribution shifts</strong>: The data distribution in production changes (new user segments, new content types, seasonal patterns) and your training set no longer reflects production reality.</li>
+</ul>
+
+<p>Managing data debt requires a data governance practice, not just engineering. Label versioning, annotator agreement tracking, coverage monitoring, and systematic re-labeling cycles are product and process questions as much as technical ones.</p>
+
+<h3>Infrastructure Debt</h3>
+
+<p>ML infrastructure debt is the closest to traditional software debt, but it has unique patterns:</p>
+
+<ul>
+<li><strong>Pipeline brittleness</strong>: Data pipelines that break when upstream schemas change, when data volume spikes, or when new data sources are added. Often tolerated in development because manual fixes are faster than building resilience.</li>
+<li><strong>Manual MLOps</strong>: Model evaluation, deployment, and monitoring that requires human intervention at steps that should be automated. This creates reliability and frequency constraints - you can only deploy as fast as a human can review.</li>
+<li><strong>Experiment sprawl</strong>: Hundreds of model experiments without version control, documentation, or reproducibility. You can't reproduce your best-performing model from three months ago because the exact configuration wasn't captured.</li>
+<li><strong>Monitoring gaps</strong>: Models in production with no automated performance monitoring. Drift is discovered when users complain, not when metrics cross thresholds.</li>
+</ul>
+
+<h2>The AI Debt Audit</h2>
+
+<p>Run a quarterly AI debt audit across all three dimensions. For each active AI feature, score 1-5 on:</p>
+
+<p>| Dimension | Questions to Answer | Score (1-5) | | --- | --- | --- | | Model Currency | How old is the architecture? Are newer approaches available that would improve accuracy by >5%? |  | | Training Data Freshness | When were labels last validated? Are there coverage gaps for current user behaviors? |  | | Label Quality | Is inter-annotator agreement tracked? Are guidelines documented and current? |  | | Pipeline Reliability | What's the manual intervention rate? How many pipeline failures in the last 90 days? |  | | MLOps Maturity | Is model deployment automated? Is drift detection automated and alerting? |  | | Monitoring Coverage | Are production performance metrics tracked? Is there alerting on threshold breaches? |  |</p>
+
+<p>Features scoring below 3 on any critical dimension get added to the debt repayment backlog with priority based on user impact and severity of the gap.</p>
+
+<h2>The Repayment Strategy</h2>
+
+<p>I use a 20% rule for AI debt: allocate 20% of team capacity in every sprint to debt repayment. This is slightly higher than the 15% I'd use for traditional software because AI debt compounds faster and is harder to repay later.</p>
+
+<p>Prioritize debt repayment in this order:</p>
+
+<ol>
+<li><strong>Safety and compliance debt first</strong>: Stale labels that could produce incorrect outputs in high-stakes decisions, monitoring gaps that hide model failures, pipeline failures that could cause data integrity issues</li>
+<li><strong>Performance-degrading debt second</strong>: Model debt or data debt that's actively hurting user experience or causing churn</li>
+<li><strong>Efficiency debt third</strong>: Manual MLOps processes that slow down your iteration cycle without currently causing user-visible problems</li>
+</ol>
+
+<h2>Preventing Debt Accumulation</h2>
+
+<p>Prevention is cheaper than repayment. Build these practices into your development process:</p>
+
+<ul>
+<li><strong>Label versioning from day one</strong>: Store labels with version numbers and link them to specific model training runs</li>
+<li><strong>Experiment tracking as a requirement</strong>: Every model experiment gets logged with hyperparameters, training data version, and results. Non-negotiable before any experiment runs.</li>
+<li><strong>Automated monitoring before production deploy</strong>: No model goes to production without automated performance monitoring and alerting configured</li>
+<li><strong>Annual model architecture review</strong>: Scheduled review of whether the model approach still reflects the state of the art for your use case</li>
+<li><strong>Debt items on the roadmap</strong>: Debt repayment appears as explicit roadmap items with the same status visibility as feature work</li>
+</ul>
+
+<blockquote><p>The most expensive AI debt I've seen repaid was in a clinical NLP product where the training labels had been created using outdated ICD-9 codes. When the system moved to ICD-10, nobody audited the labels. The model performed perfectly on the old code set and had large gaps on the new one. Repaying that debt - re-labeling 40,000 clinical notes - took six months and delayed two planned features.</p></blockquote>
+
+<h2>The real point</h2>
+
+<p>Track debt across three dimensions: model, data, and infrastructure. Run a quarterly audit scored against explicit criteria. Allocate 20% of sprint capacity to repayment. Prioritize safety and compliance debt above performance debt above efficiency debt. Build prevention practices in from the start - label versioning, experiment tracking, and mandatory monitoring are cheaper to build now than to retrofit later.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/user-research-for-ai-products-what-changes/">User Research for AI Products: What Changes</a></li>
+<li><a href="https://www.devangshumitra.com/ethics-and-responsible-ai-a-pms-practical-guide/">Ethics and Responsible AI: A PM's Practical Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/user-research-for-ai-products-what-changes/">User Research for AI Products: What Changes</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

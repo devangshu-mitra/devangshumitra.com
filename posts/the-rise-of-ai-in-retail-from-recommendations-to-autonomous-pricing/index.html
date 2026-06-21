@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Retail is where AI moved from theory to commercial practice faster than almost" />
+  <meta property="og:title" content="The Rise of AI in Retail: From Recommendations to Autonomous Pricing — Devangshu Mitra" />
+  <meta property="og:description" content="Retail is where AI moved from theory to commercial practice faster than almost" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Rise of AI in Retail: From Recommendations to Autonomous Pricing — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Cross-Industry</span>
+            <time class="post-header__date" datetime="2026-02-17" itemprop="datePublished">Feb 17, 2026</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Rise of AI in Retail: From Recommendations to Autonomous Pricing</h1>
+          <p class="post-header__excerpt" itemprop="description">Retail is where AI moved from theory to commercial practice faster than almost</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Rise of AI in Retail: From Recommendations to Autonomous Pricing</h1>
+
+<p>Retail was one of the first industries where AI went from research paper to real money. Amazon's recommendation engine - often cited as responsible for 35% of their revenue - wasn't built on deep philosophical conviction about the future of AI. It was built because Jeff Bezos realized that "customers who bought this also bought that" was a better merchandising system than anything a human buyer could design at Amazon's scale.</p>
+
+<p>That pragmatic, data-driven logic has been the engine of AI adoption in retail ever since. Retailers don't adopt AI because it's interesting. They adopt it because their margins are thin, competition is brutal, and the data they collect from customer behavior is an asset that AI can turn into competitive advantage in ways nothing else can.</p>
+
+<p>I've seen this dynamic from a few angles. At Mamaearth (Honasa Consumer), we were using recommendation AI and personalization to drive D2C growth in a crowded Indian personal care market. At Ethlore, the handloom D2C brand I help run, we're at an earlier stage - learning what AI makes sense for a smaller-scale operation. Those two perspectives, plus watching what Amazon, Shopify, and Stitch Fix have built at scale, give me a practitioner's view of where retail AI actually is.</p>
+
+<hr>
+
+<h2>Recommendation Engines: Mature, But Still Evolving</h2>
+
+<p>The recommendation engine is the oldest and most mature AI application in retail. It's also one that most retailers still haven't gotten right, which is worth examining.</p>
+
+<p>The state of the art has moved through several generations:</p>
+
+<p><strong>Generation 1: Collaborative filtering.</strong> "Customers who bought X also bought Y." Simple, interpretable, still effective for high-volume SKUs. Fails badly for new products (cold start problem) and niche inventory.</p>
+
+<p><strong>Generation 2: Content-based filtering.</strong> Recommend based on product attributes. Better for new products, but misses the signal in actual purchase behavior.</p>
+
+<p><strong>Generation 3: Hybrid models.</strong> Combine collaborative and content-based signals with session behavior, search history, and contextual features (time of day, device, weather). This is where most sophisticated retailers live today.</p>
+
+<p><strong>Generation 4: Large model recommendations.</strong> Using transformer architectures to model the entire customer journey as a sequence, capturing long-range dependencies in purchase behavior. This is where Amazon and a few others are operating.</p>
+
+<p>Shopify's merchant AI infrastructure has made Generation 2/3 recommendations accessible to merchants at almost any scale. Their "Frequently Bought Together" and personalized recommendation apps represent AI capabilities that would have required a dedicated ML team a decade ago, now available as a plugin for a few hundred dollars per month.</p>
+
+<p>For Ethlore, which sells artisan handloom sarees, the recommendation problem has interesting specifics: our SKU count is relatively small but each saree is a unique artifact, and purchase behavior is infrequent. Standard collaborative filtering doesn't work well - you need content-based approaches that understand textile attributes (weave type, region, color family, occasion) and session behavior to recommend relevant pieces to a buyer with limited purchasing history.</p>
+
+<h2>Dynamic Pricing: The Most Consequential and Controversial AI Application</h2>
+
+<p>Dynamic pricing - adjusting prices in real time based on demand signals, competitor pricing, inventory levels, and customer behavior - is one of the most valuable AI applications in retail and one of the most ethically contested.</p>
+
+<p>Amazon has been running sophisticated dynamic pricing since the early 2010s. They reportedly change prices on millions of products multiple times per day, optimizing for conversion rate, revenue, and competitive positioning simultaneously. The algorithm considers real-time competitive prices, historical demand at various price points, inventory velocity, and seasonal patterns.</p>
+
+<p>Airlines and hotels have done yield management (a form of dynamic pricing) for decades. Retail's version is newer and more aggressive. The consumer backlash risk is real - when Surge Pricing became a consumer phrase associated with Uber, it damaged the company's perception in ways that took years to recover from.</p>
+
+<p>For D2C brands like Mamaearth and Ethlore, the dynamic pricing space is nuanced:</p>
+
+<ul>
+<li>D2C brands have strong incentives for pricing consistency - customer trust is built partly on price predictability</li>
+<li>Dynamic pricing works best with high transaction volumes; at lower volumes, the signal is noisy</li>
+<li>For artisan or premium products, aggressive price optimization can erode brand positioning</li>
+<li>Promotional pricing (limited-time offers, bundle pricing) is the D2C-appropriate version of dynamic pricing - price variation tied to explicit promotions rather than algorithmic optimization</li>
+</ul>
+
+<p>The enterprise retail picture is different. Grocery chains, mass merchants, and omnichannel retailers are using AI pricing platforms (Revionics, Wiser, Intelligence Node) to optimize category pricing across thousands of SKUs. The return on investment is clear and substantial. Pricing AI usually boosts gross margin by 2-5%, which has a massive impact at retail scale.</p>
+
+<h2>Inventory Optimization: The Hidden AI Goldmine</h2>
+
+<p>Inventory optimization doesn't get the press that recommendation engines and pricing get, but it may be where AI creates the most raw financial value in retail.</p>
+
+<p>The inventory problem is hard: stock too much and you have working capital tied up, excess holding costs, and potential markdowns. Stock too little and you have stockouts, missed sales, and customer dissatisfaction. Getting this balance right across thousands of SKUs, across multiple locations, in the face of uncertain demand - that's exactly the type of high-dimensional optimization problem AI handles well.</p>
+
+<p>AI-powered demand forecasting approaches:</p>
+
+<ul>
+<li><strong>Time-series models</strong> that capture seasonality, trend, and promotional effects with more granularity than traditional statistical approaches</li>
+<li><strong>Causal models</strong> that incorporate external signals - weather, economic indicators, competitor promotions, social media trends - into demand forecasts</li>
+<li><strong>Hierarchical models</strong> that forecast at multiple levels simultaneously (national → regional → store → SKU) with shared learning across levels</li>
+</ul>
+
+<p>At Mamaearth, inventory optimization was a significant challenge in a fast-growing D2C brand with a large and growing SKU catalog. The combination of new product introductions (cold start problem), seasonal demand patterns, and high velocity from marketing spikes made traditional inventory planning inadequate. Moving to ML-based forecasting reduced stockouts by roughly 25% and excess inventory by 20% over the course of a year.</p>
+
+<p>For Ethlore, inventory management has a dimension that most retail AI doesn't handle well: handloom products are produced in small runs by artisan weavers on long lead times. The AI challenge isn't just demand forecasting - it's coordinating demand signals upstream to production, which requires different tools than traditional retail inventory AI.</p>
+
+<h2>Visual Search and Computer Vision</h2>
+
+<p>"Shop the look" and visual search capabilities - where users can search for products using images rather than text - have been in development for years but are finally reaching commercial maturity.</p>
+
+<p>Pinterest's visual search, Google Lens's shopping integration, and Snap's camera commerce features have trained consumer expectations for image-based product discovery. Retailers that don't offer it are at a growing disadvantage for visually-driven product categories (fashion, home decor, beauty).</p>
+
+<p>The technology stack:</p>
+
+<ul>
+<li>Product image embedding - using vision transformers to encode product images into a vector space where visually similar products cluster</li>
+<li>Real-time similarity search across the product catalog</li>
+<li>Attribute extraction - automatically tagging products with visual attributes (color, pattern, style, material) to enable faceted search from image inputs</li>
+</ul>
+
+<p>For a brand like Ethlore selling handloom sarees, visual search is particularly interesting. Saree shopping is highly visual - buyers respond to color, weave pattern, and drape. Text search works poorly for sarees because the vocabulary of saree attributes isn't standardized. Visual search could bring a big change to the category.</p>
+
+<h2>Chatbot Commerce and AI-Assisted Selling</h2>
+
+<p>The early generation of retail chatbots - decision trees disguised as conversations - were uniformly bad. They increased support costs, frustrated customers, and damaged brand perception. The LLM generation is genuinely different.</p>
+
+<p>Shopify's AI-powered customer support has been reducing resolution times significantly for merchants who deploy it. The combination of deep product catalog knowledge, order history access, and genuine language understanding lets current AI handle a broader range of customer queries accurately.</p>
+
+<p>The effective use cases for LLM-based retail chatbots:</p>
+
+<ul>
+<li>Order status and tracking (structured data lookup + natural language response)</li>
+<li>Return and exchange initiation (guided workflow execution)</li>
+<li>Product questions for well-described catalog items (RAG over product catalog)</li>
+<li>Size and fit guidance for standardized sizing</li>
+</ul>
+
+<p>The challenging use cases:</p>
+
+<ul>
+<li>Complex product comparisons across many attributes</li>
+<li>Emotional customer service situations (damaged goods, significant delays, gift orders that went wrong)</li>
+<li>Products with highly variable or specialized attributes (artisan goods, custom orders)</li>
+</ul>
+
+<p>At Mamaearth, we used chatbot automation primarily for post-purchase support (tracking, returns) and allowed it to handle a significant volume of queries. For pre-purchase skin consultation - which was a more nuanced and higher-value interaction - we kept humans in the loop because the quality bar for recommendations affecting someone's skin was high and the value of getting it right was significant for repeat purchase.</p>
+
+<h2>Supply Chain AI: The Enterprise Frontier</h2>
+
+<p>Beyond individual store and category optimization, AI is transforming supply chain management at enterprise retail scale.</p>
+
+<p>The supply chain applications generating the most value:</p>
+
+<ul>
+<li><strong>Supplier risk monitoring</strong>: AI systems that continuously scan news, financial reports, and operational signals to flag supplier instability before it becomes a supply disruption</li>
+<li><strong>Network optimization</strong>: AI that continuously optimizes distribution center placement, inventory allocation across nodes, and transportation routing to minimize cost and maximize service levels</li>
+<li><strong>Sustainability optimization</strong>: AI routing and sourcing decisions that optimize for carbon footprint alongside cost, increasingly important for brand positioning</li>
+<li><strong>Return fraud detection</strong>: ML models that flag high-risk return requests for manual review, reducing fraudulent returns which represent a significant and growing cost for e-commerce retailers</li>
+</ul>
+
+<h2>Where It Goes From Here</h2>
+
+<p>The next frontier in retail AI is the integration of these currently separate systems into unified intelligence. Right now, pricing AI, inventory AI, and recommendation AI often run as separate systems with separate objectives. The companies that learn to optimize across these systems jointly - adjusting prices, inventory positions, and recommendations as a unified strategy rather than independent tactics - will have a significant advantage.</p>
+
+<p>Agentic AI is the technology that makes this integration possible. Rather than separate models optimizing separate metrics, an agentic system with a unified objective (customer lifetime value, or contribution margin) can orchestrate across pricing, inventory, and personalization simultaneously.</p>
+
+<p>Amazon is closest to this. Their entire retail operation is increasingly a single optimization problem, with AI coordinating across assortment, pricing, inventory, and personalization toward unified business objectives. That's the end state for retail AI - and the competitive gap between Amazon-class AI retailers and everyone else will likely widen before it narrows.</p>
+
+<hr>
+
+<p>For practitioners building in retail and D2C: start with the highest-ROI, most mature applications - recommendations, inventory forecasting, search optimization. Build the data infrastructure to support more sophisticated applications later. And think carefully about which AI capabilities to build yourself versus buy from the increasingly capable retail AI platforms.</p>
+
+<p>The retailers that win with AI won't be the ones with the most sophisticated models. They'll be the ones that use AI to create better experiences for their customers at lower operational cost - and that's a product and operations challenge as much as a technology one.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-ai-is-reshaping-fintech-from-fraud-detection-to-autonomous-trading-2/">How AI Is Reshaping FinTech: From Fraud Detection to Autonomous Trading</a></li>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-supply-chain-how-predictive-models-are-replacing-just-in-time/">AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time</a></li>
+<li><a href="https://www.devangshumitra.com/building-production-agent-systems-lessons-from-the-trenches/">Building Production Agent Systems: Lessons from the Trenches</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

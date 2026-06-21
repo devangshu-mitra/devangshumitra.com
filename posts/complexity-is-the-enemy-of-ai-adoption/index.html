@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The AI adoption problem is not a model problem. It&#39;s a UX problem. Sophisticated" />
+  <meta property="og:title" content="Complexity is the Enemy of AI Adoption — Devangshu Mitra" />
+  <meta property="og:description" content="The AI adoption problem is not a model problem. It&#39;s a UX problem. Sophisticated" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Complexity is the Enemy of AI Adoption — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-04-24" itemprop="datePublished">Apr 24, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Complexity is the Enemy of AI Adoption</h1>
+          <p class="post-header__excerpt" itemprop="description">The AI adoption problem is not a model problem. It's a UX problem. Sophisticated</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Complexity is the Enemy of AI Adoption</h1>
+
+<p>I've watched a clinical decision support tool with 91% accuracy sit unused for eight months while a simpler system with 84% accuracy in the same hospital got embedded into every morning huddle. The difference wasn't the model. It was that the 84% system showed up in the existing workflow - one extra field in the nursing handoff. The 91% system required nurses to log into a separate portal, interpret a new risk score, and manually document their response.</p>
+
+<p>Nobody used the portal. Everybody used the handoff field.</p>
+
+<p>This is the fundamental lesson of AI adoption that the industry keeps relearning: <strong>usage beats accuracy</strong>. A 90% accurate model that gets used beats a 95% accurate model that doesn't, every time. The product that wins is the one people actually use, not the one with the best benchmark performance.</p>
+
+<h2>Why Complexity Kills Adoption</h2>
+
+<h3>Cognitive Load in High-Pressure Environments</h3>
+
+<p>Most of the environments where AI would add the most value are high-cognitive-load environments: clinical care, financial trading, legal review, customer support during high volume. These are environments where people are managing a lot of information, making time-constrained decisions, and have very little bandwidth for tools that require active learning.</p>
+
+<p>Introducing an AI tool into a high-load environment adds cognitive overhead even when the tool is good. The user has to learn a new interface, calibrate their trust in the tool's outputs, decide when to override it, and integrate the AI's recommendation with everything else they know about the situation. If this overhead is significant, adoption fails - not because the AI is wrong, but because the activation cost is too high.</p>
+
+<p>The solution isn't a better tutorial. It's a simpler tool. Every feature you add to reduce the tool's limitations increases the cognitive load of using it. The product discipline here is ruthless prioritization: what is the one thing this tool does, and can we make it so natural that using it takes no more effort than not using it?</p>
+
+<h3>The Trust Calibration Problem</h3>
+
+<p>When AI tools are complex - showing multiple confidence scores, multiple alternative outputs, detailed explanations of model reasoning - users have to do the work of interpreting what these signals mean. In domains where users aren't AI-literate (most domains), this interpretation work fails. Users either overtrust the tool, accepting outputs they shouldn't, or undertrust it, ignoring outputs they should use.</p>
+
+<p>This is the UX design problem that most AI teams completely ignore: <strong>the tool's output needs to be calibrated to what users can actually act on</strong>. A confidence score of 0.73 is meaningless to a nurse. A confidence score that maps to review suggested diagnoses before finalizing is actionable. The translation layer between model output and user action is product design work, not ML work.</p>
+
+<h3>Integration Friction</h3>
+
+<p>Every step between the AI's recommendation and the user taking action is a drop-off point. Open a new tab: some users drop off. Log in again: more drop off. Copy a value from one system to another: almost nobody does this reliably. The closer the AI's output is to the exact place where the user needs to act, the higher the adoption rate. This sounds obvious, but the number of AI products that require users to context-switch between systems is staggering.</p>
+
+<p>Google Maps didn't make navigation AI-powered by building a separate AI Route Analyzer app. They put the AI directly into the navigation UI that people were already using. The recommendation appears exactly where the decision is made. Zero integration friction.</p>
+
+<h2>Progressive Disclosure: The Right Design Pattern</h2>
+
+<p>The right design pattern for AI complexity is progressive disclosure: show the simple, actionable output by default, and hide the complexity behind a layer that users can access when they want it.</p>
+
+<p>Level 1: The AI tells you what to do. Approve this loan application. Recommend this product. Flag this claim for review. One action, presented in the workflow.</p>
+
+<p>Level 2: On request, the AI explains why. This loan was approved because the applicant's debt-to-income ratio is 32%, employment history is 7 years in the same industry, and the property LTV is 76%. Users who want to understand or challenge the recommendation can get this. Users who trust the recommendation don't need to.</p>
+
+<p>Level 3: For power users or edge cases, full model transparency. Confidence scores, alternative outputs, feature importance. This should be available but not visible by default.</p>
+
+<p>This pattern keeps the adoption rate high because Level 1 is simple, while supporting the sophisticated use cases that justify the investment via Level 3. The mistake most AI products make is building Level 3 and calling it done.</p>
+
+<h2>The Simpler Model Might Actually Be Better</h2>
+
+<p>Here's the counterintuitive part: for many real-world deployment scenarios, the simpler model isn't just easier to use - it's actually more reliable in production.</p>
+
+<p>Complex models overfit. They perform well on the training distribution and poorly when the distribution shifts - when a new hospital system updates its data coding practices, when a new financial product category gets introduced, when user behavior changes seasonally. Simple models are more strong to distribution shift because they've learned fewer spurious correlations.</p>
+
+<p>In CPG demand forecasting, I've seen basic gradient boosting models with engineered features outperform deep learning models in production, not because the deep learning model was architecturally inferior, but because the demand patterns that mattered - promotional lift, seasonality, weather correlation - were well-understood and could be captured in features, while the deep model learned patterns that were artifacts of the training data.</p>
+
+<p>The production reliability argument for simpler models is underappreciated. A model that's reliable and interpretable is worth more than a model that's slightly more accurate but fails unpredictably on edge cases.</p>
+
+<h2>Case Study: Healthcare Prior Authorization</h2>
+
+<p>Prior authorization AI is a case where the industry built the complex version first and is slowly learning why the simple version works better.</p>
+
+<p>First-generation PA AI: a complex ensemble model that predicted approval probability with 89% accuracy, surfaced to care coordinators through a standalone portal with confidence scores, decision factors, and alternative submission strategies. Adoption: 20% of care coordinators used it regularly.</p>
+
+<p>Second-generation: a simpler model with 86% accuracy that surfaced as a single-line recommendation - Likely approved, Likely denied, Check documentation - directly in the care management system the coordinators were already using, with one click to see the reason. Adoption: 73% of care coordinators used it on every applicable case.</p>
+
+<p>The 73% adoption at 86% accuracy generates more value than 20% adoption at 89% accuracy - not even close. The product that wins isn't the one with the highest model performance. It's the one that gets embedded in the workflow.</p>
+
+<h2>What This Means for Product Prioritization</h2>
+
+<p>If complexity is the enemy of adoption, then simplification is a product priority, not a UX nicety. This means:</p>
+
+<ul>
+<li>Cutting features that increase configurability at the expense of clarity</li>
+<li>Investing in workflow integration before investing in model improvement</li>
+<li>Measuring adoption rates and usage depth as primary KPIs, not model accuracy</li>
+<li>Running adoption-focused user research before building any new capability</li>
+</ul>
+
+<p>The toughest version of this is telling an ML team that the answer isn't a better model - it's a simpler interface over the model they already have. This conversation is worth having. The product team's job is to advocate for the metric that matters, and that metric is adoption, not accuracy.</p>
+
+<hr>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-framework-for-ai/">The Build vs Buy Decision Framework for AI</a></li>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/understanding-ai-inference-costs-at-scale/">Understanding AI Inference Costs at Scale</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-legal-tech-how-llms-are-automating-contract-review/">AI in Legal Tech: How LLMs Are Automating Contract Review</a></li>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

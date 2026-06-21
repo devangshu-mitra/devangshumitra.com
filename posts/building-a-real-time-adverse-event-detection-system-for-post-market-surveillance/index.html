@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="From 6-week manual review cycles to real-time signal detection — how we rebuilt" />
+  <meta property="og:title" content="Building a Real-Time Adverse Event Detection System for Post-Market Surveillance — Devangshu Mitra" />
+  <meta property="og:description" content="From 6-week manual review cycles to real-time signal detection — how we rebuilt" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Building a Real-Time Adverse Event Detection System for Post-Market Surveillance — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">BioPharma</span>
+            <time class="post-header__date" datetime="2025-12-29" itemprop="datePublished">Dec 29, 2025</time>
+            <span class="post-header__read-time">11 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</h1>
+          <p class="post-header__excerpt" itemprop="description">From 6-week manual review cycles to real-time signal detection — how we rebuilt</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</h1>
+
+<p>The FDA FAERS (FDA Adverse Event Reporting System) database receives roughly 2 million adverse event reports per year. For post-market surveillance teams, this is both a goldmine and a minefield. Every report is a potential safety signal - a pattern that could indicate a previously unknown drug-event association, a labeling gap, or the early signature of a class-wide problem. But processing those reports manually, through the six-week batch review cycles that were standard when I joined the team, meant we were always looking in the rearview mirror. By the time a signal was identified, confirmed, and escalated, months had passed.</p>
+
+<p>The manual workflow went like this: safety specialists pulled a monthly extract from FAERS, ran standard disproportionality analyses (PRR, ROR), flagged statistical outliers, read a sample of the underlying reports, and wrote a signal assessment. The six-week cycle was not laziness - it was the time required to do that work carefully with human reviewers. The problem was that emerging signals do not wait for monthly cycles. They accumulate report by report, and the earlier you detect them, the faster you can act.</p>
+
+<h2>The NLP Pipeline Architecture</h2>
+
+<p>We built a streaming NLP pipeline that processes each FAERS report as it arrives rather than in monthly batches. The core pipeline has three stages. First, named entity recognition extracts drug names (normalized to RxNorm), adverse event terms (mapped to MedDRA), and timing information (onset date, duration, dosing schedule). Second, a temporal relation extraction model identifies which events occurred in which sequence - crucial for distinguishing an adverse event from a pre-existing condition. Third, a signal scoring layer runs disproportionality analysis on a rolling 90-day window, updating scores with each new report and flagging when a drug-event pair crosses the detection threshold.</p>
+
+<p>Medical terminology disambiguation was the hardest engineering problem. The same adverse event can appear in a FAERS report as "MI," "myocardial infarction," "heart attack," "AMI," "acute MI," or a dozen other surface forms - written by a consumer, a nurse, a physician, or a pharmacist, in English, Spanish, or French. We used a combination of dictionary lookup (UMLS), character-level fuzzy matching for misspellings, and a fine-tuned classification model for ambiguous cases. Multi-language reports required a translation step before NLP processing; we used a domain-adapted MT model rather than a generic translation API because clinical terminology translates poorly out of context.</p>
+
+<h2>What the System Caught</h2>
+
+<p>In the first six months of production operation, the system flagged three drug-event signals that were subsequently confirmed by the safety review committee and escalated to label updates. All three were detected by the real-time system two to four months before they would have appeared in the monthly batch analysis. One involved a rare but serious hepatotoxicity pattern that accumulated slowly - exactly the kind of signal that batch processing misses because no single month shows enough cases to cross the threshold, but the rolling window makes the accumulation visible.</p>
+
+<p>We also caught a significant volume of false positives driven by media contagion effects - a drug mentioned in a news story generates a spike in consumer reports that is not a genuine safety signal. We built a media monitoring integration to flag these spikes and apply a dampening factor to reports filed within 30 days of significant press coverage. This reduced false positive escalations by 40%.</p>
+
+<h2>Lessons for Pharma AI Teams</h2>
+
+<p>Real-time is not just faster batch. The architecture has to change: you need streaming infrastructure, rolling statistics, and alert fatigue management. The NLP is table stakes; the signal management layer is where most of the product thinking lives. Start with the signal review workflow before you build the detection pipeline - if reviewers cannot efficiently triage and disposition alerts, a more sensitive system just creates more noise. And invest heavily in terminology coverage for your specific drug class: the NLP performance difference between a generic biomedical model and a domain-tuned model is 15-20 F1 points on real FAERS data.</p>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+<li><a href="https://www.devangshumitra.com/deploying-computer-vision-for-surgical-instrument-tracking-what-the-papers-dont-tell-you-9/">Deploying Computer Vision for Surgical Instrument Tracking: What the Papers Don't Tell You</a></li>
+<li><a href="https://www.devangshumitra.com/product-breakdown-viz-ais-stroke-detection-speed-as-a-feature-9/">Product Breakdown: Viz.ai's Stroke Detection - Speed as a Feature</a></li>
+</ul>
+
+<hr>
+
+<h2>Ensuring Regulatory Compliance and Auditability</h2>
+
+<p>Building an automated signal detection system in life sciences means navigating a complex regulatory landscape. Our system needed to adhere strictly to rules like FDA 21 CFR Part 11 for electronic records and signatures. This meant every step, from data ingestion to signal flagging, required an immutable audit trail. We logged every report processed, every model version used, and every score generated. Any change to the NLP models or the scoring algorithm triggered a new version, with a clear record of when it was deployed and why.</p>
+
+<p>Good Pharmacovigilance Practices (GVP) Module VI, which covers signal management, also shaped our design. It emphasizes transparency and justification for signal detection processes. Our system didn't just flag a signal; it provided the exact data points that pushed it over the threshold, the disproportionality metrics, and the underlying reports. This transparency was crucial for the safety review committee. They needed to see the "why" behind an alert, not just the "what." This approach ensures that even with automation, the human expert retains full oversight and accountability.</p>
+
+<h2>The Human-in-the-Loop Workflow</h2>
+
+<p>An automated system is a powerful tool, but it doesn't replace human expertise. Our real-time system acts as an early warning, not a final arbiter. When a signal crossed the detection threshold, it immediately appeared on a custom dashboard used by our safety specialists. This dashboard displayed the drug-event pair, the current disproportionality score, a trend graph over the rolling 90-day window, and links to the specific FAERS reports contributing to the signal.</p>
+
+<p>Specialists could drill down into individual reports, viewing the raw text and our NLP extractions side-by-side. They could then mark a signal as "confirmed," "dismissed," or "pending further investigation." Confirmed signals were then pushed to our primary pharmacovigilance database, Oracle Argus Safety, for formal case management and regulatory reporting. This integration streamlined the hand-off and ensured that the insights from the real-time system flowed directly into established clinical workflows without manual data entry.</p>
+
+<h2>Beyond Disambiguation - Data Quality Challenges</h2>
+
+<p>While medical terminology disambiguation was tough, other data quality issues presented their own headaches. FAERS reports often come with missing information. A report might mention an adverse event but omit the drug dose, the exact onset date, or the patient's age. Our system had to handle these incomplete records effectively, without failing or generating spurious signals. We implemented imputation strategies for common missing fields, but always flagged when data was inferred versus explicitly stated.</p>
+
+<p>Duplicate reports were another significant challenge. The same adverse event for the same patient might be reported by the patient themselves, then by their physician, and perhaps by a pharmacist. Each report could have slightly different details. We implemented a deduplication logic based on a combination of drug product, reported event, patient demographics, and report date to ensure each unique event was counted once for signal detection. This prevented overcounting and helped maintain the integrity of our disproportionality metrics.</p>
+
+<h2>Regulatory Scrutiny and Data Provenance</h2>
+
+<p>Building an AI system for post-market surveillance isn't just an engineering challenge; it's a regulatory one. Every output from our system - a flagged signal, a disproportionality score, the underlying extracted entities - becomes an electronic record. This means we had to design the system with FDA 21 CFR Part 11 in mind. This regulation governs electronic records and electronic signatures, ensuring their trustworthiness, reliability, and equivalence to paper records. For us, it translated into strict audit trails. Any change to a model, any manual override of a signal, any data input, had to be time-stamped, user-attributed, and immutable. We set up a thorough version control system for models and data schemas, ensuring we could always reconstruct exactly how a signal was detected, from the raw FAERS report to the final score. This level of data provenance is critical when you need to defend a safety signal finding to regulators.</p>
+
+<h2>Beyond FAERS: Integrating Real-World Data</h2>
+
+<p>While FAERS is the primary source, it's not the only one. We started exploring ways to enrich our signal detection with other real-world data (RWD) sources. Imagine confirming a potential hepatotoxicity signal not just from reports, but also with de-identified lab results showing elevated liver enzymes. We began piloting integrations with de-identified electronic health record (EHR) data platforms. For example, linking a drug-event pair flagged in FAERS to a cohort of patients in a de-identified dataset, like those aggregated by Flatiron Health for oncology, could provide richer clinical context. This isn't about replacing FAERS but augmenting it. The challenge here is data access, standardization, and privacy. You can't just dump raw EHR data into the system. It needs careful curation, de-identification, and mapping to common ontologies like SNOMED CT and LOINC before it can meaningfully contribute to signal confirmation. This allows us to move beyond anecdotal reports to more objective clinical markers when validating a potential safety issue.</p>
+
+<h2>The Continuous Challenge of Concept Drift</h2>
+
+<p>An NLP pipeline for medical data isn't a static artifact. It's a living system that needs constant attention. Medical terminology evolves, new drugs come to market, and even the way people describe symptoms changes over time. This is known as concept drift. MedDRA, our core adverse event dictionary, updates twice a year. RxNorm, for drug normalization, updates weekly. Our models for named entity recognition and relation extraction needed to adapt. I built an MLOps framework that automatically retrained and redeployed our NLP models monthly, using the latest FAERS data and updated ontologies. We monitored performance metrics like F1-score on a held-out validation set. If the F1-score for identifying "myocardial infarction" started to dip, it signaled that the model might be missing new ways patients or clinicians were phrasing it. This proactive monitoring and retraining ensured our system remained accurate and relevant, preventing critical signals from slipping through due to outdated linguistic understanding.</p>
+
+<h2>Data Governance and Regulatory Context</h2>
+
+<p>Building an AI system for post-market surveillance means operating under strict regulatory oversight. I paid close attention to compliance with FDA 21 CFR Part 11, which governs electronic records and signatures. This meant every step of the data processing and model output needed an audit trail. We couldn't just have a black box. The system maintained a complete history of model versions used for each signal detection run. It logged every input report, every intermediate NLP output, and every final signal score. This detailed lineage allowed safety specialists to trace any flagged signal back to its raw FAERS report and the specific model version that processed it. You need this level of transparency when dealing with patient safety data.</p>
+
+<p>We also implemented strict access controls and validation procedures. Before deploying any new model version, it went through a formal validation cycle. This included testing against a held-out set of known signals and non-signals, along with expert review of its performance characteristics. Documentation was key. Every change to the model or pipeline required a formal change control process, much like a regulated medical device. This rigor ensures the system's outputs are trustworthy for regulatory submissions.</p>
+
+<h2>Human-in-the-Loop and Alert Management</h2>
+
+<p>The system's job was not to replace safety specialists, but to augment them. When a drug-event pair crossed the detection threshold, it generated an alert. This alert went into a dedicated queue for human review. Each alert included the disproportionality score, the number of new reports contributing to the signal, and a link to the underlying FAERS reports. The safety specialists could then quickly drill down. They'd read a sample of the actual reports, often starting with the most recent or severe cases, to understand the clinical context. Was it a true adverse event, or was the NLP misinterpreting something?</p>
+
+<p>Alert fatigue was a real concern. Nobody wants to sift through hundreds of false positives daily. We refined the thresholding algorithm over time to reduce noise. For example, we added a rule to deprioritize signals for drugs with extremely low reporting volumes, unless the disproportionality was exceptionally high. We also built a feedback loop. When a specialist marked an alert as a false positive, that information was used to retrain the underlying classification models, making them smarter. This continuous learning from human input was critical for improving precision.</p>
+
+<h2>Performance Metrics and Iteration</h2>
+
+<p>Beyond catching actual signals, we tracked several performance metrics for the system. Precision and recall were primary concerns for the NLP components. For instance, our MedDRA mapping had a precision of 92% and recall of 88% on a blind test set. These numbers are good, but there's always room for improvement, especially with nuances like negation ("no chest pain" versus "chest pain"). For the overall signal detection, we measured "time to detection" compared to the old batch process. This metric consistently showed a 2-4 month improvement, which was the main goal.</p>
+
+<p>We ran A/B tests on new model versions by deploying them in "shadow mode." This meant the new model processed incoming FAERS reports in parallel with the production model, but its alerts were not visible to the safety committee. We could compare its flagged signals against the production system's. If the new model showed better performance on key metrics, like fewer false positives or earlier detection of known signals, it would then be promoted to production. This iterative approach allowed us to continuously improve the system without disrupting the live surveillance workflow.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/">Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</a></li>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

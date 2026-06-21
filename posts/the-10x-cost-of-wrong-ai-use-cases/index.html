@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A failed AI project doesn&#39;t just cost the budget allocated to it. It costs" />
+  <meta property="og:title" content="The 10x Cost of Wrong AI Use Cases — Devangshu Mitra" />
+  <meta property="og:description" content="A failed AI project doesn&#39;t just cost the budget allocated to it. It costs" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The 10x Cost of Wrong AI Use Cases — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-10-13" itemprop="datePublished">Oct 13, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The 10x Cost of Wrong AI Use Cases</h1>
+          <p class="post-header__excerpt" itemprop="description">A failed AI project doesn't just cost the budget allocated to it. It costs</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The 10x Cost of Wrong AI Use Cases</h1>
+
+<p>The CFO of a health system I worked with had a simple rule: every AI project needs to show ROI in 18 months or I'm not approving it. This rule was the direct result of three previous AI projects that had consumed significant budget and produced nothing deployable.</p>
+
+<p>The problem with the rule wasn't the ROI requirement. The problem was that the three failed projects had created a risk profile in the CFO's mind that made the 18-month window feel reasonable. For many high-value AI applications in healthcare - population health management, predictive staffing, clinical trial optimization - 18 months is too short. The projects that could genuinely transform the organization were getting killed by a standard that was calibrated to failed attempts at the wrong use cases.</p>
+
+<p>This is the 10x cost of wrong AI use cases. You don't just waste the budget. You spend organizational trust - the willingness to take risk on the next initiative. And organizational trust is much harder to replenish than budget.</p>
+
+<h2>Why Organizations Keep Picking the Wrong Use Cases</h2>
+
+<h3>The Demo Effect</h3>
+
+<p>Executive teams get exposed to AI through vendor demonstrations, conference presentations, and case studies. These are optimized for impressiveness, not relevance. The demo shows a perfectly working system on a clean dataset solving an idealized version of a problem. The real implementation involves messy data, organizational change management, regulatory constraints, and a use case that's similar to but not the same as the demo.</p>
+
+<p>The result: organizations build toward the demo rather than toward their actual problem. The healthcare AI project that gets funded is a system like Epic's AI that predicts deterioration, rather than a way to reduce time nurses spend on manual patient status documentation. The first project is exciting and expensive and usually doesn't account for the specific workflow constraints of this hospital system. The second is boring, specific, and solvable.</p>
+
+<h3>The Capability-First Fallacy</h3>
+
+<p>AI teams build use cases around capabilities rather than problems. We have an NLP model - what can we apply it to? We have an anomaly detection system - where should we deploy it? This inverts the correct sequence. The right question is: what are our most pressing operational problems, and is AI the right solution for any of them?</p>
+
+<p>Starting from capabilities leads to technically valid but organizationally irrelevant projects. I've seen data science teams spend months building customer churn prediction models for a product that was being deprecated, because the team needed a project and the data was available.</p>
+
+<h3>The Vanity Metric Trap</h3>
+
+<p>AI projects get selected partly based on how they look, not how they perform. A project that reduces a 5% medical coding error rate to 3% is a 40% improvement in error rate. A project that eliminates 2 hours of manual data entry per nurse per day sounds less impressive but is worth $8,000 per nurse per year in labor savings at scale.</p>
+
+<p>The first project wins the budget because AI-powered medical coding sounds more like enterprise AI than AI-powered documentation automation. But the second project is more impactful, faster to implement, and easier to measure. Vanity metrics select for impressive-sounding projects, not valuable ones.</p>
+
+<h2>A Use Case Evaluation Framework</h2>
+
+<p>Before committing to any AI use case, I run through five filters:</p>
+
+<h3>Filter 1: Is the problem real and measured?</h3>
+
+<p>Can you point to a specific operational metric that this use case will improve? Not improve care coordination but reduce average time from admission to discharge for joint replacement patients from 3.2 days to 2.8 days. Not improve customer experience but reduce support ticket first-response time from 4 hours to under 1 hour for Tier 1 issues.</p>
+
+<p>If you can't articulate the specific metric and its current value, you're not evaluating a use case - you're evaluating an aspiration. Aspirations make bad AI projects.</p>
+
+<h3>Filter 2: Is AI the right tool?</h3>
+
+<p>A lot of problems that get framed as AI problems are actually process problems, data quality problems, or organizational problems. AI applied to a bad process makes a faster bad process. AI applied to bad data makes confident bad predictions.</p>
+
+<p>Ask: if we fixed the process without AI, how much of the problem would go away? If the answer is most of it, AI is the wrong solution. I've seen companies spend $2M on an AI-powered inventory optimization system when the actual problem was that their inventory data had a 30% error rate from manual entry. Fixing the data quality issue with basic validation rules would have solved 80% of the problem at 5% of the cost.</p>
+
+<h3>Filter 3: Do we have the data?</h3>
+
+<p>Not can we get the data - do we have it now, in a form that's usable? Data acquisition is one of the most consistently underestimated parts of AI projects. Getting data from a third-party system requires contracts, integrations, and usually significant data cleaning. Labeling data requires time and domain expertise. Every week of data preparation is a week of delayed value and a week of burning runway.</p>
+
+<p>Be brutally honest about this filter. If you don't have the data today, your timeline needs to include realistic data acquisition estimates - not the optimistic estimates that make it into the business case.</p>
+
+<h3>Filter 4: Can we measure success in 90 days?</h3>
+
+<p>If the use case can't generate measurable signal in 90 days, it's either too broad, too dependent on lagging indicators, or dependent on organizational change that hasn't happened. Long feedback loops don't mean the use case is wrong, but they do mean you need intermediate milestones that indicate whether you're on track.</p>
+
+<p>The 90-day signal doesn't have to be the ultimate business outcome. It can be a leading indicator: number of users actively using the tool, model performance on a validation set, reduction in manual override rate, time-on-task for the workflow being automated. But you need something you can measure before you've burned your full budget.</p>
+
+<h3>Filter 5: What's the organizational change required?</h3>
+
+<p>Every AI project requires some change in how people work. The question is how much. A tool that adds one field to an existing workflow requires minimal change management. A tool that replaces an existing manual process requires significant change management: training, incentive restructuring, and usually political negotiation with the people whose roles are changing.</p>
+
+<p>Be honest about where the use case falls on this spectrum and whether your organization has the change management capacity to execute it. Most organizations can successfully execute one major organizational change at a time. If the AI project is the third major operational change initiative running simultaneously, it will fail regardless of technical quality.</p>
+
+<h2>The Opportunity Cost Calculation</h2>
+
+<p>Every AI project you choose is also a choice not to build something else. The cost of picking the wrong use case isn't just the direct investment - it's the value of the right use case that didn't get built.</p>
+
+<p>In resource-constrained teams (which is every team), this opportunity cost matters enormously. A six-month project that produces no business value didn't just cost six months of engineering time. It cost six months of progress toward the use case that would have worked.</p>
+
+<p>The organizations that get AI right aren't the ones that take big bets on impressive use cases. They're the ones that run tight, fast cycles on narrowly defined problems, measure everything, and kill projects that aren't working before they've consumed their full budget. Small wins compound. Failed big bets set you back.</p>
+
+<h2>Rebuilding After a Failed AI Project</h2>
+
+<p>If you're working in an organization that has experienced AI project failures, the most important thing you can do before launching the next initiative is acknowledge what went wrong with the last one - specifically and honestly, not in the lessons learned ritual sense, but in a way that actually changes your process.</p>
+
+<p>The CFO with the 18-month rule had developed that rule because nobody had explained to him why the previous projects failed. The failure was attributed to technical challenges, not to wrong use case selection and unrealistic expectations. Until the actual cause is identified and addressed, the same failure mode will repeat.</p>
+
+<p>Organizational trust in AI is rebuilt the same way it's built initially: by delivering real value on a specific, measurable problem. The path back isn't a bigger, more ambitious project. It's a smaller, less glamorous one that actually ships.</p>
+
+<hr>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-framework-for-ai/">The Build vs Buy Decision Framework for AI</a></li>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/why-domain-expertise-beats-model-performance/">Why Domain Expertise Beats Model Performance</a></li>
+<li><a href="https://www.devangshumitra.com/why-most-ai-products-fail-before-they-launch/">Why Most AI Products Fail Before They Launch</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

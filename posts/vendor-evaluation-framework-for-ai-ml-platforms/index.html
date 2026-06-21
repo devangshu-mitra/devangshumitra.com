@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most vendor evaluations for AI/ML platforms are theater. You run a demo on" />
+  <meta property="og:title" content="Vendor Evaluation Framework for AI/ML Platforms — Devangshu Mitra" />
+  <meta property="og:description" content="Most vendor evaluations for AI/ML platforms are theater. You run a demo on" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Vendor Evaluation Framework for AI/ML Platforms — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-12-14" itemprop="datePublished">Dec 14, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Vendor Evaluation Framework for AI/ML Platforms</h1>
+          <p class="post-header__excerpt" itemprop="description">Most vendor evaluations for AI/ML platforms are theater. You run a demo on</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Vendor Evaluation Framework for AI/ML Platforms</h1>
+
+<p>I've evaluated somewhere between fifteen and twenty AI/ML platform vendors across healthcare AI, clinical data, and enterprise automation use cases. The pattern is consistent: vendors look most similar in controlled demos and most different in production. The evaluation process that actually separates good choices from expensive mistakes is the one that deliberately recreates production conditions during the vendor selection phase.</p>
+
+<h2>The Evaluation Framework Structure</h2>
+
+<p>Structure the evaluation across six dimensions, scored 1-5 for each with explicit weighting based on your use case priorities.</p>
+
+<h3>Dimension 1: Technical Capability (Weight: 20-30%)</h3>
+
+<p>This is where most evaluations start and stop. Don't let it dominate - technical capability is table stakes for shortlisted vendors.</p>
+
+<ul>
+<li>Model performance on your actual data (not vendor-provided benchmarks)</li>
+<li>Support for your required modalities (text, image, tabular, time-series)</li>
+<li>Fine-tuning and customization capabilities</li>
+<li>API/SDK quality and language support</li>
+<li>Model versioning and rollback capability</li>
+</ul>
+
+<p>Critical: bring your own data to the evaluation. Vendors will demo on their best showcase data. You need to run their platform on the messy, incomplete, domain-specific data you actually have.</p>
+
+<h3>Dimension 2: MLOps and Production Readiness (Weight: 20-25%)</h3>
+
+<p>This is where most evaluations are underdeveloped. It's also where the worst surprises happen post-procurement.</p>
+
+<ul>
+<li>Model monitoring and drift detection capabilities</li>
+<li>A/B testing and experiment management</li>
+<li>Deployment pipeline (CI/CD for ML)</li>
+<li>Rollback mechanisms when model performance degrades</li>
+<li>Alerting and observability</li>
+<li>Data versioning and lineage tracking</li>
+</ul>
+
+<p>Ask specifically: "Walk me through what happens when our model's accuracy drops 10% in production. What do I see, what can I do, and how long does it take to roll back?"</p>
+
+<h3>Dimension 3: Security and Compliance (Weight: 15-25%)</h3>
+
+<p>Weight this higher for regulated industries. For healthcare or financial services, it's often the first filter rather than a weighted dimension.</p>
+
+<ul>
+<li>Data isolation guarantees (is your data used to train others' models?)</li>
+<li>Encryption in transit and at rest</li>
+<li>Compliance certifications (SOC 2, HIPAA BAA, GDPR DPA, FedRAMP)</li>
+<li>Audit logging and access controls</li>
+<li>Data residency options</li>
+<li>Penetration testing history and disclosure policy</li>
+</ul>
+
+<h3>Dimension 4: Scalability and Reliability (Weight: 15-20%)</h3>
+
+<ul>
+<li>SLA guarantees (uptime, latency at P95)</li>
+<li>Auto-scaling behavior under traffic spikes</li>
+<li>Multi-region deployment options</li>
+<li>Cold start times for serverless deployments</li>
+<li>Historical incident record (ask for the last 12 months)</li>
+<li>Rate limiting policies and what happens when you exceed them</li>
+</ul>
+
+<h3>Dimension 5: Commercial Terms (Weight: 10-15%)</h3>
+
+<ul>
+<li>Pricing model predictability at scale</li>
+<li>Contract flexibility (annual vs multi-year, usage-based vs seat-based)</li>
+<li>Data portability and exit terms</li>
+<li>Price escalation clauses</li>
+<li>Enterprise support tier and SLA</li>
+</ul>
+
+<h3>Dimension 6: Vendor Viability and Partnership (Weight: 10-15%)</h3>
+
+<ul>
+<li>Funding and runway (for startups)</li>
+<li>Customer references in your industry</li>
+<li>Product roadmap alignment with your needs</li>
+<li>Professional services and implementation support quality</li>
+<li>Community and ecosystem (documentation quality, active forums, training resources)</li>
+</ul>
+
+<h2>The Proof of Concept Structure</h2>
+
+<p>When assessing a vendor, we examine data isolation to ensure your information isn't used to train other models, verify encryption both in transit and at rest, and check compliance certifications like SOC 2, HIPAA BAA, GDPR DPA, and FedRAMP, along with audit logging and access controls, data residency options, and their penetration testing history and disclosure policy. We also weigh scalability and reliability (15-20%), looking at SLA guarantees for uptime and P95 latency, auto-scaling behavior during traffic spikes, multi-region deployment options, cold start times for serverless deployments, their historical incident record from the last 12 months, and rate limiting policies including what happens upon exceeding them. For commercial terms (10-15%), we evaluate pricing model predictability at scale, contract flexibility such as annual versus multi-year or usage versus seat-based agreements, data portability and exit terms, price escalation clauses, and their enterprise support tier and SLA. Furthermore, for vendor viability and partnership (10-15%), we investigate funding and runway for startups, gather customer references in your industry, check product roadmap alignment with your needs, assess professional services and implementation support quality, and review community and related resources including documentation quality, active forums, and training materials; finally, remember that every serious vendor evaluation should incorporate a structured Proof of Concept. The POC should:</p>
+
+<ol>
+<li><strong>Use your actual production data</strong> (or a representative sample of it). Synthetic data or vendor showcases don't count.</li>
+<li><strong>Replicate a real workflow</strong> end-to-end, not just a model training demo. Include data ingestion, preprocessing, model training/deployment, inference, and monitoring.</li>
+<li><strong>Include failure scenarios</strong>: what happens when you send malformed data? What happens when you hit rate limits? What happens when you try to roll back to a previous model version?</li>
+<li><strong>Measure latency under realistic load</strong>, not just a single API call. Simulate your expected concurrent request volume.</li>
+<li><strong>Time-box it</strong>: two to four weeks maximum. If a vendor needs more time to show their platform working on your data, that's a red flag, not a scheduling issue.</li>
+</ol>
+
+<h2>Red Flags in Vendor Evaluations</h2>
+
+<ul>
+<li><strong>Benchmark-only responses</strong>: If a vendor only shows you published benchmarks and won't run on your data during the POC, ask why. The answer matters.</li>
+<li><strong>Vague data isolation answers</strong>: "Your data is secure" is not an answer to "Is my data used to train models that serve other customers?" Get the answer in writing.</li>
+<li><strong>No incident history</strong>: Every mature platform has had incidents. A vendor who claims otherwise is either very new or not being transparent.</li>
+<li><strong>Lock-in architecture with no exit path</strong>: Ask specifically: "If we decide to move off your platform in 18 months, how do we export our trained models and data? In what format?"</li>
+<li><strong>Sales-only technical conversations</strong>: The person who answers your technical questions in evaluation is usually not the person who will support you in production. Ask to speak with the support team that will handle your account, not just the solutions engineer.</li>
+</ul>
+
+<h2>The Reference Check That Actually Works</h2>
+
+<p>Vendor-provided references are useless - they're always success stories. Instead:</p>
+
+<ul>
+<li>Find customers through LinkedIn who work at companies the vendor claims as customers</li>
+<li>Ask specific questions: "What's the biggest problem you've hit in production?" and "What would you do differently in the evaluation?"</li>
+<li>Ask about the vendor's support response quality during incidents specifically</li>
+<li>Ask what the vendor's roadmap has delivered vs promised in the last 12 months</li>
+</ul>
+
+<h2>Scoring Template</h2>
+
+<p>For each vendor, complete this table with 1-5 scores and multiply by the weight appropriate to your context:</p>
+
+<p>| Dimension | Weight | Vendor A | Vendor B | Vendor C | | --- | --- | --- | --- | --- | | Technical Capability | 25% |  |  |  | | MLOps/Production Readiness | 20% |  |  |  | | Security/Compliance | 20% |  |  |  | | Scalability/Reliability | 15% |  |  |  | | Commercial Terms | 10% |  |  |  | | Vendor Viability | 10% |  |  |  |</p>
+
+<h2>Where this lands</h2>
+
+<p>Weight MLOps and production readiness more heavily than technical capability - the demo usually works, production is where vendors differ. Run a time-boxed POC on your actual data with failure scenarios included. Get data isolation answers in writing. Do your own reference checks outside vendor-provided contacts. Score all vendors against the same weighted framework before procurement conversations begin.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-enterprise-llm-integration/">The Build vs Buy Decision for Enterprise LLM Integration</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-roadmap-prioritization-beyond-rice/">AI Product Roadmap Prioritization: Beyond RICE</a></li>
+<li><a href="https://www.devangshumitra.com/defining-mvp-for-ai-products-less-is-different/">Defining MVP for AI Products: Less Is Different</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-in-enterprise-beyond-text/">Multimodal AI in Enterprise: Beyond Text</a></li>
+<li><a href="https://www.devangshumitra.com/the-shadow-ai-problem-when-your-team-uses-ai-tools-you-dont-know-about-2/">The Shadow AI Problem: When Your Team Uses AI Tools You Don't Know About</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

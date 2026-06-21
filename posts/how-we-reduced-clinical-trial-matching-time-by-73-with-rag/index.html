@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A real-world implementation of retrieval-augmented generation for matching" />
+  <meta property="og:title" content="How We Reduced Clinical Trial Matching Time by 73% with RAG — Devangshu Mitra" />
+  <meta property="og:description" content="A real-world implementation of retrieval-augmented generation for matching" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How We Reduced Clinical Trial Matching Time by 73% with RAG — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2026-01-06" itemprop="datePublished">Jan 6, 2026</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How We Reduced Clinical Trial Matching Time by 73% with RAG</h1>
+          <p class="post-header__excerpt" itemprop="description">A real-world implementation of retrieval-augmented generation for matching</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How We Reduced Clinical Trial Matching Time by 73% with RAG</h1>
+
+<p>Clinical trial enrollment is broken. As of 2025, roughly 85% of trials fail to recruit enough patients on time, and the median time from referral to enrollment decision is 14 days. That delay is not primarily a technology problem - it is an information retrieval problem. The eligibility criteria for a single trial can run to 40+ pages of dense medical logic: inclusion criteria, exclusion criteria, required prior therapies, washout periods, lab value thresholds. Matching a patient's EHR against that document is cognitively exhausting for coordinators doing it manually for dozens of active trials simultaneously.</p>
+
+<p>When I joined the clinical trials team, we had six full-time coordinators spending roughly 60% of their time on pre-screening - reading trial protocols, pulling patient records, and making rough match/no-match decisions before a physician ever looked at the case. The bottleneck was not their effort; it was the sheer volume of unstructured text on both sides. Trial protocols are PDFs. Patient records are progress notes, discharge summaries, lab result PDFs, and imaging reports - all unstructured, all inconsistently formatted.</p>
+
+<h2>The Architecture We Built</h2>
+
+<p>We built a RAG pipeline with two corpus branches: one for trial protocols, one for patient records. For protocols, we chunked each document by eligibility criterion - not by page or paragraph. A single criterion (e.g., "Prior treatment with at least one platinum-based regimen") became one chunk. This domain-specific chunking turned out to be the single most impactful engineering decision we made. Early experiments using fixed 512-token chunks produced retrieval recall of 61%. Criterion-aligned chunks pushed that to 89%.</p>
+
+<p>For patient records, we used a two-stage extraction pipeline: first, a clinical NER model (fine-tuned on i2b2 2010 data) extracted structured entities - diagnoses, medications, procedures, lab values with dates. Then we embedded those structured extractions rather than raw note text. This was counterintuitive: we threw away the free-text context and worked only with extracted entities. But it dramatically reduced noise and improved embedding quality for the specific matching task. We evaluated three embedding models - a general-purpose model, a biomedical BERT variant, and a proprietary clinical embeddings model - and the biomedical BERT variant consistently outperformed the others on our held-out validation set, despite having fewer parameters than the general-purpose model.</p>
+
+<h2>What Did Not Work Initially</h2>
+
+<p>Our first instinct was to use a large frontier model to do the matching end-to-end: give it the trial protocol and the patient summary and ask for a match decision. On our synthetic test cases this looked great. On real patients it was a disaster. The model hallucinated lab values that were not in the record, misread negations ("patient denies prior cardiac surgery" became a positive cardiac surgery flag), and was wildly overconfident. We also had a latency problem: a 40-page protocol plus a 12-month patient record exceeded context windows and took 45 seconds per patient-trial pair. With 200 active trials and 50 new patients per week, that math does not work.</p>
+
+<p>The RAG approach solved both problems. By retrieving only the top-k relevant criterion chunks and matching them against extracted patient entities, we reduced context per query to under 2,000 tokens and cut latency to under 3 seconds. More importantly, the model was now reasoning over structured facts rather than raw text, which eliminated most of the hallucination surface.</p>
+
+<h2>Results and What We Learned</h2>
+
+<p>After a 90-day pilot across two oncology protocols, average coordinator pre-screening time dropped from 14 days to 3.8 days - a 73% reduction. False negative rate (patients incorrectly ruled out) was 4.2%, compared to an estimated 11% baseline for manual pre-screening based on a retrospective audit. Two trials met their enrollment targets ahead of schedule for the first time.</p>
+
+<p>The lessons I took away: embedding quality matters more than model size for specialized retrieval tasks; domain-specific chunking strategy is the highest-use engineering decision in a RAG pipeline; and structured extraction before embedding is worth the added pipeline complexity when your source documents are noisy clinical text. The framework we built is now in production across eight trials, and we are extending it to rare disease indications where manual screening is even more burdensome.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/deploying-computer-vision-for-surgical-instrument-tracking-what-the-papers-dont-tell-you-9/">Deploying Computer Vision for Surgical Instrument Tracking: What the Papers Don't Tell You</a></li>
+<li><a href="https://www.devangshumitra.com/ai-clinical-trial-patient-recruitment/">How AI Is Transforming Clinical Trial Patient Recruitment: A Product Manager's Perspective</a></li>
+</ul>
+
+<hr>
+
+<h2>Impact on Coordinator Workflow and Decision Making</h2>
+
+<p>The biggest shift wasn't just speed; it was how our coordinators worked. Before, they spent hours sifting through patient charts, trying to find specific lab values or medication histories. Now, the system generates a pre-screening report. This report lists each relevant eligibility criterion and provides direct, highlighted snippets from the patient's EHR that either satisfy or contradict it. It also includes a match score, a simple numerical confidence level for the overall patient-trial fit. This changed their role from data extraction to critical review.</p>
+
+<p>Instead of 60% of their day on pre-screening, coordinators now spent closer to 15%. They could review 50 patient reports in the time it once took them to manually pre-screen five. This allowed them to focus on the complex cases, the ones where the RAG output wasn't a clear cut 'yes' or 'no'. They'd use their clinical judgment to interpret ambiguities, like a medication listed under a brand name the system didn't yet recognize. The system effectively became their first pass, letting them spend more time talking to patients and less time buried in documents.</p>
+
+<h2>Handling Nuance and Edge Cases</h2>
+
+<p>Medical eligibility is rarely black and white. For example, a protocol might specify "no history of deep vein thrombosis (DVT) in the past 30 days." My initial RAG system sometimes missed these temporal constraints. It would flag any past DVT, even one from years ago, as a disqualifier. This led to false positives and extra work for coordinators.</p>
+
+<p>We addressed this by enhancing our entity extraction pipeline. For conditions like DVT, we now extract not just the condition itself, but also its earliest and latest mention dates within the patient record. We then embed these temporal relationships alongside the condition. This allowed the RAG retriever to better filter based on time windows. If the protocol asked for "no DVT within 30 days," the retriever could now accurately compare the protocol's time constraint against the patient's DVT history dates. This refinement significantly reduced false positives related to time-bound criteria.</p>
+
+<h2>Ongoing Model Maintenance and Feedback Loops</h2>
+
+<p>A system like this isn't a "set it and forget it" tool. Medical knowledge and trial protocols evolve. We built a continuous feedback loop to keep our RAG pipeline accurate. Coordinators could flag any "missed matches" or "false positives" directly within their review interface. This simple mechanism collected invaluable data.</p>
+
+<p>My team reviewed these flagged cases weekly. Roughly 10% of these flags led to immediate adjustments or retraining. For instance, a new chemotherapy regimen might appear in a trial protocol that our clinical NER model didn't yet recognize. We'd add it to our entity dictionaries and retrain the NER component. We also performed a quarterly audit of the embedding model's performance against a fresh, held-out validation set. This helped us catch any data drift or concept shift before it significantly impacted the system's accuracy in real-world use. It's an active process, not a static one.</p>
+
+<h2>Navigating Clinical Terminology</h2>
+
+<p>One major hurdle was the sheer variability of clinical language. Patient records use acronyms, colloquialisms, and synonyms. A doctor might write "DM" for diabetes mellitus, or "HTN" for hypertension. Lab results often have different units or reference ranges across systems. We needed to normalize these terms to compare them against the precise language in trial protocols. This step was crucial for accurate matching.</p>
+
+<p>We built a normalization layer into our patient record processing. After our NER model extracted an entity like "CHF," we ran it through a mapping service. This service linked the entity to a canonical SNOMED CT concept ID. For lab values, we used LOINC codes where available. We standardized units like mg/dL to mmol/L for glucose levels, ensuring consistent comparisons. This mapping was not perfect. It required a custom dictionary for common local abbreviations that did not exist in standard ontologies. We maintained this dictionary with direct input from our clinical coordinators. They added new mappings weekly. This continuous refinement dramatically improved the consistency of our extracted patient data. It made it much easier to match against the precise language of the protocol criteria.</p>
+
+<h2>The Human-Computer Workflow</h2>
+
+<p>Reducing matching time by 73% did not mean fully automating the coordinators out of the loop. Their expertise remained critical. What changed was <em>how</em> they spent their time. Instead of reading every page of every protocol and patient chart, the RAG system provided them with a ranked list of potential patient-trial matches. Each match came with specific, highlighted evidence from the patient's record that supported each matched criterion. For example, if a protocol required "creatinine < 1.5 mg/dL," the system would show "Creatinine: 1.2 mg/dL (2023-10-26)" from a lab report.</p>
+
+<p>Coordinators could then quickly review these highlighted facts. They could accept the match, or override it if they found a nuance the system missed. This process shifted their role from data retrieval to clinical validation. They spent less time searching and more time applying their judgment. We also built in a feedback mechanism. When a coordinator overrode a match, they could select a reason from a dropdown. This feedback directly informed our model retraining cycles, helping us fine-tune retrieval and matching logic. This human-in-the-loop approach was key to both accuracy and user adoption.</p>
+
+<h2>Measuring Real-World Impact</h2>
+
+<p>Beyond the internal metrics of retrieval recall and precision, we needed to quantify the real-world impact. We tracked two key metrics: "coordinator time per pre-screen" and "time from referral to enrollment decision." Before our system, a pre-screen took a coordinator roughly 45 minutes to an hour per patient-trial pair, depending on complexity. After deployment, this dropped to an average of 12 minutes. This was the core driver of the 73% time reduction. It freed up significant coordinator capacity, allowing them to focus on patient interaction and trial operations.</p>
+
+<p>The second metric, "time from referral to enrollment decision," went from a median of 14 days down to 6 days. This was a direct result of faster pre-screening. Patients got assessed quicker. Physicians received a pre-vetted list of eligible patients sooner. This acceleration meant more patients could potentially access trials they qualified for, and fewer trials risked closure due to slow enrollment. We achieved these gains with a system processing around 300 new patient referrals and 50 active trials each week. It was a tangible improvement for both patients and the research team.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

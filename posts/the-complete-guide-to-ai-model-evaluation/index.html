@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI teams measure accuracy on a test set and ship. This is how you end" />
+  <meta property="og:title" content="The Complete Guide to AI Model Evaluation — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI teams measure accuracy on a test set and ship. This is how you end" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Complete Guide to AI Model Evaluation — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-07-07" itemprop="datePublished">Jul 7, 2025</time>
+            <span class="post-header__read-time">4 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Complete Guide to AI Model Evaluation</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI teams measure accuracy on a test set and ship. This is how you end</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Complete Guide to AI Model Evaluation</h1>
+
+<p>Most AI teams measure accuracy on a test set and ship. This is how you end up with a model that scores 94% on benchmarks and fails catastrophically in production. Real evaluation covers technical metrics, business metrics, human judgment, and continuous monitoring.</p>
+
+<h2>The Evaluation Stack</h2>
+
+<ol>
+<li><strong>Technical metrics</strong> - Does the model perform well on your held-out dataset?</li>
+<li><strong>Business metrics</strong> - Does performance translate to outcomes you care about?</li>
+<li><strong>Human evaluation</strong> - Do humans judge the outputs as good?</li>
+<li><strong>Production monitoring</strong> - Does quality hold in the wild, over time?</li>
+</ol>
+
+<h2>Technical Metrics: Beyond Accuracy</h2>
+
+<p>If 95% of your examples are negative class, a model that always predicts "negative" achieves 95% accuracy while being completely useless.</p>
+
+<ul>
+<li><strong>Precision:</strong> Of all the times the model said yes, what fraction was actually yes? (TP / (TP + FP))</li>
+<li><strong>Recall:</strong> Of all actual yes cases, what fraction did the model catch? (TP / (TP + FN))</li>
+<li><strong>F1:</strong> Harmonic mean of precision and recall.</li>
+</ul>
+
+<p>The precision-recall tradeoff is a product decision, not a math problem. At HCLTech, we built a model to flag potential drug-drug interactions. A false negative could harm a patient. A false positive wastes a clinician's time. We optimized for recall. The threshold was set by clinical stakeholders, not by maximizing F1.</p>
+
+<pre><code class="language-">from sklearn.metrics import precision_recall_fscore_support, roc_auc_score
+
+def evaluate_classifier(y_true, y_pred_proba, threshold=0.5):
+    y_pred = (y_pred_proba &gt;= threshold).astype(int)
+    precision, recall, f1, _ = precision_recall_fscore_support(
+        y_true, y_pred, average='binary'
+    )
+    auc = roc_auc_score(y_true, y_pred_proba)
+    print(f"Precision: {precision:.3f}, Recall: {recall:.3f}, F1: {f1:.3f}, AUC: {auc:.3f}")
+    tp = ((y_pred == 1) &amp; (y_true == 1)).sum()
+    fp = ((y_pred == 1) &amp; (y_true == 0)).sum()
+    fn = ((y_pred == 0) &amp; (y_true == 1)).sum()
+    tn = ((y_pred == 0) &amp; (y_true == 0)).sum()
+    print(f"TP: {tp}, FP: {fp}, FN: {fn}, TN: {tn}")</code></pre>
+
+<p><strong>BLEU and ROUGE:</strong> Use for regression testing (did this code change break something?) not for absolute quality assessment. A summary with high ROUGE-L may be factually wrong or miss the key point while copying surface phrases. Use LLM-as-judge for actual quality.</p>
+
+<p><strong>For RAG pipelines:</strong> The RAGAS framework provides automated metrics for context relevance, answer faithfulness, and answer relevance.</p>
+
+<pre><code class="language-">from ragas import evaluate
+from ragas.metrics import faithfulness, answer_relevancy, context_relevancy
+from datasets import Dataset
+
+data = {
+    "question": ["What is the max dose of metformin?"],
+    "answer": ["The maximum recommended dose is 2550mg/day."],
+    "contexts": [["Metformin maximum dose is 2550mg daily in divided doses."]],
+    "ground_truth": ["2550mg per day"]
+}
+results = evaluate(Dataset.from_dict(data),
+    metrics=[faithfulness, answer_relevancy, context_relevancy])
+print(results)</code></pre>
+
+<h2>Business Metrics: The Layer That Actually Matters</h2>
+
+<p>Technical metrics are proxies. The gap between them and business outcomes is where most AI features fail:</p>
+
+<ul>
+<li>An email drafting assistant has 85% user acceptance rate. But time-to-send only decreased by 8%. Users accept the draft but spend 5 minutes editing it anyway.</li>
+<li>A medical coding assistant achieves 91% accuracy on test set. But first-pass resolution rate is unchanged. The 9% errors are concentrated in high-complexity, high-value codes.</li>
+</ul>
+
+<p>For every AI feature, define the business metric chain upfront: technical metric, proximate behavioral metric, downstream business metric, and the explicit hypothesis connecting them.</p>
+
+<h2>Human Evaluation</h2>
+
+<p><strong>Pairwise comparison over absolute rating.</strong> Ask "Which of these two responses is better?" rather than "Rate this 1-5." Pairwise comparison has higher inter-annotator agreement. It's also the basis for RLHF preference data collection.</p>
+
+<p><strong>LLM-as-judge for scale.</strong> Using GPT-4 or Claude to evaluate outputs correlates with human judgments at ~0.8-0.9 for many tasks. Provide the same rubric to the LLM that you'd give human annotators.</p>
+
+<pre><code class="language-">def llm_evaluate(question: str, answer: str, rubric: str) -&gt; dict:
+    from openai import OpenAI
+    import json
+    client = OpenAI()
+    prompt = (
+        "Evaluate this AI response using the provided rubric.\n"
+        f"Question: {question}\nResponse: {answer}\nRubric: {rubric}\n"
+        "Score each criterion 1-5 and provide justification.\n"
+        "Return JSON with keys: factual_accuracy, completeness, conciseness, overall, justification"
+    )
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"}
+    )
+    return json.loads(response.choices[0].message.content)</code></pre>
+
+<h2>A/B Testing for AI Features</h2>
+
+<p><strong>Novelty effect:</strong> Run tests for at least 2-4 weeks to let novelty decay. <strong>Spillover effects:</strong> In B2B, randomize at the account level, not user level. <strong>Interleaving:</strong> For ranking systems, mix results from two models and track which items get clicked - more statistically efficient than traditional A/B testing.</p>
+
+<h2>Production Monitoring</h2>
+
+<ul>
+<li><strong>Input distribution drift:</strong> Track embedding distributions over time. If average cosine similarity between new inputs and training inputs drops, flag for retraining.</li>
+<li><strong>Output distribution shift:</strong> Are refusal rates changing? Average response lengths shifting?</li>
+<li><strong>Implicit feedback:</strong> Thumbs up/down, regeneration rate, copy-paste rate - weak signals individually, strong in aggregate.</li>
+<li><strong>Error sampling:</strong> Sample 1-2% of production outputs daily for human review.</li>
+</ul>
+
+<p>The evaluation system is an ongoing investment, not a pre-launch checkbox. The best AI teams treat model evaluation with the same rigor as product analytics - continuous, automated, with human review in the loop.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+<li><a href="https://www.devangshumitra.com/big-tech-pm-interview-prep/">Big Tech PM Interview Prep Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover the AI product metrics that actually matter beyond accuracy including" />
+  <meta property="og:title" content="AI Product Metrics That Actually Matter: Beyond Accuracy — Devangshu Mitra" />
+  <meta property="og:description" content="Discover the AI product metrics that actually matter beyond accuracy including" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>AI Product Metrics That Actually Matter: Beyond Accuracy — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-08-21" itemprop="datePublished">Aug 21, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">AI Product Metrics That Actually Matter: Beyond Accuracy</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover the AI product metrics that actually matter beyond accuracy including</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>AI Product Metrics That Actually Matter: Beyond Accuracy</h1>
+
+<p>The most common product review question I get in AI initiatives is some version of: "What's the model accuracy?" It's always asked as if it's the primary question, the number that determines whether to proceed or pause.</p>
+
+<p>I understand why. Accuracy is quantifiable, easy to communicate, and superficially maps to quality. An 80% accurate model seems worse than a 95% accurate model.</p>
+
+<p>But after building AI products across healthcare, edtech, and CPG, I've come to believe that accuracy is one of the least useful north stars for AI product success. Not because it's irrelevant - it isn't - but because it's a model metric, not a product metric. And the gap between those two categories is where most AI products fail.</p>
+
+<hr>
+
+<h2>Why Accuracy Fails as a North Star</h2>
+
+<p>Here's the core problem: accuracy measures how often the model is right on a test set. Product success measures whether users get value in the real world. These are not the same thing, and the factors that make them diverge are exactly the factors that AI product managers need to manage.</p>
+
+<p>Consider three scenarios:</p>
+
+<p><strong>Scenario A:</strong> A clinical AI model that flags potential drug interactions. 95% accuracy on the test set. In production, nurses discover it flags interactions for drugs that are never co-administered in your specific patient population, generating constant false positives. Nurses start ignoring all alerts. Effective safety contribution: zero.</p>
+
+<p><strong>Scenario B:</strong> An e-commerce recommendation engine. 78% accuracy on held-out test data. In production, it's recommending products with high margins and high user ratings, and users are buying 40% more items per session than with the previous rule-based system. Business impact: enormous.</p>
+
+<p><strong>Scenario C:</strong> An AI tutoring system. 91% accuracy in matching students to appropriate content difficulty. In production, students quit the platform after three sessions because the AI's explanations are technically accurate but pedagogically terrible. Retention: collapsed.</p>
+
+<p>In all three cases, accuracy gave you an incorrect prediction of product outcome. The metrics that predicted outcome were different in each case.</p>
+
+<h2>The Metrics That Actually Matter</h2>
+
+<h3>1. Task Completion Rate</h3>
+
+<p>For any AI feature with a defined user goal, measure the percentage of users who achieve that goal with the AI's assistance. Not "did the AI produce output" - "did the user accomplish what they came to do?"</p>
+
+<p>In healthcare: did the clinician find the information they needed to make the care decision? In fintech: did the user successfully complete the transaction they were trying to execute? In edtech: did the student reach a demonstrable understanding of the target concept?</p>
+
+<p>Task completion rate tells you whether the AI is actually helping users do things, regardless of how often the model's intermediate outputs are technically correct.</p>
+
+<h3>2. Time-to-Value</h3>
+
+<p>How long does it take a new user to experience meaningful value from the AI feature? How long does it take an experienced user to complete the task the AI is designed to accelerate?</p>
+
+<p>Time-to-value is particularly important for enterprise AI adoption, where the competition isn't other AI tools - it's existing workflows that users are comfortable with. If your AI reduces a 20-minute task to 12 minutes, that's good. If the onboarding required to understand how to use the AI effectively takes 3 hours, you've destroyed your value proposition for months.</p>
+
+<p>Measure: time from first use to first successful value moment, and time-on-task comparison between AI-assisted and non-AI-assisted workflows.</p>
+
+<h3>3. User Trust Signals</h3>
+
+<p>Trust in AI is measurable, and it's a leading indicator of long-term adoption. Users who trust the AI use it more, and users who distrust it abandon it or use it as a rubber stamp without actual engagement.</p>
+
+<p>Proxy metrics for trust:</p>
+
+<ul>
+<li><strong>Override rate</strong>: How often do users reject or substantially modify the AI's output? High override rate suggests low trust or poor quality.</li>
+<li><strong>Verification behavior</strong>: Do users verify AI outputs through independent means? In healthcare, do clinicians check the AI's citations? Initially healthy; declining over time indicates growing trust (or declining engagement).</li>
+<li><strong>Escalation rate</strong>: How often do users escalate from AI to human? High escalation rates indicate the AI isn't handling what users expect it to handle.</li>
+<li><strong>Return usage</strong>: Do users come back to the AI feature, or do they try it once and revert to old workflows?</li>
+</ul>
+
+<h3>4. Error Cost Asymmetry</h3>
+
+<p>Not all errors are equal. A framework I use: classify every error type by (a) frequency and (b) cost per occurrence. The product metric that matters isn't total accuracy - it's the expected cost of errors across the realistic distribution of inputs.</p>
+
+<p>In healthcare, a false negative in a high-acuity clinical alert can cost a life. A false positive generates a workflow interruption. These are not symmetrically bad. A 99% accurate model that has a 1% false negative rate on high-acuity cases is worse than a 95% accurate model where the errors are all low-consequence false positives.</p>
+
+<p>In fraud detection (fintech), the false positive/false negative tradeoff is explicit and tunable. A false positive (blocking a legitimate transaction) costs customer trust and potential churn. A false negative (missing fraud) costs the financial institution directly. Different merchants have different optimal operating points on this curve.</p>
+
+<p>In edtech, a false positive in difficulty calibration (giving a student work too hard for their level) can cause frustration and disengagement - costs that compound over time. A false negative (work too easy) wastes time but doesn't damage motivation.</p>
+
+<blockquote><p><strong>Practical metric:</strong> Calculate error cost asymmetry as: (cost of false positive × FP rate) + (cost of false negative × FN rate). Optimize your system to minimize this expected cost, not to maximize raw accuracy.</p></blockquote>
+
+<h3>5. Adoption Curves</h3>
+
+<p>The adoption curve for an AI feature tells you far more than a point-in-time accuracy metric. What matters is the shape of the curve:</p>
+
+<ul>
+<li><strong>Explosive early adoption, rapid decline</strong>: The novelty effect. Users tried it, found it didn't deliver on its promise, abandoned it. Common with AI features that overmarket capabilities.</li>
+<li><strong>Slow start, sustained growth</strong>: Trust-building pattern. Users are cautious, but once they calibrate to the AI's capabilities, they become habitual users. Common in high-stakes domains (healthcare, finance).</li>
+<li><strong>Bimodal distribution</strong>: Power users love it, casual users bounce. Indicates the AI feature has high ceiling but high barrier to entry. A workflow redesign problem.</li>
+<li><strong>Steady plateau</strong>: Healthy adoption ceiling. The feature is doing its job for its target audience. Growth comes from expanding the audience, not improving the model.</li>
+</ul>
+
+<h3>6. Hallucination Rate in Context</h3>
+
+<p>Hallucination rate - the frequency with which an LLM generates false information - is a model metric, not a product metric, until you qualify it. The relevant product metric is <em>harmful hallucinations in context</em>: how often does the AI produce plausible-sounding incorrect information in a context where users will act on it?</p>
+
+<p>A hallucination in a brainstorming assistant that a user immediately discards is different from a hallucination in a clinical summary that influences a medication decision. The product metric is the latter.</p>
+
+<p>Measure by defining your high-stakes output categories and tracking hallucination rates specifically in those categories, weighted by the likelihood that users will act on the output without independent verification.</p>
+
+<h3>7. Model Drift Monitoring</h3>
+
+<p>AI products decay in ways that traditional software doesn't. Distribution shift - the gradual divergence between the data the model was trained on and the data it encounters in production - erodes performance without any code change or deployment event.</p>
+
+<p>Model drift metrics to track:</p>
+
+<ul>
+<li>Input distribution shift: are the inputs users are providing meaningfully different from training data?</li>
+<li>Output distribution shift: are the model's outputs drifting in their distribution? (More extreme outputs, different length distributions, different confidence calibrations)</li>
+<li>Label drift: is the definition of a "good" output changing as the product evolves and user expectations shift?</li>
+<li>Concept drift: has the real-world phenomenon the model was trained to capture changed? (Medical guidelines update, financial regulations change, product catalog shifts)</li>
+</ul>
+
+<p>Set alerting thresholds on these drift metrics. A model that was performing well six months ago without any drift monitoring might be quietly failing today.</p>
+
+<h2>Building Your AI Metrics Dashboard</h2>
+
+<p>My recommended starting stack for an AI product metrics dashboard:</p>
+
+<ol>
+<li><strong>Task completion rate</strong> - weekly</li>
+<li><strong>Time-to-value for new users</strong> - cohort by week</li>
+<li><strong>Override / rejection rate</strong> - daily</li>
+<li><strong>Return usage rate</strong> - weekly cohort analysis</li>
+<li><strong>Error cost metric</strong> (custom per use case) - weekly</li>
+<li><strong>Input distribution shift</strong> (embedding drift or statistical tests) - automated daily alerting</li>
+<li><strong>Harmful hallucination rate</strong> (for LLM features) - sampled weekly human review</li>
+</ol>
+
+<p>Accuracy belongs on this dashboard too - but as one signal among seven, not as the headline metric.</p>
+
+<hr>
+
+<p>The shift from "what's the model accuracy" to "is the product creating value" is the central maturity leap in AI product management. Teams that make this shift build products that users actually use. Teams that don't build impressive demos that fail in production.</p>
+
+<p>The metrics above are the ones that predict the difference.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-dashboard-what-to-track-and-why/">AI Product Metrics Dashboard: What to Track and Why</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-for-ai-products-a-pms-survival-guide-2/">Stakeholder Management for AI Products: A PM's Survival Guide</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-that-actually-matter/">AI Product Metrics That Actually Matter</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-metrics-dashboard-what-to-track-and-why/">AI Product Metrics Dashboard: What to Track and Why</a></li>
+<li><a href="https://www.devangshumitra.com/go-to-market-strategy-for-ai-products/">Go-to-Market Strategy for AI Products</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

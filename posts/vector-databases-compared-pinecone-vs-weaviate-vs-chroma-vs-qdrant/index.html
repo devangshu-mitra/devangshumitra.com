@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Pinecone, Weaviate, Chroma, and Qdrant all store and retrieve vectors — but" />
+  <meta property="og:title" content="Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant — Devangshu Mitra" />
+  <meta property="og:description" content="Pinecone, Weaviate, Chroma, and Qdrant all store and retrieve vectors — but" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-08-27" itemprop="datePublished">Aug 27, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</h1>
+          <p class="post-header__excerpt" itemprop="description">Pinecone, Weaviate, Chroma, and Qdrant all store and retrieve vectors — but</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</h1>
+
+<p>When building RAG pipelines across multiple projects, I've used all four of these vector databases in production. Each has left me with opinions about where it shines and where it hurts. This is that comparison - not benchmarks from vendor marketing sites, but tradeoffs from actual use.</p>
+
+<h2>What a Vector Database Actually Does</h2>
+
+<p>A vector database stores high-dimensional embeddings and supports approximate nearest neighbor (ANN) search. Beyond raw ANN search, modern vector databases support metadata filtering, hybrid search (dense + sparse/BM25), multi-vector search, and namespace/tenant separation.</p>
+
+<h2>Pinecone</h2>
+
+<p><strong>What it is:</strong> Fully managed, serverless vector database. Zero infrastructure to operate.</p>
+
+<p><strong>Strengths:</strong> Easiest operational experience in the category. Good managed scaling. Serverless tier (free up to 2GB) is genuinely useful for early-stage products.</p>
+
+<p><strong>Weaknesses:</strong> Most expensive at scale - at high query volumes, costs can be 5-10x self-hosted alternatives. No built-in hybrid search. Data leaves your infrastructure (compliance issue for healthcare/finance).</p>
+
+<pre><code class="language-">from pinecone import Pinecone, ServerlessSpec
+
+pc = Pinecone(api_key="your-api-key")
+pc.create_index(
+    name="documents", dimension=1536, metric="cosine",
+    spec=ServerlessSpec(cloud="aws", region="us-east-1")
+)
+index = pc.Index("documents")
+index.upsert(vectors=[
+    {"id": "doc_1", "values": embedding_vector,
+     "metadata": {"source": "clinical_guidelines", "year": 2023}}
+])
+results = index.query(
+    vector=query_embedding, top_k=5,
+    filter={"source": {"$eq": "clinical_guidelines"}, "year": {"$gte": 2022}},
+    include_metadata=True
+)</code></pre>
+
+<p><strong>Best for:</strong> Prototypes that need to ship quickly, teams without infrastructure capacity.</p>
+
+<h2>Weaviate</h2>
+
+<p><strong>What it is:</strong> Open-source vector database with optional managed cloud. Schema-first. First-class hybrid search.</p>
+
+<p><strong>Strengths:</strong> Best hybrid search in the category - BM25 + vector search with configurable alpha parameter. Comes with modules that integrate with OpenAI, Cohere, and HuggingFace. GraphQL and REST APIs.</p>
+
+<p><strong>Weaknesses:</strong> Schema complexity adds friction. Memory-heavy - HNSW loads entire index into RAM. Self-hosted operational complexity is real.</p>
+
+<pre><code class="language-">import weaviate
+from weaviate.classes.config import Configure, Property, DataType
+
+client = weaviate.connect_to_local()
+client.collections.create(
+    name="Document",
+    vectorizer_config=Configure.Vectorizer.none(),
+    properties=[
+        Property(name="content", data_type=DataType.TEXT),
+        Property(name="year", data_type=DataType.INT),
+    ]
+)
+collection = client.collections.get("Document")
+results = collection.query.hybrid(
+    query="elevated liver enzymes",
+    vector=query_embedding,
+    alpha=0.5,  # 0=pure BM25, 1=pure vector
+    limit=5
+)</code></pre>
+
+<p><strong>Best for:</strong> Production RAG where hybrid search matters, teams comfortable with schema design.</p>
+
+<h2>Chroma</h2>
+
+<p><strong>What it is:</strong> Open-source embedding database designed for developer experience.</p>
+
+<p><strong>Strengths:</strong> Fastest time to working prototype - five lines of Python and you have a functioning vector store. Native LangChain and LlamaIndex integrations. No schema required.</p>
+
+<p><strong>Weaknesses:</strong> Not battle-tested above ~500K vectors. Limited query capabilities. No managed cloud option.</p>
+
+<pre><code class="language-">import chromadb
+from chromadb.utils import embedding_functions
+
+client = chromadb.PersistentClient(path="./chroma_db")
+openai_ef = embedding_functions.OpenAIEmbeddingFunction(
+    api_key="your-api-key", model_name="text-embedding-3-small"
+)
+collection = client.get_or_create_collection(
+    name="documents", embedding_function=openai_ef
+)
+collection.add(
+    documents=["Full text of document..."],
+    metadatas=[{"source": "clinical_guidelines", "year": 2023}],
+    ids=["doc_1"]
+)
+results = collection.query(
+    query_texts=["elevated liver enzymes"],
+    n_results=5,
+    where={"year": {"$gte": 2022}}
+)</code></pre>
+
+<p><strong>Best for:</strong> Prototypes, local development, learning RAG, datasets under a few hundred thousand vectors.</p>
+
+<h2>Qdrant</h2>
+
+<p><strong>What it is:</strong> Open-source vector database written in Rust. High performance, rich filtering, managed cloud available.</p>
+
+<p><strong>Strengths:</strong> Best performance per dollar for self-hosted deployments. Payload filtering is incredibly flexible - nested JSON, geographic, full-text, numeric ranges, all combinable. Sparse vectors supported natively. HNSW parameters are tunable per collection.</p>
+
+<p><strong>Weaknesses:</strong> Less mature ecosystem. Fewer native integrations.</p>
+
+<pre><code class="language-">from qdrant_client import QdrantClient
+from qdrant_client.models import Distance, VectorParams, PointStruct, Filter, FieldCondition, Range
+
+client = QdrantClient(url="http://localhost:6333")
+client.create_collection(
+    collection_name="documents",
+    vectors_config=VectorParams(size=1536, distance=Distance.COSINE),
+)
+client.upsert(
+    collection_name="documents",
+    points=[PointStruct(
+        id=1, vector=embedding_vector,
+        payload={"source": "clinical_guidelines", "year": 2023}
+    )]
+)
+results = client.search(
+    collection_name="documents",
+    query_vector=query_embedding,
+    limit=5,
+    query_filter=Filter(must=[FieldCondition(key="year", range=Range(gte=2022))])
+)</code></pre>
+
+<p><strong>Best for:</strong> Production at scale, cost-sensitive deployments, fine-grained filtering control.</p>
+
+<h2>The Decision Framework</h2>
+
+<ul>
+<li><strong>Scale and cost:</strong> Under 100K vectors? Any option works. Above 10M with high query volume? Qdrant or Weaviate self-hosted will be significantly cheaper than Pinecone.</li>
+<li><strong>Operational capacity:</strong> No DevOps? Pinecone. Have infrastructure capacity? Qdrant or Weaviate.</li>
+<li><strong>Hybrid search requirement:</strong> If exact keyword matching matters alongside semantic search, use Weaviate or Qdrant.</li>
+<li><strong>Data compliance:</strong> Healthcare or finance with data residency requirements? Self-hosted only.</li>
+<li><strong>Speed to prototype:</strong> Building a demo? Chroma. Twenty minutes to a working RAG pipeline. Migrate later.</li>
+</ul>
+
+<p>The migration cost between vector databases is manageable - an evening of re-embedding and re-indexing for most datasets under 1M vectors. Don't over-engineer the initial choice.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/vector-database-showdown-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+<li><a href="https://www.devangshumitra.com/embedding-strategies-that-actually-scale/">Embedding Strategies That Actually Scale</a></li>
+</ul>
+
+<hr>
+
+<h2>Qdrant</h2>
+
+<p>What it is: Open-source, Rust-based vector database. It’s designed for high performance and cloud-native deployments. Qdrant offers both self-hosted and a managed cloud offering.</p>
+
+<p>Strengths: Qdrant excels with complex filtering and payload management. It stores vectors and their associated metadata on disk, which means it uses less RAM than Weaviate for large indexes. I've seen it handle millions of vectors efficiently on modest hardware. Its gRPC API is very fast for high-throughput applications. It also supports scalar quantization and product quantization for further memory and performance optimization.</p>
+
+<p>Weaknesses: Like Weaviate, self-hosting Qdrant demands operational expertise. You're responsible for Kubernetes deployments, persistent storage, and monitoring. The community is active but smaller than some alternatives. Getting started can feel less immediate than Chroma.</p>
+
+<pre><code class="language-">from qdrant_client import QdrantClient, models
+
+client = QdrantClient(host="localhost", port=6333)
+
+client.recreate_collection(
+    collection_name="my_documents",
+    vectors_config=models.VectorParams(size=1536, distance=models.Distance.COSINE),
+)
+
+client.upsert(
+    collection_name="my_documents",
+    wait=True,
+    points=[
+        models.PointStruct(
+            id=1,
+            vector=embedding_vector,
+            payload={"source": "medical_journal", "year": 2024},
+        )
+    ],
+)
+
+search_result = client.query_points(
+    collection_name="my_documents",
+    query_vector=query_embedding,
+    limit=5,
+    query_filter=models.Filter(
+        must=[
+            models.FieldCondition(
+                key="source",
+                match=models.MatchValue(value="medical_journal"),
+            ),
+        ]
+    ),
+)
+</code></pre>
+
+<p>Best for: Performance-critical RAG applications, complex metadata filtering, teams with Kubernetes experience.</p>
+
+<h3>The Real Cost of "Free" - Operational Overhead</h3>
+
+<p>When you choose an open-source vector database, you gain control. You also inherit responsibility. I've spent countless hours debugging self-hosted instances. For Weaviate, this often meant tuning JVM heap sizes and ensuring enough RAM for HNSW. For Qdrant, I focused on disk I/O and Kubernetes resource limits.</p>
+
+<p>Provisioning hardware is just the start. You need monitoring. I use Prometheus and Grafana to track query latency, index size, and resource consumption. Backups are critical. You must plan for consistent snapshots and disaster recovery. Upgrades can be tricky. Moving from Weaviate 1.17 to 1.22, for example, required careful data migration steps to ensure zero downtime.</p>
+
+<p>Compare this to Pinecone. With Pinecone, I just call an API. I don't worry about patching servers, scaling nodes, or managing persistent volumes. That operational burden disappears. This "invisible" work is a real cost. If your team has limited DevOps resources, that cost can quickly outweigh any per-query savings you might see from self-hosting.</p>
+
+<p>I've seen projects stall because teams underestimated the effort. A small team might save on cloud bills with self-hosting, but lose weeks of engineering time on infrastructure tasks. This trade-off is often more impactful than the raw compute cost difference.</p>
+
+<h3>Beyond Simple Search - Advanced RAG Patterns</h3>
+
+<p>Most RAG examples show a single query against a single vector representation. Real-world systems get more complex. I often use multi-vector retrieval. This means generating several embeddings for a single document. For a long legal brief, I might embed the full document, a summary, and each individual paragraph. This allows for more granular search.</p>
+
+<p>Pinecone supports this with namespaces or by storing different embedding types as separate vectors with metadata. Weaviate's schema allows for multiple vector properties on a single object. Qdrant lets you store multiple named vectors per point. This flexibility is key.</p>
+
+<p>Another common pattern is integrating with rerankers. The vector database gives you a set of candidate documents. Then, a separate model, like Cohere Rerank or a fine-tuned cross-encoder, reorders those candidates. This significantly improves precision. The vector database's role is fast recall; the reranker's role is precise ranking.</p>
+
+<p>When I built a medical literature search system, I'd retrieve 50 candidates from Qdrant. Then, I'd pass those 50 documents and the original query to a specialized BGE-Reranker. This two-stage approach balanced speed and relevance, delivering much better results than vector search alone.</p>
+
+<h3>Qdrant</h3>
+
+<p>What it is: Open-source vector database built in Rust, focusing on performance and advanced filtering. It offers both self-hosted options and a managed cloud service.</p>
+
+<p>Strengths: I've found Qdrant to be fast, especially with complex payload filtering alongside vector search. Its filtering capabilities are powerful, letting you combine boolean logic, ranges, and text searches on metadata with high efficiency. It supports multiple distance metrics like cosine and dot product. The Rust core provides impressive speed and memory safety, a big plus for high-throughput applications. They also have a managed cloud offering that simplifies deployment.</p>
+
+<p>Weaknesses: Setting up and optimizing a self-hosted Qdrant instance can demand more operational knowledge.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/vector-database-showdown-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/embedding-strategies-that-actually-scale/">Embedding Strategies That Actually Scale</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

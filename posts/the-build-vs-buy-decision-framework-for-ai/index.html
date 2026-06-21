@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The build vs buy question for AI is almost always answered wrong because" />
+  <meta property="og:title" content="The Build vs Buy Decision Framework for AI — Devangshu Mitra" />
+  <meta property="og:description" content="The build vs buy question for AI is almost always answered wrong because" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The Build vs Buy Decision Framework for AI — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Frameworks</span>
+            <time class="post-header__date" datetime="2025-06-25" itemprop="datePublished">Jun 25, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The Build vs Buy Decision Framework for AI</h1>
+          <p class="post-header__excerpt" itemprop="description">The build vs buy question for AI is almost always answered wrong because</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The Build vs Buy Decision Framework for AI</h1>
+
+<p>Every AI product team faces this decision. Do we build our own model? Buy a commercial solution? Use an API? Deploy an open-source model on our own infrastructure? The answers I've seen organizations give to this question are almost always influenced more by team identity than by actual strategic analysis.</p>
+
+<p>ML teams want to build. That's what they were hired for. Business teams want to buy. That's faster and cheaper. Both instincts are wrong in roughly half the cases.</p>
+
+<p>Here's the framework I use.</p>
+
+<h2>The 4-Quadrant Framework</h2>
+
+<p>The decision comes down to two axes: <strong>how differentiated does this capability need to be</strong>, and <strong>how sensitive is the underlying data</strong>. These two variables get you to a 2x2 that covers most real-world scenarios.</p>
+
+<h3>Quadrant 1: Low Differentiation, Low Data Sensitivity - Buy and Configure</h3>
+
+<p>If you need AI to do something that doesn't differentiate your product, and the data isn't sensitive, buy a configured solution and move on. Don't spend engineering cycles here.</p>
+
+<p>Examples: customer support chatbots for standard queries, internal HR Q&A, meeting summarization, basic document search. These are infrastructure problems, not product problems.</p>
+
+<p>When I was at Mamaearth working on digital infrastructure, we evaluated building a custom product recommendation engine. After scoping the project, we realized we needed about 70% of what a commercial solution like Dynamic Yield already offered. The 30% delta wasn't creating competitive advantage - we were a CPG brand, not a recommendation engine company. We bought, configured, and shipped in six weeks instead of eight months.</p>
+
+<p>The test for this quadrant: would your customers notice if this capability came from a vendor versus from you? If the answer is no, you're in Quadrant 1.</p>
+
+<h3>Quadrant 2: High Differentiation, Low Data Sensitivity - Buy and Customize</h3>
+
+<p>This is the quadrant most enterprise AI teams should be in, and almost none of them are. The pattern here is: use a foundation model or commercial API as your base, then layer your proprietary logic, domain knowledge, and product experience on top.</p>
+
+<p>OpenAI's API, Anthropic's Claude API, Google's Vertex AI - these give you frontier-model quality at a fraction of the cost of training your own model. Your job isn't to out-train OpenAI. It's to build the product layer that makes the model useful for your specific context.</p>
+
+<p>This is how Stripe built their fraud detection narrative explanations. They didn't build their own LLM. They used an off-the-shelf model and built the product logic that understood what a Stripe transaction looked like, what counted as suspicious, and how to explain the decision to a non-technical merchant. The differentiation was in the product layer, not the model layer.</p>
+
+<p>The test for this quadrant: does your competitive advantage come from understanding the model better than your competitors, or from understanding your domain better than your competitors? If it's the latter, buy and customize.</p>
+
+<h3>Quadrant 3: Low Differentiation, High Data Sensitivity - Open Source and Self-Host</h3>
+
+<p>This quadrant exists because of regulatory and privacy requirements. Your data can't leave your infrastructure, but you still need AI capabilities that aren't differentiating your product. The answer is open-source models deployed on your own infrastructure.</p>
+
+<p>Healthcare is the canonical example. Clinical notes, patient records, insurance claims - this data has strict regulatory constraints (HIPAA in the US, GDPR in Europe). But the AI capabilities you need - document summarization, entity extraction, coding assistance - aren't differentiating. The value is in having them, not in having built them yourself.</p>
+
+<p>HuggingFace's model hub, LLaMA variants, and Mistral models have made this quadrant dramatically more accessible. You can run a capable 7B or 13B model on standard cloud infrastructure at a fraction of the cost of rolling your own. The tradeoff is the operational overhead of managing your own model infrastructure, but for highly regulated industries this cost is worth it.</p>
+
+<p>The test for this quadrant: would your compliance or legal team block you from sending this data to a third-party API? If yes, you're in Quadrant 3.</p>
+
+<h3>Quadrant 4: High Differentiation, High Data Sensitivity - Build from Scratch</h3>
+
+<p>This is the quadrant you should be in only if you have a compelling answer to two questions: <strong>do we have proprietary data that no vendor can replicate</strong>, and <strong>is the model itself the product</strong>?</p>
+
+<p>Google's search ranking model. Spotify's recommendation engine. Epic's clinical risk models trained on decades of patient outcomes from their EHR system. These companies built because their data was genuinely proprietary and the model was genuinely the product.</p>
+
+<p>Most enterprise AI teams are not in this situation. They don't have unique data. Their model isn't the product - it's a component. Building from scratch for them is the equivalent of manufacturing your own servers because you need a web application.</p>
+
+<p>The test for this quadrant: if a competitor got access to the same foundation model you're using, would they be able to replicate your AI capability? If yes, you don't have a real build case. You have a product and UX problem, which you should solve with product thinking, not model training.</p>
+
+<h2>The Mistakes I See Most Often</h2>
+
+<h3>Treating All AI as Quadrant 4</h3>
+
+<p>This is the most expensive mistake. Teams default to building custom models because it feels more serious, more impressive, more like genuine AI research. The result is teams spending months training and fine-tuning models that are marginally better than a commercial API they could have been using on day one.</p>
+
+<p>I've watched a fintech company spend seven months building a custom intent classification model for their support chatbot. When I asked what accuracy they were targeting, they said 92%. When I asked what GPT-4 got on their test set out of the box, they said they hadn't tried it. We ran it that afternoon. It got 89%. The seven-month project bought them 3 percentage points.</p>
+
+<h3>Ignoring Total Cost of Ownership</h3>
+
+<p>The build vs buy math is almost always wrong because teams calculate the cost of building (engineering time, infrastructure) but not the cost of owning. Models drift. Data distributions shift. You need to retrain, re-evaluate, re-deploy. Open-source self-hosted models in particular have significant ongoing operational overhead that commercial APIs don't.</p>
+
+<p>When you're evaluating build vs buy, the real question isn't what does this cost to build. It's what does this cost to own for three years.</p>
+
+<h3>Not Revisiting the Decision</h3>
+
+<p>The build vs buy calculus changes as the market evolves. Two years ago, the case for building your own embedding model was much stronger. Today, Ada-002, text-embedding-3-large, and a dozen competitive offerings have made custom embedding models hard to justify for most use cases.</p>
+
+<p>Your build vs buy decisions should be reviewed annually, or whenever there's a major shift in what commercial options are available. The decision you made in 2022 might be wrong in 2025.</p>
+
+<h2>A Practical Decision Process</h2>
+
+<p>When I'm scoping a new AI capability, I run through these questions in order:</p>
+
+<ol>
+<li><strong>Can a commercial API do 80% of this today?</strong> If yes, start there and measure the gap.</li>
+<li><strong>What's in the gap?</strong> Is it domain knowledge, data access, latency, privacy? The type of gap determines your path.</li>
+<li><strong>What's the cost of closing the gap through customization vs building from scratch?</strong> Usually customization is 5-10x cheaper.</li>
+<li><strong>What's the operational cost of each option over 3 years?</strong> Include maintenance, retraining, and the cost of the people needed to run it.</li>
+<li><strong>What happens if this decision is wrong?</strong> Can you migrate from a commercial API to a custom model later? Usually yes. Can you migrate from a custom model to a commercial API? Usually yes, with some rework. The reversibility of the decision matters.</li>
+</ol>
+
+<p>The last point is important. Build vs buy is not a one-way door. Most of the time, you can start with a commercial API, learn what you actually need, and then invest in customization or custom training only for the parts where the commercial solution genuinely falls short.</p>
+
+<p>Starting with the commercial option gives you real usage data to justify the custom build. Starting with the custom build gives you a lot of engineering sunk cost and no data about whether it's actually better for users.</p>
+
+<h2>The takeaway</h2>
+
+<p>The right answer to build vs buy is almost never always build or always buy. It's a portfolio decision: build where you have genuine proprietary advantage, buy where you don't. The discipline is being honest about which situation you're actually in.</p>
+
+<p>Most teams overestimate how much their AI differentiation comes from the model and underestimate how much it comes from the product layer, the data strategy, and the domain expertise baked into the system. Get that calibration right, and the build vs buy decision usually answers itself.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/the-10x-cost-of-wrong-ai-use-cases/">The 10x Cost of Wrong AI Use Cases</a></li>
+<li><a href="https://www.devangshumitra.com/the-moat-myth-what-actually-defends-ai-products/">The Moat Myth: What Actually Defends AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/genai-build-vs-buy-matrix/">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

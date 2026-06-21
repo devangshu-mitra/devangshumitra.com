@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Standard user research methods mostly apply to AI products, but several" />
+  <meta property="og:title" content="User Research for AI Products: What Changes — Devangshu Mitra" />
+  <meta property="og:description" content="Standard user research methods mostly apply to AI products, but several" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>User Research for AI Products: What Changes — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-12-04" itemprop="datePublished">Dec 4, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">User Research for AI Products: What Changes</h1>
+          <p class="post-header__excerpt" itemprop="description">Standard user research methods mostly apply to AI products, but several</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>User Research for AI Products: What Changes</h1>
+
+<p>User research for AI products has the same goal as user research for any product: understand what users need, what they do, and what they think, so you can build something that works. Most of the methods transfer. Some important things are different enough to change how you run research.</p>
+
+<p>I've run user research for AI products in clinical settings, enterprise automation, and consumer contexts. The differences that consistently matter enough to change methodology are: users can't easily articulate preferences for AI outputs they haven't experienced, trust is dynamic and changes with exposure, and prototype testing misses the critical AI-specific interaction patterns.</p>
+
+<h2>What Changes in AI User Research</h2>
+
+<h3>Users Can't Tell You What They Want From AI They Haven't Seen</h3>
+
+<p>Standard discovery asks: what do you need? Users can tell you what they need in their current workflows. They can't reliably tell you what they want from an AI assistant in that same workflow - because they haven't experienced it and their mental model of what AI can and can't do is often inaccurate.</p>
+
+<p>Ask users what problems they have, not what AI solutions they want. "I spend three hours per week synthesizing reports from five different systems" is a research finding you can design for. "I'd like an AI that summarizes my reports" is a solution specification from a user who doesn't know what's possible - often leading you toward the obvious solution rather than the right one.</p>
+
+<h3>Trust Is Dynamic, Not a Fixed Attribute</h3>
+
+<p>Standard research often treats attitudes as stable: users either trust AI or they don't, users either want AI assistance or they don't. Trust in AI is dynamic - it changes based on specific interactions, especially negative ones. A user who has a bad experience with an AI recommendation often becomes more skeptical of all recommendations for a period, regardless of quality.</p>
+
+<p>This means trust questions in surveys are snapshot measurements, not stable trait measurements. When you see high trust scores in your research, verify whether those scores persist after exposure to realistic AI error rates - not just the model's best performance.</p>
+
+<h3>Prototype Testing Misses the Core AI Interaction</h3>
+
+<p>A static mockup can show what an AI recommendation looks like. It can't show how users respond when the recommendation is wrong, when the confidence level is low, or when the AI contradicts what the user was expecting. These are the interactions that determine whether users adopt or abandon the AI feature.</p>
+
+<p>AI user research needs to include live AI outputs - which requires a working (or Wizard of Oz) model, not just a prototype.</p>
+
+<h2>Adapted Research Methods</h2>
+
+<h3>Contextual Inquiry First</h3>
+
+<p>Watch users do their actual work before any AI involvement. Document:</p>
+
+<ul>
+<li>Where they currently make decisions (explicit choice points)</li>
+<li>Where they express uncertainty or seek additional information</li>
+<li>What information sources they trust and why</li>
+<li>What errors in their current workflow look like and how they handle them</li>
+<li>Where they feel they're wasting time or operating below their capability</li>
+</ul>
+
+<p>This gives you the baseline you'll compare AI performance against, the decision points where AI could add value, and the error handling mental models that will shape how users respond to AI errors.</p>
+
+<h3>AI-Assisted Think-Aloud Sessions</h3>
+
+<p>The standard think-aloud protocol (ask users to verbalize their thinking while performing tasks) adapts well for AI, but requires live AI outputs. Run users through their actual workflow with the AI feature enabled and ask them to verbalize:</p>
+
+<ul>
+<li>What they notice about the AI output</li>
+<li>Whether it matches their expectation</li>
+<li>What they would do with the recommendation</li>
+<li>What would make them trust it more or less</li>
+</ul>
+
+<p>Include deliberate errors in the session: show users cases where the AI is wrong. This is the most valuable part of the research - user behavior after an AI error predicts adoption and abandonment more than user behavior when the AI is correct.</p>
+
+<h3>Trust Calibration Interviews</h3>
+
+<p>After a period of real usage (not a one-time session), interview users about their trust calibration:</p>
+
+<ul>
+<li>"When do you trust the AI recommendation without checking further?"</li>
+<li>"When do you always verify before acting on the recommendation?"</li>
+<li>"Can you give me an example of when the AI was wrong? How did that affect your behavior afterward?"</li>
+<li>"If you had to explain to a colleague when to trust this AI and when to double-check, what would you say?"</li>
+</ul>
+
+<p>Users who have developed accurate trust calibration (trusting high-confidence outputs, verifying low-confidence ones) are the model for your target user experience. Users who are over-trusting or under-trusting are the risk cases your design needs to address.</p>
+
+<h3>Diary Studies for Long-Running AI Features</h3>
+
+<p>For AI features embedded in ongoing workflows (not single-session tasks), diary studies capture how usage and trust change over time better than point-in-time research. Ask users to log:</p>
+
+<ul>
+<li>Daily: how many times they used the AI feature and for what</li>
+<li>When notable: cases where the AI was helpful, cases where it was wrong, behavioral changes they made in response</li>
+<li>Weekly: overall confidence in the AI this week vs last week, and why it changed</li>
+</ul>
+
+<p>Diary studies run 2-4 weeks give you a view of trust dynamics that no single interview can capture.</p>
+
+<h2>Specific Research Questions for AI Products</h2>
+
+<p>Add these to your standard research when building AI features:</p>
+
+<ul>
+<li>How does the user's existing trust in AI tools (or distrust) affect their initial engagement with this feature?</li>
+<li>What information does the user need to see alongside the AI recommendation to make a good decision about whether to act on it?</li>
+<li>How do users respond when the AI is wrong? Do they adapt, abandon, or escalate?</li>
+<li>Are there user segments whose workflows are fundamentally incompatible with AI assistance in this area?</li>
+<li>What language do users use to describe AI failure? (This is the vocabulary you need for error messaging.)</li>
+<li>Would users trust AI in this specific domain even if they trust AI generally?</li>
+</ul>
+
+<h2>What Doesn't Change</h2>
+
+<p>Standard user research fundamentals still apply:</p>
+
+<ul>
+<li>Talk to real users in their actual environment, not proxies or hypothetical users</li>
+<li>Use behavioral evidence over stated preferences wherever possible</li>
+<li>Recruit across the distribution of users, not just the enthusiasts</li>
+<li>Test with your real target population - don't let demographics drift in recruiting</li>
+<li>Synthesize across multiple research inputs before drawing conclusions</li>
+</ul>
+
+<h2>What matters here</h2>
+
+<p>Focus discovery on user problems, not AI solution preferences. Treat trust as dynamic - measure it after exposure to realistic error rates, not just best-case performance. Use live AI outputs in research sessions, not static prototypes, to capture the critical trust-formation interactions. Add trust calibration interviews after a period of real usage. Run diary studies for ongoing AI features to capture how trust changes over time. Build your research program around: where does AI add value in this workflow, and what does trust formation look like for this user population.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/ethics-and-responsible-ai-a-pms-practical-guide/">Ethics and Responsible AI: A PM's Practical Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/managing-technical-debt-in-ai-products/">Managing Technical Debt in AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-management-when-nobody-understands-ai/">Stakeholder Management When Nobody Understands AI</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

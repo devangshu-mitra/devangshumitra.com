@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I manage AI features across 10 clinical products simultaneously. Here is" />
+  <meta property="og:title" content="Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across — Devangshu Mitra" />
+  <meta property="og:description" content="I manage AI features across 10 clinical products simultaneously. Here is" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2025-10-17" itemprop="datePublished">Oct 17, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across</h1>
+          <p class="post-header__excerpt" itemprop="description">I manage AI features across 10 clinical products simultaneously. Here is</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</h1>
+
+<p>Managing one AI product roadmap is hard. Managing ten simultaneously - across clinical trials, MedTech, BioPharma, and drug discovery - requires a system. Here's how I prioritize features across my portfolio at HCLTech.</p>
+
+<h2>The Modified RICE Framework</h2>
+
+<p>Standard RICE (Reach x Impact x Confidence / Effort) doesn't capture two dimensions critical in healthcare AI: <strong>regulatory risk</strong> and <strong>clinical impact</strong>. I add both as weighted multipliers.</p>
+
+<p>My formula: <strong>(Reach x Impact x Confidence x Regulatory_Factor x Clinical_Factor) / Effort</strong></p>
+
+<p>Regulatory_Factor: 1.0 (no regulatory impact) to 0.3 (requires FDA submission). Higher regulatory burden reduces the score, forcing a higher bar for everything else. Clinical_Factor: 1.0 (no clinical impact) to 2.0 (direct patient outcome improvement). Direct clinical impact gets a boost.</p>
+
+<h2>Capacity Allocation: The 30/50/20 Rule</h2>
+
+<p>Across my portfolio, I allocate capacity as:</p>
+
+<ul>
+<li><strong>30% Compliance and Security</strong> - non-negotiable. HIPAA, FDA, SOC2, penetration testing, audit preparation. This isn't optional work you can defer.</li>
+<li><strong>50% Core Product</strong> - features that move the primary product metrics. New capabilities, performance improvements, integration expansions.</li>
+<li><strong>20% Innovation</strong> - experimental features, new use cases, technology evaluation. This is where the next product comes from.</li>
+</ul>
+
+<h2>Cross-Product Prioritization</h2>
+
+<p>When managing 10 products, you can't treat each roadmap independently. Some features benefit multiple products (shared NLP pipeline, common auth system, unified monitoring). I maintain a "platform layer" roadmap that captures cross-cutting capabilities. A feature that benefits 3+ products gets a natural priority boost because the ROI multiplies.</p>
+
+<h2>Stakeholder Communication</h2>
+
+<p>With 10 products, you have 10x the stakeholders. I run monthly roadmap reviews organized by domain (clinical trials, MedTech, etc.) rather than by product. This lets stakeholders see the full picture and reduces duplicative requests across products.</p>
+
+<h2>The Regulatory Factor in Practice: Beyond a Number</h2>
+
+<p>That Regulatory_Factor isn't just an arbitrary number. It reflects a very real, often expensive, burden. When I calculate it, I break down the regulatory pathway a feature might trigger. For instance, a minor UI tweak might have a factor of 1.0. It doesn't touch regulated aspects.</p>
+
+<p>But consider a feature that introduces new data capture for a clinical trial. If that data goes into an electronic record system, it likely falls under FDA 21 CFR Part 11. This regulation demands strict controls for electronic records and electronic signatures. We're talking about audit trails, user authentication, data integrity checks, and secure record retention. Implementing these controls is a significant engineering effort.</p>
+
+<p>A feature requiring Part 11 compliance instantly drops its Regulatory_Factor to perhaps 0.4 or 0.3. This means its Reach, Impact, and Confidence need to be much higher to justify the work. It forces a strong business case. You can't just add a "nice-to-have" if it pulls you into a whole new regulatory compliance stream. I've seen teams propose features that, on paper, looked simple, but then realized the Part 11 implications would add six months to the timeline. That's a hard stop for many ideas.</p>
+
+<h2>Navigating Clinical Workflows: The EHR Integration Challenge</h2>
+
+<p>Integrating AI tools into existing clinical workflows is where many promising ideas hit a wall. It's not enough to build a technically sound AI model. You have to make it usable by clinicians in their daily routine. My team often works on features that require pulling data from or pushing insights into Electronic Health Record (EHR) systems like Epic or Cerner.</p>
+
+<p>This goes beyond simple API connections. You need to understand the physician's mental model, their existing clicks, and the flow of patient data. A feature might technically integrate via FHIR (Fast Healthcare Interoperability Resources) or SMART on FHIR, but if it adds five extra clicks to a doctor's workflow, it won't get adopted. I've seen projects stall because they focused on technical integration without deeply understanding the clinical user's context. For example, a new AI-powered diagnostic suggestion needs to appear at the right time in the ordering process, not after the order is already placed.</p>
+
+<p>We spend a lot of time mapping out actual clinical paths. This means sitting with doctors, nurses, and pharmacists. We observe how they use their current systems. Sometimes, a "minor" AI feature requires significant changes to existing EHR templates or order sets. That means coordination with IT departments, change management, and often, a slow rollout. This understanding informs the "Effort" part of my RICE calculation more than any other factor.</p>
+
+<h2>Confronting Technical Debt Across a Portfolio</h2>
+
+<p>With ten products, technical debt isn't just an inconvenience; it's a compounding interest problem. Neglecting it for one product is bad, but for ten, it can cripple your portfolio's ability to innovate. I don't see technical debt as a separate backlog item. Instead, I bake its management into the 50% Core Product capacity.</p>
+
+<p>We allocate specific sprints or a fixed percentage of each sprint to address it. This might involve upgrading deprecated libraries across all products, refactoring shared components, or improving monitoring tools. For example, if we use an older version of Python in a shared NLP pipeline, upgrading it becomes a high priority. It affects the security posture and performance of multiple products. One security vulnerability in a common component could impact seven different products.</p>
+
+<p>I also prioritize cleaning up technical debt that impacts developer velocity. If engineers spend 20% of their time wrestling with old codebases or slow build times, that's lost capacity for new features. Keeping the underlying architecture healthy, especially the shared "platform layer," is crucial. It's an ongoing investment that prevents future roadblocks. You don't want to be in a position where a critical security patch takes weeks to deploy because of architectural fragility.</p>
+
+<h2>The Critical Role of Data Strategy and Governance</h2>
+
+<p>AI products live and die by their data. When you manage a portfolio of AI products in healthcare, a clear data strategy isn't optional. It's foundational. I prioritize features that improve data quality, accessibility, and governance as heavily as new AI models themselves. This often means investing in data labeling pipelines, data anonymization techniques, or secure data sharing mechanisms.</p>
+
+<p>Consider a feature aimed at improving a diagnostic AI model. If the training data is biased or incomplete, the model will be flawed. So, a project to curate a high-quality, diverse dataset for that model might get a higher priority than an incremental model improvement. This connects directly to the "Impact" factor. Better data means better model performance and better clinical outcomes.</p>
+
+<p>Data governance, especially with sensitive patient information, is also non-negotiable. Compliance with HIPAA, GDPR, or country-specific data privacy laws informs many of our data-related features. We might prioritize building a federated learning framework to train models on decentralized patient data without ever moving the raw data. Or we might invest in tools for effective data lineage tracking. Knowing where data came from, how it was transformed, and who accessed it is critical. These aren't "sexy" features, but they build trust and enable future innovation securely.</p>
+
+<h2>Key Takeaways</h2>
+
+<ul>
+<li><strong>Standard RICE underweights healthcare-specific dimensions.</strong> Add regulatory risk and clinical impact as explicit factors.</li>
+<li><strong>Allocate 30% to compliance as a non-negotiable baseline.</strong> Never trade compliance for feature velocity.</li>
+<li><strong>Identify cross-product platform investments.</strong> Shared infrastructure has multiplied ROI across a portfolio.</li>
+<li><strong>Organize stakeholder communication by domain, not product.</strong> Reduces duplicative requests and improves strategic alignment.</li>
+<li><strong>Review quarterly, adjust monthly, respond to regulatory changes immediately.</strong></li>
+</ul>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-ai-in-life-sciences-a-framework-for-enterprise-decision-makers/">Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

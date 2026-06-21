@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most AI business cases fail the CFO review because they overestimate benefits," />
+  <meta property="og:title" content="The ROI of AI: How to Build a Business Case Your CFO Will Approve — Devangshu Mitra" />
+  <meta property="og:description" content="Most AI business cases fail the CFO review because they overestimate benefits," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>The ROI of AI: How to Build a Business Case Your CFO Will Approve — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-01-11" itemprop="datePublished">Jan 11, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">The ROI of AI: How to Build a Business Case Your CFO Will Approve</h1>
+          <p class="post-header__excerpt" itemprop="description">Most AI business cases fail the CFO review because they overestimate benefits,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>The ROI of AI: How to Build a Business Case Your CFO Will Approve</h1>
+
+<p>I have reviewed a lot of AI business cases. The ones that fail to get executive approval almost always fail in the same way: they lead with revenue impact projections that rest on three layers of assumptions, they hide the real cost of AI development and maintenance in a single implementation line item, and they treat risk as an afterthought rather than a central input to the financial model.</p>
+
+<p>The business case framework I am sharing here is designed to do three things: tell the truth about costs, quantify benefits rigorously rather than optimistically, and build risk-adjusted returns that survive a skeptical CFO's scrutiny.</p>
+
+<h2>Why AI Business Cases Are Uniquely Hard</h2>
+
+<p>AI business cases are harder to build than traditional software business cases for structural reasons:</p>
+
+<ul>
+<li><strong>Uncertain performance at production scale:</strong> AI model performance in a pilot environment is not a reliable predictor of production performance. The pilot ran on clean data, with engaged users, with close engineering support. Production is messier on all three dimensions.</li>
+<li><strong>Hidden ongoing costs:</strong> Traditional software has relatively stable maintenance costs after deployment. AI systems require ongoing model monitoring, periodic retraining, data pipeline maintenance, and governance overhead that are easy to exclude from initial cost models.</li>
+<li><strong>Attribution complexity:</strong> When AI improves a business process, it is often genuinely difficult to isolate the AI's contribution from other changes happening simultaneously. CFOs who have been burned by inflated claims before will discount benefit estimates unless they are built on a rigorous attribution methodology.</li>
+<li><strong>Long value realization cycles:</strong> The gap between first deployment and meaningful ROI in enterprise AI is often 12-24 months. Business cases built on 6-month payback periods are optimistic at best and dishonest at worst.</li>
+</ul>
+
+<h2>The Total Cost Model</h2>
+
+<p>The most common error in AI cost modeling is treating the AI as a software product when it is more analogous to a new business function. The full cost has five components:</p>
+
+<h3>1. Development Costs</h3>
+
+<ul>
+<li>Data engineering: pipeline design, data cleaning, labeling, and versioning. In my experience, data work is consistently underestimated by 2-3x. Budget 40-60% of total development cost for data work.</li>
+<li>Model development: research, iteration, evaluation framework construction, fine-tuning if applicable</li>
+<li>Application development: API design, front-end interfaces, integration with existing systems</li>
+<li>Validation and testing: SME time for evaluation set construction, red-team testing, user acceptance testing</li>
+<li>External vendors/APIs: AI platform costs during development, including evaluation runs against multiple models</li>
+</ul>
+
+<h3>2. Infrastructure Costs</h3>
+
+<ul>
+<li>Compute: inference costs (per-token or per-request pricing for cloud AI APIs, or GPU costs for self-hosted models)</li>
+<li>Data storage: vector databases, document stores, logging and monitoring data</li>
+<li>Monitoring infrastructure: dashboards, alerting, MLOps tooling</li>
+</ul>
+
+<h3>3. Talent Costs</h3>
+
+<ul>
+<li>ML engineering FTE allocation (ongoing, not just development)</li>
+<li>Data engineering FTE allocation (ongoing data pipeline maintenance)</li>
+<li>Product management allocation</li>
+<li>Domain expert / SME time for ongoing quality review and model feedback</li>
+</ul>
+
+<h3>4. Regulatory and Compliance Costs</h3>
+
+<ul>
+<li>Legal review of AI use cases and data handling</li>
+<li>Compliance documentation (required for FDA-regulated products, EU AI Act, SOC 2 audits)</li>
+<li>Bias auditing (required by law in some jurisdictions for HR AI, strongly recommended elsewhere)</li>
+</ul>
+
+<h3>5. Change Management Costs</h3>
+
+<ul>
+<li>Training and enablement for end users</li>
+<li>Workflow redesign where AI changes existing processes</li>
+<li>Productivity dip during adoption period (often ignored entirely in business cases)</li>
+</ul>
+
+<p>Build a three-year total cost model, not a first-year cost model. Year 1 is dominated by development costs. Years 2-3 reveal the true ongoing cost structure, which is what determines long-term ROI.</p>
+
+<h2>Benefit Quantification Framework</h2>
+
+<p>Benefits fall into four categories, each requiring a different quantification approach:</p>
+
+<h3>Category 1: Time Savings</h3>
+
+<p>The most commonly cited AI benefit and the most frequently overstated. The discipline for getting this right:</p>
+
+<ol>
+<li>Measure the current time spent on the specific task the AI automates. Use time studies, not manager estimates.</li>
+<li>Estimate the AI-assisted reduction. Be conservative: if the AI reduces a 30-minute task to 5 minutes, model 7-10 minutes to account for review time, error correction, and adoption friction.</li>
+<li>Calculate full-time equivalent (FTE) capacity freed. 25 analysts x 2 hours per day x 250 working days = 12,500 hours per year = 6.25 FTE.</li>
+<li>Apply a realization rate. Not all freed capacity converts to value. Model a 60-70% realization rate unless you have a specific plan to direct freed capacity.</li>
+</ol>
+
+<h3>Category 2: Quality / Error Reduction</h3>
+
+<p>For AI that improves accuracy of a process that currently has meaningful error rates:</p>
+
+<ol>
+<li>Establish current error rate with data, not anecdote</li>
+<li>Quantify the cost of each error type (rework cost, revenue impact, compliance cost, customer churn)</li>
+<li>Estimate the AI-assisted error rate reduction - use pilot data if available, conservative estimates if not</li>
+<li>Multiply: error reduction x cost per error x volume</li>
+</ol>
+
+<p>Healthcare example: medical coding error rate reduction. Current incorrect code rate = 8%. Cost of recode + claim resubmission = $45 per claim. Volume = 100,000 claims per year. AI reduces error rate to 3%. Benefit = 5% x 100,000 x $45 = $225,000 per year. This is a defensible, data-backed benefit estimate.</p>
+
+<h3>Category 3: Revenue Uplift</h3>
+
+<p>The hardest to quantify and the most scrutinized. Use this category only when you can draw a clear, short causal chain from AI output to revenue metric.</p>
+
+<ul>
+<li>Clear chain: AI product recommendation in checkout → measured uplift in add-to-cart rate → measured conversion to purchase → measured revenue per order. A/B test validates causality.</li>
+<li>Unclear chain: AI in supply chain → better product availability → customer satisfaction → customer lifetime value → revenue. Too many steps, too many confounds.</li>
+</ul>
+
+<p>If the causal chain requires more than two steps, put the benefit in a strategic value category and do not count it in your base case ROI. Include it as an upside scenario.</p>
+
+<h3>Category 4: Compliance Cost Avoidance</h3>
+
+<p>For AI systems that reduce regulatory risk, the benefit is the expected cost of the compliance event multiplied by the reduction in probability of that event occurring.</p>
+
+<p>Fintech example: AI-powered transaction fraud detection. Annual fraud losses (without AI) = $2M. Expected AI fraud reduction = 35%. Benefit = $700,000 per year. Additionally: regulatory penalty exposure for AML violations. Expected annual penalty exposure = $500,000. AI compliance monitoring reduces exposure by 40%. Benefit = $200,000 per year. Total compliance benefit = $900,000 per year.</p>
+
+<h2>Risk-Adjusted ROI</h2>
+
+<p>A standard ROI calculation presents a point estimate. A risk-adjusted ROI presents three scenarios: base case, upside, and downside. Assign probability weights to each scenario. The probability-weighted return is the number to defend in front of a CFO.</p>
+
+<p>| Scenario | Probability | 3-Year NPV | Weighted NPV | | --- | --- | --- | --- | | Upside (AI performs at POC level, high adoption) | 25% | $3.2M | $800K | | Base Case (moderate AI performance, expected adoption) | 55% | $1.4M | $770K | | Downside (production performance below POC, slow adoption) | 20% | -$200K | -$40K | | <strong>Risk-Adjusted NPV</strong> | 100% |  | <strong>$1.53M</strong> |</p>
+
+<p>The downside scenario is critical. If you cannot present a credible downside case, CFOs will supply their own - and it will be more pessimistic than yours. Show that you have modeled it honestly.</p>
+
+<h2>Comparable Benchmarks</h2>
+
+<p>Real numbers from published case studies and industry research:</p>
+
+<ul>
+<li><strong>Healthcare - AI-assisted coding:</strong> 25-40% reduction in coding time, 30-50% reduction in coding error rate. Typical ROI: 2.5-4x over 3 years at enterprise scale.</li>
+<li><strong>Financial services - fraud detection:</strong> AI systems typically reduce fraud losses by 25-50% vs. rule-based systems. ROI highly dependent on fraud exposure level - high-volume consumer payments realize faster payback than commercial banking.</li>
+<li><strong>Retail - demand forecasting:</strong> AI demand forecasting reduces forecast error by 20-30% vs. statistical methods, leading to 15-25% reduction in excess inventory and 10-20% reduction in stockout rate. McKinsey has published retail AI ROI estimates of 1-5% revenue uplift for integrated AI supply chain programs.</li>
+<li><strong>Enterprise - document processing:</strong> AI contract review and document intelligence typically delivers 60-80% reduction in human review time for standard document types. ROI highly dependent on current legal/contract review cost.</li>
+</ul>
+
+<h2>The Template</h2>
+
+<p>A well-structured AI business case has five sections:</p>
+
+<ol>
+<li><strong>Problem statement:</strong> What is the business problem, how large is it, what does it cost today?</li>
+<li><strong>Proposed solution:</strong> What AI system will address it, at what performance level, with what user experience?</li>
+<li><strong>Cost model:</strong> Three-year total cost by category (development, infrastructure, talent, regulatory, change management)</li>
+<li><strong>Benefit model:</strong> Quantified benefits by category with methodology transparent</li>
+<li><strong>Risk-adjusted ROI:</strong> Three-scenario NPV with probability weights, payback period analysis, and key risks and mitigations</li>
+</ol>
+
+<blockquote><p>A business case is a commitment device, not a marketing document. If you build it to get approval rather than to make a good decision, you will get approval - and then spend two years managing the fallout of overpromised benefits and undercounted costs.</p></blockquote>
+
+<p>Build the honest version. CFOs who approve honest business cases become your biggest advocates when the project delivers. CFOs who approved inflated projections that miss become your biggest obstacle on the next project. Your reputation for accuracy is a compounding asset.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-prd-template-the-practitioners-version/">AI Product PRD Template: The Practitioner's Version</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-mapping-canvas/">Stakeholder Mapping Canvas for Enterprise AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

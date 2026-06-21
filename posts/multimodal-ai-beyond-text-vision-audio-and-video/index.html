@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Multimodal AI — models that process images, audio, and video alongside text" />
+  <meta property="og:title" content="Multimodal AI: Beyond Text — Vision, Audio, and Video — Devangshu Mitra" />
+  <meta property="og:description" content="Multimodal AI — models that process images, audio, and video alongside text" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Multimodal AI: Beyond Text — Vision, Audio, and Video — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-04-26" itemprop="datePublished">Apr 26, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Multimodal AI: Beyond Text — Vision, Audio, and Video</h1>
+          <p class="post-header__excerpt" itemprop="description">Multimodal AI — models that process images, audio, and video alongside text</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Multimodal AI: Beyond Text — Vision, Audio, and Video</h1>
+
+<p>The first time I showed a clinical team GPT-4V analyzing a chest X-ray, the reaction was visceral. Not because it was perfect - it wasn't - but because it was describing findings in clinical language, noting ambiguous regions. In two minutes, a model was doing something that had required a radiologist for seventy years. That's the multimodal moment we're in.</p>
+
+<h2>The Multimodal Space</h2>
+
+<ul>
+<li><strong>Vision-language models (VLMs):</strong> GPT-4o, Claude 3 (all tiers), Gemini 1.5, LLaMA 3.2 Vision, PaliGemma.</li>
+<li><strong>Audio models:</strong> Whisper (speech-to-text), ElevenLabs/Bark (text-to-speech), Gemini 1.5 (native audio understanding).</li>
+<li><strong>Video models:</strong> Gemini 1.5 Pro (video understanding), RunwayML, Pika Labs (generation).</li>
+<li><strong>Document understanding:</strong> Amazon Textract, Google Document AI, Donut, LayoutLMv3.</li>
+</ul>
+
+<h2>How Vision-Language Models Work</h2>
+
+<p>Modern VLMs divide images into patches, encode each with a vision encoder (ViT), then project those patch embeddings into the same space as text tokens. The language model processes a combined sequence of image patch embeddings and text token embeddings.</p>
+
+<p>GPT-4V uses high-resolution tiling: it divides large images into multiple 512x512 tiles, each processed independently. This is why GPT-4V can read fine print in an image - it's examining tiled sub-images. You're also paying per tile. A 2048x2048 image at high detail = 16 tiles = expensive. Downscale images to the minimum resolution needed for your task.</p>
+
+<pre><code class="language-">from openai import OpenAI
+import base64
+from PIL import Image
+import io
+
+client = OpenAI()
+
+def analyze_image(image_path: str, prompt: str, detail: str = 'high') -&gt; str:
+    img = Image.open(image_path)
+    if max(img.size) &gt; 1024 and detail == 'auto':
+        img.thumbnail((1024, 1024))  # Reduce cost
+    buffer = io.BytesIO()
+    img.save(buffer, format='PNG')
+    img_b64 = base64.b64encode(buffer.getvalue()).decode()
+    response = client.chat.completions.create(
+        model='gpt-4o',
+        messages=[{
+            'role': 'user',
+            'content': [
+                {'type': 'image_url', 'image_url': {'url': f'data:image/png;base64,{img_b64}', 'detail': detail}},
+                {'type': 'text', 'text': prompt}
+            ]
+        }],
+        max_tokens=1000
+    )
+    return response.choices[0].message.content</code></pre>
+
+<h2>Document Understanding: The High-Value Enterprise Use Case</h2>
+
+<p>Document understanding - extracting structured data from PDFs, invoices, contracts, forms - is one of the highest-ROI multimodal applications in enterprise settings. Traditional approaches required custom OCR pipelines, rule-based extraction, and constant maintenance as document formats changed. Modern VLMs handle complex table extraction, merged cells, and rotated headers far better than text-only extraction.</p>
+
+<pre><code class="language-">invoice_schema = """
+Extract the following fields as JSON:
+- invoice_number
+- vendor_name
+- invoice_date
+- line_items: list of {description, quantity, unit_price, total}
+- total_amount
+
+If a field is not present, use null. Return only valid JSON.
+"""
+
+result = analyze_image('invoice.pdf', invoice_schema)
+import json
+structured_data = json.loads(result)</code></pre>
+
+<p>At HCLTech, we used this approach to extract structured data from clinical trial protocols - 200-page PDFs with complex tables, nested eligibility criteria, and cross-references. The multimodal approach outperformed text-only extraction significantly on table handling.</p>
+
+<h2>Medical Imaging: The Opportunity and the Reality Check</h2>
+
+<p><strong>General-purpose VLMs are not clinical-grade tools.</strong> GPT-4V on chest X-ray findings performs comparably to a first-year resident in some studies, but significantly underperforms for subtle findings or rare conditions. Never deploy a general-purpose VLM for clinical decision-making without extensive validation.</p>
+
+<p><strong>Specialized medical imaging models are far better for clinical tasks.</strong> Med-PaLM M (Google), BioViL-T (Microsoft) dramatically outperform general VLMs on their target tasks.</p>
+
+<p><strong>The immediate safe opportunity is documentation and workflow, not diagnosis.</strong> Using a VLM to generate draft radiology report text for a radiologist to review is a legitimate, valuable workflow. The radiologist remains the decision-maker; AI is a documentation assistant.</p>
+
+<h2>Audio: The Underutilized Modality</h2>
+
+<p>Whisper (OpenAI) achieves near-human accuracy on transcription across 99 languages, handles domain vocabulary and accents remarkably well, and runs locally. At HCLTech, ambient clinical documentation - recording the doctor-patient encounter and auto-generating structured clinical notes - is one of the highest-ROI AI applications we've built.</p>
+
+<pre><code class="language-">import whisper
+
+model = whisper.load_model('large-v3')
+result = model.transcribe(
+    'clinical_encounter.mp3',
+    language='en',
+    initial_prompt='Medical encounter between physician and patient. Use standard medical terminology.'
+)
+print(result['text'])</code></pre>
+
+<p>Gemini 1.5 processes audio natively - understanding tone, pace, sentiment, and multiple speakers. This opens applications like customer call analysis, meeting understanding, and educational speaking feedback.</p>
+
+<h2>Video Understanding</h2>
+
+<p>Gemini 1.5 Pro can process up to 1 hour of video (frames sampled at 1fps) with its 1M context window. Applications: surgical procedure documentation, safety monitoring in manufacturing, training content extraction, sports performance analysis. Cost is significant at scale - sample at lower frame rates unless temporal resolution is critical.</p>
+
+<h2>Practical Considerations</h2>
+
+<ol>
+<li><strong>Image quality gates matter.</strong> Blurry, poorly lit, or incorrectly rotated images degrade performance severely. Implement quality checks before sending to the model.</li>
+<li><strong>Multimodal models hallucinate about images.</strong> For precision-sensitive use cases, pair VLM extraction with validation - cross-check extracted numbers against other signals.</li>
+<li><strong>Test with actual user artifact types.</strong> Camera phone photos have very different characteristics than scanner output. Your demo images are not your production images.</li>
+<li><strong>Consider specialized models for specialized domains.</strong> A dermatology-focused model will outperform GPT-4V for dermatology classification.</li>
+</ol>
+
+<p>Multimodal AI is where a lot of the most interesting product work is happening right now. The teams building competitive moats are the ones going beyond text - tackling the documents, images, audio, and video that previous AI generations simply couldn't touch.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/transformer-architectures-explained-for-product-people/">Transformer Architectures Explained for Product People</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/transformer-architectures-explained-for-product-people/">Transformer Architectures Explained for Product People</a></li>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

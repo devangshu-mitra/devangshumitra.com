@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Every enterprise AI decision eventually becomes a build-vs-buy decision." />
+  <meta property="og:title" content="Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers — Devangshu Mitra" />
+  <meta property="og:description" content="Every enterprise AI decision eventually becomes a build-vs-buy decision." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2025-09-04" itemprop="datePublished">Sep 4, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers</h1>
+          <p class="post-header__excerpt" itemprop="description">Every enterprise AI decision eventually becomes a build-vs-buy decision.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Build vs. Buy AI in Life Sciences: A Framework for Enterprise Decision Makers</h1>
+
+<p>Every enterprise AI leader faces this question: should we build custom AI or buy off-the-shelf? In life sciences, the stakes are higher because regulatory requirements, data sensitivity, and clinical workflow integration add complexity that doesn't exist in other industries.</p>
+
+<h2>The Build vs. Buy Framework</h2>
+
+<p>I use a simple decision matrix with four dimensions:</p>
+
+<h2>The Hidden Cost of Data Governance</h2>
+
+<p>You're dealing with patient data. This isn't just about cleaning numbers. It's about legal, ethical, and security compliance. If you build, you own the entire data governance burden. This includes implementing strict de-identification protocols, like k-anonymity or differential privacy methods, to protect patient privacy. You need audit trails for every data access and model interaction. Maintaining compliance with regulations like HIPAA in the US or GDPR in Europe requires dedicated legal and privacy experts. These aren't one-time costs. They are ongoing operational expenses. I've seen organizations spend an extra $100K-$300K annually just on data privacy and security staff, and external audits. When you buy, the vendor carries much of this. But you still need to conduct rigorous due diligence. You must ensure their data handling practices meet your standards and regulatory obligations. You can't outsource accountability for patient data.</p>
+
+<h2>Staffing for AI: Talent Implications</h2>
+
+<p>Building AI requires a specialized team. You'll need machine learning engineers, data scientists, and MLOps specialists. These roles are expensive. An experienced ML engineer can command $180K-$300K+ per year. Data scientists are similar. MLOps talent is even scarcer. Finding and retaining these individuals takes time, often 6-12 months for a critical role. Then, you need to onboard them and integrate them into your existing clinical or research teams. This isn't just about salaries. It's about benefits, recruiting costs, and the opportunity cost of delayed projects. When you buy, your internal team can focus on domain expertise. They define the problems and evaluate vendor products. They don't need to build neural networks from scratch. You shift from a 'build' talent pool to a 'manage and integrate' talent pool. This is a very different skill set and cost profile.</p>
+
+<h2>Regulatory Nuances: IEC 62304 and Software Lifecycle</h2>
+
+<p>The regulatory burden for AI in life sciences often extends beyond just FDA clearance. Consider IEC 62304. This standard specifies requirements for the software life cycle of medical devices. If your AI is part of a medical device, you must comply. This means detailed documentation for every stage: software planning, requirements analysis, architectural design, testing, and maintenance. You categorize software based on safety class (A, B, or C), which dictates the rigor needed. A Class C device, like software controlling a ventilator, demands extreme scrutiny. Building means you develop and maintain this entire documentation package. You establish your own risk management processes. You're responsible for every line of code. Buying means the vendor <em>should</em> have this in place. You'll audit their processes and documentation. This transfers significant technical and legal overhead. For example, integrating an AI component into a clinical trial platform like Medidata Rave, if it impacts patient safety decisions, would require careful consideration of these software lifecycle controls.</p>
+
+<h2>The Long Tail of AI Maintenance</h2>
+
+<p>Many teams focus on the initial build or buy. They forget the long-term maintenance. AI models aren't static. Data changes. Patient populations evolve. Clinical practices shift. This leads to model drift or concept drift. Your model's performance can degrade over time. If you built it, you're responsible for monitoring its performance, detecting drift, and retraining it. This involves data scientists, MLOps engineers, and clinical validation specialists. You need a continuous integration and continuous delivery (CI/CD) pipeline for models, not just code. This can add $150K-$350K per year. If you bought it, the vendor manages this. But you still need processes to monitor the vendor's model performance in <em>your</em> environment. You need to understand their re-validation cycles. You must ensure their updates remain compliant with your internal policies and external regulations like the 21st Century Cures Act for interoperability and data quality.</p>
+
+<h3>1. Competitive Differentiation</h3>
+
+<p>Does this AI capability create a strategic advantage unique to your organization? If yes, consider building. If it's a commodity capability (clinical documentation, medical coding, scheduling optimization), buy it. You don't gain competitive advantage from having a slightly better clinical notes summarizer.</p>
+
+<h3>2. Data Uniqueness</h3>
+
+<p>Do you have proprietary data that would make a custom model significantly better than a generic one? Large health systems with decades of EHR data, unique patient populations, or specialized clinical protocols may have data advantages that justify building. Most don't.</p>
+
+<h3>3. Integration Complexity</h3>
+
+<p>How deeply does the AI need to integrate with your existing systems? Shallow integrations (standalone tools, report generators) favor buying. Deep integrations (real-time EHR embedded workflows, clinical decision support at point of care) may favor building because vendor products often can't match your specific integration needs.</p>
+
+<h3>4. Regulatory Requirements</h3>
+
+<p>Does the AI require FDA clearance or other regulatory approval? If yes, buying from a vendor who already has clearance saves 12-24 months. Building means you own the regulatory burden - submission, post-market surveillance, adverse event reporting - forever.</p>
+
+<h2>The Real Costs of Building</h2>
+
+<p>Teams consistently underestimate build costs:</p>
+
+<ul>
+<li><strong>Data engineering:</strong> $200K-$500K - cleaning, labeling, and preparing training data</li>
+<li><strong>Model development:</strong> $200K-$500K - architecture, training, evaluation</li>
+<li><strong>Integration:</strong> $100K-$300K - connecting to EHR and clinical systems</li>
+<li><strong>Validation:</strong> $50K-$200K - clinical validation, bias testing, regulatory prep</li>
+<li><strong>Ongoing maintenance:</strong> $200K-$500K/year - retraining, monitoring, compliance updates</li>
+</ul>
+
+<p>Total first-year cost: $750K-$1.5M. Total 3-year TCO: $1.2M-$3M+. Most organizations underestimate this by 50-100%.</p>
+
+<h2>The Real Costs of Buying</h2>
+
+<ul>
+<li><strong>License fees:</strong> $50K-$500K/year depending on scale and vendor</li>
+<li><strong>Integration:</strong> $50K-$200K - connecting vendor to your systems</li>
+<li><strong>Customization:</strong> $25K-$100K - adapting to your specific workflows</li>
+<li><strong>Training:</strong> $10K-$50K - user adoption and change management</li>
+</ul>
+
+<p>Total first-year cost: $135K-$850K. Total 3-year TCO: $285K-$1.7M.</p>
+
+<h2>The Hybrid Approach: Buy First, Build Later</h2>
+
+<p>The smartest strategy I've seen: buy commodity AI capabilities now while building internal AI competency. Use vendor products to learn the domain, understand user needs, and accumulate data. When you have enough expertise and proprietary data, build custom solutions for your 2-3 highest-value use cases.</p>
+
+<h2>Key Takeaways</h2>
+
+<ul>
+<li><strong>Default to buy</strong> unless you have a clear competitive differentiation argument.</li>
+<li><strong>Build costs are 2-3x higher than initial estimates.</strong> Include maintenance, retraining, and compliance in your TCO.</li>
+<li><strong>Regulatory clearance is a massive build cost.</strong> If a vendor already has FDA clearance, you're buying 12-24 months of time.</li>
+<li><strong>Buy first, build later</strong> is the lowest-risk strategy. Learn before you invest.</li>
+<li><strong>Data is the moat, not the model.</strong> If you don't have unique, proprietary data, your custom model won't outperform vendor solutions.</li>
+</ul>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/genai-governance-life-sciences-framework/">Enterprise GenAI Governance in Life Sciences: A Framework for Responsible Deployment</a></li>
+<li><a href="https://www.devangshumitra.com/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/">Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</a></li>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

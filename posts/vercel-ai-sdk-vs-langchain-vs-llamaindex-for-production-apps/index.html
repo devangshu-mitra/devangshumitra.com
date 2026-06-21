@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I&#39;ve shipped production AI applications using all three of these frameworks." />
+  <meta property="og:title" content="Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps — Devangshu Mitra" />
+  <meta property="og:description" content="I&#39;ve shipped production AI applications using all three of these frameworks." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-10-15" itemprop="datePublished">Oct 15, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps</h1>
+          <p class="post-header__excerpt" itemprop="description">I've shipped production AI applications using all three of these frameworks.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Vercel AI SDK vs LangChain vs LlamaIndex for Production Apps</h1>
+
+<p>The AI application framework space has matured significantly over the last two years, but it's also gotten more fragmented. Three years ago you basically had LangChain and nothing else. Now you have competing paradigms: streaming-first web frameworks, Python-centric orchestration libraries, and specialized RAG frameworks. Each makes different tradeoffs.</p>
+
+<p>I want to give you a practitioner's guide here, not a benchmark. The GitHub stars and Hacker News hype don't tell you what it's like to debug a LangChain LCEL chain at 2am when a customer is waiting. Let me tell you what it's actually like to build on each.</p>
+
+<h2>What We're Comparing</h2>
+
+<p><strong>Vercel AI SDK</strong> (<code>ai</code> package, formerly <code>@ai-sdk</code>) is a TypeScript/JavaScript SDK optimized for building streaming AI UIs. It's tightly coupled to the Vercel deployment model and Next.js, but works elsewhere. The design philosophy is: streaming-first, type-safe, minimal abstraction.</p>
+
+<p><strong>LangChain</strong> (available in Python and TypeScript) is the original AI application framework. It provides components for chains, agents, memory, document loaders, and just about every other abstraction you can imagine. It's opinionated about how AI applications should be structured. The Python version (<code>langchain</code> / <code>langchain-core</code> / <code>langchain-community</code>) is more mature than the JS version.</p>
+
+<p><strong>LlamaIndex</strong> (Python-first, TypeScript port available) is specialized for RAG (Retrieval Augmented Generation) applications. While LangChain tries to do everything, LlamaIndex went deep on data ingestion, indexing, querying, and retrieval. It's the right choice when your primary abstraction is "query over my data."</p>
+
+<h2>The Comparison Table</h2>
+
+<p>| Dimension | Vercel AI SDK | LangChain | LlamaIndex | | --- | --- | --- | --- | | Primary Language | TypeScript / JavaScript | Python (TS port available) | Python (TS port available) | | Design Philosophy | Streaming-first, UI-centric | Chain/Agent orchestration | RAG/data query specialization | | Learning Curve | Low (15 min to first stream) | High (many abstractions) | Medium (focused but deep) | | Streaming Support | Excellent (native) | Good (added later) | Good | | Multi-model Support | Excellent (unified API) | Excellent | Excellent | | Agent Support | Good (newer feature) | Excellent (mature agents) | Good (newer) | | RAG Capabilities | Basic | Good | Excellent (best-in-class) | | Vector Store Integrations | Limited | Excellent (40+) | Excellent (30+) | | Debugging Experience | Excellent (TypeScript types) | Difficult (deep stack traces) | Good | | Production Observability | Good (Vercel Analytics) | LangSmith (separate product) | Good (native callbacks) | | Community Size | Growing | Largest | Large | | Abstraction Level | Low (thin SDK) | High (opinionated) | Medium (focused) | | Upgrade Pain | Low | High (frequent breaking changes) | Medium | | Deployment Model | Vercel-optimized | Any Python server | Any Python server |</p>
+
+<h2>Vercel AI SDK: The Right Tool for TypeScript Web Apps</h2>
+
+<p>If you're building a Next.js application with a streaming chat interface, the Vercel AI SDK is the least amount of code to get to production. Here's what a streaming chat endpoint looks like:</p>
+
+<pre><code class="language-">import { streamText } from 'ai';
+import { anthropic } from '@ai-sdk/anthropic';
+
+export async function POST(req: Request) {
+  const { messages } = await req.json();
+  const result = streamText({
+    model: anthropic('claude-3-5-sonnet-20241022'),
+    messages,
+  });
+  return result.toDataStreamResponse();
+}</code></pre>
+
+<p>That's genuinely it. The SDK handles streaming, error handling, and the protocol that the matching React hooks (<code>useChat</code>, <code>useCompletion</code>) expect. The unified model provider API means switching from Claude to GPT-4 is a one-line change.</p>
+
+<p>The TypeScript types are excellent - you get autocomplete and type checking on model options, tool definitions, and message structures. Coming from Python AI frameworks where everything is typed as <code>Any</code> at runtime, this is refreshing.</p>
+
+<blockquote><p><strong>The Vercel AI SDK's killer feature is that it turns streaming UI development from a complex protocol problem into a straightforward API call. The React hooks make streaming feel like any other state update.</strong></p></blockquote>
+
+<h3>Vercel AI SDK Limitations</h3>
+
+<p>The SDK is thin by design - which means you'll hit its boundaries faster than LangChain or LlamaIndex if your requirements are complex. RAG is basic. Complex multi-step agents require significantly more custom code. It's also fundamentally a frontend SDK that happens to support edge functions - if your AI backend is a Python service, the SDK doesn't help you there.</p>
+
+<p>The Vercel coupling is also real. The SDK technically works anywhere, but the streaming protocol, deployment model, and observability features are optimized for Vercel's edge runtime. If you're deploying to AWS Lambda or a traditional server, you'll spend time adapting patterns that weren't designed for your target environment.</p>
+
+<h2>LangChain: The Power Tool That Requires Power Users</h2>
+
+<p>LangChain's strength is its breadth. It has integrations for every vector store, every LLM, every document loader you can imagine. The community is the largest in the AI framework space. If you've got a specific, niche use case, there's probably a LangChain integration for it already built.</p>
+
+<p>The LCEL (LangChain Expression Language) - the chain composition syntax using the pipe operator (<code>|</code>) - is genuinely elegant for expressing complex pipeline logic. Building a retrieval chain with prompt templating, LLM call, and output parsing looks like:</p>
+
+<pre><code class="language-">chain = retriever | prompt | llm | StrOutputParser()</code></pre>
+
+<p>That's readable and maintainable. The problem is that when things go wrong, the error messages bubble up through multiple layers of abstraction and the stack traces are often unhelpful. Debugging a LangChain application in production is substantially harder than debugging a Vercel AI SDK or LlamaIndex application, in my experience.</p>
+
+<h3>LangChain's Breaking Change Problem</h3>
+
+<p>I need to be direct about this because it's caused me real pain on production systems: LangChain has had significant breaking changes across major and minor versions. The move from 0.x to 0.1 to 0.2 to 0.3 each introduced incompatible changes to core abstractions. The package structure changed (langchain → langchain-core + langchain-community) in ways that required significant refactoring.</p>
+
+<p>If you're building a one-time prototype or an internal tool that won't be maintained for two years, this doesn't matter much. If you're building a customer-facing application that needs to be maintained, factor in the upgrade tax when making your framework decision.</p>
+
+<h3>When LangChain is the Right Choice</h3>
+
+<p>Use LangChain when you need maximum flexibility and you have engineers who are willing to invest in learning the framework deeply. The agent abstractions (especially LangGraph for stateful multi-agent workflows) are more mature than alternatives. The LangSmith observability platform, while a separate product, is the best LLM application observability tool available if you're willing to pay for it.</p>
+
+<h2>LlamaIndex: The RAG Specialist</h2>
+
+<p>If your application is primarily about querying over documents - building a customer support bot over your knowledge base, an analyst tool over your company's data, a research assistant over a corpus of papers - LlamaIndex has the deepest thinking about this problem.</p>
+
+<p>The indexing abstractions are genuinely good. LlamaIndex has thought carefully about chunking strategies, embedding approaches, retrieval methods (BM25 vs dense vs hybrid), and re-ranking. You can easily compare a naive RAG implementation to a sentence-window retrieval to a hierarchical document summary approach, because the abstractions make the comparison clean.</p>
+
+<p>The query pipeline system is also cleaner than LangChain's equivalent - you can compose preprocessing, retrieval, and postprocessing steps in a way that's more explicit about what's happening at each stage.</p>
+
+<h3>LlamaIndex Limitations</h3>
+
+<p>LlamaIndex is specialized. If your application needs complex multi-step agents that also do RAG, you'll probably find yourself reaching for LangChain's agent abstractions anyway - or building custom code on top of LlamaIndex that essentially re-implements what LangChain provides. There's also no streaming UI story to speak of.</p>
+
+<p>The community is large but smaller than LangChain's. For obscure vector stores or niche data loaders, LangChain has more pre-built integrations.</p>
+
+<h2>The Production Reality: Framework Choices Are Long-lived</h2>
+
+<p>Here's what I wish someone had told me before I committed to LangChain for my first production system: the framework you choose in week one will still be there in week 52. AI frameworks are not easily swapped out after the fact - they permeate your codebase through their abstractions.</p>
+
+<p>Evaluate each framework on upgrade stability and debuggability, not just feature coverage. A framework that does 80% of what you need with excellent debuggability is almost always better than one that does 100% with opaque stack traces.</p>
+
+<h2>My Recommendation Matrix</h2>
+
+<h3>Build with Vercel AI SDK if:</h3>
+
+<ul>
+<li>You're building a TypeScript/Next.js web application</li>
+<li>Streaming chat or completion UI is the primary interface</li>
+<li>You want the fastest path to a working demo</li>
+<li>Your team is frontend-leaning</li>
+<li>You want model portability with minimal code changes</li>
+</ul>
+
+<h3>Build with LangChain if:</h3>
+
+<ul>
+<li>You're building in Python and need maximum ecosystem coverage</li>
+<li>Complex multi-step agents are core to your product (especially LangGraph)</li>
+<li>You need LangSmith for production observability</li>
+<li>Your team already knows LangChain and the switching cost is high</li>
+<li>You need integrations with obscure data sources or vector stores</li>
+</ul>
+
+<h3>Build with LlamaIndex if:</h3>
+
+<ul>
+<li>RAG over documents is your core use case</li>
+<li>You want to experiment with advanced retrieval strategies</li>
+<li>Your team is Python-first and data-engineering minded</li>
+<li>Query quality is the primary metric you're optimizing for</li>
+</ul>
+
+<h2>A Note on Not Using a Framework at All</h2>
+
+<p>My Recommendation Matrix Build with Vercel AI SDK if: You're building a TypeScript/Next.js web application Streaming chat or completion UI is the primary interface You want the fastest path to a working demo Your team is frontend-leaning You want model portability with minimal code changes Build with LangChain if: You're building in Python and need a broad range of tools and integrations Complex multi-step agents are core to your product (especially LangGraph) You need LangSmith for production observability Your team already knows LangChain and the switching cost is high You need integrations with obscure data sources or vector stores Build with LlamaIndex if: RAG over documents is your core use case You want to experiment with advanced retrieval strategies Your team is Python-first and data-engineering minded Query quality is the primary metric you're optimizing for A Note on Not Using a Framework at All For simple applications, such as a single chatbot endpoint, a document summarization tool, or a classification service, consider going framework-free. Direct API calls using <code>anthropic</code> or <code>openai</code> SDK, with your own thin wrapper, are often cleaner and more maintainable than the overhead of a full framework.</p>
+
+<p>The 100-line direct API implementation is often better than the 50-line LangChain implementation because you understand every line of it. Frameworks add value when their abstractions match your problem well and when their integrations save you real time. When they don't, they add cognitive overhead without commensurate benefit.</p>
+
+<hr>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-architecture-of-production-ml-pipelines/">The Architecture of Production ML Pipelines</a></li>
+<li><a href="https://www.devangshumitra.com/aws-bedrock-vs-azure-openai-vs-google-vertex-ai/">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

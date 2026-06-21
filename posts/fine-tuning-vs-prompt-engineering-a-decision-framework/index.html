@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I spent six weeks at Edxcare building a fine-tuned model for a problem that" />
+  <meta property="og:title" content="Fine-Tuning vs Prompt Engineering: A Decision Framework — Devangshu Mitra" />
+  <meta property="og:description" content="I spent six weeks at Edxcare building a fine-tuned model for a problem that" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Fine-Tuning vs Prompt Engineering: A Decision Framework — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-09-25" itemprop="datePublished">Sep 25, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Fine-Tuning vs Prompt Engineering: A Decision Framework</h1>
+          <p class="post-header__excerpt" itemprop="description">I spent six weeks at Edxcare building a fine-tuned model for a problem that</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Fine-Tuning vs Prompt Engineering: A Decision Framework</h1>
+
+<p>I spent six weeks at Edxcare building a fine-tuned model for a problem that turned out to be solvable in three days with better prompt engineering. The mistake was answering the wrong question. The question was not "can we fine-tune?" - it was "should we fine-tune?" This framework is designed to prevent that mistake.</p>
+
+<h2>The Fundamental Distinction</h2>
+
+<p>Prompt engineering changes how you ask the model. The weights stay the same; you are steering existing capabilities with better instructions.</p>
+
+<p>Fine-tuning changes the model's weights. You are modifying the model itself - its style, its default behaviors, its specialized knowledge. It is a training-time intervention, not an inference-time one.</p>
+
+<p>This distinction matters because the cost, complexity, and failure modes are completely different. Getting prompt engineering wrong costs you an afternoon. Getting fine-tuning wrong costs you weeks and real money.</p>
+
+<h2>Start with Prompt Engineering - Always</h2>
+
+<p>Before considering fine-tuning, exhaust prompt engineering. Most product teams underestimate what good prompt engineering can do.</p>
+
+<p>Prompt engineering can solve: output format consistency, chain-of-thought reasoning, role specialization, constraint enforcement, few-shot learning, tone and style control. At HCLTech, we pushed a medical coding assistant from 62% accuracy to 81% accuracy purely through prompt iteration - chain-of-thought instructions, five worked examples, explicit format constraints, and a "reason first, code second" instruction pattern.</p>
+
+<p>Run at least 10-20 prompt iterations before declaring it insufficient. Test on a representative evaluation set, not just ad-hoc examples. Track accuracy systematically.</p>
+
+<h2>When Fine-Tuning Actually Makes Sense</h2>
+
+<p>Fine-tuning is genuinely useful in four situations:</p>
+
+<ol>
+<li><strong>Style or format cannot be prompted consistently.</strong> If you have tried extensive few-shot examples and the model still produces inconsistent output format, a fine-tuned model will learn the pattern reliably. This is most common for highly structured outputs with unusual schemas.</li>
+<li><strong>Latency and cost constraints are severe and the task is narrow and high-volume.</strong> A fine-tuned GPT-4o-mini on a specific classification task will be faster and cheaper than GPT-4o with a long few-shot prompt. At 10 million calls per month, this matters.</li>
+<li><strong>You need to teach the model a domain-specific vocabulary or reasoning pattern it does not have.</strong> Rare for frontier models on most tasks, but real for highly specialized domains (proprietary clinical protocols, niche legal frameworks).</li>
+<li><strong>You need to reduce prompt length for a high-volume repetitive task.</strong> Fine-tuning can bake the behavior in so you do not need to repeat instructions in every call.</li>
+</ol>
+
+<h2>When Fine-Tuning is the Wrong Answer</h2>
+
+<p>Do not fine-tune when:</p>
+
+<ul>
+<li>Your knowledge base changes frequently. Fine-tuned weights are static. Use RAG for dynamic knowledge.</li>
+<li>You have fewer than 100-500 high-quality training examples. Below this threshold, a good prompt often outperforms fine-tuning.</li>
+<li>The task requires factual accuracy about the real world. Fine-tuning can increase confident hallucination - the model learns the style but not necessarily the facts.</li>
+<li>You have not tried RAG yet. The majority of "we need fine-tuning" problems are actually knowledge gap problems, not capability or style problems. RAG fixes knowledge gaps without touching weights.</li>
+</ul>
+
+<h2>The Decision Tree</h2>
+
+<ul>
+<li>Is the problem a knowledge gap (model does not know your information)? Use <strong>RAG</strong>.</li>
+<li>Is the problem a format or style issue? Try <strong>prompt engineering</strong> first (10+ iterations with evaluation). If it still fails consistently, consider fine-tuning.</li>
+<li>Is the problem latency or cost with a narrow high-volume task? <strong>Fine-tune a smaller model</strong>.</li>
+<li>Is the problem reasoning capability? Try <strong>chain-of-thought</strong> or a stronger base model first.</li>
+</ul>
+
+<h2>Data Requirements for Fine-Tuning</h2>
+
+<p>You need high-quality input-output pairs. Quality matters far more than quantity. A common mistake is generating synthetic training data with an LLM - you end up training a model to mimic LLM outputs, which often amplifies the base model's failure modes rather than fixing them.</p>
+
+<p>For OpenAI fine-tuning: minimum 10 examples (useless), meaningful improvement starts around 100, diminishing returns after 10,000 for most tasks. For domain-specific style or format: 200-500 curated examples often suffice. For capability improvement: you typically need thousands of examples and even then, a stronger base model is often a better use of resources.</p>
+
+<h2>Cost Reality Check</h2>
+
+<p>Prompt engineering: zero additional infrastructure cost beyond your existing API spend.</p>
+
+<p>Fine-tuning with OpenAI: approximately $25 per million training tokens for GPT-4o-mini. A fine-tuning run on 10,000 examples averaging 500 tokens each costs roughly $125. Inference on fine-tuned models costs more than the base model.</p>
+
+<p>Fine-tuning with self-hosted models: GPU costs. An A100 runs $2-4 per hour on cloud providers. A typical fine-tuning run for a 7B parameter model takes 2-8 hours. Ongoing serving costs depending on traffic.</p>
+
+<h2>The takeaway</h2>
+
+<p>Fine-tuning is a legitimate tool with specific use cases. The mistake is reaching for it too early. Start with RAG for knowledge problems, prompt engineering for behavior problems, and fine-tuning only when you have evidence - real evaluation data - that cheaper approaches are insufficient. The teams shipping the best AI products I have seen use fine-tuning sparingly and prompt engineering obsessively.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/prompt-engineering-playbook-for-product-teams/">Prompt Engineering Playbook for Product Teams</a></li>
+<li><a href="https://www.devangshumitra.com/aws-bedrock-vs-azure-openai-vs-google-vertex-ai/">AWS Bedrock vs Azure OpenAI vs Google Vertex AI</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</a></li>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework/">LLM Evaluation Framework for Regulated and Clinical Contexts</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

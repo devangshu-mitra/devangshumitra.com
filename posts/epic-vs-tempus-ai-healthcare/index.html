@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Compare Epic and Tempus AI healthcare platforms to discover which approach" />
+  <meta property="og:title" content="Epic vs. Tempus: Two Approaches to AI in Healthcare — Devangshu Mitra" />
+  <meta property="og:description" content="Compare Epic and Tempus AI healthcare platforms to discover which approach" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Epic vs. Tempus: Two Approaches to AI in Healthcare — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Teardowns</span>
+            <time class="post-header__date" datetime="2025-10-07" itemprop="datePublished">Oct 7, 2025</time>
+            <span class="post-header__read-time">6 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Epic vs. Tempus: Two Approaches to AI in Healthcare</h1>
+          <p class="post-header__excerpt" itemprop="description">Compare Epic and Tempus AI healthcare platforms to discover which approach</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Epic vs. Tempus: Two Approaches to AI in Healthcare</h1>
+
+<p>Epic and Tempus represent two fundamentally different philosophies for bringing AI into healthcare. Epic embeds AI into the existing EHR workflow - ambient documentation, inbox triage, order suggestions - keeping the physician inside a familiar interface. Tempus builds a parallel data infrastructure, ingesting clinical and genomic data to power precision medicine insights that flow back to clinicians through dashboards and reports.</p>
+
+<p>As someone building AI products across clinical trials, MedTech, and BioPharma at HCLTech, I've studied both approaches extensively. This comparison isn't about which company is "better" - it's about understanding two architectural philosophies that shape how healthcare AI gets adopted.</p>
+
+<h2>Philosophy: Workflow-First vs. Data-First</h2>
+
+<p><strong>Epic's approach:</strong> AI should be invisible. It lives inside the EHR where physicians already work. Epic's ambient listening (powered by Nuance/DAX integration), Hey Epic! natural language queries, and predictive deterioration alerts all operate within the Epic Hyperspace UI. The physician doesn't open a new app or visit a dashboard - the AI comes to them.</p>
+
+<p><strong>Tempus's approach:</strong> AI needs better data first. Tempus spent its first five years building a structured multimodal dataset - clinical records, genomic sequences, imaging, pathology slides - across 7,000+ oncologists and 100M+ clinical records. The AI insights emerge from this curated dataset, not from whatever happens to be in the EHR.</p>
+
+<p>This is the classic build-on-existing-infrastructure vs. build-new-infrastructure debate, and it has profound implications for product strategy.</p>
+
+<h2>Data Architecture</h2>
+
+<p><strong>Epic:</strong> Works with whatever data is in the customer's EHR instance. This means data quality varies wildly across health systems. Epic's AI models must be strong to missing fields, inconsistent coding practices, and different documentation styles. The advantage: zero data migration. The disadvantage: garbage in, garbage out.</p>
+
+<p><strong>Tempus:</strong> Actively curates and structures data before feeding it to models. They employ teams of clinical data abstractors who standardize records into a consistent schema. They also generate new data through their molecular sequencing lab (Tempus xT, xF, xR panels). The advantage: clean, structured, multimodal data. The disadvantage: massive upfront cost and limited to participating institutions.</p>
+
+<h2>AI Model Strategy</h2>
+
+<p><strong>Epic:</strong> Partners with foundational model providers (Microsoft/OpenAI for ambient, in-house for clinical predictions). Epic's moat isn't the model - it's the distribution. With 305M+ patient records across 250+ health systems, any model deployed through Epic instantly has massive reach. Epic is a platform, not an AI lab.</p>
+
+<p><strong>Tempus:</strong> Builds proprietary models trained on their curated dataset. Their algorithmic tests (like Tempus ECG-AF for atrial fibrillation risk from normal ECGs) are FDA-cleared medical devices. Tempus is part data company, part diagnostics company, part AI lab. Their moat is the dataset, not distribution.</p>
+
+<h2>Market Positioning</h2>
+
+<p><strong>Epic</strong> targets health system CIOs and CMIOs - the people who already pay for Epic licenses. AI features are bundled or sold as add-ons to existing contracts. Switching costs are astronomical (Epic implementations cost $500M+ for large systems). This is a lock-in strategy enhanced by AI.</p>
+
+<p><strong>Tempus</strong> targets oncologists, pathologists, and biopharma companies. Revenue comes from molecular testing (reimbursed by payers), data licensing to pharma, and clinical trial matching. This is a marketplace strategy - connecting data generators (health systems) with data consumers (pharma).</p>
+
+<h2>Clinical Workflow Implications: Prior Authorization</h2>
+
+<p>Prior authorization is a major pain point in healthcare. Doctors and staff spend hours on it. Epic's AI could embed directly into this workflow. Imagine a physician ordering a new medication. The AI could instantly check formulary rules and payer requirements. It might suggest alternative drugs that don't need prior authorization, or pre-populate forms with patient data. This keeps the doctor in Epic Hyperspace, reducing clicks and context switching.</p>
+
+<p>Tempus, with its deep genomic and clinical data, could influence prior auth differently. For a complex cancer patient, Tempus's insights might justify a specific targeted therapy. The AI output, a report showing a patient's unique molecular profile, could be used to support an appeal or a novel treatment request. It doesn't automate the prior auth <em>process</em> directly. Instead, it provides the evidence needed to make a strong case for a specific treatment. This is about informing the 'why' for complex cases, not streamlining the 'how' for routine ones.</p>
+
+<h2>Regulatory Context: FDA Clearance for AI/ML SaMD</h2>
+
+<p>The regulatory path for AI in healthcare is complex. Tempus has several FDA-cleared products. For example, their Tempus ECG-AF algorithm, which predicts atrial fibrillation risk from a standard 12-lead ECG, is a Software as a Medical Device (SaMD). This means it went through rigorous clinical validation. It has a locked algorithm, meaning the model doesn't continuously learn in the field without re-submission. Post-market surveillance is also required. You must show ongoing safety and effectiveness.</p>
+
+<p>Epic's AI often serves as clinical decision support. Many of its AI features might not be considered SaMD. Ambient documentation, for instance, assists human transcription and charting. It doesn't make a diagnostic or therapeutic recommendation on its own. The FDA guidance on "AI/ML-based SaMD" distinguishes between these types of tools. Epic typically positions its AI as enhancing human work, not replacing it with a regulated device. This distinction affects development timelines, validation costs, and ongoing maintenance.</p>
+
+<h2>Extensibility and Third-Party Innovation</h2>
+
+<p>How do other innovators build on these platforms? Epic uses its App Orchard and FHIR APIs. Developers can create applications that integrate directly into the Epic workflow. Think of population health tools that pull patient data to identify at-risk groups, or specialized modules for specific disease management. These apps extend Epic's functionality. They live within the Epic universe, using its data and UI. The focus is on embedding value directly where clinicians work.</p>
+
+<p>Tempus fosters innovation through data licensing and research collaborations. BioPharma companies can access de-identified, structured multimodal data for drug discovery or real-world evidence studies. This isn't about building an app <em>in</em> Tempus. It's about using Tempus's curated dataset to fuel new scientific insights or accelerate clinical trials. For instance, a pharma company might use Tempus data to identify specific patient cohorts for a targeted oncology trial. This approach prioritizes novel research and discovery outside the direct clinical workflow.</p>
+
+<h2>Implications for Product Managers</h2>
+
+<p>If you're building healthcare AI products, the Epic vs. Tempus comparison teaches three lessons:</p>
+
+<ol>
+<li><strong>Distribution beats model quality.</strong> Epic's AI isn't more sophisticated than Tempus's, but it reaches 10x more physicians because it's embedded in the workflow they already use.</li>
+<li><strong>Data quality requires investment.</strong> Tempus proves that structured, curated data produces meaningfully better clinical insights than raw EHR data. But the cost of data curation is substantial.</li>
+<li><strong>Pick your buyer.</strong> Epic sells to health system IT. Tempus sells to clinicians and pharma. Your go-to-market strategy should determine your product architecture, not the other way around.</li>
+</ol>
+
+<p>The future likely involves both approaches converging: Epic adding more data curation capabilities, and Tempus building deeper EHR integrations. The question for product managers is which starting point gives you faster time-to-value for your specific use case.</p>
+
+<hr>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/">Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</a></li>
+<li><a href="https://www.devangshumitra.com/course-lsh-ai-pm-fundamentals/">Life Sciences & Healthcare AI PM Fundamentals</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

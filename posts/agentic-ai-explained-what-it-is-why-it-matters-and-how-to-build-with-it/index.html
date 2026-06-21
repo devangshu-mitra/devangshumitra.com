@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn what agentic AI is, why it&#39;s revolutionizing life sciences and healthcare," />
+  <meta property="og:title" content="Agentic AI Explained: What It Is, Why It Matters, and How to Build With It — Devangshu Mitra" />
+  <meta property="og:description" content="Learn what agentic AI is, why it&#39;s revolutionizing life sciences and healthcare," />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Agentic AI Explained: What It Is, Why It Matters, and How to Build With It — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-11-08" itemprop="datePublished">Nov 8, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn what agentic AI is, why it's revolutionizing life sciences and healthcare,</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</h1>
+
+<p>If 2023 was the year everyone discovered LLMs could write surprisingly good text, and 2024 was the year enterprises started asking "but how do we actually use this?", then these are the years agentic AI moved from research paper to production system.</p>
+
+<p>I was at HIMSS26 earlier this year, and the shift was unmistakable. Three years ago, the healthcare AI conversation was about predictive models - will this patient be readmitted? Two years ago, it was about generative models - can AI write my clinical note? This year, the conversation was almost entirely about agents.</p>
+
+<p>Epic announced Agent Factory, their platform for building and deploying clinical AI agents across their EHR workflows. Amazon Health AI demonstrated agents that autonomously managed prior authorization workflows. Microsoft Copilot Health showed agents coordinating care transitions across multiple provider systems. Salesforce Agentforce Health launched with pre-built agents for patient engagement, revenue cycle, and care management.</p>
+
+<p>The pattern is clear. Agentic AI is no longer a research concept. It is the product.</p>
+
+<hr>
+
+<h2>What Actually Makes an AI System "Agentic"?</h2>
+
+<p>The word "agent" gets applied to almost everything right now, so let me be precise. An agentic AI system has four defining characteristics:</p>
+
+<ol>
+<li><strong>Goal-directedness</strong>: The system is given an objective, not just a prompt. It works toward that objective across multiple steps.</li>
+<li><strong>Tool use</strong>: The system can call external tools - APIs, databases, browsers, code executors - to gather information or take actions.</li>
+<li><strong>Planning</strong>: The system can decompose a complex goal into subtasks and sequence those subtasks appropriately.</li>
+<li><strong>Feedback incorporation</strong>: The system can observe the results of its actions and adjust its plan accordingly.</li>
+</ol>
+
+<p>A chatbot that answers questions is not an agent. A system that receives a goal like "schedule a follow-up appointment for this patient, verify their insurance, send a reminder, and update the care plan" - and executes all of that autonomously - is an agent.</p>
+
+<p>The distinction matters enormously for product design, risk assessment, and infrastructure requirements.</p>
+
+<h2>The Architecture Stack</h2>
+
+<p>Agentic AI systems have a recognizable architecture regardless of the domain they operate in. Understanding this stack helps PMs have more productive conversations with engineering and make better build vs buy decisions.</p>
+
+<h3>The Core LLM (The Brain)</h3>
+
+<p>At the center is a large language model that handles reasoning, planning, and natural language understanding. In production systems, this is typically GPT-4o, Claude 3.5/3.7, or Gemini 1.5/2.0 - models with strong instruction-following, tool-calling capabilities, and large context windows.</p>
+
+<p>The model doesn't need to know everything. Its job is to reason about what it knows, decide what it needs to find out, and choose which tools to call.</p>
+
+<h3>The Tool Layer</h3>
+
+<p>Tools are the hands of the agent. Common tool categories:</p>
+
+<ul>
+<li><strong>Retrieval tools</strong>: Vector search, SQL queries, document retrieval (this is where RAG lives)</li>
+<li><strong>Action tools</strong>: API calls, form submissions, database writes, email sends</li>
+<li><strong>Computation tools</strong>: Code execution, calculators, data transformation</li>
+<li><strong>Perception tools</strong>: Web browsing, document parsing, image analysis</li>
+</ul>
+
+<h3>Memory</h3>
+
+<p>Agents need memory across multiple types of time horizons:</p>
+
+<ul>
+<li><strong>In-context memory</strong>: The current conversation and task state (limited by context window)</li>
+<li><strong>External memory</strong>: Vector databases, key-value stores, structured databases that persist beyond a single session</li>
+<li><strong>Procedural memory</strong>: The agent's "skills" - fine-tuned behaviors, system prompts, few-shot examples</li>
+</ul>
+
+<h3>Orchestration</h3>
+
+<p>For complex workflows, you often need a meta-agent (orchestrator) that manages multiple specialized sub-agents. The orchestrator breaks down the goal, assigns sub-tasks, monitors progress, and handles failures.</p>
+
+<p>This is exactly what Epic's Agent Factory does - it provides an orchestration layer so that a "schedule and authorize" workflow can spawn a scheduling agent, an insurance verification agent, and a notification agent in parallel, then consolidate results.</p>
+
+<h2>Use Cases Across Industries</h2>
+
+<p>The architecture is industry-agnostic. The applications differ by domain context and risk tolerance.</p>
+
+<h3>Healthcare</h3>
+
+<p>Prior authorization automation, clinical documentation, care coordination, patient triage, medication reconciliation. High regulatory complexity means agents must operate in human-in-the-loop mode for decision-making tasks. The agent handles the 80% of routine workflow; the clinician reviews and approves.</p>
+
+<h3>Financial Services</h3>
+
+<p>Loan underwriting workflows, fraud investigation, portfolio rebalancing, customer onboarding, regulatory reporting. Agents here face a different risk profile - speed and accuracy on financial decisions, auditability for regulators, and real-time action in markets where latency costs money.</p>
+
+<h3>Legal</h3>
+
+<p>Contract review, due diligence, regulatory compliance monitoring, document discovery. Legal agents are currently in the "augmentation" phase - they surface relevant precedents and flag issues, but attorneys make the calls. Full autonomy in legal contexts is years away.</p>
+
+<h3>Retail and E-Commerce</h3>
+
+<p>Inventory management, dynamic pricing, returns processing, supplier negotiation, customer service resolution. Lower stakes per transaction means higher autonomy is acceptable. Shopify's AI is already handling a significant portion of customer service tickets autonomously.</p>
+
+<h3>Education</h3>
+
+<p>Adaptive tutoring, curriculum generation, assessment design, student support. Agents here are particularly interesting because the "action" of good teaching is deeply contextual - the agent needs to understand not just the content but the student's emotional state, learning history, and motivation level.</p>
+
+<h2>The Agentic Risk Spectrum</h2>
+
+<p>Not all agentic actions carry the same risk. I map them on two axes: reversibility and consequence magnitude.</p>
+
+<ul>
+<li><strong>Low consequence + reversible</strong>: Draft an email, summarize a document, generate a report. Full autonomy is fine.</li>
+<li><strong>Low consequence + irreversible</strong>: Send an email, post content, create a calendar event. Autonomy with notification is acceptable.</li>
+<li><strong>High consequence + reversible</strong>: Execute a trade, submit a form, update a database record. Human review recommended.</li>
+<li><strong>High consequence + irreversible</strong>: Administer medication instructions, make a lending decision, delete records. Human approval required.</li>
+</ul>
+
+<p>Product managers building agentic systems must explicitly map every action the agent can take onto this grid. The grid determines your human-in-the-loop architecture.</p>
+
+<blockquote><p><strong>The HIMSS26 pattern:</strong> Every major clinical AI agent demonstrated at HIMSS26 - without exception - had a human review step for high-consequence actions. The innovation wasn't removing the human. It was reducing the human's cognitive load from reading, deciding, and executing to simply reviewing and approving. That's the right place to start.</p></blockquote>
+
+<h2>What PMs Get Wrong About Agentic AI</h2>
+
+<h3>Mistake 1: Treating agents like features</h3>
+
+<p>An agent is a system, not a feature. It requires ongoing monitoring, error handling, rollback capabilities, and audit logging. The product surface area is much larger than a single-turn LLM feature. Staff your team accordingly.</p>
+
+<h3>Mistake 2: Under-investing in tool reliability</h3>
+
+<p>Agents are only as reliable as their tools. If your scheduling API is flaky, your scheduling agent will be flaky. Before building agent orchestration, audit your tool layer for reliability, latency, and error behavior. Fix the tools first.</p>
+
+<h3>Mistake 3: No graceful degradation</h3>
+
+<p>What happens when the agent fails mid-task? Does it leave the system in a consistent state? Does it notify the right human? Does it log enough context for a human to pick up where it left off? Design the failure path as carefully as the success path.</p>
+
+<h3>Mistake 4: Prompt injection blindness</h3>
+
+<p>Agents that process external content - emails, documents, web pages - are vulnerable to prompt injection attacks, where malicious content instructs the agent to take unintended actions. This isn't hypothetical; it has happened in production systems. Sanitize external inputs before they reach the LLM.</p>
+
+<h2>How to Start Building</h2>
+
+<p>My recommended progression for teams new to agentic AI:</p>
+
+<ol>
+<li><strong>Start with a well-defined, bounded workflow.</strong> Don't start with "automate everything." Start with one specific workflow that has clear inputs, outputs, and success criteria.</li>
+<li><strong>Map the tool layer first.</strong> Before writing any agent code, list every tool the agent needs and verify each one is reliable and well-documented.</li>
+<li><strong>Build human-in-the-loop from day one.</strong> Start with every consequential action requiring human approval. Remove the human only when you have data showing the agent is reliable enough.</li>
+<li><strong>Instrument everything.</strong> Log every agent action, tool call, and decision. You will need this data to debug failures and build trust with stakeholders.</li>
+<li><strong>Run shadow mode before live mode.</strong> Let the agent run in parallel with the existing workflow for 2-4 weeks. Compare outcomes. Build confidence before giving it the wheel.</li>
+</ol>
+
+<hr>
+
+<p>Agentic AI is not the distant future. It's HIMSS26 hallways, it's Shopify support queues, it's loan processing at regional banks. The question for product managers isn't whether agentic AI is coming to your industry - it's whether you'll be the team that shapes how it arrives or the team that inherits someone else's decisions.</p>
+
+<p>Start building. Build carefully. But start now.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-agentic-ai-stack-architecture-patterns-for-production-systems-2/">The Agentic AI Stack: Architecture Patterns for Production Systems</a></li>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/talk-agentic-ai-in-the-enterprise-patterns-pitfalls-and-production/">Talk: Agentic AI in the Enterprise - Patterns, Pitfalls, and Production</a></li>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

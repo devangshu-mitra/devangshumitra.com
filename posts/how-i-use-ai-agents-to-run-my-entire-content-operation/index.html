@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I&#39;m an AI product manager who got tired of the gap between knowing how to" />
+  <meta property="og:title" content="How I Use AI Agents to Run My Entire Content Operation — Devangshu Mitra" />
+  <meta property="og:description" content="I&#39;m an AI product manager who got tired of the gap between knowing how to" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How I Use AI Agents to Run My Entire Content Operation — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Building in Public</span>
+            <time class="post-header__date" datetime="2025-10-11" itemprop="datePublished">Oct 11, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How I Use AI Agents to Run My Entire Content Operation</h1>
+          <p class="post-header__excerpt" itemprop="description">I'm an AI product manager who got tired of the gap between knowing how to</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How I Use AI Agents to Run My Entire Content Operation</h1>
+
+<p>There's an irony that I've sat with for a while: I spend my days building AI systems for healthcare organizations, writing specs for AI agents that automate complex clinical workflows - and then I come home and manually write, format, and publish every piece of content by hand.</p>
+
+<p>That gap bothered me. Not because manual content work is beneath me, but because I knew exactly what was possible. I'd seen AI agents handle complex multi-step workflows in enterprise environments. Why was I still copying and pasting HTML into a CMS?</p>
+
+<p>So about eight months ago, I started building what I now call Geenie - a personal AI operating system that runs, among other things, my entire content operation. This is a behind-the-scenes look at what I built, what works, what doesn't, and what I'm still figuring out.</p>
+
+<blockquote><p><strong>Full transparency:</strong> This post itself was partially generated using the system I'm describing. I wrote the outline, contributed the personal anecdotes and opinions, and reviewed and edited the draft. The system handled structure, expansion, and formatting. I'll explain exactly how at the end.</p></blockquote>
+
+<hr>
+
+<h2>The Problem I Was Solving</h2>
+
+<p>My content goals are straightforward: write and publish substantive, high-quality content about AI product management across multiple platforms (this blog, LinkedIn, Medium, Substack) consistently enough to build an audience and establish credibility in my field.</p>
+
+<p>The gap between that goal and my available time was brutal. I work full-time leading AI product at HCLTech, I run Ethlore (a D2C brand) on the side, and I'm a human with a need for sleep and a social life. I could generate maybe 2-3 hours per week for content creation.</p>
+
+<p>2-3 hours per week is not enough to write, edit, format, optimize, publish, and distribute one high-quality long-form post, let alone the volume needed to build meaningful platform presence.</p>
+
+<p>The traditional answer is to hire a content team. I'm not at that stage yet. The AI answer is to build a system.</p>
+
+<h2>The Architecture: What Geenie Actually Is</h2>
+
+<p>Geenie is a collection of Python scripts and AI agents that live in a private GitHub repository. It runs primarily on Modal (a serverless GPU/CPU cloud platform) with Claude as the primary LLM. The whole thing is orchestrated through a combination of scheduled jobs, webhook triggers, and manual invocations via Claude Code in my terminal.</p>
+
+<p>The content operation specifically has five components:</p>
+
+<h3>1. The Idea Engine</h3>
+
+<p>I maintain a running notes file where I dump article ideas, observations, half-formed thoughts, and things I've seen that I want to write about. The Idea Engine runs weekly, reads this file, pulls recent AI news and LinkedIn trending topics, and produces a ranked list of content opportunities with suggested angles.</p>
+
+<p>It factors in: what I've already written (to avoid repetition), what's trending in my niche (so I'm timely), what has strong SEO opportunity (keyword gap analysis), and what's likely to resonate with my specific audience (based on historical engagement patterns).</p>
+
+<p>I spend 15 minutes on Monday reviewing the list and picking 2-3 ideas for the week. That's the primary human-in-the-loop step for idea selection.</p>
+
+<h3>2. The Research Agent</h3>
+
+<p>Once I've selected an idea and provided a brief (usually 3-5 bullet points of what I want to cover), the Research Agent does a structured research pass. It searches for relevant recent articles, pulls data from my saved library of papers and references, identifies counterarguments worth engaging with, and compiles a research brief.</p>
+
+<p>The output is a document that includes key facts, statistics, relevant company examples, and potential structural approaches. I review this (10-15 minutes) and add my own perspectives, personal examples, and the specific opinions I want to express.</p>
+
+<h3>3. The Draft Generator</h3>
+
+<p>The Draft Generator takes the research brief plus my annotations and produces a full draft in my voice. This is where the system earns its keep most obviously.</p>
+
+<p>"In my voice" is not trivial to achieve. I spent about three months fine-tuning the system prompt and few-shot examples to get drafts that sound like me - direct, first-person, opinion-forward, with specific examples over vague generalities. I trained it on my previous writing and had it internalize my structural preferences (lead with the problem, use specific examples early, don't hedge, state opinions clearly).</p>
+
+<p>The drafts are consistently good now. They're not yet good enough to publish unedited - I always spend 20-40 minutes revising - but they're good enough that I'm not rewriting from scratch.</p>
+
+<h3>4. The Publishing Pipeline</h3>
+
+<p>This is where I really saved time. Once a draft is approved, the Publishing Pipeline:</p>
+
+<ul>
+<li>Formats the HTML appropriately for Ghost CMS</li>
+<li>Generates SEO metadata (meta title, meta description, excerpt)</li>
+<li>Suggests tags and categories based on existing taxonomy</li>
+<li>Generates a LinkedIn post version (professional, opinion-forward, 1500-3000 characters)</li>
+<li>Generates a Twitter/X thread version (10-15 tweets, thread format)</li>
+<li>Generates a Medium cross-post version with appropriate formatting</li>
+<li>Schedules all of these for publication at optimal times</li>
+</ul>
+
+<p>Before this system, formatting and distribution alone took 1.5-2 hours per post. The pipeline reduces it to about 15 minutes of review and approval.</p>
+
+<h3>5. The Performance Monitor</h3>
+
+<p>Weekly, the Performance Monitor pulls engagement data from all platforms, identifies which posts are performing well (and why), surfaces posts worth promoting further, and feeds learnings back into the Idea Engine's content opportunity scoring.</p>
+
+<p>This closes the feedback loop that most content creators never close - your best content informs your next content. The system learns what resonates with your audience in a structured way.</p>
+
+<h2>The Tech Stack</h2>
+
+<p>For those who want the specifics:</p>
+
+<ul>
+<li><strong>LLM</strong>: Claude 3.5 Sonnet for drafting and complex reasoning; Claude 3 Haiku for classification tasks and metadata generation</li>
+<li><strong>Orchestration</strong>: Claude Code (Anthropic's CLI) for local development and ad-hoc tasks; Modal for scheduled cloud execution</li>
+<li><strong>Infrastructure</strong>: Python throughout; python-dotenv for config; custom resilience layer with exponential backoff for all API calls</li>
+<li><strong>CMS</strong>: Ghost with Admin API for publishing</li>
+<li><strong>Social distribution</strong>: LinkedIn API (company page + personal), Twitter API v2, Medium import API</li>
+<li><strong>Analytics</strong>: Custom script pulling from Ghost Stats, LinkedIn Analytics, and Twitter Analytics into a unified dashboard</li>
+<li><strong>Storage</strong>: Google Sheets as the lightweight database for post tracking and performance data</li>
+</ul>
+
+<h2>What Works Really Well</h2>
+
+<p><strong>Distribution automation is the biggest win.</strong> Writing the content is the interesting part. Reformatting it for six platforms, generating the right metadata for each, scheduling at optimal times - that's pure mechanical work. Automating it fully gives me back 2+ hours per post.</p>
+
+<p><strong>Research aggregation saves enormous time.</strong> The Research Agent is particularly valuable for posts that require surveying a space ("AI in fintech", "edtech personalization") rather than purely expressing my opinion. It assembles a research brief in minutes that would take me 2-3 hours of reading and note-taking.</p>
+
+<p><strong>The feedback loop improves quality over time.</strong> I'm now on my eighth month of running this system. The Idea Engine's content recommendations have gotten measurably better at predicting what gets engagement, because it has a richer performance data set to learn from.</p>
+
+<h2>What Doesn't Work (Yet)</h2>
+
+<p><strong>Personal stories and specific experiences.</strong> The system can't generate the story I told earlier about the 94% accuracy mistake at Edxcare. It can't know what I observed at HIMSS26 or what I felt when a product I built flopped. The personal experience layer still requires me, which is as it should be. But it means the drafts need significant human enrichment to be excellent rather than merely competent.</p>
+
+<p><strong>Hot takes and genuine opinion.</strong> I can instruct the system to be opinion-forward, but genuine contrarianism - the "I disagree with the conventional wisdom here" moments that make content memorable - still comes from me. The system gives me well-organized, defensible positions. I inject the provocative takes.</p>
+
+<p><strong>Complex multi-platform coordination.</strong> When a post goes viral on LinkedIn and I want to react in real-time - expanding on a point, responding to counterarguments, publishing a follow-up - the system can't handle the improvisation. The scheduled workflow doesn't accommodate viral moments well.</p>
+
+<p><strong>SEO keyword research at depth.</strong> My metadata generation is good but not great. I'm still doing manual keyword research for my most important SEO-focused posts.</p>
+
+<h2>The Honest ROI</h2>
+
+<p>Before Geenie: roughly 3-4 hours per post, 2-3 posts per month = ~8-10 hours per month on content.</p>
+
+<p>After Geenie: roughly 1-1.5 hours per post for higher quality output, 4-6 posts per month = ~5-7 hours per month on content.</p>
+
+<p>I'm publishing more, spending similar total time, and the quality (based on engagement metrics) is higher because more of my time goes into the high-value parts (ideas, opinions, personal examples) rather than the low-value parts (formatting, distribution, metadata).</p>
+
+<p>The system took about 6 weeks to build and tune. That's a significant upfront investment that only makes sense if you're committed to sustained content production. I am, so it was worth it.</p>
+
+<h2>About This Post</h2>
+
+<p>Here's the specific process for this post: I wrote a 6-bullet brief covering what I wanted to say. The Research Agent pulled relevant data on AI content tools and creator stacks. I added my personal examples (the Edxcare story, the specific numbers, the architecture details). The Draft Generator produced a first draft. I rewrote approximately 30% of it - mostly the opening, all the personal anecdotes, and the "What Doesn't Work" section, which required genuine self-reflection rather than AI synthesis.</p>
+
+<p>Is that authentic? I think it is. The ideas are mine. The opinions are mine. The experiences are mine. The system helped me write them down more efficiently and present them more clearly. That's not different in kind from using a word processor or a research assistant.</p>
+
+<p>The question worth asking: <em>Would this post exist without the system?</em> Probably not this week. Possibly not this month, given my schedule. The system didn't replace my voice - it gave my voice more opportunity to be heard.</p>
+
+<hr>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/my-ai-stack-in-2026-every-tool-i-use-and-why-2/">My AI Stack in 2026: Every Tool I Use and Why</a></li>
+<li><a href="https://www.devangshumitra.com/how-i-automated-my-entire-content-pipeline-with-ai-agents/">How I Automated My Entire Content Pipeline with AI Agents</a></li>
+<li><a href="https://www.devangshumitra.com/what-155-posts-in-3-months-taught-me-about-content-strategy/">What 155 Posts in 3 Months Taught Me About Content Strategy</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/my-ai-stack-in-2026-every-tool-i-use-and-why-2/">My AI Stack in 2026: Every Tool I Use and Why</a></li>
+<li><a href="https://www.devangshumitra.com/the-agentic-ai-stack-architecture-patterns-for-production-systems-2/">The Agentic AI Stack: Architecture Patterns for Production Systems</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-vs-haystack-the-2026-rag-stack-comparison/">LangChain vs LlamaIndex vs Haystack: The 2026 RAG Stack Comparison</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

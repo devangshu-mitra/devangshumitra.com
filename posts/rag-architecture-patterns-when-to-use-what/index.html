@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Most RAG implementations start the same way: chunk your documents, embed" />
+  <meta property="og:title" content="RAG Architecture Patterns: When to Use What — Devangshu Mitra" />
+  <meta property="og:description" content="Most RAG implementations start the same way: chunk your documents, embed" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>RAG Architecture Patterns: When to Use What — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-05-27" itemprop="datePublished">May 27, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">RAG Architecture Patterns: When to Use What</h1>
+          <p class="post-header__excerpt" itemprop="description">Most RAG implementations start the same way: chunk your documents, embed</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>RAG Architecture Patterns: When to Use What</h1>
+
+<p>Most RAG implementations start the same way: chunk your documents, embed them, stuff the top-K results into the prompt. That works in a demo. In production, it breaks in predictable ways - poor retrieval, irrelevant chunks, contradictory context. I have shipped RAG systems at HCLTech for clinical trial analysis and at Edxcare for curriculum Q&A. The pattern that fails most reliably is naive RAG applied to a problem it was never designed for.</p>
+
+<p>This post maps the major RAG patterns to the problems they actually solve.</p>
+
+<h2>Pattern 1: Naive RAG</h2>
+
+<p>The baseline. Embed your corpus, embed the query, retrieve top-K by cosine similarity, append to prompt.</p>
+
+<p><strong>When it works:</strong> Simple factual Q&A over a homogeneous corpus. FAQ bots. Single-topic knowledge bases under a few thousand documents. Low-stakes applications where occasional retrieval misses are acceptable.</p>
+
+<p><strong>Where it breaks:</strong> Multi-hop questions requiring reasoning across documents. Heterogeneous corpus with mixed document types. High-precision applications where wrong answers have real costs. Queries that need recent information mixed with historical context.</p>
+
+<p>The failure mode is almost always retrieval quality, not generation quality. If you feed the LLM good context, it generates good answers. The problem is getting the right context.</p>
+
+<h2>Pattern 2: Advanced Retrieval - Hybrid Search and Reranking</h2>
+
+<p>The first upgrade worth making. Hybrid search combines dense retrieval (embeddings) with sparse retrieval (BM25 keyword matching) using Reciprocal Rank Fusion or a learned combiner.</p>
+
+<p>Why this matters: embeddings capture semantic similarity but can miss exact keyword matches that humans intuitively expect. A query for "IND application safety reporting" in a pharmaceutical corpus should match documents containing those exact terms even if the embedding similarity is moderate.</p>
+
+<pre><code class="language-">from rank_bm25 import BM25Okapi
+from sentence_transformers import SentenceTransformer
+import numpy as np
+
+def hybrid_search(query, documents, k=10, alpha=0.5):
+    # Dense retrieval
+    model = SentenceTransformer("BAAI/bge-large-en-v1.5")
+    q_emb = model.encode(query)
+    doc_embs = model.encode(documents)
+    dense_scores = np.dot(doc_embs, q_emb)
+
+    # Sparse retrieval
+    tokenized = [d.split() for d in documents]
+    bm25 = BM25Okapi(tokenized)
+    sparse_scores = np.array(bm25.get_scores(query.split()))
+
+    # Normalize and combine
+    dense_norm = (dense_scores - dense_scores.min()) / (dense_scores.max() - dense_scores.min() + 1e-8)
+    sparse_norm = (sparse_scores - sparse_scores.min()) / (sparse_scores.max() - sparse_scores.min() + 1e-8)
+    combined = alpha * dense_norm + (1 - alpha) * sparse_norm
+
+    top_k_idx = np.argsort(combined)[::-1][:k]
+    return [documents[i] for i in top_k_idx]</code></pre>
+
+<p>After retrieval, add a cross-encoder reranker (Cohere Rerank, BGE Reranker). The retrieval step casts a wide net; the reranker selects the best candidates. On our clinical trial corpus, adding reranking improved answer relevance by about 30% over dense-only retrieval.</p>
+
+<h2>Pattern 3: Parent-Child Retrieval (Multi-Granularity)</h2>
+
+<p>The chunking problem: small chunks retrieve precisely but lose context. Large chunks provide context but introduce noise and hit token limits.</p>
+
+<p>The solution: index small chunks for retrieval, but return the parent chunk (or full document section) for generation. You retrieve based on a 128-token sentence, then feed the 1,024-token paragraph it came from to the LLM.</p>
+
+<p>LlamaIndex calls this the "parent document retriever." LangChain implements it as the ParentDocumentRetriever. Use this pattern whenever your documents have natural hierarchical structure - sections within papers, articles within reports, FAQs with long answers.</p>
+
+<h2>Pattern 4: Agentic RAG</h2>
+
+<p>When a single retrieval step is insufficient for multi-hop questions. The agent decides iteratively: retrieve, read, determine what is still unknown, retrieve again, synthesize.</p>
+
+<p>The ReAct pattern (Reason + Act) is the standard implementation: the LLM reasons about what it needs, calls a retrieval tool, gets results, reasons again, and repeats until it can answer confidently.</p>
+
+<p><strong>When to use agentic RAG:</strong></p>
+
+<ul>
+<li>Questions requiring information from multiple documents combined non-trivially</li>
+<li>Research tasks where the query itself evolves as you learn more</li>
+<li>Situations where the LLM needs to validate or cross-check retrieved information</li>
+</ul>
+
+<p><strong>Cost warning:</strong> Agentic RAG can make 5-10 LLM calls per user question. Budget and latency implications are significant. Only use when the quality improvement justifies the cost.</p>
+
+<h2>Pattern 5: Graph RAG</h2>
+
+<p>Microsoft Research released GraphRAG in 2024. The core insight: traditional vector search finds locally similar chunks but misses global patterns and relationships across the corpus.</p>
+
+<p>GraphRAG builds a knowledge graph from your documents (entities, relationships, communities), then uses graph traversal alongside vector search. It excels at questions like "what are the major themes across this corpus" or "how does concept A relate to concept B across multiple documents."</p>
+
+<p>The tradeoff: indexing is expensive (requires LLM calls to extract entities and build the graph). Not justified for simple Q&A. Worth it for large, complex corpora where relational reasoning matters.</p>
+
+<h2>Decision Framework</h2>
+
+<ul>
+<li><strong>Simple Q&A, homogeneous corpus:</strong> Naive RAG with hybrid search</li>
+<li><strong>Long documents with natural structure:</strong> Add parent-child retrieval</li>
+<li><strong>High precision requirements:</strong> Add reranking</li>
+<li><strong>Multi-hop questions:</strong> Agentic RAG</li>
+<li><strong>Complex relational queries across large corpus:</strong> Graph RAG</li>
+</ul>
+
+<h2>Where this lands</h2>
+
+<p>Start with the simplest pattern that could work. Measure retrieval quality before optimizing generation quality - if your retrieved chunks are wrong, a better LLM will not save you. Add complexity only when measurements show where the system is failing. The teams I have seen waste the most time on RAG are the ones who jumped to agentic patterns before they had good retrieval working.</p>
+
+<hr>
+
+<h3>You might also like</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/embedding-strategies-that-actually-scale/">Embedding Strategies That Actually Scale</a></li>
+<li><a href="https://www.devangshumitra.com/vector-database-showdown-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/vector-database-showdown-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Download our comprehensive product metrics dashboard template designed for" />
+  <meta property="og:title" content="Product Metrics Dashboard Template for Enterprise AI — Devangshu Mitra" />
+  <meta property="og:description" content="Download our comprehensive product metrics dashboard template designed for" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Product Metrics Dashboard Template for Enterprise AI — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-08-19" itemprop="datePublished">Aug 19, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Product Metrics Dashboard Template for Enterprise AI</h1>
+          <p class="post-header__excerpt" itemprop="description">Download our comprehensive product metrics dashboard template designed for</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Product Metrics Dashboard Template for Enterprise AI</h1>
+
+<p>Most enterprise AI products fail the metrics question in two directions. Either the team tracks nothing ("we'll figure out metrics later") or they track everything ("we have 47 KPIs on the dashboard"). Neither works.</p>
+
+<p>This is the metrics framework I use for enterprise AI products, particularly in regulated industries. It's organized into five categories. For each metric, I've included the definition, formula, target range, and measurement cadence. Copy what's relevant, skip what isn't, add what I'm missing.</p>
+
+<p>One note on targets: the ranges here are starting points. Your actual targets depend on your baseline, your market, and your product stage. A new product targeting 30% adoption in 90 days is very different from a mature product trying to move from 60% to 80%.</p>
+
+<hr>
+
+<h2>Category 1 - Adoption Metrics</h2>
+
+<p>Adoption metrics tell you whether people are actually using the product, not just whether it's been deployed. Deployment is not adoption. In enterprise healthcare AI, deployment-to-adoption gaps of 12-18 months are common.</p>
+
+<p>| Metric | Definition | Formula | Target Range | Cadence | | --- | --- | --- | --- | --- | | <strong>Activation Rate</strong> | Percentage of provisioned users who complete a defined "activation" action within 30 days of account creation. Activation should be the minimum action that predicts retention - not just login. | Activated Users / Provisioned Users x 100 | 40-70% (varies heavily by enterprise complexity) | Weekly; cohort by provisioning month | | <strong>Time-to-First-Value</strong> | Median time from first login to first meaningful output (first completed workflow, first prediction reviewed, first report generated). This is the speed of the "aha moment." | Median(first_value_timestamp - first_login_timestamp) | Under 30 minutes for self-serve; under 2 weeks for enterprise deployment | Monthly; cohort by first login month | | <strong>Feature Adoption Rate</strong> | Percentage of active users who use a specific feature at least once in a 30-day period. Track separately for each major feature. Low feature adoption may indicate discovery problems, not value problems. | Users who used Feature X in 30 days / All active users in 30 days x 100 | Tier 1 (core) features: 60%+; Tier 2 (secondary): 25%+; Tier 3 (advanced): 10%+ | Monthly | | <strong>Breadth of Adoption</strong> | Percentage of provisioned seats that are "active" (at least 1 session) in the trailing 30 days. In multi-seat enterprise deals, this is the stickiness signal your Customer Success team watches most closely. | Seats with activity in last 30 days / Total provisioned seats x 100 | 50-75% (depends on role distribution in the account) | Monthly; by account |</p>
+
+<hr>
+
+<h2>Category 2 - Engagement Metrics</h2>
+
+<p>Engagement metrics tell you how deeply users are engaging when they do show up. In B2B enterprise tools, DAU/MAU ratios behave differently than in consumer products - a 15% DAU/MAU for a weekly-workflow tool is healthy.</p>
+
+<p>| Metric | Definition | Formula | Target Range | Cadence | | --- | --- | --- | --- | --- | | <strong>DAU / MAU Ratio</strong> | Ratio of daily active users to monthly active users. Higher ratio = stickier daily habit. Benchmark against the natural cadence of the workflow - a quarterly review tool should not be measured like a daily clinical decision tool. | DAU / MAU | Daily clinical workflows: 40-60%; Weekly workflows: 15-25%; Monthly/ad hoc: 5-10% | Weekly rolling average | | <strong>Session Depth</strong> | Average number of meaningful actions per session (predictions reviewed, records processed, exports generated). A user who logs in and does nothing is not an engaged user. | Total meaningful actions / Total sessions | Establish your own baseline in first 90 days; target 10-20% improvement quarter-over-quarter | Weekly | | <strong>Workflow Completion Rate</strong> | Percentage of initiated workflows that reach a defined completion state. Abandonment in the middle of a workflow is a UX or trust signal worth investigating. | Completed workflows / Initiated workflows x 100 | 75%+ for core workflows; below 50% is a red flag requiring investigation | Weekly; by workflow type |</p>
+
+<hr>
+
+<h2>Category 3 - Retention Metrics</h2>
+
+<p>For enterprise AI products on annual contracts, "retention" is a renewal event that happens once a year. But leading indicators of renewal show up in the product data months before the renewal conversation.</p>
+
+<p>| Metric | Definition | Formula | Target Range | Cadence | | --- | --- | --- | --- | --- | | <strong>Cohort Retention (Week 4, Week 12)</strong> | Percentage of users first active in a given month who are still active 4 weeks and 12 weeks later. The shape of the retention curve tells you more than any single number. | Users active in Week N who were in Month 0 cohort / Month 0 cohort size x 100 | Week 4: 40-60%; Week 12: 25-45%; Flat curve after Week 8 = healthy core | Monthly cohort report | | <strong>Contraction Indicators</strong> | Leading signals that an account is contracting: declining seat utilization, reduction in active power users, migration of use cases to manual alternatives. These surface 60-90 days before a renewal risk conversation. | Month-over-month change in active seats per account; month-over-month change in session depth per account | Alert at -15% MoM decline in either metric for any account above contract threshold | Monthly; Customer Success review | | <strong>Net Promoter Score (NPS)</strong> | Likelihood to recommend, 0-10 scale. In enterprise B2B, run this at the user level (how do individual users feel?) AND at the economic buyer level (how does the VP/CMO feel?). These diverge frequently and both matter. | % Promoters (9-10) - % Detractors (0-6) | 30+ is healthy for enterprise B2B; below 20 warrants qualitative investigation | Quarterly user survey; semi-annual executive survey |</p>
+
+<hr>
+
+<h2>Category 4 - AI-Specific Metrics</h2>
+
+<p>These are the metrics that generic product dashboards miss. They're the ones that distinguish an enterprise AI product from a regular SaaS product - and they're the ones that blow up in production if you're not watching them.</p>
+
+<p>| Metric | Definition | Formula | Target Range | Cadence | | --- | --- | --- | --- | --- | | <strong>Production Accuracy</strong> | Model accuracy on real production data vs. the accuracy on your held-out validation set. These drift apart over time as production data diverges from training distribution. Track the gap, not just the absolute number. | Evaluated against spot-check labels from production data; or against proxy signals where ground truth is delayed | Production accuracy should stay within 5 percentage points of validation accuracy; trigger review at 8-10 point gap | Weekly evaluation; monthly deep review | | <strong>Hallucination Rate (LLM products)</strong> | For LLM-based products: percentage of outputs that contain factually incorrect, fabricated, or unsupported claims. Must be measured against a ground truth source, not subjectively. Requires a sample-based evaluation protocol. | Hallucinated outputs in sample / Total outputs in sample x 100 | Under 2% for clinical-facing outputs; under 5% for administrative outputs. Any output that could influence clinical decisions: under 1%. | Weekly sampling (min 200 outputs evaluated) | | <strong>Latency p95</strong> | The 95th percentile response time. The median latency tells you how the system performs when things are fine. The p95 tells you what 1 in 20 users experiences. Clinical workflows are often time-sensitive - a 5-second p95 in an ICU workflow is a patient safety consideration. | 95th percentile of response_time distribution over trailing 7 days | Target defined at PRD stage per workflow; alert at 2x PRD target | Real-time monitoring; weekly report | | <strong>User Override Rate</strong> | Percentage of model recommendations that the user overrides (changes, ignores, or flags as incorrect). High override rate = low trust or poor accuracy. Very low override rate may indicate automation bias (users not critically reviewing outputs). | Overridden recommendations / Total recommendations shown x 100 | 10-25% is a reasonable target range. Under 5% warrants investigation for automation bias. Over 40% warrants investigation for trust/accuracy issues. | Weekly; by user role and feature | | <strong>Model Drift Index</strong> | Statistical measure of how much the distribution of model inputs has shifted from the training distribution. Leading indicator of accuracy degradation. Use PSI (Population Stability Index) or KL divergence per feature. | PSI per feature; flag any feature with PSI > 0.2 (moderate drift) | PSI under 0.1 = stable; 0.1-0.2 = monitor; over 0.2 = retrain evaluation | Monthly; trigger retraining review at threshold breach |</p>
+
+<hr>
+
+<h2>Category 5 - Business Metrics</h2>
+
+<p>Business metrics exist to answer the question your economic buyer will ask at renewal: "What did we get for this investment?" Be specific. "Improved efficiency" is not a metric.</p>
+
+<p>| Metric | Definition | Formula | Target Range | Cadence | | --- | --- | --- | --- | --- | | <strong>Revenue Impact</strong> | Incremental revenue attributable to the AI product. For clinical decision support: increased throughput, reduced denials, faster billing cycles. Requires a clear attribution model agreed on with the customer's finance team before measurement begins. | Revenue in treatment group - Revenue in control group (or vs. baseline where RCT is not feasible) | Agreed on pre-deployment with the customer; typically 3-5x product cost to justify renewal | Quarterly | | <strong>Time Savings per User</strong> | Hours saved per user per week compared to baseline workflow. This is the clearest "ROI on a napkin" metric for clinical staff. Time savings translate directly to capacity: if a nurse saves 30 min/day, that's 2.5 hours/week for direct patient care. | Time for task with AI / Time for same task without AI; measured on identical tasks, not self-reported estimates | Minimum 20% reduction in time-on-task to justify workflow change disruption; 40%+ is compelling for renewal | Measured at 30 and 90 days post-deployment | | <strong>Cost Savings</strong> | Reduction in operational costs attributable to the AI product: fewer prior auth denials, reduced manual review FTEs, lower rework rates, reduced adverse events. Requires baseline measurement before deployment. | Baseline cost - Post-deployment cost (same period, controlling for external factors) | Customer-specific; establish target in the business case before deployment | Quarterly; with finance team sign-off |</p>
+
+<hr>
+
+<h2>Notes on Implementation</h2>
+
+<p>A few things I've learned building these dashboards:</p>
+
+<ul>
+<li><strong>Instrument before launch, not after.</strong> You can't reconstruct baseline data retroactively. The time to define and instrument your metrics is during sprint planning, not post-launch retrospective.</li>
+<li><strong>Agree on business metrics with the customer before deployment.</strong> If they don't agree on how you'll measure ROI before you deploy, they'll dispute your ROI numbers at renewal.</li>
+<li><strong>Override rate is the canary.</strong> It's the single AI-specific metric that tells you the most. Track it from day one.</li>
+<li><strong>Don't track metrics you won't act on.</strong> Every metric on this list should have a defined alert threshold and a defined owner who reviews it. A metric with no owner is not a metric - it's decoration.</li>
+</ul>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+<li><a href="https://www.devangshumitra.com/genai-build-vs-buy-matrix/">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</a></li>
+<li><a href="https://www.devangshumitra.com/prd-template-ai-products/">PRD Template for AI Products in Regulated Industries</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-to-evaluate-an-ai-vendor-a-scorecard-that-works-across-industries/">How to Evaluate an AI Vendor: A Scorecard That Works Across Industries</a></li>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+<li><a href="https://www.devangshumitra.com/prd-template-ai-products/">PRD Template for AI Products in Regulated Industries</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

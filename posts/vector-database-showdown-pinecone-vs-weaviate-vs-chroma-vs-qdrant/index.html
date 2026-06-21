@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Four vector databases, four different bets on where the market is going." />
+  <meta property="og:title" content="Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant — Devangshu Mitra" />
+  <meta property="og:description" content="Four vector databases, four different bets on where the market is going." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-06-07" itemprop="datePublished">Jun 7, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</h1>
+          <p class="post-header__excerpt" itemprop="description">Four vector databases, four different bets on where the market is going.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Vector Database Showdown: Pinecone vs Weaviate vs Chroma vs Qdrant</h1>
+
+<p>Four vector databases, four different bets on where the market is going. Choosing the wrong one is recoverable but expensive - migrations are painful once you have millions of embeddings indexed. I have used three of these in production. Here is how to think through the decision honestly.</p>
+
+<h2>What You Are Actually Choosing</h2>
+
+<p>Before comparing features, clarify your requirements. The wrong lens for this decision is "which is fastest" or "which has the best Python client." The right lens is:</p>
+
+<ul>
+<li>Managed cloud or self-hosted?</li>
+<li>How many vectors? (thousands vs millions vs billions matters enormously)</li>
+<li>Do you need metadata filtering? How complex?</li>
+<li>What is your query latency budget?</li>
+<li>What is your team's operational tolerance for infrastructure management?</li>
+</ul>
+
+<h2>Pinecone: Managed, Optimized, Expensive</h2>
+
+<p>Pinecone is the incumbent - it was first to market with a purpose-built managed vector database and has spent years optimizing for exactly one thing: fast approximate nearest neighbor (ANN) search at scale.</p>
+
+<p><strong>Strengths:</strong> Best managed infrastructure. Predictable latency (sub-10ms p99 at millions of vectors). Serverless tier that scales to zero. Strong metadata filtering. Hybrid search (dense + sparse) built in.</p>
+
+<p><strong>Weaknesses:</strong> Cost. Serverless is $0.096 per million read units. At serious scale, you are spending hundreds to thousands per month. No self-hosted option - you are dependent on Pinecone's infrastructure and pricing. Limited multitenancy controls in lower tiers.</p>
+
+<p><strong>Right for:</strong> Teams that want zero operational overhead, have budget, and are building production applications where reliability matters more than cost optimization.</p>
+
+<h2>Weaviate: Multimodal, Feature-Rich, Opinionated</h2>
+
+<p>Weaviate takes a different bet: it is a vector-native database that also handles structured data, with built-in support for multiple modalities (text, image, audio) and a GraphQL query interface.</p>
+
+<p><strong>Strengths:</strong> Genuine multimodal support with built-in vectorizers. Strong hybrid search (BM25 + vector). GraphQL querying with semantic search integrated. Managed cloud (Weaviate Cloud) and self-hosted. Object-level storage - you store your full objects alongside vectors, not just IDs.</p>
+
+<p><strong>Weaknesses:</strong> More complex to set up correctly. The GraphQL interface is powerful but has a steeper learning curve than simple vector search APIs. Self-hosted performance requires tuning. Smaller community than Pinecone.</p>
+
+<p><strong>Right for:</strong> Teams building multimodal applications, teams that want a single store for both vectors and source data, teams comfortable with self-hosting who want more control.</p>
+
+<h2>Chroma: Developer Experience First, Scale Second</h2>
+
+<p>Chroma is designed for developer experience. It runs in-memory or on-disk, has a minimal API, and is the fastest path from zero to a working RAG prototype.</p>
+
+<pre><code class="language-">import chromadb
+
+client = chromadb.Client()
+collection = client.create_collection("my_docs")
+
+collection.add(
+    documents=["RAG architecture overview", "Fine-tuning best practices"],
+    metadatas=[{"source": "blog"}, {"source": "research"}],
+    ids=["doc1", "doc2"]
+)
+
+results = collection.query(
+    query_texts=["how does retrieval work"],
+    n_results=2
+)
+print(results["documents"])</code></pre>
+
+<p><strong>Strengths:</strong> Trivially easy to start with. Persistent mode requires no infrastructure. Great for prototyping, testing, and local development. Free and open source. LangChain and LlamaIndex integrations are well-maintained.</p>
+
+<p><strong>Weaknesses:</strong> Not production-grade at scale. No distributed mode. Limited metadata filtering compared to Pinecone or Qdrant. Performance degrades significantly beyond a few hundred thousand vectors. No managed cloud offering (though third-party hosting exists).</p>
+
+<p><strong>Right for:</strong> Prototyping, local development, small-scale deployments (under 500K vectors), teams wanting to validate a RAG approach before committing to infrastructure.</p>
+
+<h2>Qdrant: Performance, Flexibility, Serious Engineering</h2>
+
+<p>Qdrant is written in Rust, open source, and designed for production deployments that need both performance and control. It has emerged as a strong alternative to Pinecone for teams willing to manage their own infrastructure.</p>
+
+<p><strong>Strengths:</strong> Excellent performance - benchmarks consistently show it competitive with or faster than Pinecone on ANN search. Rich filtering with complex boolean conditions on payload fields. Sparse + dense hybrid search. Quantization support for cost reduction. Self-hosted with Docker/Kubernetes or managed via Qdrant Cloud. Payload-indexed filtering is fast.</p>
+
+<p><strong>Weaknesses:</strong> You own the infrastructure if self-hosted. Offers a smaller managed cloud platform than Pinecone. Documentation is good but less polished than Pinecone's.</p>
+
+<p><strong>Right for:</strong> Teams with infrastructure competency who want Pinecone-level performance at open-source costs. Good for Life Sciences & Healthcare applications where data residency requirements make fully managed cloud services problematic.</p>
+
+<h2>Quick Comparison Matrix</h2>
+
+<ul>
+<li><strong>Easiest to start with:</strong> Chroma (local prototype) then Pinecone (cloud)</li>
+<li><strong>Best managed cloud:</strong> Pinecone</li>
+<li><strong>Best self-hosted performance:</strong> Qdrant</li>
+<li><strong>Best multimodal:</strong> Weaviate</li>
+<li><strong>Most cost-effective at scale:</strong> Qdrant (self-hosted)</li>
+<li><strong>Best for data residency requirements:</strong> Qdrant or Weaviate (self-hosted)</li>
+</ul>
+
+<h2>The Migration Problem</h2>
+
+<p>Vector database migrations are painful. You need to re-embed your entire corpus if you change embedding models (which you will eventually need to do), export all vectors and metadata, rebuild indices, validate retrieval quality. Plan for this before you choose. Every option I have seen teams regret is the one they chose without thinking about the migration cost when they outgrow it.</p>
+
+<h2>Bottom Line</h2>
+
+<p>Start with Chroma for prototyping - zero friction, gets you building. When you need production infrastructure, choose Pinecone if you want zero ops overhead and have budget, or Qdrant if you have infrastructure competency and want performance at lower cost. Choose Weaviate if multimodal is a genuine requirement. Do not over-engineer the initial choice - all four integrate with the same LLM frameworks and all four can support most RAG architectures. The query patterns you develop matter more than which database you store them in.</p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/vector-databases-compared-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-patterns-when-to-use-what/">RAG Architecture Patterns: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/claude-vs-gpt-4-vs-gemini-enterprise-ai-platform-showdown/">Claude vs GPT-4 vs Gemini: Enterprise AI Platform Showdown</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

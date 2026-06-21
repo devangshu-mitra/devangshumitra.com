@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Everything I wish I knew when I started in Life Sciences & Healthcare AI" />
+  <meta property="og:title" content="Life Sciences & Healthcare AI PM Fundamentals — Devangshu Mitra" />
+  <meta property="og:description" content="Everything I wish I knew when I started in Life Sciences & Healthcare AI" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Life Sciences & Healthcare AI PM Fundamentals — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2026-01-13" itemprop="datePublished">Jan 13, 2026</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Life Sciences & Healthcare AI PM Fundamentals</h1>
+          <p class="post-header__excerpt" itemprop="description">Everything I wish I knew when I started in Life Sciences & Healthcare AI</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Life Sciences & Healthcare AI PM Fundamentals</h1>
+
+<p>I spent the first year of my career in Life Sciences & Healthcare AI getting things subtly wrong - not wrong enough to get fired, but wrong enough to waste months on the wrong problems. This guide is everything I wish someone had handed me on day one.</p>
+
+<p>This is not a theoretical overview. This is what I actually use, what I've seen work across clinical trials platforms, MedTech, and BioPharma AI products, and where I've watched smart PMs stumble.</p>
+
+<hr>
+
+<h2>Section 1: The Life Sciences & Healthcare AI Space</h2>
+
+<p>The market is large and fragmented - roughly $45B in 2024 across subsegments, projected to hit $200B+ by 2030 depending on which analyst you believe. But the number that matters to you as a PM is not the total market. It's the segment you're actually operating in.</p>
+
+<p>Here's how I mentally carve it up:</p>
+
+<p><strong>Clinical Operations</strong> - trial site selection, patient recruitment, protocol design assistance. This is where AI is genuinely working right now. The problem is well-defined, the data exists, and the ROI is measurable (faster trial completion = hundreds of millions saved).</p>
+
+<p><strong>Diagnostics and Imaging</strong> - radiology AI, pathology AI, dermatology. Some of the most mature AI deployments in healthcare. FDA has cleared 500+ AI/ML-enabled devices. If you're here, your regulatory bar is high and the workflow integration challenges are real.</p>
+
+<p><strong>Drug Discovery and Development</strong> - molecular property prediction, target identification, generative chemistry. Massive hype-to-reality gap. Long feedback loops (years, not weeks) make iteration brutal. I'd think twice about joining a startup here unless your runway is 5+ years.</p>
+
+<p><strong>Clinical Decision Support</strong> - alerts, risk scores, care pathway recommendations at the point of care. Deployed inside EHRs. Political and technical complexity is enormous. Alert fatigue is a real problem you will inherit.</p>
+
+<p><strong>Revenue Cycle and Operations</strong> - coding automation, prior auth, denial management. Not glamorous. Genuinely works. Strong ROI story.</p>
+
+<p>The mistake I see most often: PMs who come from consumer or B2B SaaS and assume healthcare AI is just "AI plus more regulations." It's not. The feedback loops are longer, the stakeholders are more complex, the data is harder to get, and the definition of "working" includes clinical outcomes, not just engagement metrics.</p>
+
+<p>Where AI is actually working vs where it's mostly hype: my honest take is that AI is working in narrow, well-scoped tasks with abundant training data and measurable outcomes (radiology, trial operations, revenue cycle). It is mostly hype in "AI doctor" scenarios, ambient clinical intelligence with broad scope, and anything requiring causal reasoning about patient populations.</p>
+
+<hr>
+
+<h2>Section 2: Regulatory 101 for PMs</h2>
+
+<p>You do not need to be a regulatory expert. You need to know enough to not say something embarrassing in a customer meeting and to scope your product correctly from day one.</p>
+
+<p><strong>The FDA Software Framework</strong></p>
+
+<p>The FDA regulates Software as a Medical Device (SaMD) under a framework that has evolved significantly since 2021. The key document is the FDA's Digital Health Center of Excellence guidance. The short version:</p>
+
+<ul>
+<li>If your software is "intended to treat, diagnose, prevent, cure, or mitigate disease," it's a medical device and needs FDA clearance or approval.</li>
+<li>Clinical Decision Support (CDS) that a clinician can independently review is often exempt. CDS that overrides clinical judgment or automates diagnosis is not.</li>
+<li>The 510(k) pathway (demonstrating substantial equivalence to a predicate device) is the most common for Class II devices. Plan 6-18 months and significant resource investment.</li>
+<li>De Novo is for novel low-to-moderate risk devices with no predicate. Takes longer, creates a new regulatory category.</li>
+<li>PMA (Premarket Approval) is for high-risk Class III devices. Rare, expensive, 2-5 years.</li>
+</ul>
+
+<p>What PMs actually need to know: understand which pathway applies to your product before you write a single line of PRD. Regulatory strategy is a product strategy decision, not a legal afterthought.</p>
+
+<p><strong>HIPAA Basics That Matter</strong></p>
+
+<p>Protected Health Information (PHI) includes 18 categories of identifiers. The ones that trip up AI products: date of service, geographic data below state level, and device identifiers. If your training data includes any of these, you need either a Business Associate Agreement (BAA) with your data source or a de-identification strategy (Safe Harbor or Expert Determination).</p>
+
+<p>What you can delegate: the specifics of BAA terms, the technical de-identification implementation, the formal risk analysis under the Security Rule. That's for your compliance and legal teams.</p>
+
+<p>What you cannot delegate: the product decision about what data your model needs and whether that requires PHI. That's a product choice with regulatory consequences, and it's yours.</p>
+
+<p>Here's what I've seen break products: starting model development with PHI-containing datasets and then discovering late in the cycle that deployment partners have different data governance requirements. The fix is painful and expensive. Decide your data strategy early and document it.</p>
+
+<hr>
+
+<h2>Section 3: Clinical Validation Basics</h2>
+
+<p>Clinical AI needs different validation than regular software. This is not bureaucratic overhead - it's the difference between a product that actually works in clinical settings and one that works in demos.</p>
+
+<p><strong>Why Clinical AI Validation is Different</strong></p>
+
+<p>Regular software validation asks: does the feature do what the spec says? Clinical AI validation asks: does this algorithm produce outputs that are safe, accurate, and equitable when used in the real population it will serve?</p>
+
+<p>The failure modes are different too. Software bugs are generally deterministic and reproducible. AI failures are often statistical, population-specific, and emerge from distribution shift - the gap between the data you trained on and the data you encounter in production.</p>
+
+<p>Here's what I've seen: an algorithm trained on data from academic medical centers that degrades significantly when deployed at community hospitals. The training data skewed toward complex cases. The community hospital population was different. The algorithm was technically accurate on its validation set. It was clinically unreliable in deployment.</p>
+
+<p><strong>Study Design Basics</strong></p>
+
+<p>Lock down your intended use statement before designing any validation study. "Intended for use by radiologists at academic medical centers to flag potential pneumothorax on chest X-rays" and "intended for emergency physicians at community hospitals to rule out pneumothorax" are different products that need different validation.</p>
+
+<p>Retrospective studies are faster and cheaper. They use historical data to evaluate algorithm performance. Good for initial validation, establishing feasibility, and identifying failure modes. Limitation: doesn't tell you how the algorithm performs in prospective use.</p>
+
+<p>Prospective studies evaluate the algorithm in actual clinical use. Required for most FDA submissions. Take longer, cost more, but tell you what actually happens when the algorithm is embedded in a clinical workflow.</p>
+
+<p>Reader studies compare algorithm performance to clinician performance. Common in imaging AI. They measure sensitivity, specificity, and AUC - but also clinically meaningful metrics like time-to-diagnosis and rate of missed findings.</p>
+
+<p><strong>Metrics That Matter</strong></p>
+
+<p>Accuracy alone is misleading in clinical AI. A model that predicts "no cancer" for every patient might be 99% accurate in a population where cancer prevalence is 1%. It's also clinically useless.</p>
+
+<p>Metrics I actually care about: sensitivity (true positive rate) and specificity (true negative rate), positive and negative predictive value in your target population, subgroup performance across age, sex, race, and comorbidity, and calibration (are predicted probabilities aligned with actual outcomes?).</p>
+
+<p>The most underrated metric: performance across the sites and populations you will actually deploy in, not just your training distribution.</p>
+
+<hr>
+
+<h2>Section 4: Enterprise vs Startup Deployment</h2>
+
+<p>Enterprise healthcare AI deployments are slow. I mean genuinely slow - 12-24 months from first contact to go-live is not unusual at large health systems. Here's what's actually happening during that time.</p>
+
+<p><strong>The Procurement Gauntlet</strong></p>
+
+<p>Large health systems have formal vendor evaluation processes: IT security review (often 6+ months for new vendors), clinical review (physician champions, nursing leadership, department heads), legal review (contract terms, liability, data governance), compliance review (HIPAA BAA, FDA if applicable), and finance approval (budget cycles, often annual).</p>
+
+<p>The mistake I see most often: treating procurement as the last step rather than the first. Security review takes 3-6 months at most large systems. Start it in parallel with clinical evaluation. Ask for the security questionnaire in the first meeting.</p>
+
+<p><strong>Stakeholder Matrices That Actually Work</strong></p>
+
+<p>In healthcare AI, I use a 5x3 stakeholder matrix: executive sponsor, clinical champion, IT lead, end users (clinicians/nurses/staff), and compliance/legal. For each, I track: what they care about, what would cause them to kill the project, and what they need to see from me to stay unblocked.</p>
+
+<p>The executive sponsor cares about strategic fit and budget. The clinical champion cares about workflow improvement and not embarrassing themselves in front of colleagues. IT cares about security, integration complexity, and maintenance burden. End users care about whether this makes their day easier or harder. Compliance cares about not being in the news.</p>
+
+<p>At startups, the timeline expectations are different. Land-and-expand through a single department. Prove value fast. Get physician champions to create internal pull. The mistake is trying to boil the ocean - selling enterprise-wide transformation when you should be proving value in radiology or the ICU first.</p>
+
+<p><strong>Timeline Expectations</strong></p>
+
+<p>Startup to health system enterprise pilot: 3-6 months from signed deal. Full deployment: 6-18 months. Expansion to additional sites: 6-12 months per site. These are realistic, not pessimistic. Build them into your roadmap.</p>
+
+<hr>
+
+<h2>Section 5: Building Your First AI Product Spec</h2>
+
+<p>This is where everything comes together. A good AI product spec in Life Sciences & Healthcare is not just a standard PRD with "AI" sprinkled in. It needs sections that traditional PM frameworks don't cover.</p>
+
+<p><strong>The Mini PRD Framework</strong></p>
+
+<p><strong>Problem Statement</strong> - What clinical or operational problem are you solving? For whom? What is the current workflow and where does it fail? Quantify the burden: time wasted, errors made, costs incurred.</p>
+
+<p><strong>Intended Use and User</strong> - Who uses this, in what setting, for what purpose? This maps directly to FDA intended use and to your validation design. Be specific. "Clinicians" is not a user. "Emergency physicians in tertiary care EDs making rapid triage decisions" is a user.</p>
+
+<p><strong>AI System Design</strong> - What does the model do? What are its inputs and outputs? What confidence does it provide? What does it NOT do (out-of-scope use cases)? What are the known failure modes? This section surfaces assumptions that need to be validated.</p>
+
+<p><strong>Data Requirements</strong> - What data does the model need? Where does it come from? Is PHI involved? What are the governance requirements? Who owns the data at each deployment site?</p>
+
+<p><strong>Validation Requirements</strong> - What evidence do you need before deployment? Retrospective or prospective? What metrics? What performance thresholds? Who defines acceptable performance - you, the FDA, the customer?</p>
+
+<p><strong>Integration Requirements</strong> - Where does this live in the existing workflow? EHR integration? Standalone tool? Mobile app? What are the technical prerequisites at the deployment site?</p>
+
+<p><strong>Regulatory Pathway</strong> - Is this a regulated device? Which pathway? What are the timelines and resource requirements?</p>
+
+<p>Here's how I'd use this: pick a real clinical problem you understand. Draft one section. Share it with a clinical partner - a physician, a nurse, a pharmacist. Their first reaction will tell you more about your product thinking than any framework. The goal is not a perfect spec document. The goal is surfacing your assumptions before you build.</p>
+
+<p>The common failure mode I see in AI PM specs: the "model" section describes what the algorithm does technically, but the "user experience" section assumes clinicians will understand and trust the output. That gap - between model capability and clinical adoption - is where AI products go to die. Build your spec around closing that gap.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-break-into-ai-pm/">Break Into AI Product Management</a></li>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/course-first-principles-pm/">First Principles for Product Managers</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/epic-vs-tempus-ai-healthcare/">Epic vs. Tempus: Two Approaches to AI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/">Healthcare AI Product Roadmap: How I Prioritize Features Across 10 Clinical Products</a></li>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

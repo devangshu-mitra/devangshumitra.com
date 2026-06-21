@@ -1,0 +1,241 @@
+/* ============================================
+   ANIMATIONS — devangshumitra.com
+   Scroll reveal, transitions, keyframes
+   ============================================ */
+
+/* ---- Scroll Reveal Base -------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(32px);
+  transition:
+    opacity var(--duration-slower) var(--ease-out),
+    transform var(--duration-slower) var(--ease-out);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger delays for children */
+.reveal-stagger > * {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity var(--duration-slower) var(--ease-out),
+    transform var(--duration-slower) var(--ease-out);
+}
+
+.reveal-stagger.visible > *:nth-child(1) { transition-delay: 0ms; }
+.reveal-stagger.visible > *:nth-child(2) { transition-delay: 80ms; }
+.reveal-stagger.visible > *:nth-child(3) { transition-delay: 160ms; }
+.reveal-stagger.visible > *:nth-child(4) { transition-delay: 240ms; }
+.reveal-stagger.visible > *:nth-child(5) { transition-delay: 320ms; }
+.reveal-stagger.visible > *:nth-child(6) { transition-delay: 400ms; }
+
+.reveal-stagger.visible > * {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Variants */
+.reveal--left {
+  transform: translateX(-32px);
+}
+.reveal--left.visible {
+  transform: translateX(0);
+}
+
+.reveal--right {
+  transform: translateX(32px);
+}
+.reveal--right.visible {
+  transform: translateX(0);
+}
+
+.reveal--scale {
+  transform: scale(0.95);
+  opacity: 0;
+}
+.reveal--scale.visible {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.reveal--fade {
+  transform: none;
+  opacity: 0;
+}
+.reveal--fade.visible {
+  opacity: 1;
+}
+
+/* ---- Hero entrance animations -------------- */
+.hero-enter {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: heroEnter var(--duration-slower) var(--ease-out) forwards;
+}
+
+.hero-enter:nth-child(1) { animation-delay: 200ms; }
+.hero-enter:nth-child(2) { animation-delay: 400ms; }
+.hero-enter:nth-child(3) { animation-delay: 600ms; }
+.hero-enter:nth-child(4) { animation-delay: 800ms; }
+
+@keyframes heroEnter {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ---- Subtitle rotator ---------------------- */
+.subtitle-rotator {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.subtitle-slide-in {
+  animation: subtitleIn 500ms var(--ease-out) forwards;
+}
+
+.subtitle-slide-out {
+  animation: subtitleOut 400ms var(--ease-in) forwards;
+}
+
+@keyframes subtitleIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes subtitleOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-100%);
+  }
+}
+
+/* ---- Cursor blink (for subtitle) ----------- */
+.cursor-blink {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  background-color: var(--color-accent);
+  margin-left: 4px;
+  vertical-align: text-bottom;
+  animation: cursorBlink 1s step-end infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* ---- Nav scroll effect --------------------- */
+@keyframes navFadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.nav {
+  animation: navFadeIn 600ms var(--ease-out) forwards;
+}
+
+/* ---- Page transition ----------------------- */
+@keyframes pageFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.page-enter {
+  animation: pageFadeIn 400ms var(--ease-out) forwards;
+}
+
+/* ---- Hover lift (reusable) ----------------- */
+.hover-lift {
+  transition: transform var(--duration-base) var(--ease-out),
+              box-shadow var(--duration-base) var(--ease-out);
+}
+
+.hover-lift:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+/* ---- Gold shimmer (accent highlight) ------- */
+@keyframes goldShimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.text-shimmer {
+  background: linear-gradient(
+    90deg,
+    var(--color-accent) 0%,
+    #f0d080 40%,
+    var(--color-accent) 80%
+  );
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: goldShimmer 4s linear infinite;
+}
+
+/* ---- Scroll progress bar ------------------- */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  background-color: var(--color-accent);
+  z-index: 200;
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 100ms linear;
+}
+
+/* ---- Reduced motion override --------------- */
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .reveal-stagger > *,
+  .reveal--left,
+  .reveal--right,
+  .reveal--scale,
+  .reveal--fade {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .hero-enter {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .subtitle-slide-in,
+  .subtitle-slide-out {
+    animation: none;
+  }
+
+  .cursor-blink {
+    animation: none;
+  }
+
+  .text-shimmer {
+    animation: none;
+    -webkit-text-fill-color: var(--color-accent);
+  }
+}

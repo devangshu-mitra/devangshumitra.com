@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="HIMSS 2026 confirmed what many of us expected: the ambient scribe moment" />
+  <meta property="og:title" content="What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going — Devangshu Mitra" />
+  <meta property="og:description" content="HIMSS 2026 confirmed what many of us expected: the ambient scribe moment" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2026-02-20" itemprop="datePublished">Feb 20, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going</h1>
+          <p class="post-header__excerpt" itemprop="description">HIMSS 2026 confirmed what many of us expected: the ambient scribe moment</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going</h1>
+
+<p>I have tracked HIMSS for the last four years, from the cautious "AI in healthcare" panels of 2022 to last year's generative AI frenzy. HIMSS 2026 (Las Vegas, March 2026) felt different again. The tone shifted from breathless possibility to operational urgency. The questions being asked in the sessions and on the exhibit floor were not "can AI do X?" but "how do we deploy X at scale, validate it, and keep it working?"</p>
+
+<p>This is a maturity shift. The industry has enough production deployments now to know that the hard part is not the model - it is the integration, the validation, the change management, and the long-term maintenance. HIMSS 2026 was a conference for people who have shipped and are now operating.</p>
+
+<hr>
+
+<h2>Agentic AI: The Dominant Theme</h2>
+
+<p>If you had to describe HIMSS 2026 in two words, they would be "agentic AI." The term was everywhere - in keynotes, in booth signage, in product demos. Some of it was marketing rebrand of existing workflow automation. But the substantive conversations about agentic AI pointed to a real architectural shift in how healthcare AI is being built.</p>
+
+<p>The transition is from single-task AI (document a visit, code a diagnosis, flag an abnormal lab) to multi-step AI workflows that coordinate across tasks. A prior authorization agent that pulls the clinical note, queries the payer's coverage criteria, generates the supporting documentation, submits the request, and monitors for response - without a human touching each handoff. A care management agent that identifies high-risk patients, generates personalized outreach, schedules follow-up, and updates care plans based on response.</p>
+
+<p>The technology is real. The operational readiness is uneven. The most credible deployments at HIMSS 2026 were narrow, well-scoped agents with human checkpoints at the highest-risk steps. The least credible were end-to-end autonomous agents for high-stakes clinical decisions - compelling demos with insufficient validation evidence.</p>
+
+<h2>Epic's Agent Factory</h2>
+
+<p>The biggest and most important product announcement at the conference was Epic's Agent Factory. This platform lets users build and deploy AI agents right within Epic's existing products. The implications are significant for anyone building healthcare AI.</p>
+
+<p>Epic has 38% of hospital EHR market share in the US and 250+ million patient records. The Agent Factory is a platform play: Epic provides the healthcare data context, the identity and access framework, the compliance infrastructure, and the distribution to its customer base. Third-party developers build agents on top. Epic captures platform revenue and cements its position as the operating system for healthcare AI.</p>
+
+<p>For independent healthcare AI companies, the Agent Factory presents the classic platform dilemma. Building on Epic's platform means access to distribution and pre-integrated data that would take years to replicate independently. It also means dependency on Epic's platform terms, pricing use, and the risk of Epic competing directly with popular third-party agents (as every platform company eventually does).</p>
+
+<p>My read: the Agent Factory will be dominant for agents that require deep EHR integration (clinical documentation, order entry automation, patient risk stratification). Vendors that build standalone agents for workflows outside the EHR core - revenue cycle, patient engagement, research coordination - retain more strategic independence.</p>
+
+<h2>Ambient Scribe Commoditization</h2>
+
+<p>The ambient scribe market was the hot healthcare AI story of 2023-2024. DAX Copilot, Nuance, Abridge, Nabla, and a dozen others raised hundreds of millions of dollars on the promise of AI that listens to clinical encounters and writes the note. At HIMSS 2026, the conversation had shifted from "should we use ambient scribe?" to "which one and how do we roll it out?"</p>
+
+<p>Commoditization is the right word for what has happened to the ambient scribe market. The core technology - high-quality ASR, clinical LLM fine-tuning, structured note output - is no longer a competitive differentiator. Every major player produces clinically acceptable documentation quality. The differentiation is now in integration depth (which EHR workflows does it fit into?), specialty coverage (does it handle dermatology and oncology as well as primary care?), and total cost of ownership.</p>
+
+<p>The pricing compression has been dramatic. Ambient scribe products that commanded $100-150/provider/month in 2023 are now being bundled into EHR contracts or offered at $30-50/provider/month in competitive situations. Epic's native ambient documentation (built on DAX technology through the Microsoft partnership) is removing the standalone vendor entirely for many systems.</p>
+
+<p>For product teams: the ambient scribe opportunity has not disappeared, but the pure-play ambient scribe company model is under serious pressure. The value is migrating to the platforms (Epic, Oracle Health) and the specialists (ambient scribe for specific clinical contexts - ICU, behavioral health, surgical - where generic models perform poorly).</p>
+
+<h2>Amazon and Microsoft Consumer Health AI</h2>
+
+<p>Both Amazon and Microsoft made significant consumer-facing healthcare AI announcements at HIMSS 2026, and both approached it from their existing infrastructure strengths.</p>
+
+<p>Amazon's announcement centered on Alexa Health - an AI health companion that integrates with Amazon Pharmacy, Amazon Clinic, and third-party health apps to provide medication management, chronic condition support, and health information. The FDA wearables guidance timing (January 2026) was not coincidental - Amazon's consumer health AI features were designed to the deregulated wellness line.</p>
+
+<p>Microsoft's announcement focused on Copilot for Healthcare - extending the Copilot brand into clinical workflows via Teams, Outlook, and the M365 stack. The positioning is the care team communication and coordination layer rather than the clinical documentation layer (where DAX/Nuance already plays). The practical implementation: AI-assisted care transition communications, referral coordination, and patient education content generation.</p>
+
+<p>Neither announcement is an immediate threat to specialized healthcare AI vendors. The threat is the floor effect - as Microsoft and Amazon provide "good enough" AI for common healthcare communication tasks, the bar for what specialized vendors need to deliver to justify their cost rises.</p>
+
+<h2>Prior Auth Automation: The Sleeper Opportunity</h2>
+
+<p>Prior authorization automation got less keynote airtime than ambient scribe at HIMSS 2026 but generated more serious buying conversations on the floor. The problem is well-defined, the cost of the problem is quantifiable ($40B+ in annual administrative waste by most estimates), and the AI solution is technically tractable.</p>
+
+<p>The regulatory tailwind matters here. CMS finalized rules in 2024 requiring payers to implement real-time PA APIs by 2026. Those APIs, combined with AI that can read clinical documentation and map it to payer criteria, create the foundation for end-to-end PA automation. Companies like Waystar, Infinx, and a cluster of newer entrants are building the middleware layer.</p>
+
+<p>The product complexity is higher than it looks. PA criteria vary by payer, plan, procedure code, and geography - and change frequently. The AI system needs to stay current with payer criteria changes faster than human staff could. The error cost is high - a denied PA because the supporting documentation was insufficient delays patient care. But the volume and the quantifiable ROI make this one of the clearest AI automation opportunities in healthcare.</p>
+
+<h2>The Validation Debate Goes Mainstream</h2>
+
+<p>The most substantive session I attended at HIMSS 2026 was not about a specific technology - it was about validation. A standing-room panel on AI validation methodology drew more attendees than most of the major vendor keynotes.</p>
+
+<p>The validation debate has two poles. One camp argues that healthcare AI should meet the same evidence bar as clinical interventions - prospective studies, randomized controlled trials, peer-reviewed publication. The other argues that this standard, designed for drugs and devices with stable mechanisms, does not apply to AI systems that improve continuously and require population-specific validation.</p>
+
+<p>The practical middle ground that is emerging: risk-stratified validation. Low-risk AI features (documentation, scheduling, administrative automation) require internal validation against defined quality metrics. Medium-risk features (clinical decision support for non-critical decisions) require external validation on representative populations with published performance statistics. High-risk features (diagnostic support, medication recommendations, critical care alerts) require prospective validation and ongoing performance monitoring with defined re-validation triggers.</p>
+
+<p>This framework is already showing up in health system procurement requirements. Vendors without published validation data are losing deals to vendors who have it, even when the underlying technology is similar. Build the validation evidence strategy into your roadmap, not as an afterthought.</p>
+
+<hr>
+
+<h2>What It Means for PMs and Builders</h2>
+
+<p>Three forward-looking predictions based on HIMSS 2026 signals:</p>
+
+<ol>
+<li><strong>Agentic orchestration becomes a core PM competency.</strong> Building multi-step AI workflows that coordinate across systems requires a different product design mental model than single-task AI. PMs who understand agent architecture, tool design, and failure recovery will have a significant advantage in the next two years.</li>
+<li><strong>Validation evidence becomes a sales requirement, not a marketing nice-to-have.</strong> Health system buyers are becoming more sophisticated. The question is no longer "does it work?" but "show me the study." Teams that invest in validation infrastructure now will close deals faster in 2027.</li>
+<li><strong>The platform battle (Epic vs Oracle vs Microsoft) will reshape the vendor space.</strong> Independent healthcare AI vendors need to make deliberate choices about platform dependency - early integration with dominant platforms accelerates distribution, but creates strategic risk. The vendors that win long-term will either own a vertical deep enough to be acquisition targets or serve use cases the platforms have explicitly decided not to own.</li>
+</ol>
+
+<hr>
+
+<h3>Related posts</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+<li><a href="https://www.devangshumitra.com/prior-authorization-ai-healthcare-automation/">Prior Authorization AI: Reducing Healthcare's $31B Administrative Burden</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+<li><a href="https://www.devangshumitra.com/langchain-vs-llamaindex-healthcare-rag/">LangChain vs. LlamaIndex for Healthcare RAG: A Technical Comparison</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

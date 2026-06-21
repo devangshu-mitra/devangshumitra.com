@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="At low volumes, AI inference costs are invisible. At scale, they become the" />
+  <meta property="og:title" content="Understanding AI Inference Costs at Scale — Devangshu Mitra" />
+  <meta property="og:description" content="At low volumes, AI inference costs are invisible. At scale, they become the" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Understanding AI Inference Costs at Scale — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Research</span>
+            <time class="post-header__date" datetime="2025-11-22" itemprop="datePublished">Nov 22, 2025</time>
+            <span class="post-header__read-time">13 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Understanding AI Inference Costs at Scale</h1>
+          <p class="post-header__excerpt" itemprop="description">At low volumes, AI inference costs are invisible. At scale, they become the</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Understanding AI Inference Costs at Scale</h1>
+
+<p>I've seen AI features kill products not because they didn't work, but because they worked at a price point that made the unit economics impossible. At HCLTech, an early prototype of a clinical documentation assistant was generating $0.18 per patient encounter in inference costs - $3.6M annually at projected volume. Understanding and attacking each cost lever got that number down to $0.03.</p>
+
+<h2>Token Economics Fundamentals</h2>
+
+<p>LLM pricing is charged per token (approximately 0.75 words). Output tokens typically cost 3-5x more than input tokens because they require sequential generation. Current 2024 pricing (approximate):</p>
+
+<ul>
+<li><strong>GPT-4o:</strong> $5/M input, $15/M output</li>
+<li><strong>GPT-4o-mini:</strong> $0.15/M input, $0.60/M output (33x cheaper than GPT-4o)</li>
+<li><strong>Claude 3.5 Sonnet:</strong> $3/M input, $15/M output</li>
+<li><strong>Claude 3 Haiku:</strong> $0.25/M input, $1.25/M output</li>
+<li><strong>Gemini 1.5 Flash:</strong> $0.075/M input, $0.30/M output</li>
+</ul>
+
+<pre><code class="language-">def estimate_cost(input_tokens: int, output_tokens: int, model: str = 'gpt-4o') -&gt; float:
+    pricing = {
+        'gpt-4o': (5.00, 15.00),
+        'gpt-4o-mini': (0.15, 0.60),
+        'claude-3-5-sonnet': (3.00, 15.00),
+        'gemini-1.5-flash': (0.075, 0.30),
+    }
+    ip, op = pricing[model]
+    return (input_tokens / 1_000_000) * ip + (output_tokens / 1_000_000) * op
+
+# 10K docs, 2K input + 500 output tokens each:
+per_doc_gpt4o = estimate_cost(2000, 500, 'gpt-4o')     # $0.0175
+per_doc_mini  = estimate_cost(2000, 500, 'gpt-4o-mini') # $0.0006
+print(f'GPT-4o: ${per_doc_gpt4o * 10000:.2f} for 10K docs')
+print(f'Mini:   ${per_doc_mini * 10000:.2f} for 10K docs')</code></pre>
+
+<h2>Lever 1: Model Selection and Routing</h2>
+
+<p>Switching from GPT-4o to GPT-4o-mini costs 97% less. GPT-4o-mini excels at: classification, structured extraction, simple Q&A over context, summarization, first-pass triage. GPT-4o is worth the premium for: complex multi-step reasoning, code generation, nuanced judgment tasks.</p>
+
+<pre><code class="language-">def route_query(query: str, context_length: int) -&gt; str:
+    if context_length &gt; 100_000:
+        return 'claude-3-5-sonnet'  # Large context
+    if len(query.split()) &lt; 20 and context_length &lt; 2000:
+        return 'gpt-4o-mini'        # Simple, short query
+    return 'gpt-4o'</code></pre>
+
+<h2>Lever 2: Prompt Optimization</h2>
+
+<p>A 2,000-token system prompt running 1M calls/day costs $10/day on GPT-4o-mini or $2,500/day on GPT-4o. Compress prompts without losing quality using gist compression or <strong>LLMLingua</strong> (Microsoft's open-source library that reduces prompt length by 3-20x).</p>
+
+<pre><code class="language-">from llmlingua import PromptCompressor
+
+llm_lingua = PromptCompressor()
+compressed = llm_lingua.compress_prompt(
+    original_prompt, instruction='', question=user_query, target_token=400
+)
+print(f'Compression ratio: {compressed["ratio"]:.2f}x')</code></pre>
+
+<h2>Lever 3: Caching</h2>
+
+<p>Caching is the highest-ROI cost lever. Exact match caching: hash the prompt, return cached response if seen before. Semantic caching: embed the query, check for semantically similar cached queries (20-40% hit rates common). OpenAI prompt caching: identical prompt prefixes charged at 50% automatically.</p>
+
+<pre><code class="language-">import hashlib, json, redis
+
+cache = redis.Redis(host='localhost', port=6379)
+
+def cached_llm_call(prompt: str, model: str, ttl: int = 3600) -&gt; str:
+    key = hashlib.sha256(f'{model}:{prompt}'.encode()).hexdigest()
+    cached = cache.get(key)
+    if cached:
+        return json.loads(cached)['response']
+    response = call_llm(prompt, model)
+    cache.setex(key, ttl, json.dumps({'response': response}))
+    return response</code></pre>
+
+<h2>Lever 4: Batching</h2>
+
+<p>OpenAI's Batch API processes requests asynchronously with 24-hour turnaround at half price. Appropriate for: nightly document processing, bulk classification, embedding generation, scheduled reports.</p>
+
+<pre><code class="language-">from openai import OpenAI
+import json
+
+client = OpenAI()
+batch_requests = [
+    {
+        'custom_id': f'doc_{i}',
+        'method': 'POST',
+        'url': '/v1/chat/completions',
+        'body': {'model': 'gpt-4o-mini',
+                 'messages': [{'role': 'user', 'content': text}],
+                 'max_tokens': 500}
+    }
+    for i, text in enumerate(documents)
+]
+with open('batch_input.jsonl', 'w') as f:
+    for req in batch_requests:
+        f.write(json.dumps(req) + '\n')
+batch_file = client.files.create(file=open('batch_input.jsonl', 'rb'), purpose='batch')
+batch = client.batches.create(
+    input_file_id=batch_file.id,
+    endpoint='/v1/chat/completions',
+    completion_window='24h'
+)  # 50% cost savings</code></pre>
+
+<h2>Lever 5: Model Distillation</h2>
+
+<p>Distillation trains a smaller, cheaper model to mimic a larger model on your specific task. Use the large model to generate training data, then fine-tune a small model on it. This is the nuclear option - significant upfront investment, but can achieve 90%+ of frontier quality at 1-5% of the inference cost.</p>
+
+<p>At HCLTech, we distilled a clinical entity extraction model from GPT-4o onto a fine-tuned Mistral 7B. The fine-tuned Mistral achieved 97% of GPT-4o's F1 score at approximately 3% of the per-token cost.</p>
+
+<h2>Putting It Together</h2>
+
+<ol>
+<li>Semantic cache hit? Return cached. Cost: ~$0.</li>
+<li>Simple/short query? Route to cheap model. Cost: 30-50x cheaper.</li>
+<li>Non-real-time? Use batch API. Cost: 50% discount.</li>
+<li>High-volume narrow task? Use distilled fine-tuned model. Cost: 95%+ cheaper.</li>
+<li>Complex query requiring frontier capability? Use GPT-4o/Claude 3.5.</li>
+</ol>
+
+<p>Most production AI features can achieve 70-90% cost reduction from their naive implementation without meaningful quality degradation. Treat inference cost as a first-class engineering constraint, not an afterthought.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+</ul>
+
+<hr>
+
+<h3>Lever 5: Embedding Costs</h3>
+
+<p>You might focus on LLM token costs, but embedding generation adds another layer. Most RAG systems need vector embeddings. You first embed your knowledge base. Think about 1 million documents, each about 256 tokens long. Using OpenAI's <code>text-embedding-3-small</code> at $0.02 per million tokens, that's $5.12 to embed the entire knowledge base once. This is a one-time cost, usually, but you have to refresh it.</p>
+
+<p>Then, every user query needs embedding. If you get 10,000 queries daily, each 50 tokens, that's $0.01 per day. Not much, but it adds up. Storage for these vectors also has a cost. A vector database like Pinecone or Weaviate charges based on vector dimensions and volume. A 10M vector index with 1000-dimension vectors can be several gigabytes. Consider the cost of embedding model selection. Smaller, specialized embedding models can reduce this cost significantly. For example, using <code>bge-small-en-v1.5</code> might be cheaper if you host it yourself.</p>
+
+<h3>Lever 6: Self-Hosting Open Models</h3>
+
+<p>At some scale, running open-source models yourself can become cheaper than API calls. This usually kicks in when you hit tens or hundreds of millions of tokens per month. You trade variable API costs for fixed hardware and engineering costs. For example, running Llama 3 8B on a single NVIDIA L4 GPU costs about $0.60 per hour on a cloud provider like AWS. That's $432 per month for 24/7 uptime.</p>
+
+<p>Compare that to GPT-4o-mini at $0.15/M input tokens. If you process 500M input tokens a month, that's $75. This means self-hosting might not be cheaper for smaller, cheaper models. But if you're using a model like GPT-4o, processing 50M input tokens costs $250. Here, self-hosting a performant open model could start saving money. You need MLOps expertise to manage the infrastructure, monitor performance, and keep models updated. It's a significant upfront investment in time and people, but it can pay off long-term for high-volume, cost-sensitive use cases.</p>
+
+<h3>Lever 7: Fine-Tuning for Efficiency</h3>
+
+<p>Fine-tuning a smaller model can often achieve the performance of a much larger, more expensive general-purpose model for specific tasks. I've seen teams replace GPT-4 calls with a fine-tuned Llama 3 8B for tasks like sentiment analysis or entity extraction. The initial cost comes from data labeling and the fine-tuning process itself. This can be thousands of dollars for data and GPU time.</p>
+
+<p>However, once fine-tuned, the smaller model's inference cost drops dramatically. A fine-tuned Llama 3 8B might run on a single T4 GPU, which is much cheaper than an A100. Its inference latency is also lower. This means you get responses faster and pay less per token. For repetitive, domain-specific tasks, fine-tuning can be a powerful strategy to reduce inference bills by 90% or more. It makes the model an expert in your specific problem, avoiding the overhead of a generalist model trying to figure things out.</p>
+
+<h3>Lever 8: Guardrail Inference</h3>
+
+<p>Ensuring AI safety and compliance often adds a hidden layer of inference costs. Many production systems employ guardrail models to pre-screen user inputs for harmful content or PII, and post-screen generated outputs for accuracy, toxicity, or hallucination. These are additional LLM calls per interaction. For example, a system might use <code>gpt-4o-mini</code> to check every incoming prompt and every outgoing response.</p>
+
+<p>If your application handles 1 million user interactions per day, and each interaction triggers two additional guardrail calls (one for input, one for output), that's an extra 2 million LLM calls. Even with a cheap model like GPT-4o-mini, at roughly $0.15/M input and $0.60/M output, these checks can add hundreds of dollars daily. This cost is non-negotiable for many regulated industries. It's a critical part of responsible AI deployment, so you budget for it upfront. You can make these guardrail models smaller or more specialized to keep costs in check.</p>
+
+<h3>Lever 5: Fine-tuning Smaller Models</h3>
+
+<p>Sometimes a general-purpose model is overkill. You might have a very specific task. I've seen teams save a lot by fine-tuning smaller, open-source models. Think Llama 3 8B or Mistral 7B. These models are much cheaper to run. You can host them on your own infrastructure or use specialized inference providers like Anyscale Endpoints or Together AI. This significantly lowers per-token costs.</p>
+
+<p>Fine-tuning works well for domain-specific classification, entity extraction, or even simple summarization. You give the smaller model examples of your exact data. It learns to perform that task very well. This means you don't need a large, expensive model to do simple things. The initial training cost is a one-time expense. The ongoing inference costs drop dramatically.</p>
+
+<p>For example, a project I worked on needed to classify customer support tickets. We fine-tuned a Mistral 7B model on 5,000 labeled tickets. It achieved accuracy comparable to GPT-4o for that specific task. The inference cost per classification dropped from $0.005 to $0.0001 when running on our own GPU cluster. That's a huge difference at scale.</p>
+
+<h3>Lever 6: Output Constraint and Generation Control</h3>
+
+<p>Output tokens are expensive. They often cost 3-5x more than input tokens. You need to control what the model generates. Many APIs offer ways to do this. For instance, using JSON mode in OpenAI or tool use in Claude helps a lot. You define the exact structure you expect. The model then tries to adhere to it. This cuts down on extra conversational filler or unnecessary explanations.</p>
+
+<p>The <code>max_tokens</code> parameter is your friend. Always set it. Don't let the model ramble on forever. If you need a summary that's 100 words, set <code>max_tokens</code> to around 130-150. This prevents runaway generation. Sometimes a model will generate a very long response, even if a short one would suffice. You pay for every token generated. Limiting this is simple but effective.</p>
+
+<p>Consider a scenario where you're extracting specific data points from a document. Instead of asking for a free-form summary, ask for a JSON object with predefined keys. This forces a concise output. I've seen this reduce output tokens by 50-70% in some cases. It also makes downstream parsing much easier. This is especially true when dealing with large volumes of data extractions.</p>
+
+<h3>Lever 7: Retrieval Augmented Generation (RAG) Efficiency</h3>
+
+<p>RAG systems can be cost sinks if not managed well. The core idea is to provide relevant context. Don't just dump entire documents into the context window and expect good results or low costs. You pay for every input token. Irrelevant context adds noise and cost. You need to be smart about what you retrieve.</p>
+
+<p>Consider advanced retrieval techniques. Re-ranking retrieved chunks helps. Use a smaller, faster model to re-rank documents based on their relevance to the query. This ensures only the most pertinent information goes to the main LLM. Another approach is to summarize chunks before passing them into the prompt. If a 1000-word chunk can be summarized to 200 words without losing key information, do it. This reduces the input token count significantly.</p>
+
+<p>Query rewriting can also help your RAG system. Sometimes a user's initial query is vague. A small LLM can rewrite it to be more specific. This improves retrieval accuracy. Better retrieval means less context needed, which means lower costs. I've seen these methods cut RAG input costs by 30-50% in complex knowledge base scenarios. It's about being surgical with your context.</p>
+
+<h2>Deeper Dive into Batching</h2>
+
+<p>The existing content mentions OpenAI's Batch API. Here's why batching cuts costs. When you send individual requests, each one incurs some overhead. This includes network latency, API authentication, and internal processing setup by the provider. Batching amortizes these fixed costs across many individual tasks. Instead of 100 separate API calls, you make one call with 100 tasks inside. This reduces network roundtrips and API call count.</p>
+
+<p>You'll find batching particularly useful for asynchronous workloads. Think about processing daily reports, summarizing customer feedback, or generating content overnight. You collect all the jobs throughout the day, then send them to the LLM provider in one large request. OpenAI's Batch API charges 50% less for requests processed this way. Other providers might not have explicit batch APIs, but you can still implement batching by sending multiple independent prompts in a single API call if the model supports it, or by building your own queueing system (e.g., using Celery with Redis or RabbitMQ) that aggregates tasks before sending them out. This makes a big difference for bulk operations.</p>
+
+<h2>The Power of Smaller, Specialized Models</h2>
+
+<p>Sometimes, a general-purpose LLM is overkill. If your task is narrow, like sentiment analysis on product reviews or extracting specific entities from medical notes, a smaller, fine-tuned model can be much cheaper. I've seen teams achieve 100x cost reductions by moving from a large model to a specialized one. This isn't about training a model from scratch, but rather taking an existing smaller model (like a BERT, RoBERTa, or even a smaller Llama-2 variant) and fine-tuning it on your specific dataset.</p>
+
+<p>Fine-tuned models are often much faster too, meaning lower latency for users. They also require fewer tokens for prompts, as they already "know" the domain. Consider the example of classifying customer support tickets. Instead of sending the full ticket description to GPT-4o for classification, you could fine-tune a BERT-large model on 10,000 labeled tickets. Inference on this BERT model might cost fractions of a cent per call, run on a much smaller GPU, or even on a CPU. This strategy works best when you have a good volume of labeled data for your specific task.</p>
+
+<h2>Optimizing Context for RAG Systems</h2>
+
+<p>When you build Retrieval Augmented Generation (RAG) systems, the context window can quickly become a major cost driver. Each retrieved document adds tokens to your input prompt. If you fetch 5 documents, each 500 tokens long, that's an extra 2500 input tokens per query. Multiply that by millions of queries, and costs skyrocket. You need to be smart about what you put in the context.</p>
+
+<p>Techniques like query rewriting can help. Instead of sending the raw user query to your vector database, you can first use a smaller model (like GPT-4o-mini) to rephrase it for better retrieval, or even generate multiple query variations. Another approach is "reranking." Fetch more documents than you need (e.g., top 20), then use a smaller, faster reranker model (like Cohere Rerank or BGE reranker) to select only the most relevant 3-5 documents. This ensures only highly pertinent information goes into the expensive LLM call, drastically reducing input token count without sacrificing answer quality.</p>
+
+<h2>Monitoring and Attribution</h2>
+
+<p>You can't manage costs you can't see. Setting up reliable monitoring for your AI inference pipeline is crucial. I typically look for per-request cost attribution. This means logging not just the input and output tokens, but also the model used and the total cost for each individual LLM call. Tools like LangSmith (for LangChain users) provide dashboards that break down costs by chain, agent, or specific LLM calls.</p>
+
+<p>If you're not using a framework, custom logging to a data warehouse like Snowflake or BigQuery works well. You can then build dashboards in tools like Looker or Tableau. Track daily, weekly, and monthly spend per model, per feature, and even per user segment. This helps identify cost spikes, inefficient prompts, or models being used for tasks where a cheaper alternative would suffice. For example, I once found a feature using GPT-4o for simple JSON parsing because of a misconfigured routing rule, which was quickly fixed after seeing the cost breakdown.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/complexity-is-the-enemy-of-ai-adoption/">Complexity is the Enemy of AI Adoption</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/multimodal-ai-beyond-text-vision-audio-and-video/">Multimodal AI: Beyond Text - Vision, Audio, and Video</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

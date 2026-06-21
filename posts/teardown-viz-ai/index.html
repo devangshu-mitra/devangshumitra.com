@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Discover how Viz.ai scaled from FDA clearance to 1,400+ hospitals with AI" />
+  <meta property="og:title" content="Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals — Devangshu Mitra" />
+  <meta property="og:description" content="Discover how Viz.ai scaled from FDA clearance to 1,400+ hospitals with AI" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Teardowns</span>
+            <time class="post-header__date" datetime="2025-12-26" itemprop="datePublished">Dec 26, 2025</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</h1>
+          <p class="post-header__excerpt" itemprop="description">Discover how Viz.ai scaled from FDA clearance to 1,400+ hospitals with AI</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Viz.ai: AI Triage from FDA Clearance to 1,400+ Hospitals</h1>
+
+<p>Viz.ai has cleared FDA, deployed into 1,400+ hospitals, and analyzed over 2 million patients. For an AI medical device company, that is exceptional scale. This is a practitioner analysis of how they did it - and what PMs building in Life Sciences & Healthcare can learn from the choices they made.</p>
+
+<h2>The Problem</h2>
+
+<p>Stroke is the most time-sensitive emergency in medicine. Large Vessel Occlusion (LVO) strokes - where a major artery in the brain is blocked - are treatable with mechanical thrombectomy, a procedure that physically removes the clot. But the treatment window is narrow. Every minute of untreated LVO costs approximately 1.9 million neurons. The clinical shorthand: time is brain.</p>
+
+<p>The challenge: LVO strokes require CT angiography to diagnose, and those images need to be read by a radiologist and communicated to the stroke team and the interventional radiologist who will perform the procedure. In most hospitals in 2016, that chain of communication was phone-based, fax-based, and slow. Patients arrived in the emergency department and the right specialist often did not know about them until 30-60 minutes later.</p>
+
+<p>Viz.ai saw a solvable problem: apply AI to detect LVO on CT angiography images, and use software to instantly route the finding to the right care team member's phone. Remove the delay between imaging and specialist notification.</p>
+
+<h2>The Product</h2>
+
+<p>The core product, Viz LVO, does three things:</p>
+
+<ol>
+<li>Receives CT angiography images directly from the hospital's imaging system (PACS) via DICOM integration.</li>
+<li>Runs an AI algorithm to detect Large Vessel Occlusion findings. When a suspected LVO is detected, it fires a notification.</li>
+<li>Routes that notification to the on-call stroke specialist and interventional radiologist's mobile device in real time. The notification includes the relevant CT images directly in the app.</li>
+</ol>
+
+<p>The product is not replacing the radiologist's read. It is accelerating the notification chain so that the specialist is reviewing the case at the same time as or before the formal radiologist report is complete.</p>
+
+<h2>FDA Pathway: De Novo Classification</h2>
+
+<p>Viz.ai pursued FDA clearance via the De Novo pathway - a route for novel, low-to-moderate risk devices that do not have a predicate (an existing cleared device they can point to as equivalent). This was the right choice and the courageous one.</p>
+
+<p>The alternative was to argue 510(k) equivalence to some prior imaging or communication device. But Viz.ai was building something genuinely new - an AI triage tool embedded in a care coordination workflow. Forcing it into the 510(k) framework might have required misrepresenting what the product actually did.</p>
+
+<p>De Novo is slower and more resource-intensive than 510(k). But it gives you a product-specific regulatory designation that is your own. This matters: once FDA clears a device via De Novo, it becomes the predicate for future 510(k) submissions by competitors. Viz.ai became the de facto standard for AI-based stroke triage.</p>
+
+<p>The FDA cleared Viz LVO in February 2018, making it one of the first AI medical devices cleared for stroke. That first-mover regulatory advantage is still paying dividends.</p>
+
+<h2>Hospital Integration: The Hardest Part</h2>
+
+<p>Getting FDA cleared is a milestone. Getting into clinical workflows is the actual product challenge. Viz.ai's approach to hospital integration is worth studying closely.</p>
+
+<p>The integration points:</p>
+
+<ul>
+<li><strong>PACS integration:</strong> Images flow from the CT scanner to the hospital PACS (Picture Archiving and Communication System) to Viz via DICOM. This is standard and well-supported. The Viz integration team set this up in days, not months.</li>
+<li><strong>Mobile app:</strong> The specialist notification goes to the Viz mobile app. This means Viz bypassed the hospital EHR entirely for the notification layer - they did not need Epic or Cerner buy-in to get into workflow. The app is the workflow.</li>
+<li><strong>No change to radiology workflow:</strong> The radiologist still reads the images and reports normally. Viz runs in parallel, not in series. This was critical for adoption - it does not require changing what the radiologist does, only adding a parallel notification.</li>
+</ul>
+
+<p>The product insight here: in healthcare, any product that requires changing the primary workflow of a clinician will face adoption resistance proportional to how much it changes. Viz was additive, not substitutive. The stroke team got faster notifications. Nobody's job changed. That is how you get rapid adoption.</p>
+
+<h2>Expansion Strategy</h2>
+
+<p>Viz started with LVO stroke and expanded systematically. The expansion logic is instructive:</p>
+
+<ul>
+<li><strong>Pulmonary Embolism (PE):</strong> Same pattern - time-sensitive, CT-diagnosed, specialist notification is the bottleneck. The algorithm, integration infrastructure, and care team notification workflow were already built. PE detection was a new model on top of the same platform.</li>
+<li><strong>Aortic disease:</strong> Aortic dissection is another time-critical emergency diagnosed on CT. Same playbook.</li>
+<li><strong>Intracranial hemorrhage:</strong> Broader stroke category - extends the original clinical context.</li>
+</ul>
+
+<p>The pattern: find acute, time-sensitive conditions where the diagnosis is CT-based and specialist notification is the rate-limiting step. Viz LVO proved the model. Every subsequent indication is a proof-of-concept extension with lower regulatory and adoption risk because the platform exists.</p>
+
+<p>This is a classic platform strategy executed well. Build a hard integration once, then amortize it across an expanding set of clinical applications.</p>
+
+<h2>Network Effects</h2>
+
+<p>Viz.ai has a non-obvious network effect that becomes visible when you look at care coordination across hospital boundaries.</p>
+
+<p>LVO stroke patients are often first brought to a community hospital that lacks an interventional radiology suite. They need to be transferred to a stroke center. Viz built functionality to coordinate this transfer - the transferring hospital and the receiving stroke center are both on the Viz platform, and the patient's case and images travel with the notification.</p>
+
+<p>The more hospitals in a region that use Viz, the more effective the cross-hospital coordination becomes. This creates a regional network effect: if Hospital A is on Viz and is the primary stroke center for 10 community hospitals, all 10 community hospitals benefit from adopting Viz. And if they adopt Viz, the next community hospital has more pressure to do the same.</p>
+
+<h2>Key Numbers</h2>
+
+<ul>
+<li>2M+ patients analyzed</li>
+<li>1,400+ hospitals in the US and internationally</li>
+<li>Research published in multiple major clinical journals validating time-to-treatment improvement</li>
+<li>Expanded to 10+ indication areas beyond the original LVO</li>
+</ul>
+
+<h2>Product Decisions That Mattered</h2>
+
+<p><strong>Alert-based, not report-based.</strong> The product could have been structured as an AI-enhanced radiology report - a better read, delivered faster. Instead, Viz built a separate notification channel. The alert reaches the specialist before the formal report. This sounds like a small distinction. It is not - it removes the specialist's dependency on radiology report turnaround time, which varies enormously by hospital and shift.</p>
+
+<p><strong>Specialist notification, not general notification.</strong> The alert goes to the stroke neurologist and interventional radiologist - the people who act on LVO findings. Not a general alert to the emergency physician who triaged the patient. This required Viz to build workflow tooling to manage on-call schedules and routing logic for every hospital. That is operationally painful. But general notifications create noise. Noise leads to alert fatigue. Alert fatigue leads to clinicians ignoring the system.</p>
+
+<p><strong>Mobile-first.</strong> The specialist notification is a mobile push notification with images embedded. This sounds obvious now. In 2017, healthcare communication was pager-and-phone. Viz built for how physicians actually move through hospitals - they are not at a workstation.</p>
+
+<p><strong>De Novo over 510(k) equivalence.</strong> This was a bet on first-mover regulatory status. It paid off by making Viz the predicate for an entire category.</p>
+
+<h2>What You Can Learn as a PM</h2>
+
+<p><strong>In healthcare AI, adoption is a product problem, not a sales problem.</strong> Viz got into 1,400+ hospitals because the product was designed to be easy to adopt. PACS integration in days. No EHR dependency. No change to radiology workflow. The adoption curve was steep because the barriers were low by design.</p>
+
+<p><strong>Regulatory strategy is part of product strategy.</strong> Choosing De Novo over 510(k) was a product and regulatory decision with 10-year competitive implications. PMs in Life Sciences & Healthcare need to own this kind of decision, not defer it entirely to regulatory affairs teams.</p>
+
+<p><strong>Alert fatigue is the silent product killer in clinical AI.</strong> Any system that sends too many alerts, or sends alerts to the wrong people, gets turned off. The precision of the routing logic - right specialist, right indication, right urgency level - is a core product feature, not a backend configuration.</p>
+
+<p><strong>Platform strategy requires doing one thing so well that expansion becomes obvious.</strong> Viz did not start by trying to cover all of radiology. They picked the highest-acuity, most time-sensitive indication and became the undisputed leader in it. That credibility made every subsequent expansion easier to sell, to deploy, and to get reimbursed for.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-tempus/">How Tempus Built a $6B Clinical AI Platform</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-recursion/">Recursion Pharmaceuticals: AI-First Drug Discovery</a></li>
+<li><a href="https://www.devangshumitra.com/fda-ai-ml-regulatory-checklist/">FDA AI/ML Regulatory Checklist for Life Sciences & Healthcare</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/teardown-tempus/">How Tempus Built a $6B Clinical AI Platform</a></li>
+<li><a href="https://www.devangshumitra.com/teardown-recursion/">Recursion Pharmaceuticals: AI-First Drug Discovery</a></li>
+<li><a href="https://www.devangshumitra.com/fdas-new-ai-guidance-decoded-what-builders-need-to-know/">FDA's New AI Guidance Decoded: What Builders Need to Know</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

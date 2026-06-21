@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A step-by-step playbook for product managers transitioning from enterprise" />
+  <meta property="og:title" content="From Enterprise PM to AI PM: The Transition Playbook — Devangshu Mitra" />
+  <meta property="og:description" content="A step-by-step playbook for product managers transitioning from enterprise" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>From Enterprise PM to AI PM: The Transition Playbook — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Career</span>
+            <time class="post-header__date" datetime="2025-05-01" itemprop="datePublished">May 1, 2025</time>
+            <span class="post-header__read-time">14 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">From Enterprise PM to AI PM: The Transition Playbook</h1>
+          <p class="post-header__excerpt" itemprop="description">A step-by-step playbook for product managers transitioning from enterprise</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>From Enterprise PM to AI PM: The Transition Playbook</h1>
+
+<h2>The Wall You Hit Around Month Three</h2>
+
+<p>About three months into my first real AI product role, I was in a stakeholder meeting defending a decision to train a custom NER model instead of using OpenAI's function calling. A sales director asked: "So what's the accuracy?" I said 87%. He said: "Is that good?" I realized I had no idea how to contextualize that number for a business decision. In traditional enterprise PM work, you'd compare a conversion rate to last quarter or a competitor. Here, I couldn't even answer whether 87% was acceptable without understanding the cost of false positives in the specific workflow, the baseline of alternative approaches, and how performance degraded across different data distributions in production.</p>
+
+<p>That moment exposed the real gap. Enterprise PM skills transfer about 40% of the way. The frameworks stick - discovery, prioritization, stakeholder management, shipping discipline. But the technical judgment doesn't transfer at all, and that's where AI PM gets humbling fast.</p>
+
+<p>I've now built products across regulated biotech AI, real-time clinical decision support, and large-scale enterprise GenAI platforms. Each transition from pure enterprise PM to AI PM has the same pattern: you're competent for about two months, then you hit a wall where you realize you're making product decisions based on hunches instead of data. The good news is the wall is predictable, and there's a repeatable way through it.</p>
+
+<h2>Why Enterprise PM Intuition Fails in AI</h2>
+
+<p>In enterprise software, you own scope. You decide features, timelines, and quality gates. Your core job is translating business problems into feature specs and making tradeoff decisions based on user impact and engineering effort.</p>
+
+<p>In AI products, you own hypothesis validation. You're not deciding "do we build X," you're deciding "is this model approach viable for our constraints." That's a fundamentally different muscle. And the constraints are weird - they're not about engineering effort, they're about data characteristics, model behavior under distribution shift, and compute budgets that scale nonlinearly with performance.</p>
+
+<p>Three specific places where enterprise PM thinking will trip you up:</p>
+
+<ul>
+<li><strong>Accuracy is not a feature.</strong> In enterprise software, metrics map to outcomes. High uptime means fewer support tickets. Fast search means higher engagement. In AI, 95% accuracy can be shipping-ready in one domain and completely unusable in another. A clinical decision support model flagging contraindications at 95% accuracy means one false negative per 20 patients - potentially missing a dangerous drug interaction. Meanwhile, a content moderation model at 95% accuracy means taking down 5 legitimate posts per 100 flagged items, which your team can review. Same number, opposite implications. You have to know the cost structure before the metric means anything.</li>
+<li><strong>Shipping is not validation.</strong> In enterprise PM, you ship an MVP, measure adoption and NPS, iterate based on feedback. In AI products, shipping doesn't tell you if your model actually works in production. A recommender system shipped to 5% of users might show great engagement metrics in the pilot, but that's selection bias - you're only seeing the model's behavior on data similar to training data. When you scale to 100% of users, different data distributions hit you, and performance craters. You need a mental model for generalization and distribution shift before you read a single metric from production.</li>
+<li><strong>Trade-offs are not binary.</strong> In enterprise PM, trade-offs are usually binary or ternary: build this feature or that one, hire this team or allocate here. In AI, trade-offs are along multiple axes simultaneously. More training data improves accuracy but increases labeling cost and time-to-ship. A more complex model improves accuracy but tanks latency. Finetuning a model improves domain performance but requires maintenance and version tracking. You can't just pick the top priority - you need to understand the entire constraint surface before making a call.</li>
+</ul>
+
+<h2>The Framework: Technical Fluency Without Being an ML Engineer</h2>
+
+<p>I'm not going to tell you to learn PyTorch or spend six months on a machine learning course. That's not the point. The goal is technical judgment - knowing what questions to ask, recognizing when you're looking at a good vs. bad answer, and having enough pattern recognition to spot problems before they eat weeks of engineering time.</p>
+
+<p>Technical fluency for AI PM has three components, in this order:</p>
+
+<ol>
+<li><strong>Understanding the failure modes of your specific problem type.</strong> Different AI problems fail in different ways. A classification model fails through false positives and false negatives with different distributions. A retrieval system fails through ranking errors - relevant docs ranked low, or irrelevant docs ranked high. A generative model fails through hallucinations, style drift, and context loss. You need a mental model for how your specific type of system can break. This isn't theoretical - it's "what specifically can go wrong in production that would harm the business."</li>
+<li><strong>Knowing the levers you can pull and their costs.</strong> Training data quality, training data quantity, model architecture, inference compute, fine-tuning vs. few-shot vs. retrieval, caching strategies, human-in-the-loop workflows - these are your levers. You don't need to pull them yourself. But you need to know which lever is the right one for a given problem, what it costs (in engineering time, compute budget, or timeline), and what you're trading off. A data scientist will propose "let's get more labeled data." You need to know: more labeled data for what? How much more? What's the cost per label? How many labels before we hit diminishing returns? What would we do instead with that time and budget?</li>
+<li><strong>Pattern recognition on when you're being sold a story.</strong> This is harsh, but it's true: in AI work, it's easy to hide behind complexity. "The model is complex, so we need more time." "We can't know until we try it." "This is a research problem, not a product problem." Sometimes these are true. Often they're deflections. You need enough pattern recognition to know the difference. This comes from seeing projects work and fail, and internalizing what correlates with success. You can't shortcuts this - you just have to do the work and reflect.</li>
+</ol>
+
+<p>The fastest way to build this is deliberate learning inside a real project with a patient ML team. But you need a structure.</p>
+
+<h2>How to Get There: Six-Week Ramp for Enterprise PMs</h2>
+
+<p>Here's the concrete path I've seen work multiple times. This assumes you're joining an existing team with ML engineers who can teach you.</p>
+
+<p><strong>Week 1-2: Get obsessed with your data.</strong></p>
+
+<p>Before any model work, understand your training data inside out. What's in it? How was it collected? What biases are baked in? What edge cases does it miss? Ask your data engineer or ML engineer to walk you through the dataset. Actually look at samples. If it's a classification problem, look at examples from each class, then look at the hardest examples - the ones the current model gets wrong. What patterns do you see? Take notes. This isn't academic - you're building intuition for what the model is actually working with.</p>
+
+<p>In a clinical AI project I worked on, we built a model to flag high-risk lab values. I spent a full day with the data scientist looking at 200 patient records with manually flagged high-risk cases. I thought I'd be bored. Instead, I realized that the model would see all the numerical values, but doctors see context. A potassium value of 3.2 looks bad standalone, but if the patient just started a diuretic, it's expected. The model couldn't know that. Understanding this data-level context meant I made better decisions later about when to add human review steps and what to focus on in error analysis.</p>
+
+<p><strong>Week 3-4: Run your first evaluation yourself.</strong></p>
+
+<p>Work with your team to set up an evaluation framework for your problem. You probably can't write the code, but you need to understand how it works. If it's a classification problem, understand precision, recall, F1, confusion matrices, and what each means for your specific use case. If it's retrieval, understand MRR, NDCG, and recall@K. If it's generation, understand how human evaluation is being done and what you're actually measuring.</p>
+
+<p>Then run an evaluation on a held-out test set. You'll get numbers. Your job is to tell your team what you think those numbers mean for shipping. Do they mean the system is ready? What are the failure modes? Are there slices of data where performance collapses? This forces you to think like an engineer - not "is 87% good?" but "87% on what distribution, and what does that cost us in the real world?"</p>
+
+<p><strong>Week 5: Map the constraint space.</strong></p>
+
+<p>With your team, create a simple document mapping tradeoffs. Something like: "If we want to improve accuracy from 87% to 92%, here are our options and their costs." This doesn't need to be perfect. It's a forcing function to think through what you're actually optimizing for. Option A: get 5,000 more labeled examples (2 weeks, $30K). Option B: try a bigger model (1 week, but latency goes from 200ms to 800ms). Option C: implement human-in-the-loop review for edge cases (3 weeks of eng time, but runs on existing model). Now you can actually make a product decision instead of guessing.</p>
+
+<p><strong>Week 6: Make a bona-fide product call that requires this judgment.</strong></p>
+
+<p>Pick a real decision your team is facing. Should we ship this model or iterate? Should we focus on accuracy or latency? Should we add a second model layer? You propose the call. Your ML lead reviews it. You'll probably be wrong, but that feedback loops faster than anything else. I've seen PMs go from completely lost to genuinely helpful in a single project cycle once they've done this.</p>
+
+<h2>Common Mistakes and How to Avoid Them</h2>
+
+<p><strong>Mistake 1: Treating accuracy numbers as ground truth.</strong></p>
+
+<p>You get a report: "Our model is at 93% accuracy." Your first instinct is relief - that sounds good. Then production hits and things go sideways because accuracy on test data doesn't mean accuracy in production. The test set has different data distribution. Or maybe you're looking at macro-accuracy when the problem actually requires per-class metrics. Or the 93% includes easy cases that any model would get right.</p>
+
+<p>Fix: Always ask the follow-up questions. 93% at what? On which data? What are the false positive and false negative rates? How does it degrade on your hardest cases? What does 7% error actually cost? A data scientist might think these are obvious questions - they're not obvious until you've been burned once. Ask them anyway.</p>
+
+<p><strong>Mistake 2: Underestimating the data problem.</strong></p>
+
+<p>You joined an AI product team. There's a backlog of features to build. But the ML lead keeps saying we need to "improve data quality" or "get more labeled examples." This sounds like a delay tactic. It's usually not. Bad training data kills models in ways that are almost impossible to debug in production.</p>
+
+<p>I worked on a provider quality model for a health plan. We had 50,000 labeled provider records. A year into production, we realized the labels were inconsistent - the same behavior was labeled "at-risk" for some providers and "acceptable" for others depending on who did the labeling. This meant the model learned arbitrary patterns. We spent three months going back through and relabeling data. It was painful. But we should have caught it in week three of the project, not year three of production.</p>
+
+<p>Fix: You're not delaying by investing in data - you're preventing a worse delay later. If your team says they need to spend time on data quality or labeling, the right move is to ask "what's the cost of not doing this?" Usually it's high. Budget for it.</p>
+
+<p><strong>Mistake 3: Shipping a model too early because it passes a test.</strong></p>
+
+<p>Your ML team trained a model. Offline metrics look good. You're ready to ship to 10% of users. You ship. Metrics look great in the pilot. You roll out to 100%. Then something weird happens - engagement drops, or quality metrics tank, or your downstream systems that weren't built for this model's outputs start breaking.</p>
+
+<p>This usually isn't a surprise to your ML team - they probably warned you. But you missed it because you were focused on the model performance, not on the system it's sitting in. The model might be good, but the infrastructure around it isn't ready. Or the feedback loops aren't wired correctly. Or your users actually need different model outputs than you thought.</p>
+
+<p>Fix: Before shipping to users, work through the checklist: What happens when the model fails? Do we have a fallback? What are the key metrics we're tracking? How will we know if something is wrong? Who gets paged? How long will it take to roll back? If you can't answer these for production, you ship to staging or limited rollout first. This is not a ML question - it's a systems question. And it's in your wheelhouse.</p>
+
+<p><strong>Mistake 4: Letting "this is too technical for me" become a refusal to engage.</strong></p>
+
+<p>You don't understand why your team is debating LoRA vs. full fine-tuning. You don't know what "distribution shift" really means beyond the words. You have two options: pretend you understand (bad) or completely check out (worse). The right option is to engage like a beginner.</p>
+
+<p>Find someone on your team - ideally your direct ML partner - and say: "I don't understand this and I need to. Can you explain it in a way that helps me make product decisions?" Then actually listen. Take notes. Ask clarifying questions. This signals that you respect the technical depth without claiming to have it. It also means your team will actually help you level up, instead of treating you like someone who doesn't belong.</p>
+
+<p>Fix: Build a learning partnership with one technical leader on your team. Meet weekly for 30 minutes. You pick a technical topic you don't understand. They explain it focused on business implications, not theoretical depth. After a few months, you'll be conversational in the language of your problem space.</p>
+
+<h2>Real Example: From "Ship It" to "Not Yet"</h2>
+
+<p>I worked on a clinical decision support product that flagged potentially missed diagnoses based on note patterns. The first model we built achieved 82% precision and 74% recall on a held-out test set. The product team wanted to ship it immediately - we had a waiting list of 40 hospitals.</p>
+
+<p>I learned enough in my first four weeks to push back. Here's what I asked:</p>
+
+<ol>
+<li>"What does this recall number mean in practice?" Turned out to mean that if a patient had a missed diagnosis, we'd catch it 74% of the time. Which also meant 26% of the time we'd miss it - and miss it silently, the doctor would think we reviewed it. That's bad. Worse than not running the model at all.</li>
+</ol>
+
+<ol>
+<li>"How does this perform on your edge cases?" The test set had well-documented cases. But in real hospitals, there are messy charts, abbreviations the model never saw, note formats that vary by department. We tested on real hospital data from one institution and recall dropped to 58%. Now we had a real problem.</li>
+</ol>
+
+<ol>
+<li>"What would improve recall without tanking precision?" Options: more training data (we could get it), a lower decision threshold (would increase false positives - more noise for doctors), or a two-stage system where the first model flags possible cases and a second lighter model does another pass (more complex).</li>
+</ol>
+
+<ol>
+<li>"What's the cost of shipping at 58% recall?" We'd help with 58% of the missed diagnoses, but doctors would still miss 42%. We'd also generate false positives that add noise. Was this actually helping? Or were we just building a system that made us feel productive?</li>
+</ol>
+
+<p>The team decided to pause shipping and spend two weeks on data. We collected 1,000 real hospital charts and had an NLP expert label them with actual missed diagnoses from the chart. This revealed that we were missing entire categories of diagnoses that just weren't represented in our original training set. We retrained on the new data. Recall on the new data improved to 71% - still not perfect, but more honest about what we could actually do. We shipped to two pilot hospitals with explicit expectations about where the model would fail. Six months in, recall had improved to 79% through continuous learning and incremental retraining.</p>
+
+<p>The point: I could have shipped the original model if I didn't know enough to ask questions. The team probably would have let me - shipping pressure is real. But I knew just enough to understand that the test set performance was misleading. That knowledge came from spending time on the data, understanding the failure modes of clinical NLP, and asking specific questions about real-world performance.</p>
+
+<h2>Practical Next Steps for You</h2>
+
+<p>If you're making this transition:</p>
+
+<ul>
+<li>---</li>
+</ul>
+
+<p>  ### Related reading</p>
+
+<p>  - <a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a>   - <a href="https://www.devangshumitra.com/from-enterprise-pm-to-ai-pm-a-career-transition-guide/">From Enterprise PM to AI PM: A Career Transition Guide</a>   - <a href="https://www.devangshumitra.com/ai-product-management-interview-prep-50-questions-youll-actually-get-asked/">AI Product Management Interview Prep: 50 Questions You'll Actually Get Asked</a></p>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/from-enterprise-pm-to-ai-pm-a-career-transition-guide/">From Enterprise PM to AI PM: A Career Transition Guide</a></li>
+<li><a href="https://www.devangshumitra.com/enterprise-rag-architecture-guide/">Enterprise RAG Architecture Guide</a></li>
+<li><a href="https://www.devangshumitra.com/ai-product-manager-interview-guide-50-questions-youll-actually-get-asked/">AI Product Manager Interview Guide: 50 Questions You'll Actually Get Asked</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

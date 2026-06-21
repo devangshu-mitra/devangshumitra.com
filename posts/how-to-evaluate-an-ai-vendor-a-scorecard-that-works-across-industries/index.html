@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Use our proven scorecard template to evaluate AI vendors effectively across" />
+  <meta property="og:title" content="How to Evaluate an AI Vendor: A Scorecard That Works Across Industries — Devangshu Mitra" />
+  <meta property="og:description" content="Use our proven scorecard template to evaluate AI vendors effectively across" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>How to Evaluate an AI Vendor: A Scorecard That Works Across Industries — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2026-02-24" itemprop="datePublished">Feb 24, 2026</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">How to Evaluate an AI Vendor: A Scorecard That Works Across Industries</h1>
+          <p class="post-header__excerpt" itemprop="description">Use our proven scorecard template to evaluate AI vendors effectively across</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>How to Evaluate an AI Vendor: A Scorecard That Works Across Industries</h1>
+
+<p>I have sat through hundreds of AI vendor demos. The pattern is always the same: a polished deck, a live demo on curated data, impressive capability claims, and a sales team that is expertly trained to answer every hard question with an eager yes.</p>
+
+<p>The demo environment is not the production environment. The demo data is not your data. The demo team is not the implementation team. The scorecard I am sharing here is designed to cut through the theater and evaluate the vendor on what matters for production deployment - not what looks good in a conference room.</p>
+
+<h2>Why Most AI Evaluations Fail</h2>
+
+<p>Enterprise AI evaluations typically fail in three ways:</p>
+
+<ol>
+<li><strong>Benchmarks over use cases:</strong> Teams evaluate on general AI benchmarks (MMLU, HumanEval, BLEU scores) instead of their specific use case with their specific data. A model that scores 90th percentile on public benchmarks can still fail badly on your clinical notes, your legal contracts, or your customer service transcripts.</li>
+<li><strong>Capability over deployment:</strong> Teams evaluate whether the AI can do the task, but not whether the vendor can support deployment at scale. The model quality gap between top-tier vendors is smaller than the deployment quality gap.</li>
+<li><strong>IT over business:</strong> Security and compliance drive the evaluation without sufficient input from the business teams who will actually use the tool. You end up with a vendor that passes IT review but produces outputs that nobody finds useful.</li>
+</ol>
+
+<h2>The Eight-Dimension Scorecard</h2>
+
+<p>Each dimension is scored 1-5. Weight each dimension by its importance to your specific use case. The weights I use as defaults are shown - adjust them for your context.</p>
+
+<h3>Dimension 1: Model Quality on Your Use Case (Weight: 25%)</h3>
+
+<p>This is the only dimension that requires hands-on evaluation. You cannot score it from documentation or demos.</p>
+
+<p>What to test:</p>
+
+<ul>
+<li>Build a golden evaluation set of 50-200 examples from your actual production data (anonymized/de-identified as needed)</li>
+<li>Run every vendor candidate against the same evaluation set</li>
+<li>Score each output on: accuracy, format compliance, hallucination rate, handling of edge cases, consistency across runs</li>
+<li>Include adversarial examples - cases designed to elicit failure modes specific to your domain</li>
+</ul>
+
+<p>Scoring guide: 5 = exceeds baseline human performance on your golden set with <2% hallucination rate. 3 = matches current human performance with acceptable error rate. 1 = fails on basic examples from your domain.</p>
+
+<h3>Dimension 2: Data Handling and Privacy (Weight: 20%)</h3>
+
+<p>For any enterprise deployment, understanding exactly what happens to your data is non-negotiable. The vendor must answer these questions in writing:</p>
+
+<ul>
+<li>Is customer data used to train production models? (Zero tolerance for yes in regulated industries.)</li>
+<li>Where is data stored, processed, and retained? Which geographic regions?</li>
+<li>What is the data retention policy? Can data be deleted on request?</li>
+<li>Is a data processing agreement (DPA) available? A BAA for healthcare?</li>
+<li>Can the product be deployed in a private VPC or on-premises?</li>
+</ul>
+
+<p>Scoring guide: 5 = zero data retention, private deployment available, BAA available, verifiable audit logging. 3 = standard enterprise DPA, no training on customer data, API-only deployment. 1 = vague policies, no DPA available, unclear data residency.</p>
+
+<h3>Dimension 3: Security and Compliance (Weight: 15%)</h3>
+
+<p>Required certifications vary by industry. Build a checklist of certifications your organization requires and score the vendor against it:</p>
+
+<ul>
+<li>SOC 2 Type II (near-universal requirement)</li>
+<li>ISO 27001 (common in enterprise)</li>
+<li>HIPAA / HITRUST (healthcare)</li>
+<li>FedRAMP (government)</li>
+<li>PCI DSS (financial services handling payment data)</li>
+<li>EU AI Act compliance tier (if serving EU markets)</li>
+</ul>
+
+<p>Also evaluate: penetration testing cadence, vulnerability disclosure policy, incident response SLA, and whether the security team is willing to answer detailed questions from your security architects.</p>
+
+<h3>Dimension 4: Integration Ease (Weight: 15%)</h3>
+
+<p>Every AI product eventually needs to connect to something else - your CRM, EHR, data warehouse, or internal systems. Evaluate:</p>
+
+<ul>
+<li>API quality: is the API well-documented, versioned, and stable?</li>
+<li>SDK availability: Python, JavaScript, and your primary language</li>
+<li>Pre-built connectors: does the vendor have native connectors to systems you use (Salesforce, Epic, SAP)?</li>
+<li>Webhook support: can the vendor push events to your systems?</li>
+<li>Latency and throughput: what are the documented rate limits and SLAs?</li>
+</ul>
+
+<p>Score based on your team's engineering assessment after a technical proof of concept - not based on the sales team's claims.</p>
+
+<h3>Dimension 5: Pricing Model (Weight: 10%)</h3>
+
+<p>Pricing structure matters as much as pricing level. Hidden costs are the biggest risk in enterprise AI procurement:</p>
+
+<ul>
+<li><strong>Token-based pricing:</strong> Predictable per unit, but can scale unexpectedly with longer contexts or high volume.</li>
+<li><strong>Seat-based pricing:</strong> Predictable for defined user bases, but punitive as usage grows beyond initial estimates.</li>
+<li><strong>Usage tier pricing:</strong> Common in platforms. Watch for tier cliffs where a small increase in usage causes a large price jump.</li>
+<li><strong>Hidden costs:</strong> Data storage, fine-tuning compute, evaluation API calls, support tier fees, implementation services requirements.</li>
+</ul>
+
+<p>Model your expected production volume at 3x your initial estimate (AI usage always grows faster than planned). Build the cost model at that volume. If the economics work at 3x, they will work at 1x.</p>
+
+<h3>Dimension 6: Support Quality (Weight: 5%)</h3>
+
+<p>Enterprise AI deployments hit problems that are not in the documentation. Support quality is the difference between a problem resolved in hours and a production incident that lasts days:</p>
+
+<ul>
+<li>What is the response SLA for P1/P2 issues?</li>
+<li>Is a dedicated technical account manager available?</li>
+<li>Is there a named solutions engineer for the implementation phase?</li>
+<li>What is the escalation path to the product team when you hit model issues?</li>
+<li>How active is the developer community / Slack / Discord?</li>
+</ul>
+
+<h3>Dimension 7: Roadmap Transparency (Weight: 5%)</h3>
+
+<p>AI platforms are moving fast. The vendor you choose today will be different in 12 months. Evaluate:</p>
+
+<ul>
+<li>Is there a public product roadmap?</li>
+<li>How does the vendor communicate breaking changes? What is the deprecation timeline for models?</li>
+<li>Can you get access to a private roadmap under NDA?</li>
+<li>What is the version stability policy - how long will current models be supported?</li>
+</ul>
+
+<h3>Dimension 8: Reference Customers (Weight: 5%)</h3>
+
+<p>References are the only data point that cuts through marketing:</p>
+
+<ul>
+<li>Request references in your specific industry (not adjacent industries)</li>
+<li>Ask to speak to customers who have deployed to production at scale (not pilots)</li>
+<li>Ask references specifically about: production reliability, support responsiveness, and whether they would choose the same vendor again</li>
+<li>Ask about failure modes - what went wrong, and how the vendor responded</li>
+</ul>
+
+<h2>Industry-Specific Application</h2>
+
+<h3>Healthcare</h3>
+
+<p>Increase weights for Data Handling (30%) and Security/Compliance (25%). A vendor that cannot provide a HIPAA BAA and zero-data-retention guarantees is not in consideration regardless of model quality. Clinical AI mistakes are patient safety events. The bar for model quality evaluation on your clinical golden set must be higher than any other industry - include adversarial clinical examples and require clinical SME scoring.</p>
+
+<h3>Fintech</h3>
+
+<p>Increase weights for Security/Compliance (25%) and Pricing Model (15%). Financial services regulators are increasingly scrutinizing AI systems for bias, explainability, and model risk management. Ask every vendor for their model risk management documentation and their approach to explainability for credit decisioning or fraud detection use cases.</p>
+
+<h3>Retail / CPG</h3>
+
+<p>Increase weights for Integration Ease (25%) and Model Quality (25%). Retail AI use cases tend to be high-volume (product recommendations, search, supply chain) and heavily integrated with existing commerce platforms. The ability to connect to Shopify, SAP Commerce, and your data warehouse without a six-month integration project is often the deciding factor.</p>
+
+<h2>The Scorecard Template</h2>
+
+<p>Score each vendor on each dimension (1-5), multiply by the weight, sum for a weighted total out of 5.</p>
+
+<p>| Dimension | Default Weight | Vendor A | Vendor B | Vendor C | | --- | --- | --- | --- | --- | | Model Quality (use case) | 25% | _/5 | _/5 | _/5 | | Data Handling / Privacy | 20% | _/5 | _/5 | _/5 | | Security / Compliance | 15% | _/5 | _/5 | _/5 | | Integration Ease | 15% | _/5 | _/5 | _/5 | | Pricing Model | 10% | _/5 | _/5 | _/5 | | Support Quality | 5% | _/5 | _/5 | _/5 | | Roadmap Transparency | 5% | _/5 | _/5 | _/5 | | Reference Customers | 5% | _/5 | _/5 | _/5 | | <strong>Weighted Total</strong> | 100% | <strong>_/5</strong> | <strong>_/5</strong> | <strong>_/5</strong> |</p>
+
+<p>A weighted total above 4.0 is a strong vendor. Between 3.0 and 4.0, proceed with awareness of the specific gaps. Below 3.0, reconsider the vendor selection or invest significantly in compensating controls for the low-scoring dimensions.</p>
+
+<blockquote><p>The scorecard is a tool for structured thinking, not a final answer. Two vendors with identical scores can have different risk profiles depending on which dimensions are low. Read the dimension-level scores, not just the total.</p></blockquote>
+
+<h2>The Evaluation Process</h2>
+
+<ol>
+<li><strong>RFI phase (weeks 1-2):</strong> Send a structured questionnaire based on Dimensions 2-5 and 7-8. Eliminate vendors who cannot answer basic questions in writing.</li>
+<li><strong>Technical POC (weeks 3-6):</strong> Provide shortlisted vendors with your anonymized golden evaluation set. Have them run and return outputs. Score Dimension 1.</li>
+<li><strong>Security review (weeks 4-8, parallel):</strong> Your security architects review SOC 2 reports, penetration test results, and DPA terms. Score Dimension 3 in parallel with the technical POC.</li>
+<li><strong>Reference checks (week 7):</strong> Call references from shortlisted vendors. Score Dimension 8.</li>
+<li><strong>Pricing negotiation (week 8-10):</strong> Present your volume model. Negotiate. Score Dimension 5 after negotiation, not before.</li>
+</ol>
+
+<p>A rigorous evaluation takes 8-10 weeks for a meaningful enterprise decision. Vendors who pressure you to decide in two weeks are revealing something about their confidence in a fair comparison.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/the-build-vs-buy-decision-for-ai-a-framework-that-works-in-any-industry-2/">The Build vs Buy Decision for AI: A Framework That Works in Any Industry</a></li>
+<li><a href="https://www.devangshumitra.com/build-vs-buy-matrix-for-ai-products-the-complete-framework/">Build vs Buy Matrix for AI Products: The Complete Framework</a></li>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/product-metrics-dashboard/">Product Metrics Dashboard Template for Enterprise AI</a></li>
+<li><a href="https://www.devangshumitra.com/ai-vendor-evaluation-scorecard/">AI Vendor Evaluation Scorecard for Life Sciences & Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/prd-template-ai-products/">PRD Template for AI Products in Regulated Industries</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

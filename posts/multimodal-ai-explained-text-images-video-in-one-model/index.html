@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="For most of AI&#39;&#39;s history, a model did one thing: text, or images, or speech." />
+  <meta property="og:title" content="Multimodal AI Explained: Text + Images + Video in One Model — Devangshu Mitra" />
+  <meta property="og:description" content="For most of AI&#39;&#39;s history, a model did one thing: text, or images, or speech." />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Multimodal AI Explained: Text + Images + Video in One Model — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2026-02-05" itemprop="datePublished">Feb 5, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Multimodal AI Explained: Text + Images + Video in One Model</h1>
+          <p class="post-header__excerpt" itemprop="description">For most of AI''s history, a model did one thing: text, or images, or speech.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Multimodal AI Explained: Text + Images + Video in One Model</h1>
+
+<p>When I first saw a demo of GPT-4V in late 2023, a radiologist colleague pointed at the screen and said: this is the first time I've seen an AI system look at an image and reason about it the way a clinician would. Not perfectly - there were real limitations. But the reasoning modality was unmistakably different from what had come before.</p>
+
+<p>Multimodal AI is the capability that I believe will have the largest practical impact on enterprise AI products over the next three years. Not because the models are perfect, but because the vast majority of real-world information is not text. Medical images, manufacturing inspection cameras, retail product photos, video surveillance, audio recordings, PDFs with embedded charts - this is where the information actually lives. Until models could reason natively across these modalities, AI was only touching a fraction of the available signal.</p>
+
+<h2>What Multimodal AI Is (And Is Not)</h2>
+
+<p>A multimodal AI model takes multiple types of input - text, images, audio, video, documents - and reasons across them in a single pass. This is different from:</p>
+
+<ul>
+<li><strong>Chained single-modal models:</strong> Where you run an image through a separate vision model to get a text description, then feed that text to a language model. This approach loses information at every handoff and cannot reason about relationships between modalities that require joint processing.</li>
+<li><strong>Specialized vision models:</strong> Models trained only on images for specific tasks (object detection, image classification, OCR). These are excellent at their narrow task but cannot answer open-ended questions about what they see or integrate image understanding with broader reasoning.</li>
+</ul>
+
+<p>A true multimodal model processes all inputs in a shared representational space - the same underlying attention mechanism operates across text tokens, image patches, and audio spectrograms. This enables reasoning like: given this chest X-ray, this patient history text, and these prior scan images, what has changed and what might explain it? That reasoning pattern is impossible without native multimodal integration.</p>
+
+<h2>How It Works: The Technical Basics</h2>
+
+<p>You do not need to understand this at the level of a researcher to use it effectively as a PM, but a basic mental model helps when you are scoping what a multimodal system can and cannot do.</p>
+
+<h3>Transformers as the Unifying Architecture</h3>
+
+<p>The transformer architecture - originally designed for text - turned out to be remarkably generalizable. The key insight is that almost any structured input can be converted into a sequence of tokens that a transformer can process:</p>
+
+<ul>
+<li><strong>Text:</strong> Words or sub-words are tokenized directly.</li>
+<li><strong>Images:</strong> Images are divided into patches (e.g., 16x16 pixel squares) and each patch is embedded into a vector. These image patch embeddings are processed alongside text token embeddings by the same transformer layers.</li>
+<li><strong>Audio:</strong> Audio is converted into a spectrogram (a visual representation of frequency over time) and then treated similarly to images. Or processed using a dedicated audio encoder that outputs embeddings compatible with the language model.</li>
+<li><strong>Video:</strong> Extended to the temporal dimension - sequences of image frames, potentially with synchronized audio, are processed as sequences of spatial-temporal token sequences.</li>
+</ul>
+
+<p>The training objective - predict the next token - generalizes across modalities. Models trained on large corpora of interleaved text and images develop representations that encode relationships between what things look like and how they are described. This is what gives multimodal models their ability to reason in natural language about visual inputs.</p>
+
+<h3>Key Models You Should Know</h3>
+
+<ul>
+<li><strong>GPT-4o (OpenAI):</strong> Natively multimodal - text, images, and audio processed in a unified model. Strong on document understanding, image Q&A, and combined text-image reasoning. The o stands for omni - treating all modalities as first-class inputs.</li>
+<li><strong>Gemini 1.5 Pro / 2.0 Pro (Google):</strong> Designed from the ground up as multimodal with a 1M token context window that handles video at full length. Strongest multimodal model for video understanding tasks.</li>
+<li><strong>Claude 3.5 / 3.7 (Anthropic):</strong> Strong image and document understanding - particularly for PDFs, charts, tables, and mixed text-image documents. The best model I have worked with for reasoning about complex document layouts.</li>
+</ul>
+
+<h2>Applications Across Industries</h2>
+
+<h3>Healthcare: Radiology and Medical Imaging</h3>
+
+<p>This is the multimodal application with the highest stakes and the most active clinical research. The workflow that AI is transforming:</p>
+
+<ul>
+<li><strong>Report generation:</strong> Radiologists review images and dictate reports. Multimodal AI can draft the report from the image, patient history, and prior scan comparisons, leaving the radiologist to review and sign off rather than originate. Studies have shown 30-50% reduction in report turnaround time at institutions running AI-assisted radiology workflows.</li>
+<li><strong>Abnormality detection:</strong> AI systems trained on millions of annotated scans can flag potential abnormalities for radiologist review, functioning as a second reader that catches what human readers miss under high volume and fatigue conditions.</li>
+<li><strong>Pathology:</strong> Digital pathology slides are high-resolution images where multimodal AI can assist in grading, classification, and biomarker identification. Foundation models for pathology (CONCH, PLIP, UNI) trained on large pathology image corpora are demonstrating strong performance on downstream clinical tasks.</li>
+</ul>
+
+<h3>Retail: Visual Search and Product Intelligence</h3>
+
+<p>Visual search - finding a product by uploading an image of something you saw and want to buy - is one of the highest-conversion features in e-commerce. Pinterest Lens, Google Lens, and retailer-specific implementations drive meaningful revenue from customers who cannot describe what they want but can show it.</p>
+
+<p>Beyond visual search, multimodal AI enables:</p>
+
+<ul>
+<li><strong>Automated product tagging:</strong> Upload a product image, receive a complete set of attributes (color, material, style, occasion) for catalog search and recommendation. Reduces the manual work of catalog enrichment by 60-80%.</li>
+<li><strong>Visual merchandising analysis:</strong> Computer vision systems that analyze store shelf images to identify out-of-stock positions, planogram compliance failures, and competitor share-of-shelf.</li>
+<li><strong>Virtual try-on:</strong> Multimodal models that can render products onto customer images for apparel, glasses, and cosmetics with realistic physics simulation.</li>
+</ul>
+
+<h3>Manufacturing: Quality Inspection and Process Monitoring</h3>
+
+<p>Computer vision is transforming manufacturing quality inspection. What multimodal specifically adds is the ability to combine visual inspection with textual context:</p>
+
+<ul>
+<li>This part was manufactured on Line 3, Shift 2, with Tool ID 447. Given this image of the finished part, does the surface quality match the expected profile for these parameters?</li>
+<li>Integrating vision data from inspection cameras with sensor data from the manufacturing process to identify root causes, not just defects.</li>
+</ul>
+
+<h3>Document Understanding</h3>
+
+<p>Enterprise documents are rarely pure text. Contracts, financial reports, regulatory submissions, clinical trial protocols - these are PDFs with tables, charts, footnotes, headers, and complex layout structures that pure text extraction destroys.</p>
+
+<p>Multimodal document understanding treats the document as an image (preserving layout) and as text (enabling search and extraction) simultaneously. Applications include:</p>
+
+<ul>
+<li>Contract intelligence: extract key terms from contracts while understanding tables and formatted schedules that text extraction garbles</li>
+<li>Financial document analysis: reason about charts, graphs, and tables in annual reports alongside the narrative text</li>
+<li>Regulatory submission review: process complete FDA submission packages including figures, appendices, and embedded data tables</li>
+</ul>
+
+<h2>What Product Managers Need to Know</h2>
+
+<h3>Multimodal Does Not Mean Magic</h3>
+
+<p>The failure mode I see most often is PMs scoping multimodal AI products as if the model will figure out what to do with any image put in front of it. Models have limitations in image resolution, ability to read fine text in images, reasoning about spatial relationships, and handling of unusual image types. Scope carefully against the specific modality and task.</p>
+
+<h3>Evaluation Is Harder</h3>
+
+<p>Evaluating text outputs is hard. Evaluating multimodal outputs is harder. A model that correctly identifies the main finding in a chest X-ray 95% of the time may miss certain finding types at 15%. Building evaluation sets that cover the full distribution of inputs - including the long tail of unusual cases - requires clinical or domain expertise, not just engineering.</p>
+
+<h3>Data Privacy in Multimodal Contexts</h3>
+
+<p>Images often contain more sensitive information than text. A photo of a patient includes their face, potentially identifiable by facial recognition. A medical image may contain embedded patient identifiers (burned in from legacy PACS systems). Video of a factory floor may contain safety violations you did not intend to capture. Design your data handling architecture for multimodal inputs with the most sensitive modality in mind, not the least.</p>
+
+<blockquote><p>Multimodal AI does not change what AI can do. It dramatically expands the surface area of problems AI can address. That expansion is where the next generation of high-value AI products will be built.</p></blockquote>
+
+<p>If you are building enterprise AI products and have not yet evaluated multimodal capabilities for your use case, that evaluation should be on your roadmap for this quarter. The capability is real, the applications are broad, and the early movers in multimodal-native product design are accumulating data advantages that will compound over the next several years.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/genai-governance-life-sciences-framework/">Enterprise GenAI Governance in Life Sciences: A Framework for Responsible Deployment</a></li>
+<li><a href="https://www.devangshumitra.com/from-pilot-to-production-a-7-step-checklist-for-deploying-genai-in-healthcare/">From Pilot to Production: A 7-Step Checklist for Deploying GenAI in Healthcare</a></li>
+<li><a href="https://www.devangshumitra.com/openai-vs-anthropic-vs-google-enterprise-ai-platform-comparison-2026/">OpenAI vs Anthropic vs Google: Enterprise AI Platform Comparison 2026</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/llm-evaluation-framework-beyond-benchmarks/">LLM Evaluation Framework: Beyond Benchmarks</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-agents-a-2026-decision-framework-not-just-for-healthcare/">RAG vs Fine-Tuning vs Agents: A 2026 Decision Framework (Not Just for Healthcare)</a></li>
+<li><a href="https://www.devangshumitra.com/agentic-ai-explained-what-it-is-why-it-matters-and-how-to-build-with-it/">Agentic AI Explained: What It Is, Why It Matters, and How to Build With It</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

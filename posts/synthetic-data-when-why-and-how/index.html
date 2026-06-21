@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Synthetic data — AI-generated data designed to mimic real data — solves" />
+  <meta property="og:title" content="Synthetic Data: When, Why, and How — Devangshu Mitra" />
+  <meta property="og:description" content="Synthetic data — AI-generated data designed to mimic real data — solves" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Synthetic Data: When, Why, and How — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-10-06" itemprop="datePublished">Oct 6, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Synthetic Data: When, Why, and How</h1>
+          <p class="post-header__excerpt" itemprop="description">Synthetic data — AI-generated data designed to mimic real data — solves</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Synthetic Data: When, Why, and How</h1>
+
+<p>Healthcare is where synthetic data has its clearest value proposition: real patient data is the most information-rich, privacy-sensitive, and access-restricted data in any industry. At HCLTech, we've used synthetic data to train models when we couldn't get HIPAA-compliant access to real patient data, to augment datasets for rare disease scenarios, and to test pipelines before real data was available. Here's what I've learned about when it works and when it doesn't.</p>
+
+<h2>Why Synthetic Data Exists</h2>
+
+<p>Synthetic data addresses four distinct problems:</p>
+
+<ol>
+<li><strong>Privacy and compliance.</strong> You can't share real patient records, financial transactions, or PII-containing customer data with your AI vendor, training pipeline, or annotation team. This is the primary driver in healthcare, finance, and insurance.</li>
+<li><strong>Data scarcity.</strong> Rare diseases, edge cases, novel failure modes - you simply don't have enough examples. Synthetic augmentation can expand a dataset of 200 rare disease cases to 2,000.</li>
+<li><strong>Class imbalance.</strong> Your fraud detection model has 1,000 fraud cases and 1,000,000 legitimate transactions. Synthetic minority class generation (SMOTE and its variants) can rebalance the training set.</li>
+<li><strong>Cost and speed.</strong> Synthetic data with known labels is far cheaper than expert annotation (radiology reads, legal document tagging).</li>
+</ol>
+
+<h2>Types of Synthetic Data</h2>
+
+<p><strong>Tabular synthetic data:</strong> CTGAN, TVAE, and Gretel.ai generate synthetic rows that preserve statistical distributions and correlations without exposing real individuals.</p>
+
+<pre><code class="language-">from ctgan import CTGAN
+import pandas as pd
+
+real_df = pd.read_csv("patient_records.csv")
+categorical_cols = ["diagnosis_code", "gender", "insurance_type"]
+
+model = CTGAN(epochs=300, verbose=True)
+model.fit(real_df, discrete_columns=categorical_cols)
+
+synthetic_df = model.sample(10000)  # Generate 10K synthetic patients
+print("Real mean age:", real_df["age"].mean())
+print("Synthetic mean age:", synthetic_df["age"].mean())</code></pre>
+
+<p><strong>Text synthetic data:</strong> LLM-generated text for instruction tuning datasets, Q&A pairs, classification training data, or expanding small labeled datasets. GPT-4o generated training data is often good enough for downstream task training.</p>
+
+<pre><code class="language-">from openai import OpenAI
+import json
+
+client = OpenAI()
+
+def generate_synthetic_examples(
+    task_description: str,
+    real_examples: list,
+    n_to_generate: int = 50
+) -&gt; list:
+    examples_str = json.dumps(real_examples[:5], indent=2)
+    prompt = (
+        f'Generate {n_to_generate} diverse training examples for: {task_description}\n\n'
+        f'Here are real examples for reference:\n{examples_str}\n\n'
+        'Generate varied examples covering different phrasings and edge cases.\n'
+        'Return as a JSON array with the same structure as the examples above.'
+    )
+    response = client.chat.completions.create(
+        model="gpt-4o",
+        messages=[{"role": "user", "content": prompt}],
+        response_format={"type": "json_object"}
+    )
+    return json.loads(response.choices[0].message.content)["examples"]</code></pre>
+
+<p><strong>Image synthetic data:</strong> Stable Diffusion fine-tuning for product photos or document scans. Specialized medical imaging GANs (ProstateGAN, CheXpert-GAN) for clinical images.</p>
+
+<p><strong>Time series synthetic data:</strong> TimeGAN and its successors generate synthetic sequences that preserve temporal dynamics. Useful for synthetic sensor data, financial time series, clinical vitals.</p>
+
+<h2>Healthcare Use Cases</h2>
+
+<p><strong>EHR augmentation for rare conditions.</strong> A hospital might have 50 confirmed cases of a rare autoimmune condition. Synthetic augmentation using CTGAN or a conditional VAE can generate plausible patient records with similar clinical profiles. At HCLTech, this approach improved rare-disease classifier performance by augmenting training sets 10-20x.</p>
+
+<p><strong>De-identification for research datasets.</strong> Synthetic data generated to match the statistical properties of de-identified data - without direct link to real individuals - enables more useful research sharing. The HL7 FHIR Synthea project generates realistic but entirely synthetic patient records for exactly this purpose.</p>
+
+<pre><code class="language-">import subprocess
+
+# Synthea generates realistic synthetic FHIR patient data
+subprocess.run([
+    "java", "-jar", "synthea-with-dependencies.jar",
+    "-p", "1000",  # Generate 1000 patients
+    "--exporter.fhir.export", "true",
+    "--generate.diabetes.prevalence", "0.15"
+])</code></pre>
+
+<p><strong>Adversarial testing.</strong> Generate synthetic examples that probe model failure modes: rare demographic combinations, unusual lab value patterns, contradictory clinical notes. You're using synthetic data not to train, but to test.</p>
+
+<h2>Privacy Evaluation: The Metrics That Matter</h2>
+
+<p>"Synthetic data is private" is a dangerous oversimplification. Key privacy metrics:</p>
+
+<ul>
+<li><strong>Membership inference attack (MIA):</strong> Given a synthetic record, can an attacker determine whether a specific real individual was in the training set? High MIA success rate = privacy leakage.</li>
+<li><strong>Nearest neighbor distance (NND):</strong> How close are synthetic records to real records? Low NND = synthetic records are near-copies of real ones = privacy risk.</li>
+<li><strong>Attribute inference:</strong> Given partial attributes, can an attacker infer the remaining attributes of a real individual?</li>
+</ul>
+
+<p>Gretel.ai and SDV (Synthetic Data Vault) both include privacy evaluation modules. Don't skip this - a synthetic dataset that fails MIA attacks is a HIPAA violation waiting to happen.</p>
+
+<h2>When Synthetic Data Fails</h2>
+
+<p><strong>Distribution shift between synthetic and real test data.</strong> A model trained on synthetic data may perform well on synthetic test data but poorly on real data. Always test on real held-out data, never just on synthetic test data.</p>
+
+<p><strong>Mode collapse in rare cases.</strong> GANs are notorious for mode collapse - the generator learns to produce a limited variety of outputs. Rare events in training data may be systematically underrepresented in synthetic output.</p>
+
+<p><strong>Label noise amplification.</strong> LLM-generated training data inherits the generating model's biases and errors. Training on synthetic data produced by a biased model reinforces the bias.</p>
+
+<p><strong>Feature correlation artifacts.</strong> Synthetic data has correlations because the generator learned them statistically. If the causal structure changes, synthetic data won't update - it's a snapshot of learned statistical relationships.</p>
+
+<h2>Practical Synthetic Data Stack</h2>
+
+<ul>
+<li><strong>Tabular:</strong> SDV for general use, Gretel.ai for enterprise with privacy guarantees, CTGAN for complex distributions.</li>
+<li><strong>Text:</strong> GPT-4o with well-engineered generation prompts. Validate with a classifier trained on real data.</li>
+<li><strong>Images:</strong> Stable Diffusion fine-tuned on domain images; specialized medical imaging GANs for clinical images.</li>
+<li><strong>Time series:</strong> TimeGAN or TimeVAE for complex temporal data; bootstrap or Gaussian noise for simpler cases.</li>
+</ul>
+
+<p>The decision to use synthetic data should be driven by a clear problem - not a general belief that more data is always better. Synthetic data adds complexity and failure modes. Use it for specific problems, measure the impact carefully, and always validate on real held-out data before claiming success.</p>
+
+<hr>
+
+<h3>Related reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/databricks-vs-snowflake-for-ai-ml-workloads/">Databricks vs Snowflake for AI/ML Workloads</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/ai-product-documentation-that-engineers-actually-read/">AI Product Documentation That Engineers Actually Read</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-education-how-personalized-learning-is-finally-becoming-real-2/">AI in Education: How Personalized Learning Is Finally Becoming Real</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-supply-chain-how-predictive-models-are-replacing-just-in-time/">AI in Supply Chain: How Predictive Models Are Replacing Just-in-Time</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

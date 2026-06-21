@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="I&#39;ve watched enterprise AI teams take 18 months to ship what a startup builds" />
+  <meta property="og:title" content="Why Enterprise AI Teams Ship Slower Than They Should — Devangshu Mitra" />
+  <meta property="og:description" content="I&#39;ve watched enterprise AI teams take 18 months to ship what a startup builds" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Why Enterprise AI Teams Ship Slower Than They Should — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Strategy</span>
+            <time class="post-header__date" datetime="2025-08-02" itemprop="datePublished">Aug 2, 2025</time>
+            <span class="post-header__read-time">9 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Why Enterprise AI Teams Ship Slower Than They Should</h1>
+          <p class="post-header__excerpt" itemprop="description">I've watched enterprise AI teams take 18 months to ship what a startup builds</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Why Enterprise AI Teams Ship Slower Than They Should</h1>
+
+<p>I have worked inside large enterprises and alongside startups for most of my career, and I want to be precise about what I mean when I say enterprise AI teams ship slowly. I do not mean they are lazy or untalented. The engineers and PMs I have worked with at enterprise companies are often more technically sophisticated than their startup counterparts. The slowness is structural. It is baked into the incentive architecture, the approval workflows, and the organizational immune response to anything that looks like risk.</p>
+
+<h2>Bottleneck 1: Decision-Making Latency</h2>
+
+<p>A startup PM can decide to change the model architecture, run an experiment, and ship the result in a week. At an enterprise, the equivalent decision might require: alignment with the platform team, sign-off from legal on data usage, a security review for any new external API dependency, a budget approval for the GPU compute, and a change management review if the output affects a clinical workflow. Each of those approvals is individually reasonable. Together, they produce a 6-8 week cycle for a decision that should take one day. The fix is not to eliminate approvals - it is to batch them into a single standing review, get pre-authorization for low-risk experiment categories, and distinguish between "reversible decision with limited blast radius" and "irreversible decision with enterprise-wide impact." Most AI experiments are the former. Treat them that way.</p>
+
+<h2>Bottleneck 2: Data Access Bureaucracy</h2>
+
+<p>Healthcare enterprise AI teams often spend more time getting access to data than building the models. Data is siloed across systems, each with its own data governance process, each requiring a DUA, a IRB amendment, or an IT ticket that sits in a queue for three months. This is partly a legitimate compliance requirement and partly institutional inertia. The practical fix is to invest in a data access pre-clearance framework: identify the 10 data assets your AI team will use repeatedly, get standing access agreements negotiated once, and build a data catalog that lets teams provision approved datasets in days rather than months. The teams that do this move dramatically faster.</p>
+
+<h2>Bottleneck 3: Perfectionism Masking Fear of Failure</h2>
+
+<p>Enterprise teams often stay in the "pilot" phase longer than necessary, running the same experiment on slightly different data, refining the model to another decimal place of AUC, preparing one more executive presentation before declaring the pilot a success and moving to production. I have seen pilots run for two years that should have shipped after six months. When I dig into why, it is rarely genuine technical uncertainty. More often it is that nobody wants to be the person who championed an AI system that later caused a problem. Perfectionism is a rational individual response to a culture where failure is punished. The organizational fix is explicit pre-mortems: before a project starts, the team documents what failure would look like and what the acceptable risk tolerance is. This makes the ship/no-ship decision explicit rather than implicit, and reduces the cultural pressure to delay indefinitely.</p>
+
+<h2>What to Steal From Startups (Honestly)</h2>
+
+<p>Startups move fast partly because of genuine structural advantages - fewer stakeholders, less compliance surface area, more concentrated authority - and partly because of advantages that do not transfer: startups can accept risks that enterprises cannot (HIPAA violations, data breaches, clinical errors at scale). The things that do transfer: time-boxed experiments with explicit kill criteria (if we do not see X result by date Y, we stop); demo-driven development (ship a working demo to real users in week 2, not week 12); and a culture where a failed experiment is a learning, not a career event. None of these require structural changes. They require different norms.</p>
+
+<p>The honest version of the enterprise-startup comparison is that enterprises have real constraints that startups do not, and some of the "slowness" is those constraints doing their job. But even after accounting for legitimate compliance and risk requirements, most enterprise AI teams have a 30-40% speed improvement available to them through better decision-making architecture and cultural changes. That improvement does not require external consultants or new tools. It requires an honest audit of where the time actually goes.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/talk-agentic-ai-in-the-enterprise-patterns-pitfalls-and-production/">Talk: Agentic AI in the Enterprise - Patterns, Pitfalls, and Production</a></li>
+<li><a href="https://www.devangshumitra.com/talk-how-ai-products-actually-ship-across-industries/">Talk: How AI Products Actually Ship Across Industries</a></li>
+<li><a href="https://www.devangshumitra.com/why-ai-products-should-launch-ugly/">Why AI Products Should Launch Ugly</a></li>
+</ul>
+
+<hr>
+
+<h2>Bottleneck 4: Tooling and Infrastructure Debt</h2>
+
+<p>Many enterprises operate with significant infrastructure debt. This isn't just about old servers. It's about a specific, often rigid, set of approved tools and platforms. You might find a company standardized on AWS SageMaker for all ML workflows, even if a particular project would benefit greatly from Azure ML's specific data labeling features, or Google Cloud's Vertex AI for model monitoring. Switching platforms, or even integrating a non-standard tool, becomes a major project in itself.</p>
+
+<p>I saw a team spend six months trying to get approval to use a newer version of PyTorch because the existing MLOps platform only officially supported an older release. The technical reason was valid - the older version lacked specific distributed training capabilities needed for a large model. But the process for platform certification, security review, and compatibility testing for a new library version was extensive. This kind of friction forces teams to compromise on model quality or development speed.</p>
+
+<p>The fix isn't to let everyone use whatever they want. It's to build abstraction layers and a "blessed" internal toolchain that is frequently updated. Give teams a path to request and integrate new, well-vetted tools. This reduces the friction of adopting better methods. Otherwise, you're asking engineers to fight the tools instead of the problem.</p>
+
+<h2>Bottleneck 5: Organizational Silos and Handoff Bottlenecks</h2>
+
+<p>Enterprise structures often create deep specialization. You have data scientists, ML engineers, MLOps specialists, platform engineers, security teams, and compliance officers. Each group has a specific mandate and a queue of work. This specialization can be efficient for routine tasks, but it creates significant handoff bottlenecks for novel AI projects.</p>
+
+<p>I observed a scenario where a data scientist completed a model. It then sat for weeks waiting for an ML engineer to containerize it. After containerization, it waited for the MLOps team to provision GPU resources. Then it waited again for a security scan before it could even enter a staging environment. Each wait added days, sometimes weeks, to the timeline. A project that took three months to build technically ended up taking seven months to ship.</p>
+
+<p>The ideal isn't to eliminate specialization. It's to create dedicated, cross-functional AI product teams. These teams should have individuals with overlapping skill sets, or at least direct accountability to the same product goal. Give them end-to-end ownership. This minimizes the "throw it over the wall" problem and forces tighter collaboration. You get fewer queues and more shared context.</p>
+
+<h2>Bottleneck 6: Integration Debt with Legacy Systems</h2>
+
+<p>AI models rarely operate in isolation. They need data from existing systems and often need to push their predictions back into those systems. In large enterprises, these "existing systems" are often legacy applications. They might be decades old, built on outdated architectures, or lack modern APIs. Integrating with them can be a monumental task, often overshadowing the complexity of the AI model itself.</p>
+
+<p>Consider a predictive model for hospital patient flow. It needs to ingest real-time patient admissions data from an Electronic Health Record (EHR) system that might communicate via HL7 v2 messages. Pushing predictions back might involve a custom SOAP API or even a batch file transfer process. These integrations are fragile. They require deep understanding of old schemas, careful error handling, and extensive testing to ensure data integrity across disparate systems.</p>
+
+<p>I once saw an integration project take nine months just to reliably connect a new AI service to a core financial system. The AI model itself was ready in two months. The fix requires dedicated integration engineers who understand these older systems. Treat integration as a first-class citizen in your project plan, not an afterthought. Budget time and resources for it upfront, usually more than you think you need.</p>
+
+<h3>Bottleneck 4: Fragmented Tooling and Infrastructure</h3>
+
+<p>You might find enterprise AI teams grappling with a patchwork of tools. Some data scientists use Python on their local machines. Others rely on an older, shared Jupyter server. The data engineering team might manage an on-premise Hadoop cluster. Meanwhile, the MLOps team tries to standardize on a cloud platform like AWS SageMaker, but only for new projects. This means engineers spend valuable time bridging gaps. They write custom scripts to move data between systems. They manually convert model formats to deploy them. I have seen teams spend weeks just trying to get a TensorFlow model to run on an inference engine designed for PyTorch, because of an organizational mandate. This fragmentation kills velocity. A unified, cloud-native MLOps platform, even if it is just a set of agreed-upon tools and processes, can cut weeks from a deployment cycle.</p>
+
+<h3>Bottleneck 5: The "Center of Excellence" Trap</h3>
+
+<p>Many enterprises try to centralize AI expertise into a "Center of Excellence" (CoE). The idea is good: share best practices, maintain standards, prevent redundant work. In practice, a CoE often becomes a bottleneck. Business units need to get on the CoE's roadmap, which might be backlogged for months. The CoE might dictate a single technology stack that does not fit every use case. For example, I worked with a CoE that insisted on using a specific feature store solution, even when a project's latency requirements made it impractical. This led to project teams building shadow infrastructure or waiting endlessly for CoE resources. The solution is often to embed AI talent directly within product teams. Let the CoE focus on governance, training, and shared tooling, not execution. This keeps the decision-making close to the problem.</p>
+
+<h3>Bottleneck 6: Legacy System Integration Nightmare</h3>
+
+<p>An AI model is rarely a standalone product in an enterprise. It needs to fit into existing software. This is often where things grind to a halt. Imagine integrating a new clinical prediction model into a 20-year-old electronic health record (EHR) system like Epic or Cerner. The EHR might use SOAP APIs, while your model expects REST. Data schemas might not align. You need to transform patient data from one format to another, often with strict latency requirements if the prediction is real-time. I have seen projects stalled for a year just on the integration phase. Building a strong integration layer, with standardized APIs and data contracts, is critical. This work is not glamorous. But it lets your AI models actually deliver value inside the systems users already depend on.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/course-enterprise-genai-poc-to-production/">Enterprise GenAI: From POC to Production</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-mapping-canvas/">Stakeholder Mapping Canvas for Enterprise AI Products</a></li>
+<li><a href="https://www.devangshumitra.com/the-roi-of-ai-how-to-build-a-business-case-your-cfo-will-approve-2/">The ROI of AI: How to Build a Business Case Your CFO Will Approve</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

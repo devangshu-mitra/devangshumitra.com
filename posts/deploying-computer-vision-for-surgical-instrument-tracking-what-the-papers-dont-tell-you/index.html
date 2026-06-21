@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="The gap between a published model and a production system in the OR is wider" />
+  <meta property="og:title" content="Deploying Computer Vision for Surgical Instrument Tracking: What the Papers — Devangshu Mitra" />
+  <meta property="og:description" content="The gap between a published model and a production system in the OR is wider" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Deploying Computer Vision for Surgical Instrument Tracking: What the Papers — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">BioPharma</span>
+            <time class="post-header__date" datetime="2026-03-07" itemprop="datePublished">Mar 7, 2026</time>
+            <span class="post-header__read-time">10 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Deploying Computer Vision for Surgical Instrument Tracking: What the Papers</h1>
+          <p class="post-header__excerpt" itemprop="description">The gap between a published model and a production system in the OR is wider</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Deploying Computer Vision for Surgical Instrument Tracking: What the Papers Don't Tell You</h1>
+
+<p>When I read the MICCAI papers on surgical instrument detection, the benchmark numbers looked impressive. 94% mAP on the CholecT50 dataset. Sub-50ms inference on a consumer GPU. Clean, well-lit laparoscopic frames with instruments clearly visible against a consistent background. I want to be clear about what those numbers represent: a solved problem in a controlled setting. The problem we were actually trying to solve - real-time instrument tracking for surgical safety compliance in a Level I trauma center - was a different problem entirely.</p>
+
+<p>The use case was straightforward in concept: automatically track which instruments enter and leave the surgical field to reduce retained surgical item (RSI) incidents. RSI - leaving a sponge or instrument inside a patient - is a "never event" that happens roughly 1,500 times per year in the US and is almost entirely preventable. Manual counting is the current standard and it fails. We were asked to build a CV system that could provide a continuous, automated count and alert the circulating nurse when an instrument count discrepancy occurred.</p>
+
+<h2>What the OR Actually Looks Like</h2>
+
+<p>The first time I watched a live surgery through our test camera setup, I understood why lab benchmarks do not transfer. The OR has three lighting conditions: overhead surgical lights (extremely bright, creates hard shadows), ambient ceiling lights (inconsistent, often switched to low during specific phases), and the surgeon's headlight (moves constantly, causes specular reflections on metallic instruments). Blood and irrigation fluid pool on the instrument surface and on the surgical draping, creating optical noise that standard augmentation pipelines do not model. Most critically, the primary occlusion source is the surgeon's gloved hands - which move at speeds that require >30fps tracking to capture accurately and frequently occlude instruments for 2-5 seconds at a time.</p>
+
+<p>Our first single-model deployment (a fine-tuned YOLOv8x) achieved 91% precision in our controlled test setup and 61% precision in live OR conditions. The precision drop was almost entirely explained by three factors: lighting variation (18 percentage points), hand occlusion (9 points), and instrument-on-instrument stacking (3 points). We spent three months trying to improve the single model before deciding the architecture was wrong.</p>
+
+<h2>The Ensemble Approach That Actually Worked</h2>
+
+<p>We switched to an ensemble of three lightweight models: a fast detection backbone running at 60fps for continuous tracking, a slower high-accuracy model running at 10fps for count verification, and a dedicated hand-segmentation model that masked out hand pixels before passing frames to the instrument detector. The ensemble reduced false negatives during occlusion from 38% to 11%. Total inference time was 87ms end-to-end on our edge hardware (NVIDIA Jetson AGX Orin), within our 100ms latency requirement.</p>
+
+<p>The other major intervention was synthetic data augmentation. We generated 40,000 synthetic surgical frames using a game engine, specifically modeling the three OR lighting conditions, blood/fluid surface contamination, and hand occlusion patterns at varying depths. Adding this synthetic data to fine-tuning improved precision by 14 percentage points on our held-out real-OR test set. The key was not volume of synthetic data but fidelity to the specific failure modes we had identified.</p>
+
+<h2>The 80/20 That No One Talks About</h2>
+
+<p>The ML model is 20% of the work. I say this not to diminish the modeling challenge - it was genuinely hard - but to calibrate expectations. The other 80% was: DICOM-compliant video capture integration with the OR's surgical video management system; latency-tolerant alert delivery to the scrub nurse's display without interrupting the surgical team's audio channel; a reconciliation workflow for when the system flags a discrepancy and a human needs to adjudicate it quickly; HIPAA-compliant logging and audit trail for every alert; and a clinical validation protocol that satisfied the hospital's biomedical engineering and legal teams before we could go live in a real OR.</p>
+
+<p>If you are building medical device AI, treat the regulatory and integration layer as a first-class product problem, not an afterthought. FDA 510(k) clearance required us to prospectively validate on 120 surgical cases across three surgeons and two procedure types. That validation process, from design to clearance, took 11 months. The model training took 6 weeks.</p>
+
+<hr>
+
+<h3>More on this</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/building-a-real-time-adverse-event-detection-system-for-post-market-surveillance-9/">Building a Real-Time Adverse Event Detection System for Post-Market Surveillance</a></li>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+<li><a href="https://www.devangshumitra.com/product-breakdown-viz-ais-stroke-detection-speed-as-a-feature-9/">Product Breakdown: Viz.ai's Stroke Detection - Speed as a Feature</a></li>
+</ul>
+
+<hr>
+
+<p>More on this Building a Real-Time Adverse Event Detection System for Post-Market Surveillance How We Reduced Clinical Trial Matching Time by 73% with RAG Product Breakdown: Viz.ai's Stroke Detection - Speed as a Feature complexity of building a reliable CV system, but to emphasize the immense effort required for everything else that makes a product actually usable in a hospital.</p>
+
+<h3>Data Labeling in the OR - Not Just Bounding Boxes</h3>
+
+<p>You can't just throw images at an intern and expect good labels for surgical instruments. The environment is too complex. When an instrument is partially occluded by a surgeon's gloved hand, or submerged in blood, where does its bounding box end? We needed pixel-level segmentation masks for each instrument, not just rectangles. This provided much richer information for our models, especially for handling occlusion and varying instrument poses.</p>
+
+<p>Our labeling team, mostly medical students and nurses, underwent weeks of specific training. They learned to identify instruments by name and type, even when only a small portion was visible. We used Labelbox for annotations, creating custom instructions for ambiguous cases. For instance, an instrument completely covered in blood but still identifiable by its shape required a full mask. An instrument more than 80% occluded needed a partial mask and a specific "occluded" tag.</p>
+
+<p>Inter-annotator agreement was a big challenge initially. It hovered around 75% Dice score for segmentation masks. We improved this through weekly calibration sessions, reviewing edge cases, and refining our labeling guidelines. After three months, we consistently hit 90% agreement. This meticulous, domain-specific labeling process was fundamental. It directly impacted the quality of our synthetic data generation and the final model performance in real conditions.</p>
+
+<h3>Beyond the Jetson - The Infrastructure Layer</h3>
+
+<p>The NVIDIA Jetson AGX Orin handles the inference, but that's just one piece of the puzzle. Deploying edge AI in a hospital means dealing with a host of non-ML challenges. Our Jetson units needed custom fanless enclosures to maintain sterility and prevent airborne contamination in the OR. Standard medical device certifications also applied to the power supplies and network interfaces, requiring isolated transformers and specific grounding protocols to ensure patient safety and prevent electrical interference.</p>
+
+<p>Network connectivity was another hurdle. Hospital networks are often segmented for security and compliance. Our devices required dedicated, isolated Ethernet drops, not just Wi-Fi, to ensure consistent bandwidth and meet strict cybersecurity requirements. We deployed our models as Docker containers managed by k3s, a lightweight Kubernetes distribution. This allowed for remote over-the-air (OTA) updates for new model versions or software patches without physically entering the sterile OR, which is a major logistical advantage.</p>
+
+<p>Monitoring was also critical. We used Prometheus and Grafana to track device health, GPU utilization, memory usage, and inference latency in real time. This proactive monitoring helped us identify potential issues before they impacted surgical operations, ensuring the system's reliability and uptime in a critical environment.</p>
+
+<h3>The Human Element - Trust and Workflow Integration</h3>
+
+<p>Building a technically sound model is one thing; getting surgical staff to trust and use it is another. Our initial system generated too many false positives. An instrument briefly leaving the field of view or being heavily occluded by a hand would trigger an alert. This caused "alert fatigue" among circulating nurses, making them less likely to pay attention when a real discrepancy occurred.</p>
+
+<p>We redesigned the user interface on the nurse's console, a wall-mounted touch display. It showed a live video feed with detected instruments highlighted, along with a running count. When an alert fired, it didn't just flash a warning. It showed which specific instrument category was missing and highlighted its last known location on the screen. This context was crucial. It helped nurses quickly verify the situation.</p>
+
+<p>We also added a "manual override" feature. Nurses could confirm an instrument was present despite an alert, or mark an alert as a false positive. This feedback loop was invaluable for fine-tuning our alert logic and building trust. The system had to augment their existing workflow, not replace it. We integrated with the hospital's electronic health record system via HL7 messages to automatically log instrument counts, reducing manual documentation burden.</p>
+
+<h3>The Other 80% - Data Labeling is a Product Problem</h3>
+
+<p>The models need data. Everyone knows that. What's often overlooked is the sheer product effort involved in defining ground truth for something as nuanced as "surgical instrument in field." We spent weeks iterating with surgical nurses and scrub techs just to define the labeling guidelines. Is a clamp still "in field" if only its tip is visible? What if it's resting on a drape but not actively being used? These aren't trivial academic questions. They directly impact model performance and, more importantly, user trust. Our inter-annotator agreement (IAA) scores, even after extensive training, rarely exceeded 0.85 for full instrument segmentation masks. For simple bounding box detection, it was closer to 0.92.</p>
+
+<p>We used Labelbox for our annotation pipeline. The challenge wasn't just drawing boxes. It was ensuring consistency across 10+ annotators, each with varying levels of medical context. We found that dedicated medical imaging annotators, though more expensive, provided significantly higher quality and fewer rejections. Their understanding of anatomy and surgical flow made a difference. You can't just throw images at a general labeling team and expect surgical-grade annotations. It's a specialized skill, and it's absolutely critical for the success of your model.</p>
+
+<h3>Integrating into the Surgical Workflow</h3>
+
+<p>Even a perfect model is useless if it doesn't fit the actual work. Our system's output needed to be digestible by a circulating nurse under pressure. We couldn't just stream raw bounding boxes to a screen. We designed a custom UI that displayed a running count of each instrument type, highlighting discrepancies with a subtle yellow flash. A loud alarm would be too disruptive. We learned this through multiple shadowing sessions in the OR. Nurses already manage a dozen critical tasks concurrently.</p>
+
+<p>The display itself was a product challenge. It had to be visible from multiple angles, mounted on a mobile cart, and easily cleaned with hospital-grade disinfectants. We started with a 24-inch medical-grade monitor, but found a 15-inch touchscreen was more practical for cart mobility. The biggest hurdle was managing false alerts. If the system flagged a missing instrument too often when it was actually just occluded, nurses would quickly lose trust. Our target was fewer than one false positive alert per hour of surgery. Achieving this meant careful calibration of alert thresholds, not just improving mAP.</p>
+
+<h3>The Long Tail of Instrument Variation</h3>
+
+<p>When you start deploying, you quickly realize surgical instruments aren't a fixed set. A "Kelly clamp" from one manufacturer looks subtly different from another. Instruments get scratched, bent, or covered in dried biological material over time. New specialized instruments appear for specific procedures. Our initial dataset had 30 instrument types. Within six months, we encountered another 15 variations that caused significant misclassifications. The model would identify a "large Metzenbaum scissor" as a "small Metzenbaum scissor" simply due to wear and tear distorting its silhouette.</p>
+
+<p>This "long tail" required a continuous learning strategy. We implemented a feedback loop where ambiguous detections or new instrument types were flagged for manual review and re-annotation. This new data then fed into incremental model updates. We also explored few-shot learning techniques to quickly adapt the model to new instrument variants with only a handful of labeled examples. It's an ongoing effort, not a one-time training problem. You need a pipeline for continuous data collection and model refinement, or your performance will degrade as new instruments enter the OR.</p>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+<li><a href="https://www.devangshumitra.com/ai-in-legal-tech-how-llms-are-automating-contract-review/">AI in Legal Tech: How LLMs Are Automating Contract Review</a></li>
+<li><a href="https://www.devangshumitra.com/aws-healthlake-vs-google-healthcare-api/">AWS HealthLake vs. Google Cloud Healthcare API: Building Healthcare Data Platforms</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
