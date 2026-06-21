@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Bad embedding choices do not surface in a prototype with 100 documents. They" />
+  <meta property="og:title" content="Embedding Strategies That Actually Scale — Devangshu Mitra" />
+  <meta property="og:description" content="Bad embedding choices do not surface in a prototype with 100 documents. They" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Embedding Strategies That Actually Scale — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">LLM Models</span>
+            <time class="post-header__date" datetime="2025-07-27" itemprop="datePublished">Jul 27, 2025</time>
+            <span class="post-header__read-time">5 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Embedding Strategies That Actually Scale</h1>
+          <p class="post-header__excerpt" itemprop="description">Bad embedding choices do not surface in a prototype with 100 documents. They</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Embedding Strategies That Actually Scale</h1>
+
+<p>Bad embedding choices do not surface in a prototype with 100 documents. They surface in production with 100,000 documents, elevated retrieval latency, degraded search quality, and a surprise bill from your embedding API. I have rebuilt embedding pipelines in production more than once. Here is how to get it right from the start.</p>
+
+<h2>Choosing an Embedding Model</h2>
+
+<p>The MTEB (Massive Text Embedding Benchmark) leaderboard is the most useful reference for comparing embedding models. But benchmark performance and production performance can diverge. A few principles that hold consistently:</p>
+
+<p><strong>Match the model to your domain.</strong> General-purpose embedding models (text-embedding-3-large, BGE-large) perform well on general text. For specialized domains - clinical notes, legal contracts, code - domain-specific models or models fine-tuned on domain data outperform general models, sometimes substantially.</p>
+
+<p><strong>Larger is not always better.</strong> text-embedding-3-large (3072 dimensions) produces better embeddings than text-embedding-3-small (1536 dimensions) - at roughly 4x the cost and storage requirement. For many production applications, the small model is sufficient. Benchmark on your data before defaulting to the large model.</p>
+
+<p><strong>Consider open-source models for cost-sensitive applications.</strong> BGE-large-en-v1.5 (open source, BAAI) and E5-large (Microsoft) are competitive with OpenAI's models on most English text benchmarks and free to self-host. At 10 million embeddings, the cost difference is material.</p>
+
+<h2>Chunking Strategy is More Important Than Most Teams Realize</h2>
+
+<p>How you split documents before embedding has more impact on retrieval quality than which embedding model you use. Poor chunking is the most common root cause of poor RAG performance.</p>
+
+<p><strong>Fixed-size chunking:</strong> Simple. Split every N tokens with an overlap of M tokens. Fast to implement. Works poorly when sentences or logical units span chunk boundaries.</p>
+
+<p><strong>Semantic chunking:</strong> Split at semantic boundaries (sentence breaks, paragraph breaks, section headers). Preserves logical units. Requires more preprocessing but produces better retrieval.</p>
+
+<p><strong>Recursive character text splitting (LangChain default):</strong> Tries to split on paragraph breaks first, then sentence breaks, then word breaks. Good default for unstructured text.</p>
+
+<p><strong>Late chunking (2024):</strong> A newer approach where you embed the full document first, then derive chunk embeddings from the full-document attention, preserving document-level context in each chunk's embedding. JinaAI's implementation shows strong results for documents where context is distributed across sections.</p>
+
+<pre><code class="language-">from langchain.text_splitter import RecursiveCharacterTextSplitter
+
+def create_chunks(text: str, chunk_size: int = 512, chunk_overlap: int = 50) -&gt; list[str]:
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=chunk_size,
+        chunk_overlap=chunk_overlap,
+        length_function=len,
+        separators=["
+
+", "
+", ". ", " ", ""]
+    )
+    return splitter.split_text(text)
+
+# For structured documents with headers
+def create_header_aware_chunks(text: str) -&gt; list[dict]:
+    from langchain.text_splitter import MarkdownHeaderTextSplitter
+    headers_to_split_on = [
+        ("#", "h1"),
+        ("##", "h2"),
+        ("###", "h3"),
+    ]
+    splitter = MarkdownHeaderTextSplitter(headers_to_split_on=headers_to_split_on)
+    splits = splitter.split_text(text)
+    return [{"content": s.page_content, "metadata": s.metadata} for s in splits]</code></pre>
+
+<h2>Batch Processing at Scale</h2>
+
+<p>The naive approach - embed documents one by one as they are ingested - does not scale. At 100,000 documents, sequential single-document embedding calls are too slow and too expensive.</p>
+
+<p>Use batch embedding APIs. OpenAI's embedding endpoint accepts batches of up to 2,048 inputs in a single API call. At scale this is significantly faster and cheaper than per-document calls.</p>
+
+<pre><code class="language-">import asyncio
+from openai import AsyncOpenAI
+
+async def batch_embed(texts: list[str], batch_size: int = 100) -&gt; list[list[float]]:
+    client = AsyncOpenAI()
+    all_embeddings = []
+
+    for i in range(0, len(texts), batch_size):
+        batch = texts[i:i + batch_size]
+        response = await client.embeddings.create(
+            input=batch,
+            model="text-embedding-3-small"
+        )
+        batch_embeddings = [item.embedding for item in sorted(response.data, key=lambda x: x.index)]
+        all_embeddings.extend(batch_embeddings)
+
+    return all_embeddings</code></pre>
+
+<h2>Dimensionality Reduction for Cost and Latency</h2>
+
+<p>OpenAI's text-embedding-3 models support Matryoshka Representation Learning - you can truncate embeddings to a smaller dimensionality without recomputing them. text-embedding-3-large at 256 dimensions still outperforms text-embedding-ada-002 at 1,536 dimensions, at a fraction of the storage cost.</p>
+
+<p>Storage implications: 1 million vectors at 1,536 float32 dimensions = 6GB. At 256 dimensions = 1GB. For large corpora, this matters for both storage cost and query latency.</p>
+
+<h2>Embedding Refresh Strategy</h2>
+
+<p>Your documents change. Embedding models improve. You will eventually need to re-embed your corpus.</p>
+
+<p>Design for this from the start:</p>
+
+<ul>
+<li>Store the embedding model name and version alongside each embedded chunk in your metadata</li>
+<li>Build a pipeline that can re-embed a subset of documents (by date, by document type, by model version)</li>
+<li>When a new embedding model is released, benchmark it against your current model on a held-out sample before committing to a full re-embed</li>
+</ul>
+
+<p>Re-embedding a 100,000 document corpus with OpenAI text-embedding-3-small costs approximately $2-5. This is not prohibitive - but it requires a working pipeline and downtime planning for the vector index transition.</p>
+
+<h2>Common Mistakes</h2>
+
+<ul>
+<li><strong>Not storing raw text alongside embeddings.</strong> You will need the original text for reranking, for displaying results, and for re-embedding. Always store it.</li>
+<li><strong>Embedding queries and documents with different models.</strong> Query embeddings and document embeddings must come from the same model. Mixing models produces meaningless similarity scores.</li>
+<li><strong>Skipping evaluation of retrieval quality.</strong> Embed your corpus, then test 50 representative queries and manually check whether the retrieved chunks are actually relevant. Most teams skip this and discover the problem in production.</li>
+</ul>
+
+<h2>The takeaway</h2>
+
+<p>Get your chunking right before worrying about your embedding model. Test retrieval quality on representative queries before building downstream features on top of it. Use batch APIs from the start - it is a one-line change that dramatically improves throughput and cost. Plan for re-embedding by storing model metadata with every chunk. The embedding pipeline is the foundation of your RAG system; investing a few extra hours here saves weeks of debugging later.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/rag-architecture-patterns-when-to-use-what/">RAG Architecture Patterns: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/vector-databases-compared-pinecone-vs-weaviate-vs-chroma-vs-qdrant/">Vector Databases Compared: Pinecone vs Weaviate vs Chroma vs Qdrant</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/how-embedding-models-actually-work/">How Embedding Models Actually Work</a></li>
+<li><a href="https://www.devangshumitra.com/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for Clinical AI?</a></li>
+<li><a href="https://www.devangshumitra.com/how-we-reduced-clinical-trial-matching-time-by-73-with-rag-9/">How We Reduced Clinical Trial Matching Time by 73% with RAG</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>

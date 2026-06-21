@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Learn how to design and implement enterprise RAG architecture with scalable" />
+  <meta property="og:title" content="Enterprise RAG Architecture Guide — Devangshu Mitra" />
+  <meta property="og:description" content="Learn how to design and implement enterprise RAG architecture with scalable" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Enterprise RAG Architecture Guide — Devangshu Mitra</title>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <ul class="nav__mobile" id="mobileMenu" role="list" aria-hidden="true">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles/" class="nav__link">Articles</a></li>
+      <li><a href="/about/" class="nav__link">About</a></li>
+      <li><a href="/newsletter/" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/articles/" class="post-header__back" aria-label="Back to all articles">← Back to Articles</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">GenAI Architecture</span>
+            <time class="post-header__date" datetime="2025-12-16" itemprop="datePublished">Dec 16, 2025</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Enterprise RAG Architecture Guide</h1>
+          <p class="post-header__excerpt" itemprop="description">Learn how to design and implement enterprise RAG architecture with scalable</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+
+<h1>Enterprise RAG Architecture Guide</h1>
+
+<p>Retrieval-Augmented Generation (RAG) is the dominant pattern for grounding LLM outputs in real documents. But most tutorials show you the happy path. Production RAG in regulated environments - Life Sciences and Healthcare especially - has a dozen additional layers of complexity. This guide covers the full stack.</p>
+
+<h2>Architecture Overview</h2>
+
+<p>A production RAG system has six discrete layers that all need to be designed independently:</p>
+
+<ol>
+<li>Document Ingestion Pipeline</li>
+<li>Embedding and Indexing</li>
+<li>Vector Database</li>
+<li>Retrieval Strategy</li>
+<li>Generation Layer</li>
+<li>Evaluation and Monitoring</li>
+</ol>
+
+<p>Think of it as a funnel. Documents go in at the top. Answers with citations come out at the bottom. Every layer in between is a potential failure mode.</p>
+
+<h2>Document Ingestion Pipeline</h2>
+
+<p>Garbage in, garbage out. Most RAG failures trace back to poor ingestion, not bad models.</p>
+
+<p><strong>Chunking strategies:</strong> You have three real options.</p>
+
+<p><em>Fixed chunking</em> splits by character count (e.g., 512 tokens, 64-token overlap). Simple and fast. Works well for uniform documents like lab reports. Fails badly on structured documents where a table row split across two chunks becomes meaningless.</p>
+
+<p><em>Semantic chunking</em> uses embedding similarity to find natural break points - sentences where the topic shifts. More expensive (requires an embedding call per sentence) but produces chunks that preserve meaning. Good for clinical narratives and long-form regulatory text.</p>
+
+<p><em>Recursive chunking</em> tries document-level splits first (sections, paragraphs), then falls back to smaller splits if chunks are still too large. This is the default in LangChain's RecursiveCharacterTextSplitter and works well for most medical documents.</p>
+
+<p>For healthcare specifically: a 400-600 token chunk with 10-15% overlap performs well for clinical notes. Protocol documents do better with section-level chunking (each section as one chunk) because mixing Phase I PK data with inclusion criteria creates noisy retrieval.</p>
+
+<p><strong>Metadata extraction:</strong> Every chunk should carry: document ID, source filename, section header, page number, creation date, document type (SOP vs protocol vs label), and any relevant entity tags (drug name, indication, trial ID). This metadata is your filtering layer - without it you can't restrict retrieval to relevant document types.</p>
+
+<h2>Embedding Models</h2>
+
+<p>The embedding model converts text into a vector. The quality of that vector determines retrieval quality.</p>
+
+<p><strong>OpenAI text-embedding-3-large:</strong> 3072 dimensions, strong general performance, $0.13 per million tokens. Best default choice. The 3-small variant (1536 dims) is 5x cheaper and often within 2-3% accuracy.</p>
+
+<p><strong>Cohere embed-v3:</strong> Built-in input type separation (search_document vs search_query) which helps retrieval accuracy. Strong on multilingual content - relevant if you handle EU regulatory submissions in multiple languages.</p>
+
+<p><strong>Open-source (BGE-large, E5-mistral-7B):</strong> For environments where data cannot leave your infrastructure (most clinical trials, all government health programs), you need on-prem embeddings. BGE-large-en-v1.5 (1024 dims) is competitive with commercial models and runs on a single A10G GPU.</p>
+
+<p><strong>Dimension trade-offs:</strong> More dimensions = better semantic precision, more storage, slower similarity search. For a 10M chunk index: 1536 dims at float32 = ~58GB in memory. 768 dims = ~29GB. Use product quantization (PQ) or binary quantization in your vector DB to reduce this by 8-32x with minimal accuracy loss.</p>
+
+<h2>Vector Databases</h2>
+
+<p>Pinecone, Weaviate, Qdrant, and pgvector each fit a different scenario.</p>
+
+<p><strong>Pinecone:</strong> Fully managed, zero ops overhead. Best for teams that want to move fast and have a budget. Starts at $0.096/hr per pod. Not suitable if data residency requirements prohibit SaaS. Latency is typically 20-50ms for 1M vectors.</p>
+
+<p><strong>Weaviate:</strong> Open-source with a managed cloud option. Strong multi-tenancy story - each client or study can get their own isolated namespace. Has built-in hybrid search (BM25 + vector). Good choice for multi-tenant healthcare platforms.</p>
+
+<p><strong>Qdrant:</strong> Written in Rust. Fastest raw query performance of the four, especially under high concurrency. Excellent filtering on metadata (payload filters run before ANN search, not after). Best choice when you have complex metadata filters and high QPS.</p>
+
+<p><strong>pgvector:</strong> Postgres extension. Best choice when your existing stack is Postgres and you don't want another service to operate. Handles up to ~1M vectors well. Beyond that, query times degrade. Use it for internal tools and smaller corpora (e.g., a single drug's dossier).</p>
+
+<p>Rule of thumb: start with pgvector for speed, migrate to Qdrant or Weaviate when you hit 500K+ chunks or need multi-tenant isolation.</p>
+
+<h2>Retrieval Strategies</h2>
+
+<p>Vanilla cosine similarity top-k retrieval has a ceiling. These four techniques push past it.</p>
+
+<p><strong>Hybrid search:</strong> Combine dense (vector) retrieval with sparse (BM25/TF-IDF) retrieval. Dense search finds conceptually similar chunks. Sparse search finds exact keyword matches. Clinical queries often include exact drug names, NDC codes, or ICD codes where sparse retrieval wins. Reciprocal Rank Fusion (RRF) is the standard way to merge the two ranked lists.</p>
+
+<p><strong>Reranking:</strong> After retrieving top-20 chunks, pass them through a cross-encoder reranker (Cohere Rerank, or open-source BGE-reranker) to re-score against the exact query. Cross-encoders are 2-3x more accurate than bi-encoders for relevance but too slow to run on the full index. This two-stage approach is the standard for production systems. Budget 100-200ms for the rerank step.</p>
+
+<p><strong>Query expansion:</strong> Before embedding the user query, generate 3-5 alternative phrasings using a small LLM. Search with all phrasings, merge results. Particularly useful for clinical queries where "heart attack", "MI", "myocardial infarction", and "STEMI" all mean related things.</p>
+
+<p><strong>MMR (Maximal Marginal Relevance):</strong> Selects chunks that are both relevant to the query and diverse from each other. Prevents the context window from being filled with five nearly-identical chunks. Helpful for broad questions that should draw from multiple document sections.</p>
+
+<h2>Generation Layer</h2>
+
+<p><strong>Prompt construction:</strong> Structure matters. Put system instructions first, then retrieved context (labeled by source), then the user question. Include explicit instruction: "Base your answer only on the provided context. If the context does not contain the answer, say so." This single instruction reduces hallucination rate by 40-60% in benchmark testing.</p>
+
+<p><strong>Citation injection:</strong> Number each retrieved chunk [1], [2], etc. in the prompt. Instruct the model to cite by number. Post-process the output to replace [1] with the actual document reference. This is not optional for clinical use - every claim needs a traceable source.</p>
+
+<p><strong>Guardrails:</strong> At minimum: PII detection before output (regex + NER), toxicity check, and a "refusal to answer" fallback for out-of-scope queries. For clinical decision support, add a confidence threshold - if retrieval score is below 0.7, return "insufficient context" rather than a low-confidence answer.</p>
+
+<h2>Evaluation Pipeline</h2>
+
+<p>You need three metrics to know if your RAG system works:</p>
+
+<p><strong>Retrieval precision/recall:</strong> For a test set of question-answer pairs where you know the correct source chunks, measure how often those chunks appear in your top-k results. Target: precision@5 above 0.75 for production systems.</p>
+
+<p><strong>Answer faithfulness (RAGAS):</strong> Does the generated answer stay within the bounds of the retrieved context? Automated with LLM-as-judge. Target: above 0.85 for clinical use cases.</p>
+
+<p><strong>Hallucination rate:</strong> What fraction of factual claims in the output are unsupported by the context? This requires human evaluation or a strong LLM judge. In healthcare, a hallucination rate above 2% is typically unacceptable.</p>
+
+<h2>Production Concerns</h2>
+
+<p><strong>Latency budgets:</strong> For interactive clinical tools, total latency should be under 3 seconds. Embed query (50ms) + vector search (30-100ms) + rerank (150ms) + generation (1-2s) = budget is tight. Cache embeddings for common queries. Use streaming for generation to reduce perceived latency.</p>
+
+<p><strong>Caching:</strong> Two levels. Embedding cache: if the same query string is seen again, skip the embed call. Semantic cache: if a new query is within cosine distance 0.02 of a cached query, return the cached answer. GPTCache and Redis are common implementations.</p>
+
+<p><strong>Versioning:</strong> Embedding models change. When you upgrade from text-embedding-3-small to text-embedding-3-large, you must re-embed your entire corpus. Plan for this. Store the embedding model name and version as metadata on every chunk. Never mix chunks embedded with different models in the same index.</p>
+
+<p><strong>A/B testing:</strong> Shadow-mode A/B testing is the safe way to evaluate retrieval strategy changes. Route 5% of queries to the new strategy, compare faithfulness and user satisfaction scores against the baseline before full rollout.</p>
+
+<hr>
+
+<h3>Keep reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/genai-build-vs-buy-matrix/">GenAI Build vs Buy: A Decision Matrix for Enterprise LLM Decisions</a></li>
+<li><a href="https://www.devangshumitra.com/product-metrics-dashboard/">Product Metrics Dashboard Template for Enterprise AI</a></li>
+<li><a href="https://www.devangshumitra.com/stakeholder-mapping-canvas/">Stakeholder Mapping Canvas for Enterprise AI Products</a></li>
+</ul>
+
+<hr>
+
+<h3>Further Reading</h3>
+
+<ul>
+<li><a href="https://www.devangshumitra.com/rag-architecture-decision-guide-when-to-use-what/">RAG Architecture Decision Guide: When to Use What</a></li>
+<li><a href="https://www.devangshumitra.com/fine-tuning-vs-rag-vs-prompt-engineering-a-decision-guide/">Fine-Tuning vs RAG vs Prompt Engineering: A Decision Guide</a></li>
+<li><a href="https://www.devangshumitra.com/from-enterprise-pm-to-ai-pm-a-career-transition-guide/">From Enterprise PM to AI PM: A Career Transition Guide</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/articles/" class="post-footer__back btn btn--ghost">← Back to Articles</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
