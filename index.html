@@ -172,14 +172,14 @@
     <div class="hero__content">
       <p class="hero__eyebrow hero-enter" aria-label="Location">Silicon Valley · AI Product</p>
 
-      <h1 class="hero__name hero-enter">Devangshu Mitra</h1>
+      <h1 class="hero__name hero-enter" style="cursor:default;" title="Hover me">Devangshu Mitra</h1>
 
       <div class="hero__subtitle hero-enter" aria-live="polite" aria-label="Role">
-        <span class="hero__subtitle-rotate" id="subtitleText" aria-live="polite"></span>
+        <span class="hero__subtitle-rotate" id="subtitleText" aria-live="polite">AI Product Leader</span>
         <span class="cursor-blink" aria-hidden="true"></span>
       </div>
 
-      <a href="articles/" class="hero__cta hero-enter" aria-label="Read my thinking — go to articles">
+      <a href="/articles/" class="hero__cta hero-enter" aria-label="Read my thinking — go to articles">
         Read my thinking
         <span class="hero__cta-arrow" aria-hidden="true">→</span>
       </a>
@@ -193,11 +193,11 @@
         I build trust-critical AI products at the convergence of healthcare systems, hyperscalers, and frontier models. I decode the signal others miss — across <strong>EHR giants</strong>, <strong>LLM providers</strong>, and <strong>regulatory bodies</strong> — and translate it into products that survive contact with reality.
       </p>
       <div class="proof-bar reveal reveal-delay-1" aria-label="Credentials">
-        <span class="proof-item">10+ Products</span>
+        <span class="proof-item">10+ Products Shipped</span>
         <span class="proof-divider" aria-hidden="true">·</span>
-        <span class="proof-item">Regulated Industries</span>
+        <span class="proof-item">FDA-Regulated Deployments</span>
         <span class="proof-divider" aria-hidden="true">·</span>
-        <span class="proof-item">Fortune 500</span>
+        <span class="proof-item">Fortune 500 Clients</span>
         <span class="proof-divider" aria-hidden="true">·</span>
         <span class="proof-item">Silicon Valley</span>
       </div>
@@ -209,7 +209,7 @@
     <div class="container">
       <div class="featured-header reveal">
         <span class="featured-label">Featured Writing</span>
-        <a href="articles/" class="featured-all-link" aria-label="Browse all articles">All articles →</a>
+        <a href="/articles/" class="featured-all-link" aria-label="Browse all articles">All articles →</a>
       </div>
 
       <div class="posts-grid" role="list">
@@ -473,13 +473,25 @@ document.addEventListener('click', () => {
   <script>
     const intro = document.querySelector('.intro-statement');
     if (intro) {
-      const html = intro.innerHTML;
-      const words = html.split(/(\s+)/);
+      // Walk text nodes only, preserving HTML tags
+      const walker = document.createTreeWalker(intro, NodeFilter.SHOW_TEXT);
+      const textNodes = [];
+      let node;
+      while (node = walker.nextNode()) textNodes.push(node);
       let idx = 0;
-      intro.innerHTML = words.map(w => {
-        if (/^\s+$/.test(w)) return w;
-        return `<span class="word" style="--i:${idx++}">${w}</span>`;
-      }).join('');
+      textNodes.forEach(tn => {
+        const words = tn.textContent.split(/(\s+)/);
+        const frag = document.createDocumentFragment();
+        words.forEach(w => {
+          if (/^\s+$/.test(w)) { frag.appendChild(document.createTextNode(w)); return; }
+          const span = document.createElement('span');
+          span.className = 'word';
+          span.style.setProperty('--i', idx++);
+          span.textContent = w;
+          frag.appendChild(span);
+        });
+        tn.parentNode.replaceChild(frag, tn);
+      });
     }
   </script>
 
