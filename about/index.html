@@ -3,17 +3,20 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="About Devangshu Mitra — AI Product Leader, Life Sciences & Healthcare AI PM at HCLTech. Building trust-critical AI products at the convergence of healthcare systems, hyperscalers, and frontier models." />
+  <meta name="description" content="About Devangshu Mitra — AI Product Leader, Life Sciences & Life Sciences & Life Sciences &amp; Healthcare AI PM at HCLTech. Building trust-critical AI products at the convergence of healthcare systems, hyperscalers, and frontier models." />
   <meta property="og:title" content="About — Devangshu Mitra" />
-  <meta property="og:description" content="Life Sciences & Healthcare AI PM. First-principles thinker. Builder of systems that think." />
+  <meta property="og:description" content="Life Sciences & Life Sciences & Life Sciences &amp; Healthcare AI PM. First-principles thinker. Builder of systems that think." />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
   <title>About — Devangshu Mitra</title>
 
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
 
   <!-- Styles -->
   <link rel="stylesheet" href="../css/design-system.css" />
@@ -25,7 +28,7 @@
       padding-top: calc(var(--nav-height) + var(--space-24));
       padding-bottom: var(--space-24);
       background: var(--color-bg);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .about-grid {
@@ -48,7 +51,7 @@
       height: 160px;
       border-radius: var(--radius-md);
       background: linear-gradient(135deg, #1a1a1a 0%, #222 100%);
-      border: 1px solid rgba(201, 168, 76, 0.2);
+      border: 1px solid var(--color-border);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -105,7 +108,7 @@
     .social-section {
       background: var(--color-bg);
       padding-block: var(--space-24);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .social-grid {
@@ -165,9 +168,9 @@
     }
 
     .social-link:hover {
-      border-color: rgba(201, 168, 76, 0.3);
+      border-color: var(--color-accent-dim);
       color: var(--color-accent);
-      background: #161616;
+      background: var(--color-surface-2);
       transform: translateY(-3px);
     }
 
@@ -184,7 +187,7 @@
     .work-section {
       background: var(--color-surface);
       padding-block: var(--space-24);
-      border-bottom: 1px solid rgba(201, 168, 76, 0.12);
+      border-bottom: 1px solid var(--color-border);
     }
 
     .work-grid {
@@ -225,7 +228,7 @@
     }
 
     .work-card:hover {
-      border-color: rgba(201, 168, 76, 0.3);
+      border-color: var(--color-accent-dim);
       transform: translateY(-4px);
     }
 
@@ -273,6 +276,17 @@
       gap: var(--space-3);
     }
   </style>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
 </head>
 <body class="page-enter">
 
@@ -280,40 +294,74 @@
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
 
   <!-- ========== NAV ========== -->
-  <nav class="nav scrolled" id="mainNav" role="navigation" aria-label="Main navigation">
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
     <div class="nav__inner">
       <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
-
-      <!-- Desktop links -->
       <ul class="nav__links" role="list">
-        <li><a href="/" class="nav__link">Home</a></li>
-        <li><a href="../articles/" class="nav__link">Articles</a></li>
-        <li><a href="../about/" class="nav__link active">About</a></li>
-        <li><a href="../newsletter/" class="nav__link">Newsletter</a></li>
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
       </ul>
-
-      <!-- Hamburger (mobile) -->
-      <button
-        class="nav__hamburger"
-        id="hamburger"
-        aria-label="Toggle navigation menu"
-        aria-expanded="false"
-        aria-controls="mobileMenu"
-      >
-        <span></span>
-        <span></span>
-        <span></span>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
       </button>
     </div>
   </nav>
-
-  <!-- Mobile menu -->
   <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
-    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:2rem;">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
       <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
-      <li><a href="../articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
-      <li><a href="../about/" class="nav__link" onclick="closeMenu()">About</a></li>
-      <li><a href="../newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
     </ul>
   </nav>
 
@@ -335,7 +383,7 @@
         <div class="reveal reveal-delay-1">
           <h1 class="page-title">Devangshu Mitra</h1>
           <div class="about-bio">
-            <p>Product Manager, Life Sciences &amp; Healthcare AI at HCLTech.</p>
+            <p>Product Manager, Life Sciences &amp; Life Sciences &amp; Healthcare AI at HCLTech.</p>
             <p>I build trust-critical AI products that operate at the convergence layer of healthcare systems, hyperscalers, and frontier models. Currently leading a portfolio of 10+ GenAI products at HCLTech — from drug discovery and patient recruitment to adverse event detection and regulatory intelligence.</p>
             <p>Beyond core product execution, I act as an Ecosystem Navigator. I decode the fast-moving signal across EHR giants, LLM providers, and regulatory bodies to build products that survive contact with reality in high-stakes environments.</p>
             <p>Before product management, I worked across engagement management and enterprise consulting, giving me a ground-level understanding of how large health systems actually adopt technology. I studied at the University of Texas at Dallas, and I'm based in the San Francisco Bay Area.</p>
@@ -444,7 +492,7 @@
         <div class="work-card reveal">
           <p class="work-card__label">Speaking</p>
           <h3 class="work-card__title">Keynotes &amp; Panels</h3>
-          <p class="work-card__body">I speak about healthcare AI, enterprise GenAI, product management, and digital transformation at scale. Available for keynotes, panels, podcasts, and guest articles.</p>
+          <p class="work-card__body">I speak about Life Sciences &amp; Life Sciences &amp; Healthcare AI, enterprise GenAI, product management, and digital transformation at scale. Available for keynotes, panels, podcasts, and guest articles.</p>
           <a href="https://www.devangshumitra.com/speaking/" class="work-card__link" aria-label="View Speaking engagements">
             View Speaking <span aria-hidden="true">→</span>
           </a>
@@ -471,7 +519,7 @@
         <div class="work-card reveal reveal-delay-1">
           <p class="work-card__label">Courses</p>
           <h3 class="work-card__title">Practical Learning</h3>
-          <p class="work-card__body">Practical, opinionated courses on healthcare AI, enterprise GenAI, and product management — built from real experience, not recycled textbook content.</p>
+          <p class="work-card__body">Practical, opinionated courses on Life Sciences &amp; Life Sciences &amp; Healthcare AI, enterprise GenAI, and product management — built from real experience, not recycled textbook content.</p>
           <a href="https://www.devangshumitra.com/courses/" class="work-card__link" aria-label="Browse Courses">
             Browse Courses <span aria-hidden="true">→</span>
           </a>
@@ -486,7 +534,7 @@
     <div class="footer__inner">
       <div>
         <div class="footer__brand">Devangshu Mitra</div>
-        <p class="footer__tagline">AI Product Leader · Enterprise GenAI Builder · Healthcare AI PM</p>
+        <p class="footer__tagline">AI Product Leader · Enterprise GenAI Builder · Life Sciences & Life Sciences &amp; Healthcare AI PM</p>
       </div>
       <nav aria-label="Footer navigation">
         <ul class="footer__links" role="list">
@@ -567,5 +615,19 @@
       revealEls.forEach(el => el.classList.add('visible'));
     }
   </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
 </body>
 </html>

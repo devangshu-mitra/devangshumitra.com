@@ -1,0 +1,168 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/><meta name="description" content="Books that shaped how Devangshu Mitra thinks about AI, product management, Life Sciences &amp; Healthcare, and business."/><title>Reading Log — Devangshu Mitra</title><link rel="icon" type="image/svg+xml" href="/favicon.svg"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" /><link rel="stylesheet" href="/css/design-system.css"/><link rel="stylesheet" href="/css/animations.css"/>
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+</head><body><div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div><nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav><main>
+<section style="padding-top:calc(var(--nav-height) + var(--space-24));padding-bottom:var(--space-24);border-bottom:1px solid var(--color-border);"><div class="container"><p style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);margin-bottom:var(--space-6);">Reading Log</p><h1 style="font-size:clamp(2.5rem,6vw,4.5rem);font-weight:300;line-height:1.1;margin-bottom:var(--space-6);max-width:800px;">Books That Shaped How I Think</h1><p style="font-size:var(--text-xl);color:var(--color-muted);max-width:640px;line-height:1.7;">Not summaries. My actual takeaways and how they connect to the work.</p></div></section>
+<section style="padding:var(--space-20) 0;"><div class="container" style="max-width:760px;"><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">The Innovator's Dilemma</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Clayton Christensen · 1997</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★★</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Why incumbents fail at disruptive technology — and it's not because they're bad at innovation. They're optimized for their best customers, which makes them blind to the low end.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Directly maps to why large health systems struggle with AI adoption. They're not ignoring AI — they're rationally optimizing for existing workflows and customers.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The 'jobs to be done' framing changed how I think about AI use case selection. What job is the user actually hiring this model to do?</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">Required reading for anyone wondering why enterprise AI POCs die in large organizations.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">Thinking in Bets</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Annie Duke · 2018</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★★</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Most decisions are bets under uncertainty, not equations with right answers. Good decisions can lead to bad outcomes. Bad decisions can lead to good outcomes.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Directly applicable to AI product decisions — when do you have enough data to ship? When do you keep iterating? The answer is rarely 'when you're certain.'</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The 'resulting' trap: judging decision quality by outcomes rather than process. Enterprise AI teams fall into this constantly when a model failure gets blamed on the PM's go/no-go decision.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">How I think about AI product decisions when I don't have enough data (which is always).</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">The Hard Thing About Hard Things</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Ben Horowitz · 2014</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★★</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The 'peacetime CEO vs. wartime CEO' mental model is one of the most useful in my toolkit. AI product leadership requires switching between these modes constantly.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Nobody prepares you for the moments when everything is on fire. The value of this book is the honesty — Horowitz doesn't pretend there are clean frameworks for hard situations.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Hiring and people decisions compound more than technical decisions. The AI team that wins is the one that gets the people equation right.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">What I reread when things get hard at work.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">Zero to One</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Peter Thiel · 2014</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★☆</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The most important question: is this a vitamin or a painkiller? Most enterprise AI is vitamins. The products that win are painkillers.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Competition is for losers. Monopoly is the goal. I use this lens to evaluate whether an AI use case has real defensibility or just first-mover advantage that evaporates.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Secrets: every great company is built on a secret others don't see yet. What's the secret in your AI product?</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">A useful counterweight to conventional enterprise thinking about AI adoption.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">Superintelligence</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Nick Bostrom · 2014</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★☆</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The long view on AI trajectory. Useful not because the timelines are right but because it forces you to think about capability overhang and the pace of improvement.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Reading this makes the hype cycles feel small. Calibrates your perspective on what current LLMs can and can't do.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The control problem is real even at narrow AI scale. The Life Sciences & Life Sciences &amp; Healthcare AI products I build have to answer 'who is responsible when this is wrong?' — and that question gets harder as capability increases.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">For calibrating long-term thinking about where AI is going.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">The Emperor of All Maladies</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Siddhartha Mukherjee · 2010</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★★</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The best book I've read for understanding cancer biology at a level that makes clinical AI actually make sense. Not a textbook — a biography of a disease.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The history of clinical trial design in oncology is a masterclass in how hard it is to establish causation in biological systems. Directly relevant to AI validation methodology.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Understanding the clinical context your AI operates in is non-negotiable. This book gave me the foundation to have real conversations with oncologists.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">Essential reading for anyone building AI in oncology or clinical research.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">Measure What Matters</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">John Doerr · 2018</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★☆</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>OKRs done right are a forcing function for clarity. Most teams skip the hard work of defining what 'good' looks like before building.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The AI product metrics problem: teams default to model metrics (accuracy, F1) instead of outcome metrics (clinical decisions changed, time saved, errors prevented). OKRs force you upstream.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Stretch goals have a specific role — they're not performance targets, they're direction-setters. The difference matters when you're building AI products where the ceiling is unknown.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">How I think about AI product metrics beyond accuracy.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">The Lean Startup</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Eric Ries · 2011</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★☆</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Build-measure-learn is the right loop for AI POC design. Most enterprise teams skip the 'measure' step and go straight from 'build' to 'scale.'</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The pivot vs. persevere decision is the hardest call in AI product development. Most teams pivot too late because sunk cost bias is powerful.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Validated learning, not output, is the unit of progress. Shipping 10 features doesn't matter if you didn't learn whether they moved the metric.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">The framework I use to structure AI POCs and evaluation phases.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">Atomic Habits</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">James Clear · 2018</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★☆</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Systems beat goals. Consistent weekly publishing compounds more than sporadic bursts of effort. I built my content operation around this principle.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The 1% better every day compounding argument is real — I've seen it in model improvement curves, in team capability growth, in personal output quality.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Identity-based habits: 'I am a person who writes' vs. 'I want to write more.' The framing shift is small but the behavioral difference is large.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">How I think about building sustainable habits around content creation and continuous learning.</p>
+</div><div class="reveal" style="border-bottom:1px solid var(--color-border);padding:var(--space-10) 0;">
+  <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:var(--space-4);margin-bottom:var(--space-4);">
+    <div><h3 style="font-size:var(--text-2xl);font-weight:500;margin-bottom:var(--space-1);">Thinking, Fast and Slow</h3><p style="color:var(--color-muted);font-size:var(--text-sm);">Daniel Kahneman · 2011</p></div>
+    <span style="font-size:var(--text-lg);color:var(--color-accent);">★★★★★</span>
+  </div>
+  <ul style="margin-bottom:var(--space-4);padding-left:var(--space-6);"><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>System 1 vs. System 2 thinking is the most useful mental model for understanding AI adoption. Users default to System 1 — pattern matching, fast, low effort. If your AI output requires System 2 processing, adoption will be lower than you expect.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>Cognitive biases are features, not bugs, in human cognition. Designing AI that works with human biases rather than against them is a product design skill.</li><li style='color:var(--color-muted);line-height:1.8;margin-bottom:var(--space-2);'>The WYSIATI heuristic (What You See Is All There Is) explains why LLM hallucinations are so dangerous — models, like humans, construct plausible stories from available evidence without flagging what they don't know.</li></ul>
+  <p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);border-left:2px solid var(--color-border);padding-left:var(--space-4);">The most direct connection between cognitive psychology and AI product design.</p>
+</div></div></section>
+</main><footer class="footer"><div class="container"><div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:var(--space-8);padding:var(--space-16) 0 var(--space-8);"><div><p style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);margin-bottom:var(--space-4);">Writing</p><ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);"><li><a href="/articles/" class="nav__link" style="font-size:var(--text-sm);">Articles</a></li><li><a href="/case-studies/" class="nav__link" style="font-size:var(--text-sm);">Case Studies</a></li><li><a href="/research/" class="nav__link" style="font-size:var(--text-sm);">Research</a></li><li><a href="/radar/" class="nav__link" style="font-size:var(--text-sm);">Innovation Radar</a></li></ul></div><div><p style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);margin-bottom:var(--space-4);">Learn</p><ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);"><li><a href="/courses/" class="nav__link" style="font-size:var(--text-sm);">Courses</a></li><li><a href="/resources/" class="nav__link" style="font-size:var(--text-sm);">Resources</a></li><li><a href="/glossary/" class="nav__link" style="font-size:var(--text-sm);">Glossary</a></li><li><a href="/start-here/" class="nav__link" style="font-size:var(--text-sm);">Start Here</a></li></ul></div><div><p style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);margin-bottom:var(--space-4);">Work With Me</p><ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);"><li><a href="/consulting/" class="nav__link" style="font-size:var(--text-sm);">Consulting</a></li><li><a href="/speaking/" class="nav__link" style="font-size:var(--text-sm);">Speaking</a></li><li><a href="/pro-bono/" class="nav__link" style="font-size:var(--text-sm);">Pro Bono</a></li></ul></div><div><p style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);margin-bottom:var(--space-4);">Tools</p><ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);"><li><a href="/assessment/" class="nav__link" style="font-size:var(--text-sm);">AI Readiness</a></li><li><a href="/calculator/" class="nav__link" style="font-size:var(--text-sm);">ROI Calculator</a></li><li><a href="/stack/" class="nav__link" style="font-size:var(--text-sm);">My AI Stack</a></li></ul></div><div><p style="font-family:var(--font-mono);font-size:var(--text-xs);letter-spacing:0.14em;text-transform:uppercase;color:var(--color-muted);margin-bottom:var(--space-4);">More</p><ul style="list-style:none;display:flex;flex-direction:column;gap:var(--space-2);"><li><a href="/about/" class="nav__link" style="font-size:var(--text-sm);">About</a></li><li><a href="/newsletter/" class="nav__link" style="font-size:var(--text-sm);">Newsletter</a></li><li><a href="/industries/" class="nav__link" style="font-size:var(--text-sm);">Industries</a></li><li><a href="/faq/" class="nav__link" style="font-size:var(--text-sm);">FAQ</a></li><li><a href="/privacy/" class="nav__link" style="font-size:var(--text-sm);">Privacy</a></li></ul></div></div><div style="border-top:1px solid var(--color-border);padding:var(--space-8) 0;display:flex;justify-content:space-between;flex-wrap:wrap;gap:var(--space-4);"><p style="font-size:var(--text-sm);color:var(--color-muted);">© 2026 Devangshu Mitra. All rights reserved.</p><p style="font-family:var(--font-mono);font-size:var(--text-xs);color:var(--color-muted);">Life Sciences &amp; Life Sciences &amp; Healthcare AI · Silicon Valley</p></div></div></footer><script>const h=document.getElementById('hamburger'),m=document.getElementById('mobileMenu'),n=document.getElementById('mainNav');function closeMenu(){m.classList.remove('open');if(h)h.setAttribute('aria-expanded','false');}if(h)h.addEventListener('click',()=>{const o=m.classList.toggle('open');h.setAttribute('aria-expanded',o);});window.addEventListener('scroll',()=>{if(n)n.classList.toggle('scrolled',window.scrollY>20);});document.querySelectorAll('.reveal').forEach(el=>{new IntersectionObserver(([e])=>{if(e.isIntersecting)el.classList.add('visible');},{threshold:0.1}).observe(el);});</script>
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+</body></html>

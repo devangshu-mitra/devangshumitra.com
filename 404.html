@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Page not found — Devangshu Mitra" />
+  <title>404 — Page Not Found | Devangshu Mitra</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="/css/design-system.css" />
+
+  <style>
+    body {
+      background: #0a0a0a;
+      color: #f5f5f5;
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1.25rem 2rem;
+      background: rgba(10, 10, 10, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nav__logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #c9a84c;
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+
+    .nav__links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .nav__link {
+      color: #888888;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      transition: color 0.2s ease;
+    }
+
+    .nav__link:hover {
+      color: #f5f5f5;
+    }
+
+    .error-page {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8rem 2rem 4rem;
+      text-align: center;
+    }
+
+    .error-page__inner {
+      max-width: 560px;
+    }
+
+    .error-code {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(6rem, 20vw, 10rem);
+      font-weight: 700;
+      line-height: 1;
+      color: #111111;
+      letter-spacing: -0.04em;
+      margin: 0 0 1rem;
+      position: relative;
+    }
+
+    .error-code::after {
+      content: '404';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #c9a84c 0%, rgba(201,168,76,0.3) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .error-headline {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      font-weight: 600;
+      color: #f5f5f5;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+    }
+
+    .error-body {
+      font-size: 1.05rem;
+      color: #888888;
+      line-height: 1.7;
+      margin: 0 0 2.5rem;
+    }
+
+    .error-actions {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 6px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      letter-spacing: 0.01em;
+    }
+
+    .btn--primary {
+      background: #c9a84c;
+      color: #0a0a0a;
+    }
+
+    .btn--primary:hover {
+      background: #d4b55f;
+      transform: translateY(-1px);
+    }
+
+    .btn--secondary {
+      background: transparent;
+      color: #f5f5f5;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .btn--secondary:hover {
+      border-color: rgba(255,255,255,0.35);
+      transform: translateY(-1px);
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: #c9a84c;
+      margin: 2rem auto;
+      opacity: 0.5;
+    }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      color: #444;
+      font-size: 0.85rem;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+
+    @media (max-width: 600px) {
+      .nav__links { display: none; }
+      .error-actions { flex-direction: column; align-items: center; }
+      .btn { width: 100%; max-width: 280px; justify-content: center; }
+    }
+  </style>
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav class="nav" role="navigation" aria-label="Main navigation">
+    <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+    <ul class="nav__links" role="list">
+      <li><a href="/" class="nav__link">Home</a></li>
+      <li><a href="/articles" class="nav__link">Articles</a></li>
+      <li><a href="/about" class="nav__link">About</a></li>
+      <li><a href="/newsletter" class="nav__link">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <!-- Error content -->
+  <main class="error-page" role="main">
+    <div class="error-page__inner">
+      <div class="error-code" aria-label="Error 404">404</div>
+      <h1 class="error-headline">Page not found</h1>
+      <div class="divider" aria-hidden="true"></div>
+      <p class="error-body">
+        This page doesn't exist or may have moved.<br>
+        Try the homepage or browse all articles.
+      </p>
+      <div class="error-actions">
+        <a href="/" class="btn btn--primary">
+          ← Back to Home
+        </a>
+        <a href="/articles" class="btn btn--secondary">
+          Browse Articles
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>© 2026 Devangshu Mitra. All rights reserved.</p>
+  </footer>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+</body>
+</html>

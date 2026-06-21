@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/css/design-system.css" />
   <link rel="stylesheet" href="/css/animations.css" />
   <link rel="stylesheet" href="/css/articles.css" />
@@ -14,6 +15,17 @@
   <meta property="og:description" content="Writing on AI product management, enterprise GenAI, and building in public." />
   <meta property="og:type" content="website" />
   <title>Articles — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
 </head>
 <body class="page-enter">
 
@@ -292,13 +304,13 @@
         </a>
       </article>
       <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
-        <a href="/posts/what-himss-2026-tells-us-about-where-healthcare-ai-is-really-going/" class="post-card__link" aria-label="Read What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going">
+        <a href="/posts/what-himss-2026-tells-us-about-where-healthcare-ai-is-really-going/" class="post-card__link" aria-label="Read What HIMSS 2026 Tells Us About Where Life Sciences &amp; Healthcare AI Is Really Going">
           <div class="post-card__inner">
             <div class="post-card__meta">
               <span class="post-card__pillar tag tag--accent">Clinical AI</span>
               <span class="post-card__date">Feb 20, 2026</span>
             </div>
-            <h2 class="post-card__title">What HIMSS 2026 Tells Us About Where Healthcare AI Is Really Going</h2>
+            <h2 class="post-card__title">What HIMSS 2026 Tells Us About Where Life Sciences &amp; Healthcare AI Is Really Going</h2>
             <p class="post-card__excerpt">HIMSS 2026 confirmed what many of us expected: the ambient scribe moment</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">8 min read</span>
@@ -539,7 +551,7 @@
               <span class="post-card__date">Jan 31, 2026</span>
             </div>
             <h2 class="post-card__title">FDA''s New AI Guidance Decoded: What Builders Need to Know</h2>
-            <p class="post-card__excerpt">FDA's new AI guidance sets clear frameworks for healthcare AI builders with</p>
+            <p class="post-card__excerpt">FDA's new AI guidance sets clear frameworks for Life Sciences & Life Sciences &amp; Healthcare AI builders with</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">9 min read</span>
               <span class="post-card__arrow" aria-hidden="true">→</span>
@@ -644,14 +656,14 @@
         </a>
       </article>
       <article class="post-card" data-pillar="ai-product-craft" data-subtag="strategy">
-        <a href="/posts/course-lsh-ai-pm-fundamentals/" class="post-card__link" aria-label="Read Life Sciences & Healthcare AI PM Fundamentals">
+        <a href="/posts/course-lsh-ai-pm-fundamentals/" class="post-card__link" aria-label="Read Life Sciences & Life Sciences & Life Sciences &amp; Healthcare AI PM Fundamentals">
           <div class="post-card__inner">
             <div class="post-card__meta">
               <span class="post-card__pillar tag tag--accent">Strategy</span>
               <span class="post-card__date">Jan 13, 2026</span>
             </div>
-            <h2 class="post-card__title">Life Sciences & Healthcare AI PM Fundamentals</h2>
-            <p class="post-card__excerpt">Everything I wish I knew when I started in Life Sciences & Healthcare AI</p>
+            <h2 class="post-card__title">Life Sciences & Life Sciences & Life Sciences &amp; Healthcare AI PM Fundamentals</h2>
+            <p class="post-card__excerpt">Everything I wish I knew when I started in Life Sciences & Life Sciences &amp; Healthcare AI</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">10 min read</span>
               <span class="post-card__arrow" aria-hidden="true">→</span>
@@ -1252,13 +1264,13 @@
         </a>
       </article>
       <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
-        <a href="/posts/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/" class="post-card__link" aria-label="Read Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across">
+        <a href="/posts/healthcare-ai-product-roadmap-how-i-prioritize-features-across-10-clinical-products/" class="post-card__link" aria-label="Read Life Sciences & Life Sciences &amp; Healthcare AI Product Roadmap: How I Prioritize Features Across">
           <div class="post-card__inner">
             <div class="post-card__meta">
               <span class="post-card__pillar tag tag--accent">Clinical AI</span>
               <span class="post-card__date">Oct 17, 2025</span>
             </div>
-            <h2 class="post-card__title">Life Sciences & Healthcare AI Product Roadmap: How I Prioritize Features Across</h2>
+            <h2 class="post-card__title">Life Sciences & Life Sciences &amp; Healthcare AI Product Roadmap: How I Prioritize Features Across</h2>
             <p class="post-card__excerpt">I manage AI features across 10 clinical products simultaneously. Here is</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">6 min read</span>
@@ -1668,13 +1680,13 @@
         </a>
       </article>
       <article class="post-card" data-pillar="ai-in-lsh" data-subtag="clinical-ai">
-        <a href="/posts/the-first-principles-of-healthcare-ai-product-management-9/" class="post-card__link" aria-label="Read The First Principles of Healthcare AI Product Management">
+        <a href="/posts/the-first-principles-of-healthcare-ai-product-management-9/" class="post-card__link" aria-label="Read The First Principles of Life Sciences & Life Sciences &amp; Healthcare AI Product Management">
           <div class="post-card__inner">
             <div class="post-card__meta">
               <span class="post-card__pillar tag tag--accent">Clinical AI</span>
               <span class="post-card__date">Aug 14, 2025</span>
             </div>
-            <h2 class="post-card__title">The First Principles of Healthcare AI Product Management</h2>
+            <h2 class="post-card__title">The First Principles of Life Sciences & Life Sciences &amp; Healthcare AI Product Management</h2>
             <p class="post-card__excerpt">Most AI product frameworks break in healthcare. Here are the five principles</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">11 min read</span>
@@ -1819,7 +1831,7 @@
               <span class="post-card__date">Jul 15, 2025</span>
             </div>
             <h2 class="post-card__title">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for</h2>
-            <p class="post-card__excerpt">Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,</p>
+            <p class="post-card__excerpt">Life Sciences & Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">13 min read</span>
               <span class="post-card__arrow" aria-hidden="true">→</span>
@@ -2100,14 +2112,14 @@
         </a>
       </article>
       <article class="post-card" data-pillar="ai-product-craft" data-subtag="templates">
-        <a href="/posts/prompt-engineering-library/" class="post-card__link" aria-label="Read Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts">
+        <a href="/posts/prompt-engineering-library/" class="post-card__link" aria-label="Read Prompt Engineering Library: 50+ Production-Tested Life Sciences &amp; Healthcare AI Prompts">
           <div class="post-card__inner">
             <div class="post-card__meta">
               <span class="post-card__pillar tag tag--accent">Templates</span>
               <span class="post-card__date">May 29, 2025</span>
             </div>
-            <h2 class="post-card__title">Prompt Engineering Library: 50+ Production-Tested Healthcare AI Prompts</h2>
-            <p class="post-card__excerpt">Discover 50+ production-tested healthcare AI prompts for medical diagnosis,</p>
+            <h2 class="post-card__title">Prompt Engineering Library: 50+ Production-Tested Life Sciences &amp; Healthcare AI Prompts</h2>
+            <p class="post-card__excerpt">Discover 50+ production-tested Life Sciences &amp; Life Sciences &amp; Healthcare AI prompts for medical diagnosis,</p>
             <div class="post-card__footer">
               <span class="post-card__read-time">12 min read</span>
               <span class="post-card__arrow" aria-hidden="true">→</span>
@@ -2510,5 +2522,19 @@
       revealEls.forEach(el => el.classList.add('visible'));
     }
   </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
 </body>
 </html>

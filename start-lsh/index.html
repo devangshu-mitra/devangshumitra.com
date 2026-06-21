@@ -1,0 +1,721 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Life Sciences & Life Sciences &amp; Healthcare AI — resources, articles, and frameworks for PMs and operators building AI in regulated healthcare environments." />
+  <meta property="og:title" content="Life Sciences & Life Sciences &amp; Healthcare AI — Devangshu Mitra" />
+  <meta property="og:description" content="The practitioner's guide to building AI in FDA-regulated, clinical, and BioPharma environments." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <title>Life Sciences &amp; Life Sciences &amp; Healthcare AI — Devangshu Mitra</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="../css/design-system.css" />
+  <link rel="stylesheet" href="../css/animations.css" />
+
+  <style>
+    .page-hero {
+      padding-top: calc(var(--nav-height) + var(--space-24));
+      padding-bottom: var(--space-24);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .breadcrumb {
+      display: flex;
+      align-items: center;
+      gap: var(--space-2);
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      letter-spacing: 0.08em;
+      margin-bottom: var(--space-6);
+    }
+
+    .breadcrumb a {
+      color: var(--color-text-muted);
+      transition: color var(--duration-fast);
+    }
+
+    .breadcrumb a:hover { color: var(--color-text); }
+
+    .breadcrumb__sep { opacity: 0.4; }
+
+    .page-eyebrow {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      font-weight: 400;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--color-text-muted);
+      margin-bottom: var(--space-4);
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-4xl), 6vw, var(--text-6xl));
+      font-weight: 300;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      color: var(--color-text);
+      margin-bottom: var(--space-6);
+    }
+
+    .page-subtitle {
+      font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+      font-weight: 300;
+      line-height: 1.75;
+      color: var(--color-text-muted);
+      max-width: 600px;
+    }
+
+    /* ---- Intro statement ---- */
+    .intro-section {
+      padding-block: var(--space-24);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .intro-block {
+      max-width: 720px;
+    }
+
+    .intro-block p {
+      font-size: clamp(var(--text-base), 1.5vw, var(--text-lg));
+      font-weight: 300;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+    }
+
+    .intro-block p + p { margin-top: var(--space-5); }
+
+    .intro-block strong {
+      color: var(--color-text);
+      font-weight: 500;
+    }
+
+    /* ---- Industries grid ---- */
+    .industries-section {
+      padding-block: var(--space-24);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .industries-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-5);
+      margin-top: var(--space-12);
+    }
+
+    @media (max-width: 900px) {
+      .industries-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 560px) {
+      .industries-grid { grid-template-columns: 1fr; }
+    }
+
+    .industry-card {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      transition: border-color var(--duration-base) var(--ease-out),
+                  transform var(--duration-base) var(--ease-out);
+    }
+
+    .industry-card:hover {
+      border-color: var(--color-accent-dim);
+      transform: translateY(-3px);
+    }
+
+    .industry-card__icon {
+      font-size: 1.5rem;
+      line-height: 1;
+    }
+
+    .industry-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+    }
+
+    .industry-card__body {
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      color: var(--color-text-muted);
+    }
+
+    /* ---- Featured articles ---- */
+    .articles-section {
+      padding-block: var(--space-24);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .article-list {
+      margin-top: var(--space-12);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-1);
+    }
+
+    .article-item {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: var(--space-6);
+      padding: var(--space-5) 0;
+      border-bottom: 1px solid var(--color-border);
+      text-decoration: none;
+      color: inherit;
+      transition: color var(--duration-fast);
+    }
+
+    .article-item:first-child { border-top: 1px solid var(--color-border); }
+
+    .article-item:hover .article-item__title {
+      color: var(--color-accent);
+    }
+
+    .article-item__left {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      flex: 1;
+    }
+
+    .article-item__tag {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .article-item__title {
+      font-family: var(--font-display);
+      font-size: var(--text-lg);
+      font-weight: 500;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      transition: color var(--duration-fast);
+      line-height: 1.3;
+    }
+
+    .article-item__arrow {
+      font-size: var(--text-lg);
+      color: var(--color-text-muted);
+      flex-shrink: 0;
+      transition: transform var(--duration-base) var(--ease-out),
+                  color var(--duration-fast);
+    }
+
+    .article-item:hover .article-item__arrow {
+      transform: translateX(4px);
+      color: var(--color-accent);
+    }
+
+    /* ---- Resources ---- */
+    .resources-section {
+      background: var(--color-surface);
+      padding-block: var(--space-24);
+      border-bottom: 1px solid var(--color-border);
+    }
+
+    .resources-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--space-5);
+      margin-top: var(--space-12);
+    }
+
+    @media (max-width: 700px) {
+      .resources-grid { grid-template-columns: 1fr; }
+    }
+
+    .resource-card {
+      background: var(--color-bg);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-sm);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      text-decoration: none;
+      color: inherit;
+      position: relative;
+      overflow: hidden;
+      transition: border-color var(--duration-base) var(--ease-out),
+                  transform var(--duration-base) var(--ease-out);
+    }
+
+    .resource-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--color-accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform var(--duration-base) var(--ease-out);
+    }
+
+    .resource-card:hover {
+      border-color: var(--color-accent-dim);
+      transform: translateY(-3px);
+    }
+
+    .resource-card:hover::before { transform: scaleX(1); }
+
+    .resource-card__label {
+      font-family: var(--font-mono);
+      font-size: var(--text-xs);
+      color: var(--color-text-muted);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .resource-card__title {
+      font-family: var(--font-display);
+      font-size: var(--text-base);
+      font-weight: 600;
+      color: var(--color-text);
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .resource-card__body {
+      font-size: var(--text-sm);
+      line-height: 1.7;
+      color: var(--color-text-muted);
+    }
+
+    /* ---- CTA ---- */
+    .cta-section {
+      padding-block: var(--space-24);
+    }
+
+    .cta-box {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: var(--space-12) var(--space-10);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      max-width: 680px;
+    }
+
+    .cta-box h2 {
+      font-family: var(--font-display);
+      font-size: clamp(var(--text-2xl), 3vw, var(--text-3xl));
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      color: var(--color-text);
+    }
+
+    .cta-box p {
+      font-size: var(--text-sm);
+      color: var(--color-text-muted);
+      line-height: 1.75;
+    }
+
+    .cta-actions {
+      display: flex;
+      gap: var(--space-4);
+      flex-wrap: wrap;
+    }
+  </style>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <!-- ========== NAV ========== -->
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <!-- ========== PAGE HERO ========== -->
+  <section class="page-hero" aria-labelledby="hero-title">
+    <div class="container">
+      <nav class="breadcrumb reveal" aria-label="Breadcrumb">
+        <a href="../start-here/">Start Here</a>
+        <span class="breadcrumb__sep" aria-hidden="true">/</span>
+        <span aria-current="page">Life Sciences &amp; Life Sciences &amp; Healthcare AI</span>
+      </nav>
+      <p class="page-eyebrow">Path 01</p>
+      <h1 class="page-title reveal" id="hero-title">Life Sciences &amp; Life Sciences &amp; Healthcare AI</h1>
+      <p class="page-subtitle reveal reveal-delay-1">
+        You're operating in one of the most demanding AI environments that exists — regulated, high-stakes, and clinically consequential. This is your starting point.
+      </p>
+    </div>
+  </section>
+
+  <!-- ========== INTRO ========== -->
+  <section class="intro-section" aria-label="Introduction">
+    <div class="container">
+      <div class="intro-block reveal">
+        <p>
+          Life Sciences &amp; Healthcare AI is not enterprise AI with a white coat. The failure modes are different, the regulatory surface is enormous, and the trust bar is set by people whose job it is to say no. <strong>Most AI products fail here not because the model was wrong — but because the PM didn't understand the environment.</strong>
+        </p>
+        <p>
+          I've spent years building AI products across clinical trials, pharmacovigilance, drug discovery, and health system operations. I write what I wish existed when I was figuring this out — practitioner-level, specific, and honest about what doesn't work.
+        </p>
+        <p>
+          Start with the industries below, then move to the resources and reading list. If you're building something and want to trade ideas, the <a href="../consulting/" style="color:var(--color-text);border-bottom:1px solid var(--color-border);">virtual coffee is real</a>.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== INDUSTRIES ========== -->
+  <section class="industries-section" aria-labelledby="industries-title">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-heading__eyebrow">Where AI is being built</p>
+        <h2 class="section-heading__title" id="industries-title">Industry Verticals</h2>
+        <p class="section-heading__body">The sub-domains where AI is having real, measurable impact — and where the hard problems still live.</p>
+      </div>
+
+      <div class="industries-grid">
+
+        <div class="industry-card reveal">
+          <span class="industry-card__icon" aria-hidden="true">🧬</span>
+          <h3 class="industry-card__title">Drug Discovery</h3>
+          <p class="industry-card__body">Target identification, molecular design, and candidate screening. Where foundation models are genuinely changing timelines.</p>
+        </div>
+
+        <div class="industry-card reveal reveal-delay-1">
+          <span class="industry-card__icon" aria-hidden="true">📋</span>
+          <h3 class="industry-card__title">Clinical Trials</h3>
+          <p class="industry-card__body">Patient recruitment, protocol design, and real-world evidence. RAG systems and NLP are replacing manual chart review at scale.</p>
+        </div>
+
+        <div class="industry-card reveal reveal-delay-2">
+          <span class="industry-card__icon" aria-hidden="true">⚠️</span>
+          <h3 class="industry-card__title">Pharmacovigilance</h3>
+          <p class="industry-card__body">Adverse event detection, signal detection, and post-market surveillance. High regulatory exposure, enormous data volumes.</p>
+        </div>
+
+        <div class="industry-card reveal">
+          <span class="industry-card__icon" aria-hidden="true">📜</span>
+          <h3 class="industry-card__title">Regulatory Intelligence</h3>
+          <p class="industry-card__body">FDA guidance parsing, SaMD classification, and regulatory pathway analysis. LLMs are reducing weeks of legal review to hours.</p>
+        </div>
+
+        <div class="industry-card reveal reveal-delay-1">
+          <span class="industry-card__icon" aria-hidden="true">🏥</span>
+          <h3 class="industry-card__title">Health Systems</h3>
+          <p class="industry-card__body">EHR-integrated AI, prior authorization, clinical decision support. The distribution challenge is EHR lock-in; the model problem is secondary.</p>
+        </div>
+
+        <div class="industry-card reveal reveal-delay-2">
+          <span class="industry-card__icon" aria-hidden="true">🔬</span>
+          <h3 class="industry-card__title">Diagnostics &amp; Imaging</h3>
+          <p class="industry-card__body">Computer vision for radiology, pathology, and surgical guidance. FDA 510(k) and De Novo pathways shape every product decision.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FEATURED ARTICLES ========== -->
+  <section class="articles-section" aria-labelledby="articles-title">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-heading__eyebrow">Required reading</p>
+        <h2 class="section-heading__title" id="articles-title">Start With These</h2>
+        <p class="section-heading__body">The highest-signal pieces for anyone building or buying AI in healthcare.</p>
+      </div>
+
+      <div class="article-list reveal reveal-delay-1">
+
+        <a href="../posts/clinical-trial-ai-playbook/" class="article-item" aria-label="Read: Clinical Trial AI Playbook">
+          <div class="article-item__left">
+            <span class="article-item__tag">Clinical Trials</span>
+            <span class="article-item__title">Clinical Trial AI Playbook</span>
+          </div>
+          <span class="article-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="../posts/fda-samd-guidance-product-managers/" class="article-item" aria-label="Read: FDA SaMD Guidance for Product Managers">
+          <div class="article-item__left">
+            <span class="article-item__tag">FDA &amp; Regulatory</span>
+            <span class="article-item__title">FDA SaMD Guidance for Product Managers</span>
+          </div>
+          <span class="article-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="../posts/the-hidden-risks-of-llm-hallucination-in-life-sciences-what-every-product-manager-must-know/" class="article-item" aria-label="Read: The Hidden Risks of LLM Hallucination in Life Sciences">
+          <div class="article-item__left">
+            <span class="article-item__tag">Clinical AI</span>
+            <span class="article-item__title">The Hidden Risks of LLM Hallucination in Life Sciences</span>
+          </div>
+          <span class="article-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="../posts/biopharma-drug-discovery/" class="article-item" aria-label="Read: AI in BioPharma Drug Discovery">
+          <div class="article-item__left">
+            <span class="article-item__tag">BioPharma</span>
+            <span class="article-item__title">AI in BioPharma Drug Discovery</span>
+          </div>
+          <span class="article-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="../posts/genai-governance-life-sciences-framework/" class="article-item" aria-label="Read: GenAI Governance Framework for Life Sciences">
+          <div class="article-item__left">
+            <span class="article-item__tag">Governance</span>
+            <span class="article-item__title">GenAI Governance Framework for Life Sciences</span>
+          </div>
+          <span class="article-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+        <a href="../posts/from-pilot-to-production-a-7-step-checklist-for-deploying-genai-in-healthcare/" class="article-item" aria-label="Read: From Pilot to Production: Deploying GenAI in Healthcare">
+          <div class="article-item__left">
+            <span class="article-item__tag">Strategy</span>
+            <span class="article-item__title">From Pilot to Production: Deploying GenAI in Healthcare</span>
+          </div>
+          <span class="article-item__arrow" aria-hidden="true">→</span>
+        </a>
+
+      </div>
+
+      <div style="margin-top:var(--space-10);">
+        <a href="../articles/" class="btn--text reveal">
+          Browse all Life Sciences &amp; Life Sciences &amp; Healthcare AI articles <span aria-hidden="true">→</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== RESOURCES ========== -->
+  <section class="resources-section" aria-labelledby="resources-title">
+    <div class="container">
+      <div class="reveal">
+        <p class="section-heading__eyebrow">Tools &amp; Frameworks</p>
+        <h2 class="section-heading__title" id="resources-title">Resources</h2>
+        <p class="section-heading__body">Practical resources for Life Sciences &amp; Life Sciences &amp; Healthcare AI product work — templates, checklists, and decision frameworks.</p>
+      </div>
+
+      <div class="resources-grid">
+
+        <a href="../posts/fda-ai-ml-regulatory-checklist/" class="resource-card reveal" aria-label="FDA AI/ML Regulatory Checklist">
+          <span class="resource-card__label">Checklist</span>
+          <span class="resource-card__title">FDA AI/ML Regulatory Checklist</span>
+          <span class="resource-card__body">The decision checklist every Life Sciences & Life Sciences &amp; Healthcare AI PM needs before a regulatory conversation.</span>
+        </a>
+
+        <a href="../posts/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/" class="resource-card reveal reveal-delay-1" aria-label="RAG vs Fine-tuning for Clinical AI">
+          <span class="resource-card__label">Framework</span>
+          <span class="resource-card__title">RAG vs Fine-tuning for Clinical AI</span>
+          <span class="resource-card__body">Architecture decision guide for clinical AI systems — when to use what, and why it matters in regulated environments.</span>
+        </a>
+
+        <a href="../posts/ai-vendor-evaluation-scorecard/" class="resource-card reveal" aria-label="AI Vendor Evaluation Scorecard">
+          <span class="resource-card__label">Template</span>
+          <span class="resource-card__title">AI Vendor Evaluation Scorecard</span>
+          <span class="resource-card__body">A scorecard that works across EHR integrations, LLM providers, and specialty AI platforms.</span>
+        </a>
+
+        <a href="../posts/state-of-ai-in-healthcare-2026-executive-summary/" class="resource-card reveal reveal-delay-1" aria-label="State of AI in Healthcare 2026">
+          <span class="resource-card__label">Research</span>
+          <span class="resource-card__title">State of AI in Healthcare 2026</span>
+          <span class="resource-card__body">Where the industry actually is — not the analyst hype cycle, but the deployment reality on the ground.</span>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== CTA ========== -->
+  <section class="cta-section" aria-labelledby="cta-title">
+    <div class="container">
+      <div class="cta-box reveal">
+        <h2 id="cta-title">Building something in this space?</h2>
+        <p>If you're working on a hard problem at the intersection of AI and life sciences, I'm interested. Virtual coffee is real — no pitch decks, no agenda.</p>
+        <div class="cta-actions">
+          <a href="../consulting/" class="btn btn--outline">Let's talk</a>
+          <a href="../start-here/" class="btn--text">← Back to Start Here</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+      <div>
+        <div class="footer__brand">Devangshu Mitra</div>
+        <p class="footer__tagline">AI Product Leader · Enterprise GenAI Builder · Life Sciences &amp; Life Sciences & Life Sciences &amp; Healthcare AI PM</p>
+      </div>
+      <nav aria-label="Footer navigation">
+        <ul class="footer__links" role="list">
+          <li><a href="../articles/" class="footer__link">Articles</a></li>
+          <li><a href="../about/" class="footer__link">About</a></li>
+          <li><a href="../newsletter/" class="footer__link">Newsletter</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__bottom">
+      <span>© <span id="year"></span> Devangshu Mitra. All rights reserved.</span>
+      <span>Built with intention.</span>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const nav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+      updateScrollProgress();
+    }, { passive: true });
+
+    const progressBar = document.getElementById('scrollProgress');
+    function updateScrollProgress() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
+      progressBar.style.transform = `scaleX(${progress})`;
+    }
+
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open', isOpen);
+      hamburger.setAttribute('aria-expanded', isOpen);
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    function closeMenu() {
+      hamburger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
+    });
+
+    const revealEls = document.querySelectorAll('.reveal, .reveal--left, .reveal--right, .reveal--scale, .reveal--fade');
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      revealEls.forEach(el => observer.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+</body>
+</html>
