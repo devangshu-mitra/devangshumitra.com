@@ -293,21 +293,8 @@
     // ---- Year ----
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // ---- Nav: scroll state ----
-    const nav = document.getElementById('mainNav');
-    window.addEventListener('scroll', () => {
-      nav.classList.toggle('scrolled', window.scrollY > 20);
-      updateScrollProgress();
-    }, { passive: true });
-
-    // ---- Scroll progress bar ----
+    // ---- Scroll progress bar (updated via lenis.on below) ----
     const progressBar = document.getElementById('scrollProgress');
-    function updateScrollProgress() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? scrollTop / docHeight : 0;
-      progressBar.style.transform = `scaleX(${progress})`;
-    }
 
     // ---- Hamburger / mobile menu ----
     const hamburger = document.getElementById('hamburger');
@@ -413,6 +400,18 @@ document.addEventListener('click', () => {
     });
     function rafLoop(time) { lenis.raf(time); requestAnimationFrame(rafLoop); }
     requestAnimationFrame(rafLoop);
+
+    // ---- Route nav state + progress bar through Lenis (fixes stutter) ----
+    lenis.on('scroll', ({ scroll }) => {
+      const _nav = document.getElementById('mainNav');
+      const _bar = document.getElementById('scrollProgress');
+      if (_nav) _nav.classList.toggle('scrolled', scroll > 20);
+      if (_bar) {
+        const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        const progress = docHeight > 0 ? scroll / docHeight : 0;
+        _bar.style.transform = `scaleX(${progress})`;
+      }
+    });
   </script>
 
   <!-- Magnetic CTAs -->
