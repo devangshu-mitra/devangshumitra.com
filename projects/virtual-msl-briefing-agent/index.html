@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="A client asked for a better search tool for their medical science liaisons. Discovery interviews revealed the real job to be done was synthesis, not search - and reframing the ask delivered 5x MSL coverage and 60% lower prep cost." />  <title>From Search Tool to Briefing Agent: A Product-Judgment Story — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+  <link rel="canonical" href="https://devangshumitra.com/projects/virtual-msl-briefing-agent/" />
+  <meta property="og:title" content="From Search Tool to Briefing Agent: A Product-Judgment Story — Devangshu Mitra" />
+  <meta property="og:description" content="A client asked for a better search tool for their medical science liaisons. Discovery interviews revealed the real job to be done was synthesis, not search - and reframing the ask delivered 5x MSL coverage and 60% lower prep cost." />
+  <meta property="og:url" content="https://devangshumitra.com/projects/virtual-msl-briefing-agent/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "From Search Tool to Briefing Agent: A Product-Judgment Story",
+    "description": "A client asked for a better search tool for their medical science liaisons. Discovery interviews revealed the real job to be done was synthesis, not search - and reframing the ask delivered 5x MSL coverage and 60% lower prep cost.",
+    "url": "https://devangshumitra.com/projects/virtual-msl-briefing-agent/",
+    "datePublished": "2026-01-01",
+    "author": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com/about/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com"
+    }
+  }
+  </script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2461936');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/projects/" class="nav__dropdown-item" role="menuitem">Projects</a></li>
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/projects/" class="nav__link" onclick="closeMenu()">Projects</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/projects/" class="post-header__back" aria-label="Back to all projects">← Back to Projects</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Product Judgment</span>
+            <time class="post-header__date" datetime="2026-07-08" itemprop="datePublished">Jul 8, 2026</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">From Search Tool to Briefing Agent: A Product-Judgment Story</h1>
+          <p class="post-header__excerpt" itemprop="description">A client asked for a better search tool for their medical science liaisons. Discovery interviews revealed the real job to be done was synthesis, not search - and reframing the ask delivered 5x MSL coverage and 60% lower prep cost.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+<h1>From Search Tool to Briefing Agent: A Product-Judgment Story</h1>
+<hr>
+<h2>The Request: "We Need a Better Search Tool"</h2>
+<p>A global pharmaceutical client's medical affairs organization came to us with a request that sounded, on its surface, like a straightforward search problem. Their medical science liaisons - the field-based scientists who meet with physicians and researchers to discuss clinical data on their company's therapies - were spending significant time trying to find relevant publications before each engagement. The ask was: build us a better way to search the literature.</p>
+<p>It would have been easy to say yes and start scoping a search interface. Better indexing, better filters, faster retrieval against the published literature and internal publication databases. That is what was asked for, and a team eager to ship something would have shipped exactly that.</p>
+<p>We did not start building. We started interviewing.</p>
+<h2>What the Interviews Actually Revealed</h2>
+<p>Over several weeks, we sat with a dozen medical science liaisons across therapeutic areas and watched them prepare for real engagements, not hypothetical ones. The pattern that emerged had nothing to do with search speed.</p>
+<p>An MSL preparing to meet with a specific physician was not struggling to find that physician's publications. A name search against the literature takes seconds. What consumed hours - sometimes an entire evening before a high-stakes meeting - was what came after finding the papers: reading them, cross-referencing them against the company's own trial data, identifying where the physician's published positions aligned or conflicted with the therapy's evidence base, and synthesizing all of it into something the MSL could actually use in a fifteen-minute conversation.</p>
+<p>The job to be done was never search. It was synthesis under time pressure, personalized to a specific person the MSL was about to sit across from. Search was the easy 10% of the task that happened to be the most visible, because it was the part that looked like typing a query into a box. The other 90% - reading, cross-referencing, synthesizing, and packaging into something conversational - was invisible in the way that all cognitive labor is invisible until you watch someone actually do it.</p>
+<h2>The Reframe</h2>
+<p>Telling a client that the thing they asked for is not the thing they need is a harder conversation than it sounds like it should be. The client had a budget line item for "search tool." They had stakeholders who had already described the initiative that way internally. Reframing the deliverable meant asking them to change how they talked about the project to their own leadership, which is a bigger ask than it looks like from the outside.</p>
+<p>We made the case with the interview evidence itself rather than an abstract argument about jobs-to-be-done theory. We showed them the actual time breakdown from shadowing MSLs: minutes spent searching versus hours spent synthesizing. That distinction was persuasive in a way a slide about product philosophy would not have been. Once the client's medical affairs leadership saw where their MSLs' time was actually going, the reframe was not a hard sell. It was obvious in retrospect, which is usually how a good reframe feels once someone has already made it for you.</p>
+<h2>What We Built: A Pre-Call Briefing Agent</h2>
+<p>The system we shipped does not function like a search tool at all, even though it uses retrieval under the hood. Give it an upcoming engagement - a specific health care provider and, where relevant, the therapeutic area of the conversation - and it produces a synthesized pre-call brief rather than a list of results.</p>
+<p>The agent pulls the HCP's publication history, identifies their stated clinical positions and areas of research focus, and cross-references that against the company's own trial and real-world evidence data to surface where alignment exists and where a genuine scientific tension might come up in conversation. The output an MSL receives before a call is not ten links to go read. It is a synthesized brief: who this person is as a researcher, what they have published and argued for, and where the company's evidence base speaks directly to their work - flagged as either reinforcing or worth being ready to discuss.</p>
+<p>That reframing changed what "done" looked like for the product. A search tool succeeds when it returns the right documents. A briefing agent succeeds when an MSL walks into a room prepared in a way they were not before, and that meant the evaluation criteria, the interface, and the underlying agent design all had to be built around synthesis and personalization rather than retrieval speed.</p>
+<p>Every brief the agent produces carries citations back to the specific publications and trial data it drew from, for the same reason a good analyst annotates their own work: an MSL walking into a scientific exchange with a physician cannot afford to repeat a claim they cannot immediately trace back to its source if challenged. That traceability was not a compliance requirement anyone handed us. It came directly out of watching MSLs in the field and noticing how often they double-checked their own notes before saying something out loud in the room.</p>
+<h2>Rolling It Out Without Breaking Trust</h2>
+<p>We did not roll the briefing agent out to the full MSL population at once. A reframed product still has to earn trust with the people who were promised something different than what they are now getting, and the fastest way to lose that trust is a bad brief on someone's highest-stakes engagement of the month. We piloted with a small group of MSLs across two therapeutic areas first, reviewed every brief against what an experienced MSL would have produced manually, and only expanded once the gap between the two had closed. That staged rollout took longer than a single company-wide launch would have. It also meant that by the time every MSL had access to the tool, the ones who had used it longest were the ones telling their peers it was worth trusting, which did more for adoption than any internal announcement could have.</p>
+<h2>Results</h2>
+<ul>
+<li><strong>MSL coverage increased roughly 5x</strong> - the same team could prepare thoroughly for a substantially larger number of engagements per week once synthesis time collapsed from hours to minutes per brief.</li>
+<li><strong>Pre-engagement preparation cost dropped by roughly 60%</strong>, measured against the team's prior time-and-effort baseline for preparing a single high-stakes HCP engagement.</li>
+<li>The tool that shipped bore almost no resemblance to the one that was originally requested, and the client's own internal description of the initiative changed to match it.</li>
+</ul>
+<h2>What I Would Do Differently</h2>
+<p>I underestimated, early on, how much of the reframing work was really change management rather than product discovery. Once we knew the real job-to-be-done, building the briefing agent was the more straightforward part. Getting the client's own organization to stop calling it "the search tool" internally - so that expectations, success metrics, and stakeholder buy-in all moved with the reframe rather than lagging behind it - took longer than the engineering did.</p>
+<p>I would also start the shadowing earlier relative to any scoping conversation. We ran the interviews after an initial ask had already been framed as search, which meant part of our job was un-anchoring the client from their own first description of the problem. Getting into the field before any solution has been named, even informally, removes that friction.</p>
+<h2>The Broader Pattern: Product Judgment Over Building to Spec</h2>
+<p>The most expensive mistake in enterprise AI product work is not picking the wrong model or under-scoping the engineering effort. It is building exactly what was asked for when what was asked for is not what is actually needed. Clients are experts in their own pain, not in translating that pain into a well-specified product requirement. That translation is the job.</p>
+<p>The tell is usually in the gap between what someone says they want and what they actually spend their time doing. A search request that turns out to mask a synthesis problem is not an unusual finding - it is close to the default pattern in knowledge-work automation, because search is the visible, nameable part of a much larger, mostly invisible cognitive task. The product judgment is in noticing that gap, having the evidence to make the reframe legible to a client's own stakeholders, and being willing to ship something that looks nothing like the original request because it is the thing that actually earns adoption.</p>
+<hr>
+<h3>Further Reading</h3>
+<ul>
+<li><a href="/projects/agentic-internal-platform/">Building a 14-Agent Internal Operations Platform</a></li>
+<li><a href="/projects/consulting-to-product/">From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</a></li>
+<li><a href="/projects/clinical-trial-matching/">Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/projects/" class="post-footer__back btn btn--ghost">← Back to Projects</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>const _l=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);</script>
+  <script>document.querySelectorAll('.post-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');});});</script>
+</body>
+</html>

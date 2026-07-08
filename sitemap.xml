@@ -1020,4 +1020,25 @@
     <changefreq>daily</changefreq>
     <priority>0.8</priority>
   </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/</loc>
+  </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/clinical-trial-matching/</loc>
+  </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/agentic-drug-discovery/</loc>
+  </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/virtual-msl-briefing-agent/</loc>
+  </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/agentic-internal-platform/</loc>
+  </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/brand-factory-launch-system/</loc>
+  </url>
+  <url>
+    <loc>https://devangshumitra.com/projects/consulting-to-product/</loc>
+  </url>
 </urlset>

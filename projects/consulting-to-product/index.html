@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How I transitioned from enterprise consulting to AI product management, transforming client-specific solutions into a scalable platform serving 40+ customers." />  <title>From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+  <link rel="canonical" href="https://devangshumitra.com/projects/consulting-to-product/" />
+  <meta property="og:title" content="From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions — Devangshu Mitra" />
+  <meta property="og:description" content="How I transitioned from enterprise consulting to AI product management, transforming client-specific solutions into a scalable platform serving 40+ customers." />
+  <meta property="og:url" content="https://devangshumitra.com/projects/consulting-to-product/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions",
+    "description": "How I transitioned from enterprise consulting to AI product management, transforming client-specific solutions into a scalable platform serving 40+ customers.",
+    "url": "https://devangshumitra.com/projects/consulting-to-product/",
+    "datePublished": "2026-01-01",
+    "author": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com/about/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com"
+    }
+  }
+  </script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2461936');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/projects/" class="nav__dropdown-item" role="menuitem">Projects</a></li>
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/projects/" class="nav__link" onclick="closeMenu()">Projects</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/projects/" class="post-header__back" aria-label="Back to all projects">← Back to Projects</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Product</span>
+            <time class="post-header__date" datetime="2026-07-08" itemprop="datePublished">Jul 8, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</h1>
+          <p class="post-header__excerpt" itemprop="description">How I transitioned from enterprise consulting to AI product management, transforming client-specific solutions into a scalable platform serving 40+ customers.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+<h1>From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</h1>
+<hr>
+<p>From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions | Devangshu MitraCareer &amp; Craft 12 min read</p>
+<h2>From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</h2>
+<p>How three years of watching clients struggle with the same broken workflows taught me more about product-market fit than any PM framework ever could.</p>
+<p>By Devangshu Mitra | Life Sciences &amp; Healthcare AI Product Manager</p>
+<h2>The Consulting Background</h2>
+<p>I spent the early part of my career doing what most analytically-minded people in tech gravitated toward in the mid-2010s: enterprise consulting. My clients were BioPharma and MedTech companies - big ones, the names you see on hospital walls and research publications. The work was intense, intellectually demanding, and built a set of skills I still reach for every single day.</p>
+<p>In practice, consulting in Life Sciences meant a rotating diet of deeply specific problems. One quarter you were helping a mid-size clinical research organization redesign its site selection process for Phase II oncology trials. The next, you were elbow-deep in a global pharmaceutical company's adverse event reporting workflow, trying to understand why pharmacovigilance teams were spending 60% of their hours doing manual data reconciliation that felt like it should have been automated years ago.</p>
+<p>What I did not fully appreciate at the time was what those engagements were actually teaching me: a map of pain. Across dozens of clients, the same problems kept surfacing in different clothes. The vocabulary changed - "signal detection" at one company was "safety surveillance" at another - but the underlying frustration was identical. Clinical data was fragmented across incompatible systems. Regulatory submissions were authored in Word documents passed around by email. Trial patient matching was done by a coordinator manually cross-referencing spreadsheets against protocol eligibility criteria.</p>
+<p>The consulting playbook for these problems was always the same: you built a bespoke solution, wrote a 60-slide deck, handed it off, and moved on. Occasionally you came back six months later for a "Phase 2" engagement. The client was satisfied. The engagement was profitable. The problem was still there.</p>
+<p>It took me longer than it should have to name the discomfort I was feeling. Every recommendation we delivered was solving the same problem for a different person. We were not building anything. We were describing what should be built, delivering the recommendation, and moving on.</p>
+<h2>The Pivot Point</h2>
+<p>The moment that changed my trajectory was not a dramatic one. It was a debrief call with a client's VP of Clinical Operations, maybe eight months into an engagement that had gone well by every measurable standard. We had delivered a framework for intelligent patient cohort identification - a structured process for layering EHR data against protocol inclusion/exclusion criteria in a way that cut their manual screening burden by roughly half.</p>
+<p>She said something I have thought about hundreds of times since: "This is great. But three other companies have asked us about this exact problem in the last year. When someone builds the product version of what you just described, it's going to be enormous."</p>
+<p>She was right. I had been so close to the work that I had stopped seeing the pattern. The same problem, the same broken workflows, the same frustrated operations teams - across every client we touched. That was not a consulting engagement. That was a product brief.</p>
+<p>I made the transition the following year. The move from a large enterprise consulting practice to a product role at a Life Sciences AI company was not smooth or immediate. There was a real credibility gap to close. I did not have an engineering degree or a traditional PM pedigree from a Big Tech internship pipeline. What I had was several hundred hours of watching enterprise teams try to operate around inadequate tooling, and a very clear picture of what those teams actually needed.</p>
+<p>That turned out to be enough to get in the door. What happened next was harder.</p>
+<h2>Building the First AI Product</h2>
+<p>My first PM role was on a team building an NLP-powered adverse event detection product. The core idea was straightforward: Life Sciences companies receive a continuous stream of unstructured signals - physician notes, patient support calls, field reports - that may contain reportable adverse events. The traditional process was almost entirely manual. A pharmacovigilance analyst would read incoming documents, apply clinical judgment to determine whether a reportable event was present, and then manually format that event for submission to the FDA using the MedWatch schema.</p>
+<p>This process was slow, expensive, and inconsistently applied. Analysts were scarce. Training took months. The regulatory exposure of a missed adverse event was severe.</p>
+<p>The consulting version of me would have documented this problem extensively, recommended a set of workflow changes, and proposed three vendor options. The product version of me had to actually build something. That distinction sounds simple, but it reshapes every decision you make.</p>
+<p>The hardest adjustment in those first six months was learning what "done" actually meant in product work. In consulting, done means the deck is delivered. In product, done means nothing - because the thing you shipped needs adoption, iteration, and maintenance indefinitely. You own the consequences of every decision you made during development, not just through launch but for years afterward.</p>
+<p>The second hard lesson was understanding the difference between a client requirement and a product requirement. In consulting, when a client says "we need this feature," you build it. In product, when a customer says "we need this feature," you ask why three times before touching the roadmap. One customer's urgent need might be an edge case that scales to 2% of your user base. Getting that wrong early is how you end up with a product that is perfectly customized for three clients and useless to everyone else.</p>
+<p>For a more systematic way of thinking about this distinction, I wrote about it in detail when working through <a href="/articles/">defining what MVP means for AI products</a> - it is a different calculus than traditional software because the model itself is part of the product, and its behavior changes with data.</p>
+<p>Despite the growing pains, the first version of the adverse event detection product shipped. It was not elegant. It covered roughly 70% of the use cases we had designed for. It missed edge cases we had not anticipated. But it worked, and more importantly, it worked in a way that we could measure. Clients were triaging AE reports 40% faster in the first month. Analyst hours spent on manual document review dropped by more than a third within two quarters. We had baseline numbers. We had something to build against.</p>
+<h2>Scaling from One Client to Platform</h2>
+<p>The adversarial event product started as a solution configured specifically for one large pharmaceutical client. Their data lived in a particular system, formatted in particular ways, with particular submission workflows tied to particular regulatory bodies. We knew their setup intimately, having spent nearly four months integrating with their infrastructure.</p>
+<p>When the second client came, we did what any team would do in that situation: we tried to adapt the existing solution. What we discovered was that about 30% of what we had built was specific to the first client's systems and processes, and would never apply to anyone else. Another 30% was genuinely generalizable with some abstraction work. And the remaining 40% was core product functionality that should have been modular from day one but was not, because we had optimized for speed to the first client rather than designing for the second, third, and tenth.</p>
+<p>That realization forced a painful but necessary conversation about platform architecture. We needed to rebuild several foundational pieces to support configuration rather than customization - so that a new client could map their data schema to our intake pipeline without requiring us to rewrite ingestion logic every time.</p>
+<p>The effort took most of a quarter. It delayed two features the first client had been expecting. Those were uncomfortable conversations. But what came out the other side was a product that could onboard a new enterprise customer in three weeks, down from the six months the first implementation had taken. That is not an incremental improvement. That is a business model change. Three weeks versus six months is the difference between a consulting engagement and a scalable product.</p>
+<p>Over the next 18 months, the platform grew from serving that first client to more than 40 enterprise customers across BioPharma, MedTech, and contract research organizations. Each new customer accelerated the next - not because the sales cycle shortened dramatically, but because each implementation surfaced edge cases and configuration patterns that we built back into the platform. By client 20, the implementation playbook was tight enough that a customer's own IT team could handle the integration with minimal involvement from us.</p>
+<p>That shift - from requiring our engineers in every deployment to enabling self-service configuration - is the moment I think of when someone asks me what "platform thinking" actually means. It is not an architectural pattern. It is a cultural commitment to solving the general problem rather than the specific one, even when the specific one is right in front of you and easier to reach.</p>
+<h2>What Consulting Taught Me That PM School Did Not</h2>
+<p>I want to be careful here not to be romantic about consulting. The model has real limitations. The incentives are misaligned in ways that matter. The billable-hour structure means you are rewarded for complexity, not simplicity - which is the exact opposite of what makes a good product. The work is episodic in a way that makes it difficult to develop the longitudinal intuition about a problem space that good product management requires.</p>
+<p>But there are things consulting built in me that I have not seen developed as reliably by other paths into product work.</p>
+<p>The first is pattern recognition across organizations. When you have sat across the table from clinical operations teams at 15 different pharmaceutical companies, you develop a clear sense of which problems are universal and which are idiosyncratic. That distinction is enormously valuable in product work. It tells you, with reasonable confidence, whether a customer request reflects a market need or a one-off preference. It is the difference between building a feature and building a solution.</p>
+<p>The second is structured thinking under ambiguity. Consulting drills you relentlessly in the practice of breaking an undefined problem into its components, forming hypotheses about root causes, and testing those hypotheses against available evidence before recommending a course of action. This is exactly how good AI product development works - you form a hypothesis about what the model needs to do, you define what evidence would confirm or disconfirm that hypothesis, and you build the data collection and evaluation infrastructure to find out. Most PM training skips this and jumps to frameworks for prioritization without addressing how to think through what to build in the first place.</p>
+<p>The third is stakeholder fluency. In Life Sciences, the people who use your product and the people who buy your product are almost never the same people. The Chief Medical Officer approves the budget. The pharmacovigilance analyst opens the application every morning. The IT security team controls whether the integration gets approved. The regulatory affairs director decides whether to expand from adverse event detection to label management. Each of these people has a completely different frame for evaluating value. In consulting, you learn early that the person in the room is not always the person whose problem you are solving, and that is a lesson that transfers directly.</p>
+<p>The fourth is the discipline of going to the source. The consulting habit I am most grateful for is the instinct to talk to the person actually doing the work before drawing any conclusions. Not the director, not the VP - the analyst at the bench or the coordinator managing trial documentation. In product, this translates to rigorous user research grounded in observation rather than surveys. It means watching someone try to use your product rather than asking them what they think of it. Those two activities surface entirely different information.</p>
+<p>For a fuller discussion of how these principles connect to go-to-market strategy in enterprise AI, I go into the specifics in my piece on <a href="/product/strategy/go-to-market-strategy/">building a go-to-market strategy for AI products</a> in regulated industries - the dynamics are meaningfully different from standard SaaS.</p>
+<h2>Results and What They Actually Mean</h2>
+<p>There are numbers I could lead with here. Forty-plus enterprise customers. Implementation time reduced from six months to three weeks. Detection accuracy for adverse event signals above 91% in production. Annual recurring revenue growing 3x over two years. Customer retention above 94%. These are real outcomes and they matter.</p>
+<p>But I am more interested in what those numbers represent, because the numbers themselves are downstream of decisions that are harder to quantify.</p>
+<p>The decision to rebuild the platform architecture rather than continue customizing is what made the 40-customer number possible. If we had stayed in bespoke-solution mode, we might have five very satisfied clients and a services business that looked profitable in year two but had no path to scale. The three-week implementation time was not an engineering achievement - it was a product architecture decision made 18 months earlier, when it was not obvious that it was the right call.</p>
+<p>The 91% detection accuracy is meaningful, but what I am prouder of is the human-in-the-loop review design that makes that accuracy trustworthy in a regulated context. The model does not auto-submit adverse events. It surfaces candidates with confidence scores and evidence citations for a trained analyst to review. That design decision - to augment the analyst rather than replace the workflow - is why pharmacovigilance teams actually adopted the product rather than treating it as a compliance liability. Accuracy without trust is a number in a demo. Trust with accuracy is a product in production.</p>
+<p>The consulting-to-product transition is sometimes described as going from advising to doing. That framing is too simple. The more honest version is that it is going from solving one instance of a problem to solving the class of problems it belongs to. It is a different cognitive task. It requires a different relationship to uncertainty, a different time horizon, and a different definition of what it means to succeed.</p>
+<p>What I did not expect is how much the consulting years made me better at it. Not because consulting and product management are the same - they are not - but because the years of sitting with client pain, mapping it, categorizing it, and trying to explain it to people who had not seen it firsthand built a kind of intuitive catalog that I have not found a substitute for. The catalog says: this problem is structural, that one is a workflow issue, this one is a people problem in disguise, and that one - that one is a product opportunity.</p>
+<p>That last recognition is what I was trained to hand off to someone else. Learning to keep it, and do something with it, was the whole transition.</p>
+<p>Consulting to Product Management Enterprise AI Product Life Sciences AI GenAI Client Pain to Product</p>
+<p>Related reading:</p>
+<ul>
+<li><a href="/articles/">Defining MVP for AI Products in Regulated Industries</a></li>
+<li><a href="/product/strategy/go-to-market-strategy/">Go-to-Market Strategy for Enterprise AI Products</a></li>
+</ul>
+<hr>
+<h3>Further Reading</h3>
+<ul>
+<li><a href="/projects/">Building an AI-Powered MedTech Product Suite for Regulated Markets</a></li>
+<li><a href="/projects/clinical-trial-matching/">Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas</a></li>
+<li><a href="/posts/biopharma-drug-discovery/">AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/projects/" class="post-footer__back btn btn--ghost">← Back to Projects</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>const _l=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);</script>
+  <script>document.querySelectorAll('.post-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');});});</script>
+</body>
+</html>

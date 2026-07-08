@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Owning two D2C brands from day one to a combined ~$10M annualized run rate in nine months - and codifying the launch playbook so the next brand didn't have to relearn it the hard way." />  <title>Building the Launch System for a New-Brand Incubator — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+  <link rel="canonical" href="https://devangshumitra.com/projects/brand-factory-launch-system/" />
+  <meta property="og:title" content="Building the Launch System for a New-Brand Incubator — Devangshu Mitra" />
+  <meta property="og:description" content="Owning two D2C brands from day one to a combined ~$10M annualized run rate in nine months - and codifying the launch playbook so the next brand didn't have to relearn it the hard way." />
+  <meta property="og:url" content="https://devangshumitra.com/projects/brand-factory-launch-system/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Building the Launch System for a New-Brand Incubator",
+    "description": "Owning two D2C brands from day one to a combined ~$10M annualized run rate in nine months - and codifying the launch playbook so the next brand didn't have to relearn it the hard way.",
+    "url": "https://devangshumitra.com/projects/brand-factory-launch-system/",
+    "datePublished": "2026-01-01",
+    "author": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com/about/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com"
+    }
+  }
+  </script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2461936');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/projects/" class="nav__dropdown-item" role="menuitem">Projects</a></li>
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/projects/" class="nav__link" onclick="closeMenu()">Projects</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/projects/" class="post-header__back" aria-label="Back to all projects">← Back to Projects</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Growth Product</span>
+            <time class="post-header__date" datetime="2026-07-08" itemprop="datePublished">Jul 8, 2026</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building the Launch System for a New-Brand Incubator</h1>
+          <p class="post-header__excerpt" itemprop="description">Owning two D2C brands from day one to a combined ~$10M annualized run rate in nine months - and codifying the launch playbook so the next brand didn't have to relearn it the hard way.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+<h1>Building the Launch System for a New-Brand Incubator</h1>
+<hr>
+<h2>Two Brands, Nine Months, No Playbook</h2>
+<p>Before I moved into AI product management, I spent a chapter of my career on the core team of a founder-sponsored new-brand incubator inside a direct-to-consumer unicorn - a small internal group whose job was to take new brand concepts from a blank page to a real, revenue-generating business, fast, using the parent company's distribution and infrastructure as a running start rather than building each brand's go-to-market from zero.</p>
+<p>I owned two D2C brands from day one. Not from launch day - from the day the brand concept existed only as a name and a product thesis. Nine months later, the two brands combined were running at a roughly $10 million annualized run rate. That number is the one people ask about first. It is also the least interesting part of the story, because it was not the output of one good idea. It was the output of a launch system that did not exist when I started, and that I had to build while simultaneously using it.</p>
+<h2>Why "Launch Fast" Breaks Without a System</h2>
+<p>The incubator's whole premise was speed - launch a new brand in a fraction of the time a standalone startup would take, because you already have manufacturing relationships, a warehouse network, and a customer base to draw early buyers from. What nobody had solved was what happens after the product ships. Every prior brand launch inside the incubator had rebuilt its acquisition funnels, its lifecycle marketing, and its CRM logic from scratch, because each one had been treated as a one-off project rather than an instance of a repeatable pattern.</p>
+<p>That meant every launch was reinventing decisions that had already been made, sometimes badly, by the brand before it. Which channels to prioritize at launch versus at scale. How to sequence a new customer's first ninety days so they became a repeat buyer instead of a one-time purchase. What pricing and offer structure actually held up once the launch-week discount expired. None of that was written down anywhere as a system. It lived, if it lived anywhere, in the head of whoever had shipped the last brand.</p>
+<h2>What I Built: The Launch GTM System</h2>
+<p>I authored the launch go-to-market system that the incubator adopted as its standard, built around two components.</p>
+<p>The first was a set of eight acquisition funnels, each mapped to a different channel and customer-intent level rather than a generic "run ads everywhere" approach - separate funnel logic for a cold-audience discovery buyer on paid social versus a warm-audience buyer arriving through influencer or affiliate content, each with its own landing sequence, offer structure, and expected cost-per-acquisition range so a new brand launch could pick the right combination for its category instead of guessing.</p>
+<p>The second was a fifteen-journey lifecycle CRM - a structured set of customer journeys covering onboarding, replenishment, win-back, and loyalty escalation, built so that a new brand did not have to design its retention marketing from a blank canvas. A brand entering the incubator could plug into journeys that had already been tested on a prior brand's customer base, adapted for its category, rather than starting the lifecycle marketing conversation from zero.</p>
+<h2>Fixing the Money Leaks: Pricing and Offer Experiments</h2>
+<p>Acquisition and retention infrastructure meant nothing if the unit economics underneath them did not hold up, so I ran a structured series of pricing and offer experiments across both brands - testing subscription cadence, bundle structure, and discount depth against actual churn and lifetime value rather than against launch-week conversion rate, which was the metric everyone had been optimizing for by default.</p>
+<p>The result was a roughly 25% reduction in churn and a roughly 40% increase in average order value and lifetime value, driven mostly by moving away from deep, unsustainable launch discounting toward offer structures that priced correctly for what a repeat customer was actually worth. Launch-week conversion rate is a vanity metric if the customer it buys does not come back. Getting the incubator's brands to optimize for the second purchase instead of the first was a harder internal argument than the pricing experiments themselves.</p>
+<h2>The iOS14 Attribution Crisis</h2>
+<p>Partway through, Apple's rollout of App Tracking Transparency in iOS 14.5 broke the attribution infrastructure that essentially every direct-to-consumer brand advertising on Meta had been relying on. Pixel-based, last-click attribution that had reliably told us which campaigns were actually driving purchases suddenly reported a fraction of the conversions that were really happening, and every brand running paid social at scale was making budget decisions on data that had quietly become unreliable.</p>
+<p>I rebuilt our attribution stack around Meta's Conversions API, moving measurement from a browser-side pixel that Apple's changes had crippled to a server-side event pipeline that reported conversions directly from our own infrastructure. That rebuild recovered roughly 70% of the ad efficiency the platforms had lost to the attribution gap, and it became the reference implementation the rest of the incubator's brands adopted once their own numbers started looking similarly broken.</p>
+<h2>Codifying the Playbook: 145 Activities, One Standard</h2>
+<p>Building all of this twice, for two brands, in parallel, made the repeatable pattern underneath the work impossible to ignore. I codified it into a 145-activity range-launch playbook - a sequenced checklist spanning everything from pre-launch category research through the first ninety days of lifecycle marketing, specific enough that a new brand team could execute against it without rediscovering the same lessons the hard way.</p>
+<p>That playbook became the incubator's standard for every subsequent brand launch, which is the outcome I am most proud of from that chapter. A good launch is useful once. A good launch system is useful every time after.</p>
+<h2>Results</h2>
+<ul>
+<li><strong>Two brands taken from day-one concept to a combined ~$10 million annualized run rate in roughly nine months.</strong></li>
+<li><strong>Eight acquisition funnels and a fifteen-journey lifecycle CRM</strong>, authored as the incubator's reusable go-to-market infrastructure rather than one-off campaign work.</li>
+<li><strong>Churn reduced by roughly 25%; average order value and lifetime value increased by roughly 40%</strong>, through pricing and offer experiments run against retention economics rather than launch-week conversion.</li>
+<li><strong>Ad efficiency recovered by roughly 70%</strong> after rebuilding attribution around Meta's Conversions API in response to iOS14's tracking changes.</li>
+<li><strong>A 145-activity launch playbook</strong> adopted as the incubator's standard operating system for every brand launched after mine.</li>
+</ul>
+<h2>What I Would Do Differently</h2>
+<p>I would have started codifying the playbook alongside the first brand rather than after seeing the pattern repeat on the second one. I treated the first launch as a one-off problem to solve under deadline pressure, which is the same mistake the incubator's prior launches had made before I arrived. I only recognized it as a system once I was forced to rebuild the same decisions a second time.</p>
+<p>I would also have pushed for the attribution rebuild earlier, proactively, rather than reactively after the iOS14 changes had already degraded a full quarter of paid media decisions. The signal that something had broken was visible in the data before we acted on it. I was slower than I should have been to trust that the platform-reported numbers, not our targeting, had become the problem.</p>
+<h2>The Broader Pattern: 0-to-1 Systems Thinking Translates</h2>
+<p>The specific tools change - acquisition funnels and lifecycle CRM in that chapter, multi-agent orchestration and foundation models in the work I do now. The underlying discipline does not. Every 0-to-1 problem I have worked on since, in an entirely different domain, has rewarded the same instinct: do not solve the instance in front of you, solve the class of problem it belongs to, and write down the system so the next person does not have to relearn what you just learned under deadline pressure.</p>
+<p>That is the thread that actually connects a direct-to-consumer brand launch to the enterprise AI platforms I build now. The domain looks nothing alike. The underlying question - what is the repeatable system underneath this one-off request, and who is going to need it after I am no longer the one running it - is identical.</p>
+<hr>
+<h3>Further Reading</h3>
+<ul>
+<li><a href="/projects/consulting-to-product/">From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</a></li>
+<li><a href="/projects/agentic-internal-platform/">Building a 14-Agent Internal Operations Platform</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/projects/" class="post-footer__back btn btn--ghost">← Back to Projects</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>const _l=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);</script>
+  <script>document.querySelectorAll('.post-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');});});</script>
+</body>
+</html>

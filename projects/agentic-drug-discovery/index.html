@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How a multi-agent orchestration platform built on NVIDIA BioNeMo and AMIE foundation models cut early-discovery cycle times by up to 70% for a Global Top 3 pharma client - and why the trust architecture mattered more than the model choice." />  <title>Building an Agentic Drug-Discovery Platform — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+  <link rel="canonical" href="https://devangshumitra.com/projects/agentic-drug-discovery/" />
+  <meta property="og:title" content="Building an Agentic Drug-Discovery Platform — Devangshu Mitra" />
+  <meta property="og:description" content="How a multi-agent orchestration platform built on NVIDIA BioNeMo and AMIE foundation models cut early-discovery cycle times by up to 70% for a Global Top 3 pharma client - and why the trust architecture mattered more than the model choice." />
+  <meta property="og:url" content="https://devangshumitra.com/projects/agentic-drug-discovery/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Building an Agentic Drug-Discovery Platform",
+    "description": "How a multi-agent orchestration platform built on NVIDIA BioNeMo and AMIE foundation models cut early-discovery cycle times by up to 70% for a Global Top 3 pharma client - and why the trust architecture mattered more than the model choice.",
+    "url": "https://devangshumitra.com/projects/agentic-drug-discovery/",
+    "datePublished": "2026-01-01",
+    "author": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com/about/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com"
+    }
+  }
+  </script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2461936');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/projects/" class="nav__dropdown-item" role="menuitem">Projects</a></li>
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/projects/" class="nav__link" onclick="closeMenu()">Projects</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/projects/" class="post-header__back" aria-label="Back to all projects">← Back to Projects</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Agentic AI</span>
+            <time class="post-header__date" datetime="2026-07-08" itemprop="datePublished">Jul 8, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building an Agentic Drug-Discovery Platform</h1>
+          <p class="post-header__excerpt" itemprop="description">How a multi-agent orchestration platform built on NVIDIA BioNeMo and AMIE foundation models cut early-discovery cycle times by up to 70% for a Global Top 3 pharma client - and why the trust architecture mattered more than the model choice.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+<h1>Building an Agentic Drug-Discovery Platform</h1>
+<hr>
+<h2>The Bottleneck Before the Bottleneck</h2>
+<p>Ask most people where drug discovery is slow and they will point to clinical trials - years of Phase I through Phase III, regulatory review, manufacturing scale-up. That is real, but it is not where I spent most of my time. Long before a compound reaches a trial site, it has to survive early discovery: the stretch where a target gets identified, thousands of candidate compounds get screened down to a shortlist, and the survivors get evaluated for whether they will actually behave like a drug in a human body rather than just in a dish.</p>
+<p>Widely-cited research from the Tufts Center for the Study of Drug Development puts the fully burdened cost of bringing a new drug to market well north of $2 billion, and early discovery alone typically consumes several years of that timeline before a single patient is ever dosed. Most of that time is not laboratory bench work. It is scientists reading. Reading the literature to understand what is already known about a target. Reading assay data to decide which of thousands of compounds deserve a second look. Reading ADMET data - absorption, distribution, metabolism, excretion, toxicity - to figure out which promising binder is going to fail for a reason that has nothing to do with whether it hits the target.</p>
+<p>A Global Top 3 pharma client came to us with a version of this problem stated narrowly: could we speed up literature review for their target identification teams. That framing turned out to be too small. Literature review, target identification, compound screening, and ADMET prediction are not four separate problems that happen to sit next to each other on a timeline. They are four stages of the same reasoning process, and the handoffs between them were where the real time was being lost.</p>
+<h2>Why One Model Does Not Solve Drug Discovery</h2>
+<p>The instinct when you hear "speed up literature review" is to reach for a single large language model, point it at the literature, and call it done. We tried a version of that early and it broke almost immediately for a structural reason: each stage of early discovery requires a different kind of reasoning, over a different kind of data, with a different definition of what a good answer looks like.</p>
+<p>Literature review is retrieval and synthesis over unstructured text. Target identification is reasoning over biological pathways and genetic association data, where the output needs to be a ranked, justified hypothesis rather than a summary. Compound screening is pattern matching over molecular structure and bioactivity data at a scale no human reads directly. ADMET prediction is a narrower, more specialized modeling problem where the inputs are physicochemical descriptors rather than free text, and a wrong answer has real safety implications downstream.</p>
+<p>A single general-purpose model handled the first stage passably and did progressively worse at each stage after it, because it had no mechanism for treating "I am now reasoning about biological pathways" differently from "I am now reasoning about molecular toxicity." The fix was not a bigger model. It was a multi-agent architecture where each stage is owned by an agent scoped to that specific reasoning task, with an orchestration layer that manages handoffs and, critically, tracks what each agent was confident about and what it was not.</p>
+<h2>What We Built</h2>
+<p>We built four agents, each with a distinct job, coordinated by an orchestration layer rather than chained as a fixed pipeline.</p>
+<p><strong>The literature review agent</strong> ingests and indexes the published and preprint literature relevant to a target, using a foundation model tuned for biomedical text - our stack leaned on NVIDIA's BioNeMo framework for biology-specific model tooling, alongside Google's AMIE line of medical-reasoning foundation models for structuring clinical and mechanistic language into something the downstream agents could consume. The output is not a summary. It is a structured set of claims, each tagged with its source and a confidence estimate, that the target identification agent can query directly.</p>
+<p><strong>The target identification agent</strong> takes that structured literature base plus genetic association and pathway data and produces a ranked list of candidate targets with an explicit rationale for each ranking - what evidence supports the target, what evidence contradicts it, and where the evidence is simply thin.</p>
+<p><strong>The compound screening agent</strong> takes a validated target and searches known and generated compound libraries for candidates likely to bind it, using the target identification agent's rationale to weight which binding modes actually matter biologically rather than just computationally.</p>
+<p><strong>The ADMET prediction agent</strong> takes the screening agent's shortlist and evaluates each candidate against absorption, distribution, metabolism, excretion, and toxicity models, flagging candidates likely to fail for pharmacokinetic reasons before a single dollar gets spent on wet-lab validation.</p>
+<p>Each agent hands its output to the next with its confidence scores attached, not stripped out. That detail turned out to matter more than any individual model choice.</p>
+<h2>The Trust Architecture: Confidence Thresholds and Expert Gates</h2>
+<p>The design decision I am most protective of has nothing to do with model performance: no agent output crosses into a decision that affects lab resourcing without passing a confidence threshold, and anything below that threshold routes to a human expert - a computational biologist or medicinal chemist - before it moves forward.</p>
+<p>This was not a compliance afterthought bolted on at the end. It was the first architecture decision we made, before a single agent was built. Scientific AI has a specific failure mode that other domains do not share as acutely: a plausible-sounding wrong answer about a target's biology does not just waste a query, it can send a wet-lab team down a multi-month dead end. The cost of a confident-sounding hallucination compounds through every downstream stage that trusts it.</p>
+<p>So every agent handoff is logged with its confidence score, its source evidence, and a flag for whether it cleared the threshold on its own or required expert sign-off. Scientists reviewing a target identification agent's output can see exactly which claims came from a well-supported literature consensus and which came from a single ambiguous preprint. That traceability is what got scientists to actually use the outputs rather than independently re-verifying everything the system produced, which would have defeated the entire point.</p>
+<h2>Results</h2>
+<p>In production with a Global Top 3 pharma client, the platform has changed the shape of the early discovery timeline rather than just compressing it:</p>
+<ul>
+<li><strong>Early-discovery cycle times cut by up to 70%</strong> across the stages from initial target hypothesis through ADMET-flagged shortlist, measured against the team's pre-platform baseline for comparable target classes.</li>
+<li><strong>Literature review that used to consume weeks of a scientist's reading time now surfaces a structured, source-cited claim base in a fraction of that time</strong>, freeing scientific staff to spend their hours evaluating evidence rather than assembling it.</li>
+<li><strong>Every agent output in production carries a confidence score and audit trail</strong>, which became a requirement scientists asked for once they saw it, not a constraint we had to convince them to accept.</li>
+</ul>
+<h2>What I Would Do Differently</h2>
+<p>The ADMET agent needed more domain-specific tuning than we budgeted for. Toxicity prediction is genuinely narrower and more specialized than the other three stages, and treating it as "one more agent in the pipeline" during initial scoping underestimated how much dedicated validation work it required before scientists trusted its flags. We got there, but a later start on that validation work than the other three agents cost us real calendar time.</p>
+<p>I would also build the confidence-threshold and audit infrastructure even earlier than we did. We built the trust architecture first in principle, but the tooling that made confidence scores visible and explorable for scientists lagged the agents themselves by several weeks. Scientists interacting with an agent that had no visible reasoning trail were, understandably, more skeptical of it during that gap than they were once the tooling caught up.</p>
+<h2>The Broader Pattern for Scientific AI</h2>
+<p>The lesson that generalizes past drug discovery: in any domain where a wrong answer has a real cost attached to acting on it, the trust architecture is not a feature you add once the model works. It is the thing that determines whether the model gets used at all. A multi-agent system that is technically capable of speeding up early discovery by 70% is worth nothing if the scientists downstream do not trust its reasoning enough to act on it without re-doing the work themselves.</p>
+<p>Foundation models for biology are getting genuinely good at the narrow tasks - parsing literature, predicting binding affinity, flagging toxicity risk. The harder and less discussed problem is the seam between those tasks, where one agent's confident output becomes another agent's unquestioned input. Get the seams wrong, and you have built an expensive way to compound errors quickly. Get them right, with visible confidence and a clear expert escalation path, and you have built something scientists will actually let inform where they spend their next six months.</p>
+<hr>
+<h3>Further Reading</h3>
+<ul>
+<li><a href="/projects/agentic-internal-platform/">Building a 14-Agent Internal Operations Platform</a></li>
+<li><a href="/projects/clinical-trial-matching/">Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas</a></li>
+<li><a href="/projects/consulting-to-product/">From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/projects/" class="post-footer__back btn btn--ghost">← Back to Projects</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>const _l=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);</script>
+  <script>document.querySelectorAll('.post-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');});});</script>
+</body>
+</html>

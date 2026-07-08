@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="How we scaled Gen-AI clinical trial matching across 10+ therapeutic areas, reducing matching time from 14 days to 3.8 days and increasing enrollment by 34%." />  <title>Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+  <link rel="canonical" href="https://devangshumitra.com/projects/clinical-trial-matching/" />
+  <meta property="og:title" content="Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas — Devangshu Mitra" />
+  <meta property="og:description" content="How we scaled Gen-AI clinical trial matching across 10+ therapeutic areas, reducing matching time from 14 days to 3.8 days and increasing enrollment by 34%." />
+  <meta property="og:url" content="https://devangshumitra.com/projects/clinical-trial-matching/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas",
+    "description": "How we scaled Gen-AI clinical trial matching across 10+ therapeutic areas, reducing matching time from 14 days to 3.8 days and increasing enrollment by 34%.",
+    "url": "https://devangshumitra.com/projects/clinical-trial-matching/",
+    "datePublished": "2026-01-01",
+    "author": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com/about/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com"
+    }
+  }
+  </script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2461936');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/projects/" class="nav__dropdown-item" role="menuitem">Projects</a></li>
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/projects/" class="nav__link" onclick="closeMenu()">Projects</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/projects/" class="post-header__back" aria-label="Back to all projects">← Back to Projects</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Clinical AI</span>
+            <time class="post-header__date" datetime="2026-07-08" itemprop="datePublished">Jul 8, 2026</time>
+            <span class="post-header__read-time">8 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas</h1>
+          <p class="post-header__excerpt" itemprop="description">How we scaled Gen-AI clinical trial matching across 10+ therapeutic areas, reducing matching time from 14 days to 3.8 days and increasing enrollment by 34%.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+<h1>Scaling Gen-AI Clinical Trial Matching Across 10+ Therapeutic Areas</h1>
+<hr>
+<h2>The Problem Nobody Wanted to Own</h2>
+<p>When I stepped into the clinical trial matching initiative, the program had already been running for 18 months and had almost nothing to show for it. The research operations team was frustrated. The sponsors were threatening to reallocate budget. And the clinical research coordinators - the people who actually did the work - were still manually reviewing patient charts one by one, spending upward of 20 minutes per chart, across a patient population spanning six therapeutic areas.</p>
+<p>The core problem: 80% of clinical trials fail to meet enrollment targets on time. That is not a new statistic. Tufts Center for the Study of Drug Development has been publishing variations of it for years. What organizations consistently underestimate is how much of that failure is not a patient availability problem - it is a patient identification problem. The patients exist. They are in the system. Nobody can find them fast enough, or accurately enough, to make a difference.</p>
+<p>Our site network had over 2.4 million patient records. We were running protocols across oncology, rare disease, neurology, cardiology, metabolic disease, immunology, and four additional therapeutic areas. Each trial had eligibility criteria that could run to 40 or 50 criteria items, many of them written in language like: <em>"Patient must have received at least one prior line of platinum-based chemotherapy but no more than three, and must not have received an immune checkpoint inhibitor for this indication within the preceding 12 months."</em></p>
+<p>No structured database query handles that. Not cleanly. Not at scale.</p>
+<h2>Why the First Approach Failed</h2>
+<p>The team before me had tried to solve this with rule-based queries against structured EHR fields - ICD-10 codes, CPT codes, medication tables. The logic was sound in theory. In practice, it missed approximately 60% of potentially eligible patients because clinically relevant information - ECOG performance status, biomarker expression levels, prior treatment response, comorbidities - lives almost exclusively in physician notes, pathology reports, and discharge summaries. Unstructured text.</p>
+<p>The structured query approach also produced high false-positive rates. Coordinators were being routed to charts where the patient had an ICD code for a condition that was historical, resolved, or explicitly contraindicated something in the trial criteria. Chart review time went up, not down, because coordinators had to audit every result to filter noise.</p>
+<p>I brought in a red team of three experienced CRCs to audit the legacy output over two weeks. Their conclusion: the system was generating more work than it was saving. This is the classic failure mode for clinical trial matching AI - optimizing the wrong metric (query coverage) instead of the right one (coordinator time saved per confirmed-eligible patient).</p>
+<h2>Technical Approach: What We Actually Built</h2>
+<p>We rebuilt the platform on four interconnected components. I will describe each in terms of the problem it solves, not just the technology.</p>
+<h3>1. Clinical NLP and Named Entity Recognition on Unstructured Notes</h3>
+<p>The foundation was a clinical NLP pipeline purpose-built for Life Sciences &amp; Healthcare AI applications. We evaluated three approaches: a general-purpose LLM applied zero-shot, a fine-tuned ClinicalBERT variant, and a hybrid using spaCy with a domain-specific NER model trained on de-identified oncology notes from our own network.</p>
+<p>The hybrid won. Zero-shot LLMs handled ambiguous language well but were inconsistent on dense clinical text with abbreviations. ClinicalBERT required significant fine-tuning per therapeutic area and was slow to update. The spaCy hybrid gave us consistent extraction across the entity types that actually mattered for eligibility matching: disease stage, biomarker status (PD-L1, EGFR, HER2, KRAS), performance status scores (ECOG, Karnofsky), prior treatment lines, response categories, and documented comorbidities.</p>
+<p>We indexed every unstructured note across our patient population into a searchable knowledge graph. That graph became the substrate for everything downstream.</p>
+<h3>2. LLM-Based Eligibility Criteria Parsing</h3>
+<p>Eligibility criteria documents are some of the most syntactically complex documents in medicine. They contain nested Boolean logic, temporal constraints, unit-based thresholds, and conditions that reference prior conditions. A human reads them fine. A rule engine chokes on them.</p>
+<p>We used a fine-tuned LLM to decompose each eligibility criterion into a structured representation: entity type, operator, value, temporal window, and exclusion flag. The model parsed criteria like the platinum-chemotherapy example above into machine-executable logic that could be run against the NLP-extracted patient knowledge graph.</p>
+<p>This was not perfect out of the box. The model struggled initially with negation-heavy criteria and with criteria that referenced lab values with non-standard units. We ran three iterations of human-in-the-loop correction with our clinical informatics team before deploying to production. The final parser achieved 91% agreement with expert manual interpretation across a 200-criteria test set spanning eight therapeutic areas.</p>
+<h3>3. RAG-Based Patient-Trial Matching</h3>
+<p>The matching layer used a Retrieval-Augmented Generation architecture. For each open trial, the system retrieved the parsed eligibility criteria and, for each candidate patient, retrieved the relevant sections of that patient's clinical record. Both were passed to an LLM with a structured prompt asking it to: assess preliminary eligibility, cite the specific evidence from the record supporting or contradicting each criterion, and flag criteria where the record was silent or ambiguous.</p>
+<p>This approach - covered in more depth in <a href="/articles/">the RAG vs fine-tuning breakdown</a> - was critical for two reasons. First, it grounded the model's output in actual patient documentation, which reduced hallucination risk and made the output auditable. Second, the explicit evidence citations gave coordinators something actionable: they could go directly to the relevant note section rather than reviewing the full chart. Review time dropped from 20+ minutes per chart to under 4 minutes for a coordinator validation pass.</p>
+<h3>4. Scoring, Ranking, and Coordinator Workflow</h3>
+<p>Raw eligibility assessment is not enough. With 2.4 million patients and dozens of open trials, the coordinator queue still needed prioritization. We built a scoring model that weighted matches by: confidence of eligibility assessment, recency of supporting clinical evidence, and proximity to enrollment timeline pressure (trials at risk of missing quarterly targets were surfaced first).</p>
+<p>The coordinator interface showed a ranked list of patients per trial, each with a match confidence score, a summary of evidence, and direct links to the source note sections. The interface was designed with one constraint: the AI is a screening support tool, not a decision maker. No patient was flagged as eligible without a coordinator sign-off. The system supported the human. It did not replace the human.</p>
+<p>For evaluation methodology on this kind of LLM-assisted workflow, the <a href="/product/frameworks/llm-evaluation-framework/">LLM evaluation framework</a> I use across products covers how we measured precision, recall, and coordinator acceptance rates as the primary production metrics - not model-side accuracy alone.</p>
+<h2>Architecture and Infrastructure</h2>
+<p>A few architecture decisions that were non-obvious and worth flagging for anyone building in this space.</p>
+<p><strong>Data ingestion was harder than modeling.</strong> We had site networks running Epic, Cerner, and two legacy EHR systems with no FHIR-compliant APIs. The HL7 FHIR integration path worked cleanly for Epic. For everything else, we built a data normalization layer that consumed HL7v2 ADT feeds, applied a mapping schema to a common data model (we used OMOP CDM), and ran the NLP pipeline on the normalized output. This normalization infrastructure took four months and represented roughly 40% of total engineering investment. Any product manager scoping a clinical NLP project who underestimates this phase is going to miss their milestones.</p>
+<p><strong>21 CFR Part 11 compliance was an architecture constraint, not a post-launch checklist item.</strong> Every query, every match assessment, every coordinator action was logged to an immutable audit trail with timestamps, user identity, system version, and the specific model checkpoint used to generate each output. When the NLP model was updated - which happened four times in 18 months - every prior output remained traceable to the model version that generated it. Sponsors asked for these logs. Two sponsors made audit trail access a contractual requirement. Build the audit infrastructure first, not after.</p>
+<p><strong>Multi-site coordination required explicit data governance.</strong> Across an 11-site network, different IRB configurations meant different patient data access permissions. We built a permissions layer that enforced site-level data boundaries at query time, so coordinators at site A could not inadvertently surface patients whose records were governed by site B's IRB protocol. This sounds obvious. It was not obvious to anyone until we built the cross-site matching capability and realized the governance gap.</p>
+<h2>Results</h2>
+<p>Across 18 months of production operation spanning 10+ therapeutic areas and 34 open protocols:</p>
+<ul>
+<li><strong>Matching time from protocol activation to first eligible cohort: reduced from 14.2 days to 3.8 days.</strong> This was the metric sponsors cared most about. Faster identification meant faster site activation and faster enrollment start dates.</li>
+<li><strong>Trial enrollment increased by 34% across the active protocol portfolio.</strong> This was measured against the 12-month pre-implementation baseline for the same sites and therapeutic areas.</li>
+<li><strong>Screen failure rate dropped from 41% to 23%.</strong> By surfacing patients with richer multi-criteria pre-screening rather than structured-query broadness, the candidates reaching coordinator review were already more tightly qualified.</li>
+<li><strong>Coordinator chart review time per confirmed-eligible patient: reduced from 20+ minutes to 3.8 minutes.</strong> This freed coordinator capacity to manage more trials simultaneously - average coordinator trial load increased from 4.2 to 6.8 active protocols.</li>
+<li><strong>Patient identification NLP recall: 88% against expert manual review on a sampled audit.</strong> We missed roughly 12% of eligible patients - primarily cases where the relevant clinical information existed only in scanned PDFs that were not yet part of our OCR pipeline. That pipeline was added in month 14.</li>
+</ul>
+<p>Three sponsors moved additional trial volume to our site network directly citing the matching platform's performance data. One large biopharma partner ran a formal feasibility analysis - "how quickly can you identify eligible patients for this protocol in your network?" - and used the result to inform their site selection for a Phase III program. That is a different category of value than operational efficiency: it becomes a competitive differentiator in sponsor relationships.</p>
+<h2>What Broke and What I Would Do Differently</h2>
+<p>This section is the one I would have wanted to read before starting.</p>
+<p><strong>The rare disease therapeutic area was almost a separate project.</strong> Matching algorithms tuned on oncology data transfer poorly to rare disease. Patient populations are smaller by definition, terminology is less standardized, and the eligibility criteria tend to rely on specialist-level nuance that our NLP pipeline was not trained to handle. We ended up building a separate fine-tuned model for each of the four rare disease protocols we ran. The oncology-trained NLP produced a 58% recall rate on rare disease charts. The condition-specific models got to 84%. Lesson: NLP clinical trial matching AI does not generalize across therapeutic areas as well as vendors claim.</p>
+<p><strong>The coordinator acceptance problem was cultural, not technical.</strong> Early versions of the platform were technically sound but coordinator adoption was below 40% at month three. The interface surfaced too much information and the confidence scores were misinterpreted as hard eligibility determinations. We ran structured interviews with 12 coordinators across four sites, redesigned the interface around the coordinator's actual workflow rather than our model's output structure, and ran a three-week training and feedback cycle. Adoption went from 38% to 79% over the following two months. The best AI screening workflow is worthless if the humans it is designed to support do not trust it or use it.</p>
+<p><strong>Explainability was a sponsor requirement I did not anticipate.</strong> Two sponsors asked for documentation of how the matching system worked, specifically requesting that we demonstrate the AI's output could be independently verified against the source clinical record. They were preparing their own regulatory packages and needed to characterize any AI tool that touched their trial data. We had the audit trails, but we did not have a clear documentation package. We built one retroactively. It should have been part of the initial compliance deliverable.</p>
+<p><strong>Model versioning and rollback should have been designed from day one.</strong> When we updated the NLP model in month 8, retrospective validation showed that precision had improved but recall had dropped slightly for a specific biomarker class. We needed to roll back for three protocols while the issue was corrected. Without an explicit model registry and rollback protocol, that would have been a production incident. We were lucky we had the infrastructure. It was not planned - it was built reactively after a near-miss in month 5.</p>
+<h2>The Broader Pattern for NLP Patient Screening</h2>
+<p>I have seen this class of problem across multiple programs now - clinical trial matching AI, prior authorization NLP, AI enrollment optimization for observational registries. A few patterns hold across all of them.</p>
+<p>The data pipeline is always the bottleneck, not the model. A production-grade clinical NLP system spends more engineering time on ingestion, normalization, and data quality than on model development. Organizations that scope these projects as "an AI project" rather than "a data infrastructure project that also involves AI" consistently underestimate effort and timeline.</p>
+<p>Human-in-the-loop is not a risk mitigation strategy - it is a quality input. Coordinators and clinical experts who review AI outputs provide feedback that is essential for continuous model improvement. Systems that treat human review as a compliance checkbox rather than a signal source degrade over time instead of improving.</p>
+<p>The regulatory surface is larger than it looks at first glance. 21 CFR Part 11 is the visible requirement. Underneath it are IRB governance, site data access contracts, de-identification standards, model validation documentation requirements, and sponsor audit rights that collectively define the compliance perimeter. Engage your regulatory affairs team in the architecture phase, not the launch phase.</p>
+<p>And the metric that actually matters for the business is not model accuracy. It is time-to-first-eligible-cohort and per-trial enrollment rate. Those are the numbers sponsors track. Those are the numbers that drive network value. Everything else - recall rates, precision, NER F1 scores - is infrastructure that supports those outcomes. Keep that hierarchy clear when you are reporting to leadership and when you are making trade-offs about where to invest engineering cycles.</p>
+<p>Clinical trial matching is a solved problem in principle. The hard part is building the operational system around the model that makes it work reliably, compliantly, and at scale across a heterogeneous site network where almost nothing is standardized. That is a product problem more than an AI problem. And it is one worth getting right.</p>
+<hr>
+<h3>Further Reading</h3>
+<ul>
+<li><a href="/projects/consulting-to-product/">From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</a></li>
+<li><a href="/posts/biopharma-drug-discovery/">AI-Accelerated Drug Discovery: From Target Identification to Lead Optimization</a></li>
+<li><a href="/posts/biopharma-regulatory-intelligence/">Automating Regulatory Intelligence: How AI Transformed Our Global Submission Process</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/projects/" class="post-footer__back btn btn--ghost">← Back to Projects</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>const _l=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);</script>
+  <script>document.querySelectorAll('.post-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');});});</script>
+</body>
+</html>

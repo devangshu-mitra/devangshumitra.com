@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/design-system.css" />
+  <link rel="stylesheet" href="/css/animations.css" />
+  <link rel="stylesheet" href="/css/post.css" />
+  <meta name="description" content="Fourteen agents, three model providers, and one hard lesson: the proposal-response agent that stalled after a great demo, then reached wide internal adoption only after being rebuilt around trust and human-in-the-loop review." />  <title>Building a 14-Agent Internal Operations Platform — Devangshu Mitra</title>
+
+<style>
+.nav__dropdown { position: relative; }
+.nav__dropdown-toggle { background: none; border: none; cursor: pointer; padding: 0; font-family: var(--font-body); font-size: var(--text-sm); display: flex; align-items: center; gap: 4px; }
+.nav__dropdown-menu { display: none; position: absolute; top: calc(100% + 12px); left: 50%; transform: translateX(-50%); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: 8px 0; min-width: 200px; z-index: 1000; list-style: none; box-shadow: 0 8px 32px rgba(0,0,0,0.4); }
+.nav__dropdown:hover .nav__dropdown-menu,
+.nav__dropdown-toggle[aria-expanded="true"] + .nav__dropdown-menu { display: block; }
+.nav__dropdown-item { display: block; padding: 10px 20px; font-size: var(--text-sm); color: var(--color-muted); text-decoration: none; transition: color 0.15s, background 0.15s; white-space: nowrap; }
+.nav__dropdown-item:hover { color: var(--color-text); background: var(--color-bg); }
+.nav__cta { color: var(--color-accent) !important; border-bottom: 1px solid var(--color-accent); padding-bottom: 1px; }
+</style>
+  <link rel="canonical" href="https://devangshumitra.com/projects/agentic-internal-platform/" />
+  <meta property="og:title" content="Building a 14-Agent Internal Operations Platform — Devangshu Mitra" />
+  <meta property="og:description" content="Fourteen agents, three model providers, and one hard lesson: the proposal-response agent that stalled after a great demo, then reached wide internal adoption only after being rebuilt around trust and human-in-the-loop review." />
+  <meta property="og:url" content="https://devangshumitra.com/projects/agentic-internal-platform/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <meta property="og:site_name" content="Devangshu Mitra" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@devangshu_mitra" />
+  <meta name="twitter:image" content="https://devangshumitra.com/assets/og-default.svg" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Building a 14-Agent Internal Operations Platform",
+    "description": "Fourteen agents, three model providers, and one hard lesson: the proposal-response agent that stalled after a great demo, then reached wide internal adoption only after being rebuilt around trust and human-in-the-loop review.",
+    "url": "https://devangshumitra.com/projects/agentic-internal-platform/",
+    "datePublished": "2026-01-01",
+    "author": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com/about/"
+    },
+    "publisher": {
+      "@type": "Person",
+      "name": "Devangshu Mitra",
+      "url": "https://devangshumitra.com"
+    }
+  }
+  </script>
+<!-- MailerLite Universal -->
+<script>
+    (function(w,d,e,u,f,l,n){w[f]=w[f]||function(){(w[f].q=w[f].q||[])
+    .push(arguments);},l=d.createElement(e),l.async=1,l.src=u,
+    n=d.getElementsByTagName(e)[0],n.parentNode.insertBefore(l,n);})
+    (window,document,'script','https://assets.mailerlite.com/js/universal.js','ml');
+    ml('account', '2461936');
+</script>
+<!-- End MailerLite Universal -->
+</head>
+<body class="page-enter">
+
+  <div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+
+  <nav class="nav" id="mainNav" role="navigation" aria-label="Main navigation">
+    <div class="nav__inner">
+      <a href="/" class="nav__logo" aria-label="Devangshu Mitra — home">DM</a>
+      <ul class="nav__links" role="list">
+        <li><a href="/" class="nav__link active">Home</a></li>
+        <li><a href="/articles/" class="nav__link">Articles</a></li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Writing <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/projects/" class="nav__dropdown-item" role="menuitem">Projects</a></li>
+            <li role="none"><a href="/case-studies/" class="nav__dropdown-item" role="menuitem">Case Studies</a></li>
+            <li role="none"><a href="/research/" class="nav__dropdown-item" role="menuitem">Research</a></li>
+            <li role="none"><a href="/radar/" class="nav__dropdown-item" role="menuitem">Innovation Radar</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Learn <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/courses/" class="nav__dropdown-item" role="menuitem">Courses</a></li>
+            <li role="none"><a href="/resources/" class="nav__dropdown-item" role="menuitem">Resources</a></li>
+            <li role="none"><a href="/start-here/" class="nav__dropdown-item" role="menuitem">Start Here</a></li>
+            <li role="none"><a href="/glossary/" class="nav__dropdown-item" role="menuitem">Glossary</a></li>
+            <li role="none"><a href="/industries/" class="nav__dropdown-item" role="menuitem">Industries</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Tools <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/assessment/" class="nav__dropdown-item" role="menuitem">AI Readiness Assessment</a></li>
+            <li role="none"><a href="/calculator/" class="nav__dropdown-item" role="menuitem">ROI Calculator</a></li>
+            <li role="none"><a href="/stack/" class="nav__dropdown-item" role="menuitem">My AI Stack</a></li>
+          </ul>
+        </li>
+        <li class="nav__dropdown">
+          <button class="nav__link nav__dropdown-toggle" aria-haspopup="true" aria-expanded="false">Work With Me <span aria-hidden="true">▾</span></button>
+          <ul class="nav__dropdown-menu" role="menu">
+            <li role="none"><a href="/consulting/" class="nav__dropdown-item" role="menuitem">Consulting</a></li>
+            <li role="none"><a href="/speaking/" class="nav__dropdown-item" role="menuitem">Speaking</a></li>
+            <li role="none"><a href="/pro-bono/" class="nav__dropdown-item" role="menuitem">Pro Bono</a></li>
+          </ul>
+        </li>
+        <li><a href="/about/" class="nav__link">About</a></li>
+        <li><a href="/newsletter/" class="nav__link nav__cta">Newsletter</a></li>
+      </ul>
+      <button class="nav__hamburger" id="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="mobileMenu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <nav class="nav__mobile" id="mobileMenu" aria-label="Mobile navigation" role="navigation">
+    <ul role="list" style="display:flex;flex-direction:column;align-items:center;gap:1.5rem;padding:2rem 0;">
+      <li><a href="/" class="nav__link" onclick="closeMenu()">Home</a></li>
+      <li><a href="/articles/" class="nav__link" onclick="closeMenu()">Articles</a></li>
+      <li><a href="/projects/" class="nav__link" onclick="closeMenu()">Projects</a></li>
+      <li><a href="/case-studies/" class="nav__link" onclick="closeMenu()">Case Studies</a></li>
+      <li><a href="/research/" class="nav__link" onclick="closeMenu()">Research</a></li>
+      <li><a href="/radar/" class="nav__link" onclick="closeMenu()">Innovation Radar</a></li>
+      <li><a href="/courses/" class="nav__link" onclick="closeMenu()">Courses</a></li>
+      <li><a href="/resources/" class="nav__link" onclick="closeMenu()">Resources</a></li>
+      <li><a href="/start-here/" class="nav__link" onclick="closeMenu()">Start Here</a></li>
+      <li><a href="/glossary/" class="nav__link" onclick="closeMenu()">Glossary</a></li>
+      <li><a href="/industries/" class="nav__link" onclick="closeMenu()">Industries</a></li>
+      <li><a href="/assessment/" class="nav__link" onclick="closeMenu()">AI Readiness</a></li>
+      <li><a href="/calculator/" class="nav__link" onclick="closeMenu()">ROI Calculator</a></li>
+      <li><a href="/stack/" class="nav__link" onclick="closeMenu()">My AI Stack</a></li>
+      <li><a href="/consulting/" class="nav__link" onclick="closeMenu()">Consulting</a></li>
+      <li><a href="/speaking/" class="nav__link" onclick="closeMenu()">Speaking</a></li>
+      <li><a href="/pro-bono/" class="nav__link" onclick="closeMenu()">Pro Bono</a></li>
+      <li><a href="/about/" class="nav__link" onclick="closeMenu()">About</a></li>
+      <li><a href="/newsletter/" class="nav__link" onclick="closeMenu()">Newsletter</a></li>
+    </ul>
+  </nav>
+
+  <main id="main-content">
+
+    <article class="post" itemscope itemtype="https://schema.org/BlogPosting">
+
+      <!-- Post header -->
+      <header class="post-header">
+        <div class="container post-header__inner">
+          <a href="/projects/" class="post-header__back" aria-label="Back to all projects">← Back to Projects</a>
+          <div class="post-header__meta">
+            <span class="tag tag--accent">Agentic AI</span>
+            <time class="post-header__date" datetime="2026-07-08" itemprop="datePublished">Jul 8, 2026</time>
+            <span class="post-header__read-time">7 min read</span>
+          </div>
+          <h1 class="post-header__title" itemprop="headline">Building a 14-Agent Internal Operations Platform</h1>
+          <p class="post-header__excerpt" itemprop="description">Fourteen agents, three model providers, and one hard lesson: the proposal-response agent that stalled after a great demo, then reached wide internal adoption only after being rebuilt around trust and human-in-the-loop review.</p>
+        </div>
+      </header>
+
+      <!-- Post body -->
+      <div class="post-body container" itemprop="articleBody">
+        <div class="post-content">
+<h1>Building a 14-Agent Internal Operations Platform</h1>
+<hr>
+<h2>Fourteen Workflows, One Broken Pattern</h2>
+<p>I architected and built an internal platform to support the sales and delivery workflows of an enterprise services organization I was part of - the kind of work that exists behind almost every services business and gets almost none of the engineering investment that customer-facing product gets. Proposal responses. Account research ahead of a pursuit. Briefing preparation before a client meeting. Individually, each of these looked like a different problem assigned to a different team. Collectively, they were the same problem wearing fourteen different outfits: someone needed to synthesize a large volume of unstructured information into a specific, time-boxed output, under deadline pressure, for an audience that was going to judge the output on quality of judgment as much as accuracy of fact.</p>
+<p>Fourteen workflows, fourteen teams, fourteen ad hoc processes - most of them a mix of manual research, templated documents, and institutional knowledge that lived in a handful of people's heads. None of it was built to scale, and all of it broke the same way under deadline pressure: the people doing it ran out of hours before they ran out of things they needed to read.</p>
+<h2>Why One Agent Does Not Scale to Fourteen Jobs</h2>
+<p>The naive version of this project is a single assistant with a good prompt, pointed at whatever the task of the week happens to be. That does not survive contact with fourteen genuinely different jobs. Researching an account ahead of a sales pursuit requires synthesizing public financial disclosures, news, and relationship history into a point of view on where an opportunity might exist. Responding to a formal proposal requires parsing a structured requirements document, mapping each requirement to prior evidence of capability, and producing compliant, specific, non-generic answers. Preparing a briefing for an executive meeting requires an entirely different register - shorter, more opinionated, structured around decisions rather than exhaustive coverage.</p>
+<p>I built fourteen agents, each scoped to one job, rather than one agent asked to be flexible across fourteen jobs. Each agent has its own retrieval sources, its own output template, and its own definition of what a good result looks like, coordinated through a shared orchestration and knowledge layer so that research done for one workflow - a piece of account intelligence gathered for a pursuit, say - was available to any other agent that could use it, rather than being re-gathered from scratch every time.</p>
+<h2>Architecture: Model-Provider Integration Across OpenAI, Anthropic, and AWS</h2>
+<p>The platform integrates models from OpenAI, Anthropic, and AWS rather than standardizing on a single provider, and that was a deliberate choice rather than an accident of procurement. Different agents have different requirements - long-context document synthesis, structured extraction against a rigid schema, conversational tone-matching for briefing documents - and no single model family was the best fit for all fourteen jobs at once. A routing layer sits between the agents and the underlying models, so that swapping or upgrading a model for one workflow does not require re-architecting the others.</p>
+<p>This multi-provider approach cost more up front, in the sense that it meant maintaining integration and evaluation work against three separate ecosystems instead of one. It paid that cost back the first time one provider's model handled a task class meaningfully better than another's, because switching cost was a configuration change rather than a rebuild.</p>
+<h2>The Agent That Almost Died: The RFP Responder</h2>
+<p>One of the fourteen - the agent that drafts first-pass responses to formal proposal requests - is the one most people outside the platform ever heard about, because it eventually reached adoption well beyond the team it was originally built for. It did not start that way.</p>
+<p>The first version was built, reasonably, around the demo: feed it a sample RFP, watch it generate a complete, well-structured draft response in minutes instead of days. It demoed extremely well. It also sat mostly unused for weeks after launch, because the daily reality of responding to a proposal is not "generate one clean draft" - it is "generate a draft, then have several people with different expertise argue about specific sections, then revise under a deadline, then have someone senior sign off on claims they are personally accountable for." The tool was built for the moment that impresses an audience, not the moment that actually consumes someone's week.</p>
+<p>The fix was not a better model. It was re-sequencing the entire workflow around trust and human-in-the-loop review rather than around draft generation. We rebuilt the interaction so that every claim the agent generated was traceable to a specific prior proposal or capability statement it had pulled from, editable inline by whoever owned that section, and explicitly flagged wherever the agent had synthesized language rather than pulled it from a verified source. The agent stopped trying to be the author of the response and became the first-pass drafter that subject matter experts trusted enough to edit rather than discard and rewrite from scratch.</p>
+<p>Adoption after that redesign spread well past the original team, to essentially every function that touches a formal proposal response. The lesson was not about the model. It was about who the tool actually had to convince, and it was not the person watching the demo.</p>
+<h2>Results</h2>
+<ul>
+<li><strong>Fourteen agents in production</strong>, each scoped to a distinct sales or delivery workflow, coordinated through a shared orchestration and knowledge layer.</li>
+<li><strong>Three model providers integrated - OpenAI, Anthropic, and AWS</strong> - routed per-workflow rather than standardized on one, so each job runs on the model best suited to it.</li>
+<li><strong>The RFP response agent reached adoption well beyond its original team</strong>, becoming the one component of the platform used by essentially every function that produces a formal proposal response.</li>
+</ul>
+<h2>What I Would Do Differently</h2>
+<p>I would build the trust and traceability layer into the first version of every agent, not just the one that stalled and forced the lesson. The RFP responder taught me the pattern - that adoption depends on visible, editable, source-traceable output more than it depends on draft quality - after the fact, and I retrofitted several of the other thirteen agents once I understood it. Retrofitting trust architecture into a live agent that people have already half-abandoned is a much harder sell than building it in from the start, even when you can prove the new version is better.</p>
+<p>I would also spend more time up front with the actual daily user of each workflow rather than the stakeholder who requested it. The RFP responder's early version was scoped in conversations with people who wanted a good demo. The people who were going to use it every week were not in that room, and their absence is exactly why the first version optimized for the wrong moment.</p>
+<h2>The Broader Pattern: Adoption Before Automation</h2>
+<p>Technical completeness is not the same thing as product-market fit, and nowhere is that gap more visible than in internal tooling, where there is no external market to force the correction. A tool that works, that generates genuinely good output, that demos beautifully, can still fail if it was built for the moment someone evaluates it rather than the moment someone has to actually rely on it under deadline pressure with their name on the outcome.</p>
+<p>The multi-agent architecture and the multi-provider model integration were both necessary. Neither was sufficient. What made the difference between an agent that sat unused and one that reached adoption across an entire function was whether the people using it could see why it said what it said, and whether they trusted it enough to build on top of its output instead of starting over. That is a design question, not a model question, and it is the one I now ask first on every agentic system I build, not the one I get around to after the demo goes well.</p>
+<hr>
+<h3>Further Reading</h3>
+<ul>
+<li><a href="/projects/agentic-drug-discovery/">Building an Agentic Drug-Discovery Platform</a></li>
+<li><a href="/projects/virtual-msl-briefing-agent/">From Search Tool to Briefing Agent: A Product-Judgment Story</a></li>
+<li><a href="/projects/consulting-to-product/">From Enterprise Consulting to Product: Translating Client Pain into Gen-AI Solutions</a></li>
+</ul>
+
+        </div>
+      </div>
+
+      <!-- Post footer -->
+      <footer class="post-footer container">
+        <div class="post-footer__inner">
+          <a href="/projects/" class="post-footer__back btn btn--ghost">← Back to Projects</a>
+          <div class="post-footer__cta">
+            <p class="post-footer__cta-text">More writing like this — delivered to your inbox.</p>
+            <a href="/newsletter/" class="btn btn--primary">Subscribe to the newsletter</a>
+          </div>
+        </div>
+      </footer>
+
+    </article>
+
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__inner">
+        <div class="footer__brand">
+          <span class="footer__logo">DM</span>
+          <p class="footer__tagline">AI Product Leader. Enterprise GenAI Builder.</p>
+        </div>
+        <nav class="footer__nav" aria-label="Footer navigation">
+          <a href="/" class="footer__link">Home</a>
+          <a href="/articles/" class="footer__link">Articles</a>
+          <a href="/about/" class="footer__link">About</a>
+          <a href="/newsletter/" class="footer__link">Newsletter</a>
+        </nav>
+      </div>
+      <p class="footer__copy">&copy; 2025 Devangshu Mitra. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    if (hamburger && mobileMenu) {
+      hamburger.addEventListener('click', () => {
+        const open = hamburger.getAttribute('aria-expanded') === 'true';
+        hamburger.setAttribute('aria-expanded', String(!open));
+        mobileMenu.setAttribute('aria-hidden', String(open));
+        mobileMenu.classList.toggle('open', !open);
+      });
+    }
+    // Scroll progress
+    const prog = document.getElementById('scrollProgress');
+    if (prog) {
+      window.addEventListener('scroll', () => {
+        const s = document.documentElement.scrollTop;
+        const h = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        prog.style.width = (s / h * 100) + '%';
+      }, { passive: true });
+    }
+    // Scroll reveal
+    const revealEls = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+      }, { threshold: 0.1 });
+      revealEls.forEach(el => obs.observe(el));
+    } else {
+      revealEls.forEach(el => el.classList.add('visible'));
+    }
+  </script>
+
+<script>
+document.querySelectorAll('.nav__dropdown-toggle').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const expanded = btn.getAttribute('aria-expanded') === 'true';
+    document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+    btn.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+  });
+});
+document.addEventListener('click', () => {
+  document.querySelectorAll('.nav__dropdown-toggle').forEach(b => b.setAttribute('aria-expanded', 'false'));
+});
+</script>
+  <script src="https://unpkg.com/lenis@1.1.14/dist/lenis.min.js"></script>
+  <script>const _l=new Lenis({duration:1.2,easing:t=>Math.min(1,1.001-Math.pow(2,-10*t))});(function r(t){_l.raf(t);requestAnimationFrame(r);})(0);</script>
+  <script>document.querySelectorAll('.post-card').forEach(c=>{c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();c.style.setProperty('--mouse-x',(e.clientX-r.left)+'px');c.style.setProperty('--mouse-y',(e.clientY-r.top)+'px');});});</script>
+</body>
+</html>
