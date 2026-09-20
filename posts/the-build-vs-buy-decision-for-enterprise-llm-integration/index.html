@@ -217,7 +217,7 @@
 
 <p>The routing logic that decides which query goes to which model is itself a product decision. Simple keyword-based routing is a starting point. ML-based routing that classifies query complexity before sending it to the appropriate model tier is more sophisticated and often reduces cost by 40-60% with minimal quality degradation.</p>
 
-<blockquote><p>On a clinical document processing system at HCLTech, we used GPT-4 for complex medical reasoning questions, fine-tuned Llama for standard clinical code extraction (high volume, well-defined format), and a RAG layer over clinical guidelines for all domain knowledge. Total LLM inference cost was 60% lower than pure GPT-4 at the same quality level.</p></blockquote>
+<blockquote><p>On a clinical document processing system, this looked like using GPT-4 for complex medical reasoning questions, a fine-tuned Llama model for standard clinical code extraction (high volume, well-defined format), and a RAG layer over clinical guidelines for all domain knowledge. Total LLM inference cost came in meaningfully lower than running everything through GPT-4 at the same quality level.</p></blockquote>
 
 <h2>Decision Checklist</h2>
 

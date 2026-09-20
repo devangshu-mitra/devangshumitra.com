@@ -183,7 +183,7 @@
 
 <p>Common manifestations: training data exists but is not labeled for the specific task the AI needs to learn; retrieval corpus exists but is inconsistently formatted, partially outdated, or not accessible at the required latency; evaluation dataset does not reflect the actual distribution of production queries; ground truth is defined differently by different subject matter experts.</p>
 
-<p>In a Life Sciences &amp; Life Sciences &amp; Healthcare AI POC I ran, we were building a clinical document classifier. The training data existed in the EHR - but the document type labels were applied inconsistently by different clinical departments over 5 years, resulting in mislabeled training examples that would have trained the model to replicate classification errors.</p>
+<p>In a Life Sciences &amp; Healthcare AI POC I ran, we were building a clinical document classifier. The training data existed in the EHR - but the document type labels were applied inconsistently by different clinical departments over 5 years, resulting in mislabeled training examples that would have trained the model to replicate classification errors.</p>
 
 <p><strong>The fix:</strong> Start every AI POC with a data audit. Before writing a line of model code, spend two weeks profiling the data: completeness, consistency, label quality, representation across the intended use population. Treat the data audit as a go/no-go gate. A POC built on bad data produces results that are bad in ways that are hard to diagnose and expensive to fix.</p>
 
@@ -225,7 +225,7 @@
 
 <p>Validation theater often looks like: testing only on the best-case input distribution (not the long tail), using subject matter expert reviewers who are biased toward the technology working (the people who championed the POC), testing at low query volume (the system that handles 50 test queries may not handle 5,000 production queries), and defining evaluation criteria after seeing the results.</p>
 
-<p>In Life Sciences &amp; Life Sciences &amp; Healthcare AI, validation theater can mean patient harm. In fintech, it can mean regulatory violations discovered post-launch. In CPG, it usually just means a feature that looks good in review meetings and underperforms in production.</p>
+<p>In Life Sciences &amp; Healthcare AI, validation theater can mean patient harm. In fintech, it can mean regulatory violations discovered post-launch. In CPG, it usually just means a feature that looks good in review meetings and underperforms in production.</p>
 
 <p><strong>The fix:</strong> Adversarial validation. Deliberately test against the failure conditions you mapped during PRD: adversarial inputs, demographic edge cases, high-load scenarios, ambiguous inputs, out-of-distribution queries. Include at least some reviewers who are skeptical of the technology or who will not personally benefit from the project being declared a success. The goal of validation is to break the system before users do.</p>
 

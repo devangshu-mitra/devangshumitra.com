@@ -10,7 +10,7 @@
   <link rel="stylesheet" href="/css/design-system.css" />
   <link rel="stylesheet" href="/css/animations.css" />
   <link rel="stylesheet" href="/css/post.css" />
-  <meta name="description" content="Life Sciences & Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning," />  <title>RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for — Devangshu Mitra</title>
+  <meta name="description" content="Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning," />  <title>RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for — Devangshu Mitra</title>
 
 <style>
 .nav__dropdown { position: relative; }
@@ -24,7 +24,7 @@
 </style>
   <link rel="canonical" href="https://devangshumitra.com/posts/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/" />
   <meta property="og:title" content="RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for — Devangshu Mitra" />
-  <meta property="og:description" content="Life Sciences & Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning," />
+  <meta property="og:description" content="Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning," />
   <meta property="og:url" content="https://devangshumitra.com/posts/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/" />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="https://devangshumitra.com/assets/og-default.svg" />
@@ -37,7 +37,7 @@
     "@context": "https://schema.org",
     "@type": "BlogPosting",
     "headline": "RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for",
-    "description": "Life Sciences & Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,",
+    "description": "Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,",
     "url": "https://devangshumitra.com/posts/rag-vs-fine-tuning-vs-context-windows-which-architecture-actually-works-for-clinical-ai/",
     "datePublished": "2026-01-01",
     "author": {
@@ -151,7 +151,7 @@
             <span class="post-header__read-time">13 min read</span>
           </div>
           <h1 class="post-header__title" itemprop="headline">RAG vs Fine-Tuning vs Context Windows: Which Architecture Actually Works for</h1>
-          <p class="post-header__excerpt" itemprop="description">Life Sciences & Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,</p>
+          <p class="post-header__excerpt" itemprop="description">Life Sciences &amp; Healthcare AI teams face a critical architecture decision: RAG, fine-tuning,</p>
         </div>
       </header>
 
@@ -167,7 +167,7 @@
 
 <p>The model hallucinated. Not in a subtle way. It invented lab values, confused medications, and referenced a clinical decision rule that didn't exist. We had a production-grade LLM backed by the world's best vector database. We had months of fine-tuning on proprietary clinical datasets. And it failed at something a resident could do in five minutes.</p>
 
-<p>This moment crystallized something I'd been wrestling with across a dozen Life Sciences & Life Sciences & Life Sciences &amp; Healthcare AI projects: the choice between RAG (Retrieval-Augmented Generation), fine-tuning, and expanding context windows isn't actually about which technology is "best." It's about which one solves the specific retrieval and reasoning problem you're facing. And I was solving the wrong problem.</p>
+<p>This moment crystallized something I'd been wrestling with across a dozen Life Sciences &amp; Healthcare AI projects: the choice between RAG (Retrieval-Augmented Generation), fine-tuning, and expanding context windows isn't actually about which technology is "best." It's about which one solves the specific retrieval and reasoning problem you're facing. And I was solving the wrong problem.</p>
 
 <p>The cardiologist didn't need me to fine-tune the model more aggressively or expand its context window to 200K tokens. She needed the model to reliably retrieve three specific documents from 47 available records, reason about what it had retrieved, and flag when it was uncertain. She needed RAG that worked. And we had built RAG that looked right on paper but failed in practice.</p>
 
